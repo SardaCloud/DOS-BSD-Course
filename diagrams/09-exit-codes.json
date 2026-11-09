@@ -1,0 +1,38 @@
+{
+  "title": "An exit code's journey: AL to RETCODE to IF ERRORLEVEL on MS-DOS; _exit to the wait status to $? on FreeBSD",
+  "width": 12, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 11.6, "h": 2.95, "label": "MS-DOS 4.00", "kind": "dos"},
+    {"x": 0.2, "y": 3.35, "w": 11.6, "h": 2.95, "label": "FreeBSD 15.1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "d1", "x": 0.5, "y": 0.75, "w": 1.84, "h": 0.825, "label": "Program\nends", "kind": "user", "size": 15, "sub": "AH=4Ch AL=2Ch"},
+    {"id": "d2", "x": 2.79, "y": 0.75, "w": 1.84, "h": 0.825, "label": "DOS keeps AL,\nexit type in AH", "kind": "dos", "size": 15, "sub": "0 normal 1 ^C"},
+    {"id": "d3", "x": 5.08, "y": 0.75, "w": 1.84, "h": 0.825, "label": "Function 4Dh\nreturns it,\nclears it", "kind": "dos", "size": 15},
+    {"id": "d4", "x": 7.37, "y": 0.75, "w": 1.84, "h": 0.825, "label": "COMMAND.COM\nRETCODE", "kind": "dos", "size": 15, "sub": "external only"},
+    {"id": "d5", "x": 9.66, "y": 0.75, "w": 1.84, "h": 0.825, "label": "IF\nERRORLEVEL n", "kind": "user", "size": 15, "sub": "low byte >= n"},
+    {"id": "dx", "x": 2.79, "y": 1.875, "w": 1.84, "h": 0.825, "label": "Ctrl-C", "kind": "hw", "size": 15, "sub": "fakes 4Ch, AL=0"},
+    {"id": "b1", "x": 0.5, "y": 3.9, "w": 1.84, "h": 0.825, "label": "Program\nends", "kind": "user", "size": 15, "sub": "exit(44)"},
+    {"id": "b2", "x": 2.79, "y": 3.9, "w": 1.84, "h": 0.825, "label": "_exit(2): the\nkernel keeps it", "kind": "bsd", "size": 15, "sub": "p_xexit"},
+    {"id": "b3", "x": 5.08, "y": 3.9, "w": 1.84, "h": 0.825, "label": "wait4(2)\nstatus word", "kind": "bsd", "size": 15, "sub": "(44 & 0xff) << 8"},
+    {"id": "b4", "x": 7.37, "y": 3.9, "w": 1.84, "h": 0.825, "label": "sh: $? =\nWEXITSTATUS", "kind": "bsd", "size": 15, "sub": "every command"},
+    {"id": "b5", "x": 9.66, "y": 3.9, "w": 1.84, "h": 0.825, "label": "if, &&, ||\n0 is true", "kind": "user", "size": 15},
+    {"id": "bx", "x": 5.08, "y": 5.025, "w": 1.84, "h": 0.825, "label": "kill -TERM", "kind": "hw", "size": 15, "sub": "signal 15"}
+  ],
+  "edges": [
+    {"from": "d1", "to": "d2", "kind": "dos"},
+    {"from": "d2", "to": "d3", "kind": "dos"},
+    {"from": "d3", "to": "d4", "kind": "dos"},
+    {"from": "d4", "to": "d5", "kind": "dos"},
+    {"from": "b1", "to": "b2", "kind": "bsd"},
+    {"from": "b2", "to": "b3", "kind": "bsd"},
+    {"from": "b3", "to": "b4", "kind": "bsd"},
+    {"from": "b4", "to": "b5", "kind": "bsd"},
+    {"from": "dx", "to": "d2", "kind": "hw", "style": "dashed"},
+    {"from": "bx", "to": "b3", "kind": "hw", "style": "dashed"}
+  ],
+  "notes": [
+    {"x": 0.55, "y": 2.75, "w": 10.9, "text": "The code is the low byte, the reason the high byte; IF ERRORLEVEL sees only the code.", "size": 13.5, "style": "italic", "kind": "dos"},
+    {"x": 0.55, "y": 5.9, "w": 10.9, "text": "The code is the high byte, the signal the low byte; $? is 128 + signal after a kill.", "size": 13.5, "style": "italic", "kind": "bsd"}
+  ]
+}

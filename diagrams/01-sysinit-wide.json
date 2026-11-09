@@ -1,0 +1,274 @@
+{
+ "title": "Two SYSINITs: a module that interprets CONFIG.SYS in passes, and a sorted list of declarations",
+ "width": 17.6,
+ "height": 7.05,
+ "lanes": [
+  {
+   "x": 0.2,
+   "y": 0.2,
+   "w": 17.2,
+   "h": 2.6,
+   "label": "MS-DOS 4.00: SYSINIT is a module; the order is the order of the code",
+   "kind": "dos"
+  },
+  {
+   "x": 0.2,
+   "y": 3.05,
+   "w": 17.2,
+   "h": 3.8,
+   "label": "FreeBSD 15.1: SYSINIT() is a declaration; the order is (subsystem, order)",
+   "kind": "bsd"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "cfg",
+   "x": 0.55,
+   "y": 0.85,
+   "w": 2.05,
+   "h": 1.7,
+   "label": "CONFIG.SYS",
+   "kind": "data",
+   "size": 18,
+   "sub": "DOCONF"
+  },
+  {
+   "id": "org",
+   "x": 2.95,
+   "y": 0.85,
+   "w": 2.05,
+   "h": 1.7,
+   "label": "ORGANIZE",
+   "kind": "dos",
+   "size": 18,
+   "sub": "COMTAB"
+  },
+  {
+   "id": "p1",
+   "x": 5.35,
+   "y": 0.85,
+   "w": 2.05,
+   "h": 1.7,
+   "label": "first pass",
+   "kind": "dos",
+   "size": 18,
+   "sub": "XMAEM, /X"
+  },
+  {
+   "id": "p2",
+   "x": 7.75,
+   "y": 0.85,
+   "w": 2.05,
+   "h": 1.7,
+   "label": "main pass",
+   "kind": "dos",
+   "size": 18,
+   "sub": "DEVICE= ..."
+  },
+  {
+   "id": "p3",
+   "x": 10.15,
+   "y": 0.85,
+   "w": 2.05,
+   "h": 1.7,
+   "label": "IFS= pass",
+   "kind": "dos",
+   "size": 18
+  },
+  {
+   "id": "p4",
+   "x": 12.55,
+   "y": 0.85,
+   "w": 2.05,
+   "h": 1.7,
+   "label": "INSTALL=\npass",
+   "kind": "dos",
+   "size": 18
+  },
+  {
+   "id": "sh",
+   "x": 14.95,
+   "y": 0.85,
+   "w": 2.05,
+   "h": 1.7,
+   "label": "EXEC\nCOMMAND.COM",
+   "kind": "user",
+   "size": 18,
+   "sub": "INT 21h"
+  },
+  {
+   "id": "s1",
+   "x": 0.55,
+   "y": 3.75,
+   "w": 2.05,
+   "h": 0.85,
+   "label": "init_main.c",
+   "kind": "bsd",
+   "size": 18
+  },
+  {
+   "id": "s2",
+   "x": 0.55,
+   "y": 4.75,
+   "w": 2.05,
+   "h": 0.85,
+   "label": "VM, drivers",
+   "kind": "bsd",
+   "size": 18
+  },
+  {
+   "id": "s3",
+   "x": 0.55,
+   "y": 5.75,
+   "w": 2.05,
+   "h": 0.85,
+   "label": "a module",
+   "kind": "bsd",
+   "size": 18
+  },
+  {
+   "id": "set",
+   "x": 2.95,
+   "y": 4.35,
+   "w": 2.05,
+   "h": 1.7,
+   "label": "set_sysinit_set",
+   "kind": "data",
+   "size": 18,
+   "sub": "ELF section"
+  },
+  {
+   "id": "mk",
+   "x": 5.35,
+   "y": 4.35,
+   "w": 2.05,
+   "h": 1.7,
+   "label": "sysinit_mklist()",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "sort"
+  },
+  {
+   "id": "mi",
+   "x": 7.75,
+   "y": 4.35,
+   "w": 2.05,
+   "h": 1.7,
+   "label": "mi_startup()",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "calls each"
+  },
+  {
+   "id": "ci",
+   "x": 10.15,
+   "y": 4.35,
+   "w": 2.05,
+   "h": 1.7,
+   "label": "create_init()",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "fork1()"
+  },
+  {
+   "id": "ki",
+   "x": 12.55,
+   "y": 4.35,
+   "w": 2.05,
+   "h": 1.7,
+   "label": "kick_init()",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "runnable"
+  },
+  {
+   "id": "in",
+   "x": 14.95,
+   "y": 4.35,
+   "w": 2.05,
+   "h": 1.7,
+   "label": "/sbin/init",
+   "kind": "user",
+   "size": 18,
+   "sub": "start_init()"
+  }
+ ],
+ "edges": [
+  {
+   "from": "cfg",
+   "to": "org",
+   "kind": "dos"
+  },
+  {
+   "from": "org",
+   "to": "p1",
+   "kind": "dos"
+  },
+  {
+   "from": "p1",
+   "to": "p2",
+   "kind": "dos"
+  },
+  {
+   "from": "p2",
+   "to": "p3",
+   "kind": "dos"
+  },
+  {
+   "from": "p3",
+   "to": "p4",
+   "kind": "dos"
+  },
+  {
+   "from": "p4",
+   "to": "sh",
+   "kind": "dos"
+  },
+  {
+   "from": "s1",
+   "to": "set",
+   "kind": "bsd",
+   "from_side": "right",
+   "to_side": "left",
+   "route": "hvh"
+  },
+  {
+   "from": "s2",
+   "to": "set",
+   "kind": "bsd"
+  },
+  {
+   "from": "s3",
+   "to": "set",
+   "kind": "bsd",
+   "from_side": "right",
+   "to_side": "left",
+   "route": "hvh"
+  },
+  {
+   "from": "set",
+   "to": "mk",
+   "kind": "bsd"
+  },
+  {
+   "from": "mk",
+   "to": "mi",
+   "kind": "bsd"
+  },
+  {
+   "from": "mi",
+   "to": "ci",
+   "kind": "bsd"
+  },
+  {
+   "from": "ci",
+   "to": "ki",
+   "kind": "bsd"
+  },
+  {
+   "from": "ki",
+   "to": "in",
+   "kind": "bsd"
+  }
+ ]
+}

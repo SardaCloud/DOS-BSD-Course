@@ -1,0 +1,49 @@
+{
+  "title": "Starting a program: MS-DOS EXEC versus FreeBSD fork and execve",
+  "width": 17, "height": 6.8,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 16.6, "h": 3.1, "label": "MS-DOS 4.00: one call, the parent waits inside it", "kind": "dos"},
+    {"x": 0.2, "y": 3.5, "w": 16.6, "h": 3.1, "label": "FreeBSD 15.1: fork, then execve, then wait", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "da0", "x": 0.45, "y": 0.75, "w": 2.08, "h": 0.9, "label": "Parent:\nINT 21h, 4Bh", "kind": "user", "size": 18},
+    {"id": "dwait", "x": 2.81, "y": 0.75, "w": 11.52, "h": 0.9, "label": "parent waits inside its INT 21h call", "sub": "its frame stays on its stack (PDB_User_stack)", "kind": "user", "dashed": true, "size": 18},
+    {"id": "da6", "x": 14.61, "y": 0.75, "w": 2.08, "h": 0.9, "label": "Parent\nresumes", "sub": "4Dh: exit code", "kind": "user", "size": 18},
+    {"id": "db1", "x": 2.81, "y": 2.05, "w": 2.08, "h": 1.0, "label": "EXEC: open,\ncopy environment", "kind": "dos", "size": 18},
+    {"id": "db2", "x": 5.17, "y": 2.05, "w": 2.08, "h": 1.0, "label": "Header: MZ?\n.EXE or .COM", "kind": "dos", "size": 18},
+    {"id": "db3", "x": 7.53, "y": 2.05, "w": 2.08, "h": 1.0, "label": "Allocate,\nload, relocate", "kind": "dos", "size": 18},
+    {"id": "db4", "x": 9.89, "y": 2.05, "w": 2.08, "h": 1.0, "label": "Build PSP", "sub": "$Dup_PDB: handles", "kind": "dos", "size": 18},
+    {"id": "db5", "x": 12.25, "y": 2.05, "w": 2.08, "h": 1.0, "label": "Child runs,\nexits (4Ch)", "sub": "InDOS=0, far RET", "kind": "user", "size": 18},
+    {"id": "db6", "x": 14.61, "y": 2.05, "w": 2.08, "h": 1.0, "label": "$EXIT: free\nchild, IRET", "sub": "reset_environment", "kind": "dos", "size": 18},
+
+    {"id": "ba0", "x": 0.45, "y": 4.05, "w": 2.08, "h": 0.9, "label": "Parent:\nfork()", "kind": "user", "size": 18},
+    {"id": "ba1", "x": 2.81, "y": 4.05, "w": 2.08, "h": 0.9, "label": "fork1", "sub": "fdcopy, vmspace_fork", "kind": "bsd", "size": 18},
+    {"id": "ba2", "x": 5.17, "y": 4.05, "w": 2.08, "h": 0.9, "label": "Parent: fork()\nreturns pid", "kind": "user", "size": 18},
+    {"id": "bwait", "x": 7.53, "y": 4.05, "w": 6.8, "h": 0.9, "label": "parent goes on, then waits in wait4", "sub": "kern_wait6", "kind": "user", "dashed": true, "size": 18},
+    {"id": "ba6", "x": 14.61, "y": 4.05, "w": 2.08, "h": 0.9, "label": "Parent gets\nthe status", "kind": "user", "size": 18},
+    {"id": "bb2", "x": 5.17, "y": 5.35, "w": 2.08, "h": 1.0, "label": "Child: fork()\nreturns 0", "sub": "copy-on-write", "kind": "user", "size": 18},
+    {"id": "bb3", "x": 7.53, "y": 5.35, "w": 2.08, "h": 1.0, "label": "execve", "sub": "path, argv, env", "kind": "bsd", "size": 18},
+    {"id": "bb4", "x": 9.89, "y": 5.35, "w": 2.08, "h": 1.0, "label": "ELF activator", "sub": "new vmspace, map", "kind": "bsd", "size": 18},
+    {"id": "bb5", "x": 12.25, "y": 5.35, "w": 2.08, "h": 1.0, "label": "Program runs,\nthen _exit", "sub": "pages on fault", "kind": "user", "size": 18},
+    {"id": "bb6", "x": 14.61, "y": 5.35, "w": 2.08, "h": 1.0, "label": "exit1:\nzombie", "sub": "SIGCHLD, wakeup", "kind": "bsd", "size": 18}
+  ],
+  "edges": [
+    {"from": "da0", "to": "db1", "kind": "dos"},
+    {"from": "db1", "to": "db2", "kind": "dos"},
+    {"from": "db2", "to": "db3", "kind": "dos"},
+    {"from": "db3", "to": "db4", "kind": "dos"},
+    {"from": "db4", "to": "db5", "kind": "dos"},
+    {"from": "db5", "to": "db6", "kind": "dos"},
+    {"from": "db6", "to": "da6", "kind": "dos"},
+    {"from": "ba0", "to": "ba1", "kind": "bsd"},
+    {"from": "ba1", "to": "ba2", "kind": "bsd"},
+    {"from": "ba1", "to": "bb2", "kind": "bsd"},
+    {"from": "ba2", "to": "bwait", "kind": "bsd"},
+    {"from": "bwait", "to": "ba6", "kind": "bsd"},
+    {"from": "bb2", "to": "bb3", "kind": "bsd"},
+    {"from": "bb3", "to": "bb4", "kind": "bsd"},
+    {"from": "bb4", "to": "bb5", "kind": "bsd"},
+    {"from": "bb5", "to": "bb6", "kind": "bsd"},
+    {"from": "bb6", "to": "ba6", "kind": "bsd"}
+  ]
+}

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="Memory models: 64 KB segments versus one flat address space">
+<title>Memory models: 64 KB segments versus one flat address space</title>
+<defs><marker id="arrow4B5563" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4B5563"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="15.0" y="15.0" width="1570.0" height="355.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="27.0" y="25.0" width="332.05" height="26" rx="13" fill="#0E7C86"/>
+<text x="193.025" y="43.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00 (real mode, 16-bit offsets)</text>
+<rect x="15.0" y="390.0" width="1570.0" height="245.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="27.0" y="400.0" width="316.15000000000003" height="26" rx="13" fill="#AB2B28"/>
+<text x="185.07500000000002" y="418.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1 (amd64, 64-bit pointers)</text>
+<path d="M1050.0,132.5 L1020.0,132.5" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M1050.0,267.5 L1020.0,267.5" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M1270.0,512.5 L1240.0,512.5" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<rect x="40.0" y="75.0" width="160.0" height="60.0" rx="7" fill="#F3F2EE" stroke="#6B7280" stroke-width="2"/>
+<text x="120.0" y="111.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">/AS small</text>
+<rect x="230.0" y="75.0" width="300.0" height="115.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="380.0" y="130.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">CS: _TEXT</text>
+<text x="380.0" y="148.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">all code, at most 64 KB</text>
+<rect x="560.0" y="75.0" width="460.0" height="115.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="790.0" y="130.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">DS = SS: DGROUP (64 KB)</text>
+<text x="790.0" y="148.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">_DATA CONST _BSS c_common STACK</text>
+<rect x="1050.0" y="75.0" width="510.0" height="115.0" rx="7" fill="#F3F2EE" stroke="#6B7280" stroke-width="2"/>
+<text x="1305.0" y="130.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">near pointer: offset</text>
+<text x="1305.0" y="148.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">16 bits; CALL/RET near</text>
+<rect x="40.0" y="220.0" width="160.0" height="60.0" rx="7" fill="#F3F2EE" stroke="#6B7280" stroke-width="2"/>
+<text x="120.0" y="256.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">/AL large</text>
+<rect x="230.0" y="210.0" width="300.0" height="115.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="380.0" y="265.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">MODELS_TEXT, ...</text>
+<text x="380.0" y="283.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">one code segment per module</text>
+<rect x="560.0" y="210.0" width="460.0" height="115.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="790.0" y="265.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">DGROUP + far data</text>
+<text x="790.0" y="283.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">data may span many segments</text>
+<rect x="1050.0" y="210.0" width="510.0" height="115.0" rx="7" fill="#F3F2EE" stroke="#6B7280" stroke-width="2"/>
+<text x="1305.0" y="265.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">far pointer: segment:offset</text>
+<text x="1305.0" y="283.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">32 bits; LES, ES:, CALL FAR, RETF</text>
+<rect x="40.0" y="455.0" width="260.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="170.0" y="510.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">text, rodata</text>
+<text x="170.0" y="528.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">PT_LOAD R, R E</text>
+<rect x="330.0" y="455.0" width="260.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="460.0" y="510.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">data, bss</text>
+<text x="460.0" y="528.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">PT_LOAD RW</text>
+<rect x="620.0" y="455.0" width="160.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="700.0" y="510.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">heap</text>
+<text x="700.0" y="528.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">malloc</text>
+<rect x="810.0" y="455.0" width="240.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="930.0" y="510.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">libc.so.7 ...</text>
+<text x="930.0" y="528.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">mapped by rtld</text>
+<rect x="1080.0" y="455.0" width="160.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1160.0" y="510.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">stack</text>
+<text x="1160.0" y="528.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">grows down</text>
+<rect x="1270.0" y="455.0" width="290.0" height="115.0" rx="7" fill="#F3F2EE" stroke="#6B7280" stroke-width="2"/>
+<text x="1415.0" y="507.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">every pointer:</text>
+<text x="1415.0" y="529.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">64-bit address</text>
+<text x="40.0" y="600.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#4A1312" text-anchor="start" font-style="italic">No memory models in C, but code models in the ABI: small (default) keeps code and static data within 2 GB for 32-bit RIP-relative displacements; PIE adds a load base.</text>
+</svg>

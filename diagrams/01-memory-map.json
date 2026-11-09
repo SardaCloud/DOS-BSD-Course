@@ -1,0 +1,41 @@
+{
+  "title": "The first megabyte during boot (linear addresses, not to scale)",
+  "width": 12.9, "height": 9.35,
+  "lanes": [
+    {"x": 1.7, "y": 0.2, "w": 5.4, "h": 8.95, "label": "MS-DOS 4.00", "kind": "dos"},
+    {"x": 7.3, "y": 0.2, "w": 5.4, "h": 8.95, "label": "FreeBSD 15.1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "ivt", "x": 1.85, "y": 0.85, "w": 10.7, "h": 0.56, "label": "Interrupt vector table", "sub": "256 vectors x 4 bytes", "kind": "hw", "size": 15},
+    {"id": "bda", "x": 1.85, "y": 1.51, "w": 10.7, "h": 0.56, "label": "BIOS data area", "sub": "0x413 memory KB, 0x46C ticks, 0x472 reset flag, 0x475 hard disks", "kind": "hw", "size": 15},
+    {"id": "d500", "x": 1.85, "y": 2.17, "w": 5.1, "h": 0.56, "label": "Root directory sector", "sub": "left by MSBOOT", "kind": "dos", "size": 15},
+    {"id": "d600", "x": 1.85, "y": 2.83, "w": 5.1, "h": 0.56, "label": "FDBOOT, relocated", "sub": "master boot record", "kind": "dos", "size": 15},
+    {"id": "b600", "x": 7.45, "y": 2.83, "w": 5.1, "h": 0.56, "label": "mbr or boot0, relocated", "sub": "master boot record", "kind": "bsd", "size": 15},
+    {"id": "d700", "x": 1.85, "y": 3.49, "w": 5.1, "h": 0.56, "label": "IO.SYS at 0070:0000", "sub": "MSLOAD comes first", "kind": "dos", "size": 15},
+    {"id": "b700", "x": 7.45, "y": 3.49, "w": 5.1, "h": 0.56, "label": "boot1, relocated", "sub": "its xread serves boot2", "kind": "bsd", "size": 15},
+    {"id": "vbr", "x": 1.85, "y": 4.5, "w": 10.7, "h": 0.56, "label": "Boot sector (512 bytes)", "sub": "the BIOS loads the MBR here, the MBR loads the VBR here", "kind": "neutral", "size": 15},
+    {"id": "b8c", "x": 7.45, "y": 5.16, "w": 5.1, "h": 0.56, "label": "boot1 + boot2 read buffer", "sub": "16 sectors", "kind": "bsd", "size": 15},
+    {"id": "b90", "x": 7.45, "y": 5.82, "w": 5.1, "h": 0.56, "label": "BTX kernel", "sub": "btx.S, protected mode", "kind": "bsd", "size": 15},
+    {"id": "ba0", "x": 7.45, "y": 6.48, "w": 5.1, "h": 0.56, "label": "BTX client: boot2, loader", "sub": "client segment base MEM_USR", "kind": "bsd", "size": 15},
+    {"id": "dtop", "x": 1.85, "y": 7.5, "w": 5.1, "h": 0.56, "label": "MSLOAD, later SYSINIT", "sub": "copy themselves up here", "kind": "dos", "size": 15},
+    {"id": "btop", "x": 7.45, "y": 7.5, "w": 5.1, "h": 0.56, "label": "BTX client stack", "sub": "computed from BDA 0x413", "kind": "bsd", "size": 15},
+    {"id": "rom", "x": 1.85, "y": 8.4, "w": 10.7, "h": 0.56, "label": "Video memory, adapter ROMs, system BIOS ROM", "kind": "hw", "size": 15}
+  ],
+  "notes": [
+    {"x": 0.1, "y": 0.8, "w": 1.45, "text": "0x00000", "size": 14, "align": "end"},
+    {"x": 0.1, "y": 1.46, "w": 1.45, "text": "0x00400", "size": 14, "align": "end"},
+    {"x": 0.1, "y": 2.12, "w": 1.45, "text": "0x00500", "size": 14, "align": "end"},
+    {"x": 0.1, "y": 2.78, "w": 1.45, "text": "0x00600", "size": 14, "align": "end"},
+    {"x": 0.1, "y": 3.44, "w": 1.45, "text": "0x00700", "size": 14, "align": "end"},
+    {"x": 0.1, "y": 4.15, "w": 1.45, "text": "...", "size": 14, "align": "end"},
+    {"x": 0.1, "y": 4.45, "w": 1.45, "text": "0x07C00", "size": 14, "align": "end"},
+    {"x": 0.1, "y": 5.11, "w": 1.45, "text": "0x08C00", "size": 14, "align": "end"},
+    {"x": 0.1, "y": 5.77, "w": 1.45, "text": "0x09000", "size": 14, "align": "end"},
+    {"x": 0.1, "y": 6.43, "w": 1.45, "text": "0x0A000", "size": 14, "align": "end"},
+    {"x": 0.1, "y": 7.12, "w": 1.45, "text": "...", "size": 14, "align": "end"},
+    {"x": 0.1, "y": 7.45, "w": 1.45, "text": "top", "size": 14, "align": "end"},
+    {"x": 0.1, "y": 7.7, "w": 1.45, "text": "(INT 12h)", "size": 12, "align": "end", "style": "italic"},
+    {"x": 0.1, "y": 8.35, "w": 1.45, "text": "0xA0000", "size": 14, "align": "end"},
+    {"x": 0.1, "y": 8.85, "w": 1.45, "text": "0xFFFFF", "size": 14, "align": "end"}
+  ]
+}

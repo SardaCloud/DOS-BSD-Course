@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="From exec to main">
+<title>From exec to main</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="15.0" y="15.0" width="1570.0" height="215.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="27.0" y="25.0" width="379.75" height="26" rx="13" fill="#0E7C86"/>
+<text x="216.875" y="43.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00: EXEC (INT 21h AH=4Bh), then crt0</text>
+<rect x="15.0" y="250.0" width="1570.0" height="385.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="27.0" y="260.0" width="411.55" height="26" rx="13" fill="#AB2B28"/>
+<text x="232.775" y="278.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1: execve, then ld-elf.so.1, then crt1</text>
+<path d="M300.0,137.5 L350.0,137.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M610.0,137.5 L660.0,137.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M920.0,137.5 L970.0,137.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1230.0,137.5 L1280.0,137.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M400.0,367.5 L450.0,367.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M810.0,367.5 L860.0,367.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1040.0,430.0 L1040.0,457.5 L170.0,457.5 L170.0,485.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M300.0,547.5 L350.0,547.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M610.0,547.5 L660.0,547.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M920.0,547.5 L970.0,547.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1230.0,547.5 L1280.0,547.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="40.0" y="75.0" width="260.0" height="125.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="170.0" y="124.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">read header,</text>
+<text x="170.0" y="146.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">allocate block</text>
+<text x="170.0" y="164.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">EXEC.ASM</text>
+<rect x="350.0" y="75.0" width="260.0" height="125.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="480.0" y="124.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">read image,</text>
+<text x="480.0" y="146.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">add load segment</text>
+<text x="480.0" y="164.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">exec_reloc_one</text>
+<rect x="660.0" y="75.0" width="260.0" height="125.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="790.0" y="124.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">build PSP,</text>
+<text x="790.0" y="146.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">jump to CS:IP</text>
+<text x="790.0" y="164.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">exec_go</text>
+<rect x="970.0" y="75.0" width="260.0" height="125.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1100.0" y="135.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">__astart</text>
+<text x="1100.0" y="153.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">crt0: stack, BSS, argv</text>
+<rect x="1280.0" y="75.0" width="280.0" height="125.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1420.0" y="135.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">_main</text>
+<text x="1420.0" y="153.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">then exit: AH=4Ch</text>
+<rect x="40.0" y="305.0" width="360.0" height="125.0" rx="7" fill="#E4E6EA" stroke="#2E3440" stroke-width="2"/>
+<text x="220.0" y="365.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#15191E" text-anchor="middle">execve: map PT_LOADs</text>
+<text x="220.0" y="383.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#2E3440" text-anchor="middle">imgact_elf.c</text>
+<rect x="450.0" y="305.0" width="360.0" height="125.0" rx="7" fill="#E4E6EA" stroke="#2E3440" stroke-width="2"/>
+<text x="630.0" y="354.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#15191E" text-anchor="middle">PT_INTERP: map</text>
+<text x="630.0" y="376.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#15191E" text-anchor="middle">ld-elf.so.1</text>
+<text x="630.0" y="394.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#2E3440" text-anchor="middle">load_interp</text>
+<rect x="860.0" y="305.0" width="360.0" height="125.0" rx="7" fill="#E4E6EA" stroke="#2E3440" stroke-width="2"/>
+<text x="1040.0" y="354.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#15191E" text-anchor="middle">auxv, jump to</text>
+<text x="1040.0" y="376.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#15191E" text-anchor="middle">rtld&#x27;s entry</text>
+<text x="1040.0" y="394.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#2E3440" text-anchor="middle">AT_BASE AT_ENTRY AT_PHDR</text>
+<rect x="40.0" y="485.0" width="260.0" height="125.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="170.0" y="545.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">_rtld()</text>
+<text x="170.0" y="563.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">rtld_start.S</text>
+<rect x="350.0" y="485.0" width="260.0" height="125.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="480.0" y="545.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">load NEEDED</text>
+<text x="480.0" y="563.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">libc, libsys ...</text>
+<rect x="660.0" y="485.0" width="260.0" height="125.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="790.0" y="534.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">relocate,</text>
+<text x="790.0" y="556.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">init</text>
+<text x="790.0" y="574.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">relocate_objects</text>
+<rect x="970.0" y="485.0" width="260.0" height="125.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1100.0" y="545.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">_start</text>
+<text x="1100.0" y="563.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">__libc_start1</text>
+<rect x="1280.0" y="485.0" width="280.0" height="125.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1420.0" y="545.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">main</text>
+<text x="1420.0" y="563.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">then exit(3)</text>
+<text x="1255.0" y="330.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#4A1312" text-anchor="start" font-style="italic">kernel (top row)</text>
+<text x="1255.0" y="348.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#4A1312" text-anchor="start" font-style="italic">user mode (bottom row)</text>
+</svg>

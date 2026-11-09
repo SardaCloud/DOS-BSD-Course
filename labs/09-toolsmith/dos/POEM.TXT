@@ -1,0 +1,6 @@
+A small tool does one thing well:
+it reads its input line by line,
+it writes its answer, plain to tell,
+	and leaves the rest to the shell.
+
+The end.

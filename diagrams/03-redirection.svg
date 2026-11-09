@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 660.0" width="1700" height="660.0" role="img" aria-label="Redirection: prog &gt; out.txt in COMMAND.COM (its own JFT) and in sh (dup2 in the child)">
+<title>Redirection: prog &gt; out.txt in COMMAND.COM (its own JFT) and in sh (dup2 in the child)</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1700" height="660.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1660.0" height="240.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="554.65" height="26" rx="13" fill="#0E7C86"/>
+<text x="309.325" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00: the shell edits its own JFT, the child inherits a copy</text>
+<rect x="20.0" y="280.0" width="1660.0" height="360.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="290.0" width="427.45000000000005" height="26" rx="13" fill="#AB2B28"/>
+<text x="245.72500000000002" y="308.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1: the child redirects itself after fork</text>
+<path d="M287.0,135.0 L317.0,135.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M559.0,135.0 L589.0,135.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M831.0,135.0 L861.0,135.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1103.0,135.0 L1133.0,135.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1375.0,135.0 L1405.0,135.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M287.0,382.5 L317.0,382.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M559.0,382.5 L589.0,382.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M438.0,430.0 L438.0,512.5 L589.0,512.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="488.6" y="500.4" width="49.8" height="24.3" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="513.5" y="517.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#AB2B28" text-anchor="middle">child</text>
+<path d="M831.0,512.5 L861.0,512.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1103.0,512.5 L1133.0,512.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1375.0,512.5 L1405.0,512.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="45.0" y="80.0" width="242.0" height="110.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="166.0" y="132.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">PRESCAN</text>
+<text x="166.0" y="150.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">keeps out.txt</text>
+<rect x="317.0" y="80.0" width="242.0" height="110.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="438.0" y="121.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">IOSET: CREAT</text>
+<text x="438.0" y="143.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">out.txt</text>
+<text x="438.0" y="161.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">say handle 5</text>
+<rect x="589.0" y="80.0" width="242.0" height="110.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="710.0" y="132.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">Swap JFT bytes</text>
+<text x="710.0" y="150.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">JFT[1]=SFN, [5]=FFh</text>
+<rect x="861.0" y="80.0" width="242.0" height="110.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="982.0" y="132.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">EXEC prog</text>
+<text x="982.0" y="150.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">child copies JFT</text>
+<rect x="1133.0" y="80.0" width="242.0" height="110.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1254.0" y="121.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">prog writes</text>
+<text x="1254.0" y="143.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">handle 1</text>
+<text x="1254.0" y="161.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">-&gt; out.txt</text>
+<rect x="1405.0" y="80.0" width="242.0" height="110.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1526.0" y="132.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">HEADFIX</text>
+<text x="1526.0" y="150.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">restore IO_SAVE</text>
+<rect x="45.0" y="335.0" width="242.0" height="95.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="166.0" y="380.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">Parse</text>
+<text x="166.0" y="398.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">NTO node</text>
+<rect x="317.0" y="335.0" width="242.0" height="95.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="438.0" y="388.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">fork</text>
+<rect x="589.0" y="335.0" width="1058.0" height="95.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="1118.0" y="380.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">sh waits for the child</text>
+<text x="1118.0" y="398.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">its own descriptors are never touched</text>
+<rect x="589.0" y="465.0" width="242.0" height="95.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="710.0" y="510.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">open out.txt</text>
+<text x="710.0" y="528.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">O_CREAT|O_TRUNC</text>
+<rect x="861.0" y="465.0" width="242.0" height="95.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="982.0" y="510.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">dup2(f, 1)</text>
+<text x="982.0" y="528.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">close(f)</text>
+<rect x="1133.0" y="465.0" width="242.0" height="95.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1254.0" y="518.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">execve prog</text>
+<rect x="1405.0" y="465.0" width="242.0" height="95.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1526.0" y="499.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">prog writes</text>
+<text x="1526.0" y="521.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">fd 1</text>
+<text x="1526.0" y="539.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">-&gt; out.txt</text>
+<text x="45.0" y="221.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#0B3D42" text-anchor="start" font-style="italic">Only handles 0 and 1; HEADFIX runs after every command, internal or external, and also closes handles 5-19.</text>
+<text x="45.0" y="596.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#4A1312" text-anchor="start" font-style="italic">A builtin runs in the shell itself: redirect() first saves the old descriptor with F_DUPFD_CLOEXEC (&gt;= 10), popredir() puts it back.</text>
+</svg>

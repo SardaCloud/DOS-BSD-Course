@@ -1,0 +1,41 @@
+{
+  "title": "Redirection: prog > out.txt in COMMAND.COM (its own JFT) and in sh (dup2 in the child)",
+  "width": 17, "height": 6.6,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 16.6, "h": 2.4, "label": "MS-DOS 4.00: the shell edits its own JFT, the child inherits a copy", "kind": "dos"},
+    {"x": 0.2, "y": 2.8, "w": 16.6, "h": 3.6, "label": "FreeBSD 15.1: the child redirects itself after fork", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "d1", "x": 0.45, "y": 0.8, "w": 2.42, "h": 1.1, "label": "PRESCAN", "sub": "keeps out.txt", "kind": "dos", "size": 18},
+    {"id": "d2", "x": 3.17, "y": 0.8, "w": 2.42, "h": 1.1, "label": "IOSET: CREAT\nout.txt", "sub": "say handle 5", "kind": "dos", "size": 18},
+    {"id": "d3", "x": 5.89, "y": 0.8, "w": 2.42, "h": 1.1, "label": "Swap JFT bytes", "sub": "JFT[1]=SFN, [5]=FFh", "kind": "dos", "size": 18},
+    {"id": "d4", "x": 8.61, "y": 0.8, "w": 2.42, "h": 1.1, "label": "EXEC prog", "sub": "child copies JFT", "kind": "dos", "size": 18},
+    {"id": "d5", "x": 11.33, "y": 0.8, "w": 2.42, "h": 1.1, "label": "prog writes\nhandle 1", "sub": "-> out.txt", "kind": "user", "size": 18},
+    {"id": "d6", "x": 14.05, "y": 0.8, "w": 2.42, "h": 1.1, "label": "HEADFIX", "sub": "restore IO_SAVE", "kind": "dos", "size": 18},
+
+    {"id": "b1", "x": 0.45, "y": 3.35, "w": 2.42, "h": 0.95, "label": "Parse", "sub": "NTO node", "kind": "bsd", "size": 18},
+    {"id": "b2", "x": 3.17, "y": 3.35, "w": 2.42, "h": 0.95, "label": "fork", "kind": "bsd", "size": 18},
+    {"id": "b3", "x": 5.89, "y": 3.35, "w": 10.58, "h": 0.95, "label": "sh waits for the child", "sub": "its own descriptors are never touched", "kind": "bsd", "dashed": true, "size": 18},
+    {"id": "c1", "x": 5.89, "y": 4.65, "w": 2.42, "h": 0.95, "label": "open out.txt", "sub": "O_CREAT|O_TRUNC", "kind": "bsd", "size": 18},
+    {"id": "c2", "x": 8.61, "y": 4.65, "w": 2.42, "h": 0.95, "label": "dup2(f, 1)", "sub": "close(f)", "kind": "bsd", "size": 18},
+    {"id": "c3", "x": 11.33, "y": 4.65, "w": 2.42, "h": 0.95, "label": "execve prog", "kind": "bsd", "size": 18},
+    {"id": "c4", "x": 14.05, "y": 4.65, "w": 2.42, "h": 0.95, "label": "prog writes\nfd 1", "sub": "-> out.txt", "kind": "user", "size": 18}
+  ],
+  "edges": [
+    {"from": "d1", "to": "d2", "kind": "dos"},
+    {"from": "d2", "to": "d3", "kind": "dos"},
+    {"from": "d3", "to": "d4", "kind": "dos"},
+    {"from": "d4", "to": "d5", "kind": "dos"},
+    {"from": "d5", "to": "d6", "kind": "dos"},
+    {"from": "b1", "to": "b2", "kind": "bsd"},
+    {"from": "b2", "to": "b3", "kind": "bsd"},
+    {"from": "b2", "to": "c1", "from_side": "bottom", "to_side": "left", "route": "vh", "kind": "bsd", "label": "child", "size": 15, "label_on_line": true},
+    {"from": "c1", "to": "c2", "kind": "bsd"},
+    {"from": "c2", "to": "c3", "kind": "bsd"},
+    {"from": "c3", "to": "c4", "kind": "bsd"}
+  ],
+  "notes": [
+    {"x": 0.45, "y": 2.05, "w": 16, "text": "Only handles 0 and 1; HEADFIX runs after every command, internal or external, and also closes handles 5-19.", "size": 16, "kind": "dos", "style": "italic"},
+    {"x": 0.45, "y": 5.8, "w": 16, "text": "A builtin runs in the shell itself: redirect() first saves the old descriptor with F_DUPFD_CLOEXEC (>= 10), popredir() puts it back.", "size": 16, "kind": "bsd", "style": "italic"}
+  ]
+}

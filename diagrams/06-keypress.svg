@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="One key press, from the keyboard controller to the program">
+<title>One key press, from the keyboard controller to the program</title>
+<defs><marker id="arrowB7862A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B7862A"/></marker><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1560.0" height="295.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="451.3" height="26" rx="13" fill="#0E7C86"/>
+<text x="257.65" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00 with ANSI.SYS: COMMAND.COM in function 0Ah</text>
+<rect x="20.0" y="335.0" width="1560.0" height="295.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="345.0" width="347.95" height="26" rx="13" fill="#AB2B28"/>
+<text x="205.975" y="363.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1: sh in read(2) on /dev/ttyv0</text>
+<path d="M230.0,147.5 L260.0,147.5" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<path d="M460.0,147.5 L490.0,147.5" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<path d="M700.0,147.5 L730.0,147.5" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<path d="M930.0,147.5 L960.0,147.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1150.0,147.5 L1180.0,147.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1370.0,147.5 L1400.0,147.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M230.0,462.5 L260.0,462.5" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<path d="M460.0,462.5 L490.0,462.5" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<path d="M700.0,462.5 L730.0,462.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M930.0,462.5 L960.0,462.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1150.0,462.5 L1180.0,462.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1370.0,462.5 L1400.0,462.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="40.0" y="90.0" width="190.0" height="115.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="135.0" y="145.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">Key</text>
+<text x="135.0" y="163.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">make code</text>
+<rect x="260.0" y="90.0" width="200.0" height="115.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="360.0" y="145.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">8042, 8259</text>
+<text x="360.0" y="163.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">IRQ1, INT 09h</text>
+<rect x="490.0" y="90.0" width="210.0" height="115.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="595.0" y="145.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">ROM INT 09h</text>
+<text x="595.0" y="163.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">via STACKS=</text>
+<path d="M730.0,94.0 a100.0,14 0 0,0 200.0,0 v107.0 a100.0,14 0 0,1 -200.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="830.0" cy="94.0" rx="100.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="830.0" y="159.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">BIOS buffer</text>
+<text x="830.0" y="177.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">16 words</text>
+<rect x="960.0" y="90.0" width="190.0" height="115.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1055.0" y="145.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">CON</text>
+<text x="1055.0" y="163.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">ANSI.SYS CHRIN</text>
+<rect x="1180.0" y="90.0" width="190.0" height="115.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1275.0" y="145.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">DOS fn 0Ah</text>
+<text x="1275.0" y="163.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">polls, edits</text>
+<rect x="1400.0" y="90.0" width="160.0" height="115.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1480.0" y="142.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">COMMAND</text>
+<text x="1480.0" y="164.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">.COM</text>
+<rect x="40.0" y="405.0" width="190.0" height="115.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="135.0" y="460.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">Key</text>
+<text x="135.0" y="478.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">make code</text>
+<rect x="260.0" y="405.0" width="200.0" height="115.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="360.0" y="460.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">8042, APIC</text>
+<text x="360.0" y="478.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">IRQ1</text>
+<rect x="490.0" y="405.0" width="210.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="595.0" y="460.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">ithread</text>
+<text x="595.0" y="478.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">atkbd_intr</text>
+<rect x="730.0" y="405.0" width="200.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="830.0" y="460.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">kbdmux, vt</text>
+<text x="830.0" y="478.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">vt_kbdevent</text>
+<rect x="960.0" y="405.0" width="190.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1055.0" y="449.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">ttydisc</text>
+<text x="1055.0" y="471.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">_rint</text>
+<text x="1055.0" y="489.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">edit, echo</text>
+<path d="M1180.0,409.0 a95.0,14 0 0,0 190.0,0 v107.0 a95.0,14 0 0,1 -190.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="1275.0" cy="409.0" rx="95.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="1275.0" y="474.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">tty queue</text>
+<text x="1275.0" y="492.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">a line</text>
+<rect x="1400.0" y="405.0" width="160.0" height="115.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1480.0" y="460.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">sh</text>
+<text x="1480.0" y="478.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">read(2)</text>
+<text x="50.0" y="256.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#0B3D42" text-anchor="start" font-style="italic">No DOS code runs when the key is pressed; dashed: the key waits until DOS polls with INT 16h.</text>
+<text x="50.0" y="571.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#4A1312" text-anchor="start" font-style="italic">The key is processed on arrival; dashed: the reader sleeps until a line is complete (canonical mode).</text>
+</svg>

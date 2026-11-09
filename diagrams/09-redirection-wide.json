@@ -1,0 +1,34 @@
+{
+  "title": "Redirection around a tool: COMMAND.COM edits its Job File Table before EXEC; sh calls dup2 in the child before execve",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 15.6, "h": 2.95, "label": "MS-DOS 4.00", "kind": "dos"},
+    {"x": 0.2, "y": 3.35, "w": 15.6, "h": 2.95, "label": "FreeBSD 15.1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "d1", "x": 0.5, "y": 0.75, "w": 2.6, "h": 1.66, "label": "COMMAND.COM\nreads\nTOOL >OUT.TXT", "kind": "dos", "size": 18},
+    {"id": "d2", "x": 3.6, "y": 0.75, "w": 2.6, "h": 1.66, "label": "Creates OUT.TXT,\nsaves JFT[1],\npoints it there", "kind": "dos", "size": 18},
+    {"id": "d3", "x": 6.7, "y": 0.75, "w": 2.6, "h": 1.66, "label": "EXEC: the\nchild's PSP gets\na copy of the JFT", "kind": "dos", "size": 18},
+    {"id": "d4", "x": 9.8, "y": 0.75, "w": 2.6, "h": 1.66, "label": "The tool\nwrites\nhandle 1", "kind": "user", "size": 18, "sub": "-> OUT.TXT"},
+    {"id": "d5", "x": 12.9, "y": 0.75, "w": 2.6, "h": 1.66, "label": "After EXEC:\nclose the file,\nrestore JFT[1]", "kind": "dos", "size": 18},
+    {"id": "b1", "x": 0.5, "y": 3.9, "w": 2.6, "h": 1.66, "label": "sh reads\ntool >out.txt", "kind": "bsd", "size": 18},
+    {"id": "b2", "x": 3.6, "y": 3.9, "w": 2.6, "h": 1.66, "label": "fork(2): the\nchild copies\nevery descriptor", "kind": "bsd", "size": 18},
+    {"id": "b3", "x": 6.7, "y": 3.9, "w": 2.6, "h": 1.66, "label": "In the child:\nopen, dup2(fd, 1),\nclose(fd)", "kind": "bsd", "size": 18},
+    {"id": "b4", "x": 9.8, "y": 3.9, "w": 2.6, "h": 1.66, "label": "execve(2):\nfd 1 stays\nopen", "kind": "bsd", "size": 18},
+    {"id": "b5", "x": 12.9, "y": 3.9, "w": 2.6, "h": 1.66, "label": "The tool\nwrites\nfd 1", "kind": "user", "size": 18, "sub": "-> out.txt"}
+  ],
+  "edges": [
+    {"from": "d1", "to": "d2", "kind": "dos"},
+    {"from": "d2", "to": "d3", "kind": "dos"},
+    {"from": "d3", "to": "d4", "kind": "dos"},
+    {"from": "d4", "to": "d5", "kind": "dos"},
+    {"from": "b1", "to": "b2", "kind": "bsd"},
+    {"from": "b2", "to": "b3", "kind": "bsd"},
+    {"from": "b3", "to": "b4", "kind": "bsd"},
+    {"from": "b4", "to": "b5", "kind": "bsd"}
+  ],
+  "notes": [
+    {"x": 0.55, "y": 2.46, "w": 14.9, "text": "Only handles 0 and 1 can be redirected; handle 2 always reaches the screen.\nA | B: A writes a temporary file, then B reads it, one after the other.", "size": 18, "style": "italic", "kind": "dos"},
+    {"x": 0.55, "y": 5.61, "w": 14.9, "text": "Any descriptor can be redirected (2>, 2>&1); the shell's own never change.\na | b is a pipe(2) between two children that run at the same time.", "size": 18, "style": "italic", "kind": "bsd"}
+  ]
+}

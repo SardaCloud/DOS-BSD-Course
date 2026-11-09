@@ -1,0 +1,228 @@
+{
+  "title": "The layers between a program and a device: MS-DOS 4.00 and FreeBSD 15.1",
+  "width": 16,
+  "height": 6.5,
+  "lanes": [
+    {
+      "x": 0.2,
+      "y": 0.2,
+      "w": 7.7,
+      "h": 6.1,
+      "label": "MS-DOS 4.00",
+      "kind": "dos"
+    },
+    {
+      "x": 8.1,
+      "y": 0.2,
+      "w": 7.7,
+      "h": 6.1,
+      "label": "FreeBSD 15.1",
+      "kind": "bsd"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "dp",
+      "x": 0.8,
+      "y": 0.8,
+      "w": 6.0,
+      "h": 0.72,
+      "label": "Program",
+      "sub": "INT 21h, or INT 10h, or MOV to B800h",
+      "kind": "user",
+      "size": 18
+    },
+    {
+      "id": "dk",
+      "x": 2.0,
+      "y": 1.7,
+      "w": 3.6,
+      "h": 0.72,
+      "label": "DOS kernel: handles",
+      "sub": "MSDOS.SYS: RAWOUT, DOS_READ",
+      "kind": "dos",
+      "size": 18
+    },
+    {
+      "id": "dd",
+      "x": 2.0,
+      "y": 2.6,
+      "w": 3.6,
+      "h": 0.72,
+      "label": "Device driver",
+      "sub": "CON in IO.SYS, or ANSI.SYS",
+      "kind": "dos",
+      "size": 18
+    },
+    {
+      "id": "db",
+      "x": 2.0,
+      "y": 3.5,
+      "w": 3.6,
+      "h": 0.72,
+      "label": "ROM BIOS",
+      "sub": "INT 10h, 13h, 16h, 1Ah",
+      "kind": "hw",
+      "size": 18
+    },
+    {
+      "id": "dh",
+      "x": 2.0,
+      "y": 5.3,
+      "w": 3.6,
+      "h": 0.72,
+      "label": "Ports and device memory",
+      "sub": "60h, 70h, 1F0h, B800h",
+      "kind": "hw",
+      "size": 18
+    },
+    {
+      "id": "bp",
+      "x": 8.9,
+      "y": 0.8,
+      "w": 6.1,
+      "h": 0.72,
+      "label": "Program (ring 3)",
+      "sub": "read(2), write(2), ioctl(2)",
+      "kind": "user",
+      "size": 18
+    },
+    {
+      "id": "bs",
+      "x": 8.9,
+      "y": 1.7,
+      "w": 6.1,
+      "h": 0.72,
+      "label": "System call, descriptor",
+      "sub": "struct file, devfs, cdevsw",
+      "kind": "bsd",
+      "size": 18
+    },
+    {
+      "id": "bt",
+      "x": 8.9,
+      "y": 2.6,
+      "w": 6.1,
+      "h": 0.72,
+      "label": "tty layer (for terminals)",
+      "sub": "line discipline, termios",
+      "kind": "bsd",
+      "size": 18
+    },
+    {
+      "id": "bd",
+      "x": 8.9,
+      "y": 3.5,
+      "w": 6.1,
+      "h": 0.72,
+      "label": "Driver (newbus)",
+      "sub": "atkbd, uart, vt, atrtc",
+      "kind": "bsd",
+      "size": 18
+    },
+    {
+      "id": "bb",
+      "x": 8.9,
+      "y": 4.4,
+      "w": 6.1,
+      "h": 0.72,
+      "label": "bus_space, interrupt threads",
+      "sub": "inb/outb, bus_setup_intr",
+      "kind": "bsd",
+      "size": 18
+    },
+    {
+      "id": "bh",
+      "x": 8.9,
+      "y": 5.3,
+      "w": 6.1,
+      "h": 0.72,
+      "label": "Ports and device memory",
+      "sub": "same chips",
+      "kind": "hw",
+      "size": 18
+    }
+  ],
+  "edges": [
+    {
+      "from": "dp",
+      "to": "dk",
+      "kind": "dos"
+    },
+    {
+      "from": "dk",
+      "to": "dd",
+      "kind": "dos"
+    },
+    {
+      "from": "dd",
+      "to": "db",
+      "kind": "dos"
+    },
+    {
+      "from": "db",
+      "to": "dh",
+      "kind": "dos"
+    },
+    {
+      "from": "dp",
+      "to": "db",
+      "from_side": "right",
+      "to_side": "right",
+      "route": "hvh",
+      "style": "dashed",
+      "kind": "dos",
+      "label": "INT 10h",
+      "size": 15
+    },
+    {
+      "from": "dp",
+      "to": "dh",
+      "from_side": "left",
+      "to_side": "left",
+      "route": "hvh",
+      "style": "dashed",
+      "kind": "dos",
+      "label": "IN/OUT,\nB800h",
+      "size": 15,
+      "label_on_line": true
+    },
+    {
+      "from": "bp",
+      "to": "bs",
+      "kind": "bsd"
+    },
+    {
+      "from": "bs",
+      "to": "bt",
+      "kind": "bsd"
+    },
+    {
+      "from": "bt",
+      "to": "bd",
+      "kind": "bsd"
+    },
+    {
+      "from": "bd",
+      "to": "bb",
+      "kind": "bsd"
+    },
+    {
+      "from": "bb",
+      "to": "bh",
+      "kind": "bsd"
+    }
+  ],
+  "notes": [
+    {
+      "x": 5.75,
+      "y": 4.45,
+      "w": 2.0,
+      "text": "Dashed: programs\nthat bypass DOS.\nNo layer is\nenforced.",
+      "size": 14,
+      "kind": "dos",
+      "style": "italic",
+      "align": "start"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="Text and binary mode in the Microsoft C 5.10 runtime: CR LF and Ctrl-Z on read, LF on write">
+<title>Text and binary mode in the Microsoft C 5.10 runtime: CR LF and Ctrl-Z on read, LF on write</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1560.0" height="295.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="252.55" height="26" rx="13" fill="#0E7C86"/>
+<text x="158.275" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00, Microsoft C 5.10</text>
+<rect x="20.0" y="335.0" width="1560.0" height="295.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="345.0" width="117.4" height="26" rx="13" fill="#AB2B28"/>
+<text x="90.7" y="363.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1</text>
+<path d="M387.5,169.75 L412.5,169.75 L412.5,116.85 L437.5,116.85" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M775.0,116.85 L825.0,116.85" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M387.5,169.75 L412.5,169.75 L412.5,222.54999999999998 L437.5,222.54999999999998" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M775.0,222.54999999999998 L825.0,222.54999999999998" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M387.5,484.75 L437.5,484.75" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M775.0,484.75 L825.0,484.75" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M50.0,89.0 a168.75,14 0 0,0 337.5,0 v161.5 a168.75,14 0 0,1 -337.5,0 z" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<ellipse cx="218.75" cy="89.0" rx="168.75" ry="14" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="218.75" y="170.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">CTRLZ.TXT</text>
+<text x="218.75" y="192.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">39 bytes</text>
+<text x="218.75" y="210.6" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">CR LF, 1A, more</text>
+<rect x="437.5" y="75.0" width="337.5" height="83.7" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="606.25" y="114.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">Text mode</text>
+<text x="606.25" y="132.7" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">&quot;r&quot;, the default</text>
+<rect x="825.0" y="75.0" width="725.0" height="83.7" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1187.5" y="114.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">The program sees 18 bytes</text>
+<text x="1187.5" y="132.7" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">CR LF -&gt; LF; end at Ctrl-Z</text>
+<rect x="437.5" y="180.7" width="337.5" height="83.7" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="606.25" y="220.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">Binary mode</text>
+<text x="606.25" y="238.4" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">&quot;rb&quot;, O_BINARY, setmode</text>
+<rect x="825.0" y="180.7" width="725.0" height="83.7" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1187.5" y="220.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">The program sees all 39 bytes</text>
+<text x="1187.5" y="238.4" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">as DIR counts them</text>
+<path d="M50.0,404.0 a168.75,14 0 0,0 337.5,0 v161.5 a168.75,14 0 0,1 -337.5,0 z" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<ellipse cx="218.75" cy="404.0" rx="168.75" ry="14" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="218.75" y="494.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">ctrlz.txt</text>
+<text x="218.75" y="516.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">39 bytes</text>
+<rect x="437.5" y="390.0" width="337.5" height="189.5" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="606.25" y="482.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">read(2)</text>
+<text x="606.25" y="500.6" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">&quot;r&quot; = &quot;rb&quot;</text>
+<rect x="825.0" y="390.0" width="725.0" height="189.5" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1187.5" y="482.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">The program sees all 39 bytes</text>
+<text x="1187.5" y="500.6" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">what is on the disk</text>
+<text x="55.0" y="287.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" fill="#0B3D42" text-anchor="start" font-style="italic">Writing in text mode turns LF into CR LF. TYPE stops at Ctrl-Z too (20 bytes).</text>
+<text x="55.0" y="602.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" fill="#4A1312" text-anchor="start" font-style="italic">One line ending, LF; no end-of-file character; &quot;b&quot; changes nothing.</text>
+</svg>

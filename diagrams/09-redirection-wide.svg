@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="Redirection around a tool: COMMAND.COM edits its Job File Table before EXEC; sh calls dup2 in the child before execve">
+<title>Redirection around a tool: COMMAND.COM edits its Job File Table before EXEC; sh calls dup2 in the child before execve</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1560.0" height="295.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="109.45" height="26" rx="13" fill="#0E7C86"/>
+<text x="86.725" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00</text>
+<rect x="20.0" y="335.0" width="1560.0" height="295.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="345.0" width="117.4" height="26" rx="13" fill="#AB2B28"/>
+<text x="90.7" y="363.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1</text>
+<path d="M310.0,158.0 L360.0,158.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M620.0,158.0 L670.0,158.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M930.0,158.0 L980.0,158.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1240.0,158.0 L1290.0,158.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M310.0,473.0 L360.0,473.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M620.0,473.0 L670.0,473.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M930.0,473.0 L980.0,473.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1240.0,473.0 L1290.0,473.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="50.0" y="75.0" width="260.0" height="166.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="180.0" y="142.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">COMMAND.COM</text>
+<text x="180.0" y="164.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">reads</text>
+<text x="180.0" y="186.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">TOOL &gt;OUT.TXT</text>
+<rect x="360.0" y="75.0" width="260.0" height="166.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="490.0" y="142.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">Creates OUT.TXT,</text>
+<text x="490.0" y="164.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">saves JFT[1],</text>
+<text x="490.0" y="186.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">points it there</text>
+<rect x="670.0" y="75.0" width="260.0" height="166.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="800.0" y="142.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">EXEC: the</text>
+<text x="800.0" y="164.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">child&#x27;s PSP gets</text>
+<text x="800.0" y="186.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">a copy of the JFT</text>
+<rect x="980.0" y="75.0" width="260.0" height="166.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1110.0" y="133.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">The tool</text>
+<text x="1110.0" y="155.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">writes</text>
+<text x="1110.0" y="177.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">handle 1</text>
+<text x="1110.0" y="195.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">-&gt; OUT.TXT</text>
+<rect x="1290.0" y="75.0" width="260.0" height="166.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1420.0" y="142.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">After EXEC:</text>
+<text x="1420.0" y="164.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">close the file,</text>
+<text x="1420.0" y="186.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">restore JFT[1]</text>
+<rect x="50.0" y="390.0" width="260.0" height="166.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="180.0" y="468.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">sh reads</text>
+<text x="180.0" y="490.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">tool &gt;out.txt</text>
+<rect x="360.0" y="390.0" width="260.0" height="166.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="490.0" y="457.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">fork(2): the</text>
+<text x="490.0" y="479.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">child copies</text>
+<text x="490.0" y="501.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">every descriptor</text>
+<rect x="670.0" y="390.0" width="260.0" height="166.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="800.0" y="457.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">In the child:</text>
+<text x="800.0" y="479.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">open, dup2(fd, 1),</text>
+<text x="800.0" y="501.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">close(fd)</text>
+<rect x="980.0" y="390.0" width="260.0" height="166.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1110.0" y="457.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">execve(2):</text>
+<text x="1110.0" y="479.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">fd 1 stays</text>
+<text x="1110.0" y="501.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">open</text>
+<rect x="1290.0" y="390.0" width="260.0" height="166.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1420.0" y="448.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">The tool</text>
+<text x="1420.0" y="470.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">writes</text>
+<text x="1420.0" y="492.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">fd 1</text>
+<text x="1420.0" y="510.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">-&gt; out.txt</text>
+<text x="55.0" y="264.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" fill="#0B3D42" text-anchor="start" font-style="italic">Only handles 0 and 1 can be redirected; handle 2 always reaches the screen.</text>
+<text x="55.0" y="286.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" fill="#0B3D42" text-anchor="start" font-style="italic">A | B: A writes a temporary file, then B reads it, one after the other.</text>
+<text x="55.0" y="579.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" fill="#4A1312" text-anchor="start" font-style="italic">Any descriptor can be redirected (2&gt;, 2&gt;&amp;1); the shell&#x27;s own never change.</text>
+<text x="55.0" y="601.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" fill="#4A1312" text-anchor="start" font-style="italic">a | b is a pipe(2) between two children that run at the same time.</text>
+</svg>

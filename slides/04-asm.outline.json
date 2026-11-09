@@ -1,0 +1,337 @@
+{
+  "module": 4,
+  "title": "Machine code and assembly language",
+  "subtitle": "Instructions, registers, DEBUG, gdb and system calls: MS-DOS 4.00 vs FreeBSD 15.1",
+  "slides": [
+    {
+      "type": "section",
+      "title": "From bytes to instructions",
+      "subtitle": "Fetch, decode, execute: 8086 real mode and x86-64 on one processor"
+    },
+    {
+      "type": "bullets",
+      "title": "A processor runs bytes",
+      "bullets": [
+        "MS-DOS 4.00 is 16-bit 8086 real-mode code; FreeBSD 15.1 runs 64-bit x86-64 code; one PC runs both",
+        "An instruction: prefixes, opcode, ModR/M, SIB, displacement, immediate",
+        "Little-endian: MOV SP,7C00h is BC 00 7C",
+        "Relative jumps and RIP-relative operands count from the end of the instruction",
+        "MS-DOS tools: DEBUG and MASM 5.10 (the assembler that built MS-DOS); FreeBSD tools: NASM, clang, objdump, truss, gdb",
+        "Module 2 followed INT 21h and syscall in the kernel source; this module reads the instructions"
+      ],
+      "notes": "Set the scope. Earlier modules read the boot sectors and the INT 21h dispatcher as source; here we read and write the bytes themselves. Module 5 continues with compilers, object files and executable formats; Module 6 with hardware interrupts, BIOS calls and port I/O. Everything on the following slides was run on the MS-DOS 4.00 we built from source or in the course's FreeBSD 15.1 VM."
+    },
+    {
+      "type": "figure",
+      "title": "Fetch, decode, advance, execute",
+      "diagram": "04-fetch-decode-wide",
+      "caption": "B4 09 CD 21 at 1741:0100. IP has already moved past the instruction when it executes.",
+      "notes": "Walk through the loop with MOV AH,9 and INT 21h. Decoding tells the processor the length, so IP advances before execution; that is why a short jump EB 3C at 7C00h goes to 7C02h + 3Ch = 7C3Eh, and why the INT pushes 0104, the address of the next instruction. Real processors overlap and reorder all of this, but the visible result is one instruction after the other."
+    },
+    {
+      "type": "diagram",
+      "title": "Lab 4.1: the same bytes on two systems",
+      "text": "DEBUG on MS-DOS 4.00: the boot sector loaded at 1741:0100\n1741:0100 EB3C          JMP     013E\n1741:013F 33C0          XOR     AX,AX\n1741:0141 8ED0          MOV     SS,AX\n1741:0143 BC007C        MOV     SP,7C00\n\nndisasm in the FreeBSD VM: /boot/boot0, told it runs at 7C00h\n00007C01  31C0              xor ax,ax\n00007C07  8ED0              mov ss,ax\n00007C09  BC007C            mov sp,0x7c00\n\nEB 3C stores only +3Ch: each tool adds it to its own address.\n33 C0 (MASM) and 31 C0 (LLVM) are both XOR AX,AX.",
+      "notes": "Real output, abridged, from Outputs 4.12 and 4.13. DEBUG and ndisasm disagree on the jump target only because they assume different load addresses. DEBUG's U cannot tell code from data: unassemble past the NOP and you decode the BIOS parameter block as instructions (Output 4.1). The second half of the lab enters bytes by hand with E and checks them with U; objdump in the VM needs --triple to decode 16-bit code (Output 4.6)."
+    },
+    {
+      "type": "section",
+      "title": "Registers, addresses and syntaxes",
+      "subtitle": "Section 4.2 and 4.3: what the instructions work on, and how assemblers write them"
+    },
+    {
+      "type": "figure",
+      "title": "4.2 Registers: 8086 and x86-64",
+      "diagram": "04-registers-wide",
+      "caption": "x86-64 widens the 8086 registers, adds R8-R15, and keeps the flags in the same bit positions.",
+      "notes": "The 8086 has fourteen 16-bit registers, most with special roles (CX counts, SI and DI for strings, BX and BP for addressing). x86-64 has sixteen general registers of 64 bits. The rule that surprises 8086 programmers: writing EAX zeroes bits 63-32 of RAX, writing AX or AL does not; that is why every FreeBSD stub says mov $4,%eax. A REX prefix (40-4F) selects 64-bit operands and the new registers: 49 89 CA is mov r10, rcx."
+    },
+    {
+      "type": "figure",
+      "title": "4.2 Addresses: segment:offset and virtual",
+      "diagram": "04-addressing-wide",
+      "caption": "02C1:1716, the INT 21h entry of our MS-DOS, is physical 04326h. 0x200120 is a virtual address.",
+      "notes": "Real mode: segment times 16 plus offset, 20 bits, many pairs for one byte, no checks. Default segments: CS for code, SS for the stack and BP, DS for other data, ES for string destinations; a prefix overrides one access. x86-64 under FreeBSD: CS, DS, ES and SS have base 0, only FS and GS keep a base, and every address is virtual. The VM runs with 5-level paging (vm.pmap.la57 = 1) but processes keep the 48-bit layout (vm.pmap.prefer_uva_la48 = 1), so the stacks sit just below 0x800000000000."
+    },
+    {
+      "type": "code",
+      "title": "A segment override in the MS-DOS boot sector",
+      "lang": "asm",
+      "code": "        CLI                             ;Stop interrupts till stack ok\n        XOR     AX,AX\n        MOV     SS,AX                   ;Work in stack just below this routine\n        ASSUME  SS:CODE\n        MOV     SP,ORIGIN\n        PUSH    SS\n        POP     ES\n        ASSUME  ES:CODE\n⋮\n        MOV     BX,DSKADR\n        LDS     SI,DWORD PTR SS:[BX]    ; get address of disk table",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/BOOT/MSBOOT.ASM#L151-L168",
+      "callouts": [
+        "FA 33 C0 8E D0 BC 00 7C on the floppy (Output 4.2)",
+        "ASSUME informs MASM; it emits no bytes",
+        "SS:[BX] becomes 36 C5 37: 36 is the SS prefix",
+        "BB 78 00: what lives at 0000:0078? (Lab 4.1, Q1)"
+      ],
+      "notes": "Listing 4.2. Interrupts are off while SS and SP change, because an interrupt between the two would push onto a half-defined stack (the 8086 also delays interrupts for one instruction after MOV SS). DS is still whatever the BIOS left, so the load must go through SS, which the code has just set to 0. Lab 4.1 question 1 asks students to explain the address 78h; do not give the answer yet."
+    },
+    {
+      "type": "table",
+      "title": "4.3 Three syntaxes for one instruction set",
+      "header": [
+        "Item",
+        "MASM (MS-DOS source)",
+        "NASM (both systems)",
+        "AT&T (FreeBSD, gdb)"
+      ],
+      "rows": [
+        [
+          "Operand order",
+          "MOV AX,BX",
+          "mov ax, bx",
+          "movw %bx, %ax"
+        ],
+        [
+          "Constant",
+          "7C00h",
+          "0x7c00",
+          "$0x7c00"
+        ],
+        [
+          "Memory",
+          "WORD PTR [BX+SI+4]",
+          "word [bx+si+4]",
+          "4(%bx,%si)"
+        ],
+        [
+          "x86-64 memory",
+          "(none)",
+          "[rdi + rcx*8 + 16]",
+          "16(%rdi,%rcx,8)"
+        ],
+        [
+          "Address of msg",
+          "OFFSET MSG",
+          "msg",
+          "$msg"
+        ],
+        [
+          "XOR AX,AX bytes",
+          "33 C0",
+          "31 C0",
+          "31 C0"
+        ]
+      ],
+      "notes": "The set-up code of the boot sector was assembled with all three (Outputs 4.4 to 4.6): the twelve bytes agree except the XOR, which has two legal encodings. The MASM row 'Address of msg' is the classic beginner's bug: MASM remembers that MSG was defined with DB and treats a plain MSG as the memory there. NASM never does: a name is an address and brackets mean memory. MASM even pads a forward JMP it cannot yet size with a NOP (Output 4.3)."
+    },
+    {
+      "type": "section",
+      "title": "DEBUG and gdb",
+      "subtitle": "Assembling, running and single-stepping on both systems"
+    },
+    {
+      "type": "diagram",
+      "title": "Lab 4.2: Hello, world typed into DEBUG",
+      "text": "-A 100\n1741:0100 MOV AH,9\n1741:0102 MOV DX,10C\n1741:0105 INT 21\n1741:0107 MOV AX,4C00\n1741:010A INT 21\n1741:010C DB \"Hello from DEBUG\",D,A,\"$\"\n-U 100 L C\n1741:0100 B409          MOV     AH,09\n1741:0102 BA0C01        MOV     DX,010C\n1741:0105 CD21          INT     21\n1741:0107 B8004C        MOV     AX,4C00\n1741:010A CD21          INT     21\n\nRCX 1F, W: a 31-byte HELLO.COM, no assembler, no linker",
+      "notes": "Real output, abridged (Output 4.14). The script is fed to DEBUG on standard input, which works on MS-DOS 4.00 (the same technique as in Module 3). Point out that DEBUG's A has no labels: the student must know that the message starts at 10C before writing MOV DX,10C, which is exactly the bookkeeping an assembler does. The .COM program starts at offset 100h because the PSP occupies the first 256 bytes."
+    },
+    {
+      "type": "code",
+      "title": "How DEBUG's T works: set TF in the saved flags, IRET",
+      "lang": "asm",
+      "code": "SETTRACE:\n        OR      FLSAVE,F_TRACE           ; Turn on trace bit\n⋮\n        MOV     WORD PTR DS:[12],OFFSET DG:BREAKFIX ; Set vector 3--breakpoint instruction\n        MOV     WORD PTR DS:[14],CS\n        MOV     WORD PTR DS:[4],OFFSET DG:REENTER ; Set vector 1--Single step\n        MOV     WORD PTR DS:[6],CS\n⋮\n        MOV     SP,[SPSAVE]\n        PUSH    [FLSAVE]\n        PUSH    [CSSAVE]\n        PUSH    [IPSAVE]\n        MOV     DS,[DSSAVE]\n        IRET",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/CMD/DEBUG/DEBCOM3.ASM#L270-L324",
+      "callouts": [
+        "TF set: the CPU raises INT 1 after one instruction",
+        "INT 1 and INT 3 vectors point back into DEBUG",
+        "IRET loads the program's FLAGS, CS and IP at once",
+        "FreeBSD: ptrace sets PSL_T in the trapframe"
+      ],
+      "notes": "Listing 4.7. T, G and P all end here. G and P plant INT 3 (CC) instead of setting TF; P decodes the instruction length to put the CC after it (Listing 4.9), which is how it steps over INT 21h and CALL. T over an INT instruction is simulated: DEBUG reads the vector and pushes the flags, CS and IP itself (Listing 4.8). On FreeBSD, gdb's stepi asks the kernel through ptrace(PT_STEP), and ptrace_single_step sets PSL_T in the saved RFLAGS (Listing 4.10): the same idea, with the kernel in between."
+    },
+    {
+      "type": "compare",
+      "title": "Lab 4.3: the machine state at entry, .COM and .EXE",
+      "left": {
+        "heading": "HELLOC.COM (37 bytes)",
+        "bullets": [
+          "CS = DS = ES = SS = 1756",
+          "IP = 0100, SP = FFFE",
+          "SS:FFFE holds 0000; CS:0000 holds INT 20",
+          "A near RET from the program ends it",
+          "Loaded as an image: no fixups"
+        ]
+      },
+      "right": {
+        "heading": "HELLOE.EXE (569 bytes)",
+        "bullets": [
+          "CS = 1766, SS = 176A, DS = ES = 1756 (the PSP)",
+          "IP = 0000, SP = 0100 from the header",
+          "MOV AX,1768 was patched by EXEC",
+          "The program must load DS itself",
+          "A 256-byte stack, never stored in the file"
+        ]
+      },
+      "notes": "Real register dumps from DEBUG on MS-DOS 4.00 (Output 4.16). LINK always writes an .EXE: for the .COM version it is 805 bytes, of which EXE2BIN keeps the last 37. In the .EXE, code, data and stack are separate segments two paragraphs (20h bytes) apart, and the segment value in MOV AX,DATA is a relocation that EXEC adds the load segment to. BX:CX is the file length (minus 512 for the header) so that W can write the file back. Module 5 covers the MZ header and the relocation table in depth."
+    },
+    {
+      "type": "bullets",
+      "title": "Lab 4.4: standard output, standard error, exit code",
+      "bullets": [
+        "Function 09h prints up to a $; function 40h writes a byte count to a handle, so it can print $",
+        "HELLO4 writes 'Price: $5, on handle 1' to handle 1 and a note to handle 2, then exits with 4Ch, AL = 3",
+        "HELLO4 >OUT4.TXT: 24 bytes in the file, the handle 2 line still on the screen",
+        "IF ERRORLEVEL 3 is true, IF ERRORLEVEL 4 is not: 'n or higher'",
+        "COMMAND.COM 4.00 has no 2> to redirect handle 2",
+        "FreeBSD (Lab 4.6): descriptors 1 and 2, 2>, and $?"
+      ],
+      "notes": "Output 4.17, from programs assembled with NASM on the host (nasm -f bin). The exit code travels in AL of function 4Ch and is what IF ERRORLEVEL tests. This is the first lab where students check the carry flag after INT 21h: on error, AX holds the error code."
+    },
+    {
+      "type": "diagram",
+      "title": "Lab 4.5: single-stepping a loop, watching the flags",
+      "text": "AL = FF, then ADD AL,01 at 0105:\nDS=1741  ES=1741  SS=1741  CS=1741  IP=0107   NV UP EI PL ZR AC PE CY\nthen DEC CX at 0107:\nDS=1741  ES=1741  SS=1741  CS=1741  IP=0108   NV UP EI PL NZ NA PO CY\nAL = 7F, then ADD AL,01 at 010E:\nAX=0080  BX=0000  CX=0000  DX=0000  SP=FFEE  BP=0000  SI=0000  DI=0000\nDS=1741  ES=1741  SS=1741  CS=1741  IP=0110   OV UP EI NG NZ AC PO NC\n\nFF + 1: zero, carry, auxiliary carry.  DEC leaves CY alone.\n7F + 1: no carry, but signed overflow: 127 + 1 = -128.",
+      "notes": "Real DEBUG register lines from Output 4.18; the lines ending in a colon are ours. Each register display shows the flags after the instruction just executed. INC and DEC never touch CF, so a loop counter can run between the steps of a multi-word addition. The processor computes both the unsigned (CF) and the signed (OF, SF) view of every result; the conditional jump decides which one matters. 75 FB is JNZ with displacement -5, from the end of the instruction at 010A."
+    },
+    {
+      "type": "section",
+      "title": "Stack, calls and system calls",
+      "subtitle": "CALL, RET, INT, IRET, syscall and sysret, with real register values"
+    },
+    {
+      "type": "figure",
+      "title": "4.5 Stack frames: one function, two machines (Lab 4.8)",
+      "diagram": "04-stack-frame-wide",
+      "caption": "sum(a, n) stopped in DEBUG on MS-DOS 4.00 and in gdb on FreeBSD 15.1. Both print 55000.",
+      "notes": "On the 8086 everything is on the stack: the two arguments pushed right to left, the return address 010B, the caller's BP and the saved SI; DEBUG even computes [BP+04] = 0154. On x86-64 the arguments arrive in RDI and RSI and the result leaves in RAX; the stack holds only the return address into main and the saved RBP. SI must survive a call in the MS C convention; RSI and RDI are scratch in System V. clang -O2 turns the same loop in C into 44 instructions with SSE paddq: hand-written assembly is not automatically faster."
+    },
+    {
+      "type": "figure",
+      "title": "INT 21h and syscall: what the instruction saves",
+      "diagram": "04-int-vs-syscall-wide",
+      "caption": "INT pushes FLAGS, CS and IP on the caller's stack. syscall pushes nothing: RIP goes to RCX, RFLAGS to R11.",
+      "notes": "Module 2 follows both paths through the kernel; here the point is the instruction contract. INT 21h is an ordinary software interrupt: no privilege change, the vector at 0:84 is 02C1:1716, and the dispatcher saves the registers on the caller's stack. syscall changes to ring 0, loads RIP from MSR_LSTAR, and leaves everything else to the kernel: that is why the fourth argument travels in R10 and why RCX and R11 are destroyed by every system call."
+    },
+    {
+      "type": "diagram",
+      "title": "Lab 4.6: Hello, world on FreeBSD without a C library",
+      "text": "$ objdump -d hello\n  201140: b8 04 00 00 00         movl    $0x4, %eax\n  201145: bf 01 00 00 00         movl    $0x1, %edi\n  20114a: 48 8d 35 cf ef ff ff   leaq    -0x1031(%rip), %rsi     # 0x200120 <msg>\n  201151: ba 1b 00 00 00         movl    $0x1b, %edx\n  201156: 0f 05                  syscall\n  201158: 72 09                  jb      0x201163 <fail>\n$ ./hello >&-; echo \"exit status $?\"\nexit status 9\n$ truss -o truss.out ./hello >&-; cat truss.out\nwrite(1,\"Hello from x86-64 assembly\\n\",27)       ERR#9 'Bad file descriptor'\n_exit(0x9)",
+      "notes": "Real output, abridged (Outputs 4.20 and 4.21; the spacing of the objdump columns is reduced). Run normally, the program prints Hello from x86-64 assembly; the whole file is 1,192 bytes: _start and three system calls. The lea is RIP-relative: ld wrote 0x200120 - 0x201151 = -0x1031, measured from the end of the instruction. jb and jc are the same opcode 72. With standard output closed the kernel returns EBADF (9) in RAX with the carry flag set, and the program passes it to exit: the shell sees status 9."
+    },
+    {
+      "type": "diagram",
+      "title": "Lab 4.7: the real write stub in libsys",
+      "text": "$ objdump -d --disassemble-symbols=__sys_write /lib/libsys.so.7\n000000000001b4a0 <__sys_write>:\n   1b4a0: b8 04 00 00 00         movl    $0x4, %eax\n   1b4a5: 49 89 ca               movq    %rcx, %r10\n   1b4a8: 0f 05                  syscall\n   1b4aa: 0f 82 58 c9 ff ff      jb      0x17e08 <vfork+0x18>\n   1b4b0: c3                     retq\n\nSYS_write = 4 in EAX; the arguments are already in RDI, RSI, RDX\nRCX is copied to R10 because syscall overwrites RCX\nCarry set: jump to cerror, which stores errno and returns -1\nlibc's write() jumps here through the interposing table, slot 0x1f",
+      "notes": "Real output, abridged (Output 4.22; objdump header lines left out, column spacing reduced; the last four lines are ours). Five instructions, 17 bytes, and every C program on FreeBSD 15.1 runs them for write. objdump names the jb target after the nearest exported symbol; gdb, which reads the full symbol table, calls it .cerror. Module 2 (Listings 2.9 and 2.10) shows the SYS.h macros that generate this stub; Module 5 refers to this lab when it explains libsys and shared libraries."
+    },
+    {
+      "type": "table",
+      "title": "Lab 4.7: registers around syscall, seen in gdb",
+      "header": [
+        "Register",
+        "Before syscall",
+        "After write(1): OK",
+        "After write(99): error"
+      ],
+      "rows": [
+        [
+          "RAX",
+          "0x4 (SYS_write)",
+          "0x3 (bytes written)",
+          "0x9 (EBADF)"
+        ],
+        [
+          "RDI, RSI, RDX",
+          "0x1, 0x200509, 0x3",
+          "RDX = 0x3",
+          "RDX = 0x3"
+        ],
+        [
+          "RCX",
+          "0x80057c7d0",
+          "0x80057a4aa (next instruction)",
+          "0x80057a4aa"
+        ],
+        [
+          "R8, R9, R10",
+          "R10 = 0x80057c7d0",
+          "0, 0, 0",
+          "0, 0, 0"
+        ],
+        [
+          "R11 / EFLAGS",
+          "R11 = 0x206",
+          "0x206 [ PF IF ]",
+          "0x207 [ CF PF IF ]"
+        ]
+      ],
+      "notes": "Output 4.24. After the call RCX holds the return address and R11 the flags, because sysretq takes them from there; the kernel zeroes R8, R9 and R10 so as not to leak kernel values. In some runs (Output 4.25) RCX, R8 and R10 come back with their old values: the kernel returned through iretq instead, which reloads every register from the trapframe. Both are correct: the stub only promises RAX and the carry flag. Which path is taken depends on timing, for example a context switch during the call."
+    },
+    {
+      "type": "code",
+      "title": "Study case 4.B: the fast way back, sysretq",
+      "lang": "c",
+      "code": "        cli\n        testl   $PCB_FULL_IRET,PCB_FLAGS(%rax)\n        jnz     4f\n⋮\n        movq    TF_RDI(%rsp),%rdi       /* bonus; preserve arg 1 */\n        movq    TF_RSI(%rsp),%rsi       /* bonus: preserve arg 2 */\n        movq    TF_RDX(%rsp),%rdx       /* return value 2 */\n        movq    TF_RAX(%rsp),%rax       /* return value 1 */\n        movq    TF_RFLAGS(%rsp),%r11    /* original %rflags */\n        movq    TF_RIP(%rsp),%rcx       /* original %rip */\n        movq    TF_RSP(%rsp),%rsp       /* user stack pointer */\n        xorl    %r8d,%r8d               /* zero the rest of GPRs */\n        xorl    %r10d,%r10d\n⋮\n2:      xorl    %r9d,%r9d\n⋮\n        swapgs\n        sysretq",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/amd64/amd64/exception.S#L573-L600",
+      "callouts": [
+        "PCB_FULL_IRET set: go the slow way, iretq",
+        "Results come from the trapframe: tf_rax",
+        "sysretq loads RIP from RCX and RFLAGS from R11",
+        "R8, R9, R10 zeroed: no kernel values leak"
+      ],
+      "notes": "Listing 4.16. Interrupts are disabled before the test so that the decision and the sysretq see the same state; from the movq into %rsp on, the CPU is in ring 0 on the user's stack, where an interrupt would be fatal. The AST check (signals, rescheduling) is left out here. This is the code that produced the after-columns of the previous slide; the iretq path through doreti produced Output 4.25."
+    },
+    {
+      "type": "code",
+      "title": "Study case 4.A: $GET_VERSION, function 30h",
+      "lang": "asm",
+      "code": "        procedure   $GET_VERSION,NEAR\n⋮\n        context DS\n        MOV     BX,[USERNUM + 2]\n        MOV     CX,[USERNUM]\n        MOV     AX,[MSVERS]\n        invoke  get_user_stack\nASSUME  DS:NOTHING\n        MOV     [SI.user_BX],BX\n        MOV     [SI.user_CX],CX\n⋮\n        MOV     [SI.user_AX],AX         ; Really only sets AH\n        return\nEndProc $GET_VERSION",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/DOS/GETSET.ASM#L81-L114",
+      "callouts": [
+        "context DS = PUSH SS, POP DS: DS = DOSGROUP",
+        "get_user_stack: DS:SI = the caller's saved registers",
+        "Results are written into the saved image",
+        "LEAVEDOS copies AL itself: 'only sets AH'"
+      ],
+      "notes": "Listing 4.15, traced in DEBUG at 02C1:1D6F (Output 4.28). A function does not return values in registers: restore_world reloads every register from the image on the caller's stack, so the function writes into it. The single exception is AL, which LEAVEDOS copies into user_AX (DISP.ASM line 412). Output 4.29 confirms AX = 0004 (version 4.00, major in AL), BX = FF00. FreeBSD does the same with the trapframe: tf_rax and PSL_C in tf_rflags."
+    },
+    {
+      "type": "diagram",
+      "title": "Study case 4.A: tracing into MS-DOS changes MS-DOS",
+      "text": "-T\nAX=3000  BX=0000  CX=0000  DX=0000  SP=091C  BP=0000  SI=0000  DI=0000\nDS=1741  ES=1741  SS=02C1  CS=02C1  IP=1D70   NV UP EI PL ZR NA PE NC\n02C1:1D70 1F            POP     DS\n-T\nAX=3000  BX=0000  CX=0000  DX=0000  SP=091E  BP=0000  SI=0000  DI=0000\nDS=7C4D  ES=1741  SS=02C1  CS=02C1  IP=1D71   NV UP EI PL ZR NA PE NC\n\nPUSH SS stored 02C1 at 02C1:091C.  POP DS loaded 7C4D from it.\nIn between, DEBUG printed the registers with INT 21h function 40h,\non the same DskStack: MS-DOS is not reentrant.",
+      "notes": "Real output (Output 4.28) without DEBUG's blank lines; the last three lines are ours. This was a surprise while writing the module: the very next instruction after PUSH SS reads back a different value. DEBUG's own call went through the dispatcher on the one shared DskStack and overwrote our function's stack. The way back to the program survives because the dispatcher keeps one earlier user_SP in NSP, but function 30h would now read USERNUM from the wrong segment. Lesson: step over system calls with P. On FreeBSD a user debugger cannot step into the kernel, and each thread has its own kernel stack."
+    },
+    {
+      "type": "code",
+      "title": "Study case 4.C: macros as a language, retz",
+      "lang": "asm",
+      "code": "condret macro   cc,ncc\n    local   a\n⋮\n    ifdef   ret_l                       ;; if ret_l is defined\n        if (($ - ret_l) le 126) and ($ gt ret_l)\n                                        ;;     if ret_l is near enough then\n            a:  j&cc    ret_l           ;;         a: j<CC> to ret_l\n            ret_&cc = a                 ;;         define ret_<CC> to be a:\n            exitm\n        endif\n    endif\n⋮\n    j&ncc   a                           ;; j<NCC> a:\n    return                              ;; return\n    a:                                  ;; a:\n    ret_&cc = ret_l                     ;; define ret_<CC> to be ret_l\nendm",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/INC/DOSMAC.INC#L277-L302",
+      "callouts": [
+        "retz is condret z,nz: 'return if zero'",
+        "A RET within 126 bytes back: a two-byte JZ",
+        "Otherwise JNZ over a new RET: 3 bytes",
+        "An optimiser that runs at assembly time"
+      ],
+      "notes": "Listing 4.17. The 8086 has no conditional return and its conditional jumps reach only -128..+127 bytes. return records its RET in ret_l; retz jumps back to it if it is near, or to an earlier jump that itself leads to a RET (the elided ret_&cc block). In the DOS kernel source invoke is used 799 times, procedure 395, return 391, the conditional returns 141 and context 136. With 130 bytes between two procedures, retz silently falls back to the 3-byte form; a hand-written JZ gives MASM error A2053, jump out of range."
+    },
+    {
+      "type": "bullets",
+      "title": "Homework",
+      "bullets": [
+        "4.1 Decode by hand: 19 bytes of boot0, 21 bytes of crt1.o's _start, 16-bit code read as 64-bit",
+        "4.2 A ROT13 filter, stdin to stdout, in assembly on both systems; compare with static C",
+        "4.3 Patch a copy of a program: DEBUG on MS-DOS, dd and the ELF program headers on FreeBSD",
+        "4.4 Counting bits: by hand, with MS C 5.10 and with clang (and -mpopcnt)",
+        "4.5 System calls without a library: intdos() and inline syscall; error = carry flag",
+        "4.6 Essay: what does a segment cost?"
+      ],
+      "notes": "Exercises 4.1 and 4.3 are basic, 4.2, 4.4 and 4.6 intermediate, 4.5 advanced. ROT13 is chosen so as not to repeat Module 5's upcase library function. Every exercise has a part on each system; insist on real transcripts, as in the labs."
+    },
+    {
+      "type": "bullets",
+      "title": "Key takeaways",
+      "bullets": [
+        "An instruction is a few bytes; decoding gives its length, and IP or RIP moves before it executes",
+        "The 8086 forms addresses as segment * 16 + offset; x86-64 under FreeBSD uses flat virtual addresses",
+        "DEBUG and gdb single-step the same way: the trap flag in the saved flags",
+        "Both systems report system call errors in the carry flag, with the code in AX or RAX",
+        "INT 21h saves the caller's registers on the caller's stack; syscall saves almost nothing and the kernel builds a trapframe",
+        "A function returns values by writing into the saved registers: user_AX on MS-DOS, tf_rax on FreeBSD"
+      ],
+      "notes": "Close by connecting forward: Module 5 explains how compilers and linkers produce these bytes and how .COM, MZ and ELF files describe them; Module 6 uses INT and IRET for hardware interrupts and adds IN and OUT for port I/O."
+    }
+  ]
+}

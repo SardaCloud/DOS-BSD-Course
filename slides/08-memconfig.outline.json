@@ -1,0 +1,343 @@
+{
+ "module": 8,
+ "title": "Memory and configuration in practice",
+ "subtitle": "MS-DOS 4.00 and FreeBSD 15.1, measured and read from the source",
+ "slides": [
+  {
+   "type": "section",
+   "title": "Memory in the first megabyte"
+  },
+  {
+   "type": "figure",
+   "title": "The PC memory map seen by MS-DOS 4.00",
+   "diagram": "08-pc-memory-map-wide",
+   "caption": "Conventional, upper, high, extended and expanded memory; DOS manages only the first 640 KB",
+   "notes": "Walk left to right. Everything MS-DOS 4.00 itself allocates lives below 640 KB: there is no HIMEM.SYS, no DOS=HIGH and no upper-memory blocks in this release (search the tree with the class). Extended memory is reached through INT 15h by drivers that hook function 88h to claim it; expanded memory is seen through the 64 KB page frame in a gap of the UMA."
+  },
+  {
+   "type": "stat",
+   "title": "What a CONFIG.SYS line costs",
+   "stats": [
+    {
+     "value": "532",
+     "label": "bytes per disk buffer: 20-byte BUFFINFO + 512-byte sector"
+    },
+    {
+     "value": "59",
+     "label": "bytes per FILES= or FCBS= entry (SFT)"
+    },
+    {
+     "value": "88",
+     "label": "bytes per drive letter for LASTDRIVE= (CDS)"
+    },
+    {
+     "value": "37,488",
+     "label": "bytes of conventional memory for EMM386.SYS"
+    },
+    {
+     "value": "67,312",
+     "label": "bytes for a 64 KB RAMDRIVE without /E or /A"
+    }
+   ],
+   "notes": "All measured with MEM on MS-DOS 4.00 built from source (Lab 8.2) and explained from BUFFER.INC, SF.INC and CURDIR.INC. Each table is rounded to paragraphs and preceded by a 16-byte DEVMARK header, which is how MEM can break the System Data block down."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 8.1: Map the first megabyte",
+   "bullets": [
+    "MEM /DEBUG: every arena block and resident driver",
+    "MEMMAP.COM: BIOS data area, INT 12h, INT 15h 88h, A20 test",
+    "Option ROM scan: 55 AA at C000, 16 KB, checksum zero",
+    "16 KB page map: RAM, ROM or nothing from A000 to FFFF",
+    "Puzzle: a longer program name leaves 16 bytes less memory"
+   ],
+   "notes": "Output 8.6 shows DOSBox-X's UMA: in text mode only B8000-BFFFF is decoded, the video BIOS is 16 KB, and C400-EFFF is empty. A20 is disabled because the MS-DOS 4.00 kernel never enables it (only some drivers do, for their own use). The puzzle is the environment block: EXEC appends the program's path, so A:\\MEMORYXX.EXE needs one more paragraph than A:\\MEM.EXE."
+  },
+  {
+   "type": "table",
+   "title": "Lab 8.2: the price list of CONFIG.SYS",
+   "header": [
+    "Line",
+    "Largest program",
+    "Cost (bytes)"
+   ],
+   "rows": [
+    [
+     "(no CONFIG.SYS)",
+     "589,424",
+     "0"
+    ],
+    [
+     "BUFFERS=30",
+     "581,440",
+     "7,984"
+    ],
+    [
+     "FILES=40",
+     "587,536",
+     "1,888"
+    ],
+    [
+     "STACKS=0,0",
+     "592,720",
+     "-3,296"
+    ],
+    [
+     "LASTDRIVE=Z",
+     "587,584",
+     "1,840"
+    ],
+    [
+     "DEVICE=\\ANSI.SYS",
+     "584,928",
+     "4,496"
+    ],
+    [
+     "DEVICE=\\RAMDRIVE.SYS 64",
+     "522,112",
+     "67,312"
+    ],
+    [
+     "DEVICE=\\EMM386.SYS",
+     "551,936",
+     "37,488"
+    ]
+   ],
+   "notes": "One boot per line with labs/08-memconfig/price.py. Ask the class to predict BUFFERS=45 (15,984) and FILES=255 (14,576) before running them: both predictions are exact. SMARTDRV costs nothing because it refuses to install without a hard disk."
+  },
+  {
+   "type": "section",
+   "title": "Expanded memory and EMM386"
+  },
+  {
+   "type": "figure",
+   "title": "EMS bank switching",
+   "diagram": "08-ems-bank-switching",
+   "caption": "Four 16 KB windows onto a pool of pages; INT 67h function 44h changes what a window shows",
+   "notes": "On a board the windows are switched by I/O registers; EMM386 does it with four page-table entries per window. The program can see only 64 KB of the pool at a time, and pointers into a window are valid only while the right page is mapped."
+  },
+  {
+   "type": "figure",
+   "title": "How EMM386 answers INT 67h",
+   "diagram": "08-emm386-int67",
+   "caption": "DOS runs in virtual-8086 mode; a ring-0 monitor owns the page tables",
+   "notes": "INT 67h in V86 mode goes through the protected-mode IDT, whose gate 67h has DPL 3. Every call is first reflected to the real-mode vector, EMM_rEntry: allocation runs there in V86 mode, while mapping functions set EMM_Flag and issue INT 67h again to run in ring 0. The monitor also traps the A20 and DMA ports: the classic problems of a virtual machine monitor, solved in a 1988 DOS device driver."
+  },
+  {
+   "type": "code",
+   "title": "Mapping one EMS window: four page-table entries",
+   "lang": "asm",
+   "code": "        pushf                   ; preserve direction flag\n        cld                     ; forward\n\n        stosd                   ; store 1st page table entry\n        add     eax,P_SIZE      ; eax <-- next address\n\n        stosd                   ; store 2nd page table entry\n        add     eax,P_SIZE      ; eax <-- next address\n\n        stosd                   ; store 3rd page table entry\n        add     eax,P_SIZE      ; eax <-- next address\n\n        stosd                   ; store 4th page table entry",
+   "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/MEMM/EMM/EMMP.ASM#L389-L401",
+   "callouts": [
+    "EAX holds the pool page's physical address plus control bits",
+    "One 16 KB window = four 4 KB PTEs",
+    "_MapHandlePage reloads CR3 to flush the TLB"
+   ],
+   "notes": "map_EMM_page in EMMP.ASM. Before this, it looked up the pool page in _pft386 and the window's first PTE in _page_frame_base. Ask why the CR3 reload in _MapHandlePage can come before these stores here."
+  },
+  {
+   "type": "code",
+   "title": "A processor check that never fires",
+   "lang": "asm",
+   "code": "        call    Inst_chk_f\n        or      ax,ax                   ; q: already installed?\n        jz      chk_pt                  ; n: go check processor type\n        or      [msg_flag],INS_ERR_MSG  ; y: error\n        jmp     IE_exit                 ; quit\n;\n;  verify processor type\n;\nchk_pt:\n        call    Is386                   ;Q: is this a 386 ?\n        jnz     inc_prc                 ;  N: no, set error",
+   "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/MEMM/MEMM/INIT.ASM#L298-L308",
+   "callouts": [
+    "chk_pt is reached only with ZF = 1",
+    "Is386 returns its answer in CF and restores the other flags",
+    "jnz is never taken; and MASM encoded it as a 386-only 0F 85"
+   ],
+   "notes": "Two independent bugs: the wrong flag, and the encoding. Under .386p MASM 5.10 emitted near Jcc (0F 8x) for these short forward jumps, so a 286 faults on the very first conditional jump of the driver's interrupt routine. Changing eight jumps makes the 286 print 'incorrect machine type' (Exercise 8.4)."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 8.3: EMM386 and INT 67h",
+   "bullets": [
+    "DEVICE=\\EMM386.SYS: 256 KB pool, page frame at C400",
+    "SMSW reports PE=1: DOS now runs in virtual-8086 mode",
+    "EMSTEST maps four logical pages through window 0, then all four windows",
+    "EMSTEST K leaks a handle that MEM /DEBUG still shows",
+    "--conf-extra: no extended memory, or a 286 or 8086 CPU"
+   ],
+   "notes": "tools/dos_run.py --conf-extra SECTION.KEY=VALUE overrides one DOSBox-X setting; without it the machine is unchanged. With memsize=1 EMM386 prints 'insufficient memory' and gives back all but 32 bytes. On the 286 and 8086 the boot hangs before the banner."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 8.4: the C heap on MS-DOS",
+   "bullets": [
+    "Small model: malloc stops after 59 KB with 509 KB still free in DOS",
+    "The start-up code keeps a full 64 KB DGROUP: 256 + 6,688 + 65,536 bytes",
+    "_fmalloc takes the rest from DOS with function 48h",
+    "Large model: malloc takes DOS segments and the near heap",
+    "_ffree never gives memory back to DOS"
+   ],
+   "notes": "Built with Microsoft C 5.10 from the MS-DOS tree. The near heap is bounded by 16-bit pointers, not by DOS. LINK /CP:1 shows that the run-time grows the block with function 4Ah when it needs to."
+  },
+  {
+   "type": "section",
+   "title": "FreeBSD memory in practice"
+  },
+  {
+   "type": "figure",
+   "title": "Maps, objects, page queues, backing store",
+   "diagram": "08-bsd-vm",
+   "caption": "Pages arrive on first touch and move between queues; the page cache is just vnode pages",
+   "notes": "Processes have map entries pointing to VM objects; physical pages belong to objects and sit in the active, inactive or laundry queue or are free or wired. The page daemon ages active pages, frees clean inactive ones and sends dirty anonymous pages to swap through the laundry."
+  },
+  {
+   "type": "code",
+   "title": "The page queues",
+   "lang": "c",
+   "code": "#define PQ_NONE         255\n#define PQ_INACTIVE     0\n#define PQ_ACTIVE       1\n#define PQ_LAUNDRY      2\n#define PQ_UNSWAPPABLE  3\n#define PQ_COUNT        4",
+   "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/vm/vm_page.h#L322-L327",
+   "callouts": [
+    "Inactive: candidates for reuse",
+    "Laundry: dirty pages waiting for swap",
+    "Counts exported as vm.stats.vm.v_*_count"
+   ],
+   "notes": "top's Mem line (Active, Inact, Laundry, Wired, Buf, Free) reads exactly these counters with sysctl, see usr.bin/top/machine.c. Free memory is low on a busy system because file pages stay cached in these queues."
+  },
+  {
+   "type": "code",
+   "title": "Swap reservation and vm.overcommit",
+   "lang": "c",
+   "code": "        pincr = atop(incr);\n        prev = atomic_fetchadd_long(&swap_reserved, pincr);\n        r = prev + pincr;\n        s = swap_total;\n        oc = atomic_load_int(&vm_overcommit);\n        if (r > s && (oc & SWAP_RESERVE_ALLOW_NONWIRED) != 0) {\n                s += vm_cnt.v_page_count - vm_cnt.v_free_reserved -\n                    vm_wire_count();\n        }\n        if ((oc & SWAP_RESERVE_FORCE_ON) != 0 && r > s &&\n            priv_check(curthread, PRIV_VM_SWAP_NOQUOTA) != 0) {\n                prev = atomic_fetchadd_long(&swap_reserved, -pincr);\n                KASSERT(prev >= pincr,\n                    (\"swap_reserved < incr on overcommit fail\"));\n                goto out_error;\n        }",
+   "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/vm/swap_pager.c#L289-L304",
+   "callouts": [
+    "Every anonymous page reserves swap",
+    "Bit 2 counts most of RAM as reservable",
+    "Bit 0 makes the allocation fail when over"
+   ],
+   "notes": "With the default vm.overcommit=0 nothing fails here: memory is overcommitted, and if programs touch more than RAM plus swap the OOM killer in vm_pageout.c kills the largest process. On a machine without swap, bit 0 alone would make nearly every allocation fail; use 5. Root is never refused (PRIV_VM_SWAP_NOQUOTA): in the course VM only an ordinary user saw malloc fail with vm.overcommit=1."
+  },
+  {
+   "type": "compare",
+   "title": "malloc on both systems",
+   "left": {
+    "heading": "MS-DOS 4.00 + Microsoft C 5.10",
+    "bullets": [
+     "INT 21h 48h/49h/4Ah, paragraphs",
+     "Near heap inside the 64 KB DGROUP",
+     "Far heap: segments from DOS",
+     "Fails at once and exactly: NULL",
+     "Freed memory never returns to DOS"
+    ]
+   },
+   "right": {
+    "heading": "FreeBSD 15.1",
+    "bullets": [
+     "jemalloc in libc over mmap (no sbrk: JEMALLOC_DSS off)",
+     "Arenas and thread caches",
+     "Pages appear at first touch",
+     "Rarely fails; the OOM killer may act later",
+     "Freed pages purged after dirty_decay_ms, at once from 8 MiB"
+    ]
+   },
+   "notes": "jemalloc_FreeBSD.h undefines JEMALLOC_DSS, so the allocator never calls sbrk even though libc still exports it. MALLOC_CONF and /etc/malloc.conf tune it at run time; Lab 8.6 uses dirty_decay_ms and stats_print."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 8.6: watching FreeBSD memory",
+   "bullets": [
+    "sysctl hw.physmem hw.realmem hw.usermem",
+    "sysctl vm.stats.vm.*, top -o res, vmstat 1, swapinfo",
+    "touchmem: VSZ grows at malloc, RSS only when pages are touched",
+    "free: madvise(MADV_FREE); RSS and VSZ stay until the page daemon or exit",
+    "truss: mmap and madvise, no break"
+   ],
+   "notes": "Everything in this lab runs in the FreeBSD VM; Outputs 8.17-8.19 were captured in the course VM. Blocks of 8 MiB or more go to a separate jemalloc arena with decay time 0, so MALLOC_CONF decay settings change nothing for touchmem; MADV_FREE leaves the pages mapped. Contrast with Lab 8.1: on DOS MEM accounts for every byte from the arena, on FreeBSD the accounting is by page state."
+  },
+  {
+   "type": "section",
+   "title": "Configuring both systems"
+  },
+  {
+   "type": "figure",
+   "title": "Boot-time configuration",
+   "diagram": "08-boot-config",
+   "caption": "One file processed in passes, versus defaults plus overrides and ordered scripts",
+   "notes": "SYSINIT reads CONFIG.SYS before any shell exists; COMMAND.COM /P runs AUTOEXEC.BAT. On FreeBSD the loader reads loader.conf, the kernel reads tunables, and /etc/rc runs the rc.d scripts in the order computed by rcorder, in two passes split at FILESYSTEMS."
+  },
+  {
+   "type": "code",
+   "title": "/etc/rc: rcorder, twice",
+   "lang": "sh",
+   "code": "# Do a first pass to get everything up to $early_late_divider so that\n# we can do a second pass that includes $local_startup directories\n#\nunset system_rc\nfind_system_scripts\nfiles=`rcorder ${skip} ${skip_firstboot} ${system_rc} 2>/dev/null`\nrun_rc_scripts --break ${early_late_divider} ${rc_early_flags} $files\n⋮\nfind_system_scripts\nfiles=`rcorder ${skip} ${skip_firstboot} ${system_rc} ${local_rc} 2>/dev/null`\nrun_rc_scripts ${rc_late_flags} $files",
+   "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/libexec/rc/rc#L98-L124",
+   "callouts": [
+    "First pass: base scripts up to FILESYSTEMS",
+    "Then /usr/local/etc/rc.d is searched",
+    "Second pass orders everything again"
+   ],
+   "notes": "The early_late_divider default is FILESYSTEMS (defaults/rc.conf line 35): until local file systems are mounted, package scripts may not exist. rcorder's errors go to /dev/null, which is why a missing provider is silent at boot."
+  },
+  {
+   "type": "code",
+   "title": "An rc.d script (all of it after the #! line)",
+   "lang": "sh",
+   "code": "# PROVIDE: rwho\n# REQUIRE: DAEMON\n# BEFORE:  LOGIN\n# KEYWORD: shutdown\n\n. /etc/rc.subr\n\nname=\"rwhod\"\ndesc=\"System status server\"\nrcvar=\"rwhod_enable\"\ncommand=\"/usr/sbin/${name}\"\n\n: ${rwhod_svcj_options:=\"net_basic\"}\n\nload_rc_config $name\nrun_rc_command \"$1\"",
+   "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/libexec/rc/rc.d/rwho#L5-L20",
+   "callouts": [
+    "Header read by rcorder",
+    "rcvar: rwhod_enable, NO in the defaults",
+    "load_rc_config then run_rc_command"
+   ],
+   "notes": "run_rc_command implements start, stop, status, enable and the rest; service(8) calls the script with the same environment as at boot. Lab 8.5's heartbeat script adds daemon(8), a pid file, procname and an extra command."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 8.5: the rc system by hand",
+   "bullets": [
+    "Read defaults/rc.conf: rc_conf_files, early_late_divider, *_enable",
+    "Order 11 real rc.d scripts by hand with rcorder's sequence numbers",
+    "Check with labs/08-memconfig/rcorder.py on all 171 scripts",
+    "Write heartbeat.rc for a toy daemon; sh -n; run it in the VM",
+    "rcorder model: sshd sits at depth 44 behind LOGIN"
+   ],
+   "notes": "The model reproduces rcorder 15.1's sequence numbers; within one sequence the order printed by rcorder depends on qsort, so compare sets. It also reproduces the rcorder(8) example: 3 scripts for -k nostart -s firstboot -s nojailvnet."
+  },
+  {
+   "type": "figure",
+   "title": "When does a change take effect?",
+   "diagram": "08-runtime-knobs",
+   "caption": "MS-DOS: reboot or a TSR; FreeBSD: tunable, sysctl, service, module",
+   "notes": "CTLFLAG_RDTUN variables are read once while the kernel starts, for the same reason that BUFFERS= needs a reboot: data structures were sized with them. CTLFLAG_RW variables change at once; services pick up rc.conf on the next start."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 8.7: run-time knobs",
+   "bullets": [
+    "KEYB IT at the prompt: 5,792 bytes resident, never returned",
+    "KEYB US switches the layout inside the resident copy",
+    "MODE changes BIOS state and exits: free",
+    "sysctl -aT (855 tunables), sysctl -aW, sysctl -d vm.overcommit",
+    "kern.maxfiles changes at run time; hw.physmem cannot"
+   ],
+   "notes": "The DOS half is captured on MS-DOS 4.00; the FreeBSD half runs in the VM. kern.maxfiles is the counterpart of FILES=: a limit on objects allocated on demand, not a preallocated table."
+  },
+  {
+   "type": "bullets",
+   "title": "Homework",
+   "bullets": [
+    "8.1 Configure a 1989 PC and a 2026 server; measure both",
+    "8.2 MEMINFO.COM: conventional, extended, expanded memory",
+    "8.3 An rc.d script for a memory watcher",
+    "8.4 Repair EMM386's processor check and rebuild it",
+    "8.5 Overcommit experiments; 8.6 essay on memory scarcity"
+   ],
+   "notes": "Exercises 8.1 to 8.4 use the MS-DOS lab and the 1988 toolchain; 8.3 and 8.5 need the FreeBSD VM. Insist on predictions before measurements, and on permalinks for every explanation."
+  },
+  {
+   "type": "bullets",
+   "title": "Key takeaways",
+   "bullets": [
+    "Every CONFIG.SYS line has a price in bytes you can compute from the source",
+    "EMM386 used 386 paging only to imitate a 64 KB window",
+    "FreeBSD counts pages by state; free memory is meant to be low",
+    "DOS refuses allocations exactly; FreeBSD promises, then may kill",
+    "Defaults + overrides + declared order make FreeBSD mistakes local"
+   ],
+   "notes": "Close by tying memory and configuration together: on MS-DOS configuration is mostly about memory, because every table competes for the same 640 KB and is fixed at boot. On FreeBSD configuration is about behaviour, and memory is managed by policy at run time."
+  }
+ ]
+}

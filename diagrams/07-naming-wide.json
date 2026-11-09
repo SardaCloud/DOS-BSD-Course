@@ -1,0 +1,39 @@
+{
+  "title": "From a name to a sector: drive letters on MS-DOS, GEOM providers on FreeBSD",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 15.6, "h": 2.95, "label": "MS-DOS 4.00", "kind": "dos"},
+    {"x": 0.2, "y": 3.35, "w": 15.6, "h": 2.95, "label": "FreeBSD 15.1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "dp", "x": 0.5, "y": 0.95, "w": 2.1, "h": 1.3, "label": "Program\nB:\\FILE.TXT", "kind": "user", "size": 18},
+    {"id": "dc", "x": 3.1, "y": 0.95, "w": 2.1, "h": 1.3, "label": "CDS entry\nfor B:", "sub": "CURDIR.INC", "kind": "dos", "size": 18},
+    {"id": "dd", "x": 5.7, "y": 0.95, "w": 2.1, "h": 1.3, "label": "DPB\nof drive B", "sub": "DPB.INC", "kind": "dos", "size": 18},
+    {"id": "dv", "x": 8.3, "y": 0.95, "w": 2.1, "h": 1.3, "label": "IO.SYS disk\ndriver, unit 1", "sub": "MSDISK.ASM", "kind": "dos", "size": 18},
+    {"id": "db", "x": 10.9, "y": 0.95, "w": 2.1, "h": 1.3, "label": "BIOS\nINT 13h", "sub": "CHS address", "kind": "hw", "size": 18},
+    {"id": "dk", "x": 13.5, "y": 0.85, "w": 2.0, "h": 1.5, "label": "Floppy\ndrive B", "kind": "hw", "shape": "cyl", "size": 18},
+    {"id": "bp", "x": 0.5, "y": 4.1, "w": 2.1, "h": 1.3, "label": "Program\n/mnt/file", "kind": "user", "size": 18},
+    {"id": "bv", "x": 3.1, "y": 4.1, "w": 2.1, "h": 1.3, "label": "VFS + UFS\nmounted /mnt", "sub": "ffs_vfsops.c", "kind": "bsd", "size": 18},
+    {"id": "bpart", "x": 5.7, "y": 4.1, "w": 2.1, "h": 1.3, "label": "Provider\nada0p4", "sub": "PART class", "kind": "bsd", "size": 18},
+    {"id": "bdisk", "x": 8.3, "y": 4.1, "w": 2.1, "h": 1.3, "label": "Provider\nada0", "sub": "DISK class", "kind": "bsd", "size": 18},
+    {"id": "bd", "x": 10.9, "y": 4.1, "w": 2.1, "h": 1.3, "label": "Driver\nahci, nvme, md", "sub": "LBA in a bio", "kind": "bsd", "size": 18},
+    {"id": "bk", "x": 13.5, "y": 4.0, "w": 2.0, "h": 1.5, "label": "Disk", "kind": "hw", "shape": "cyl", "size": 18}
+  ],
+  "edges": [
+    {"from": "dp", "to": "dc", "kind": "dos", "label": "letter"},
+    {"from": "dc", "to": "dd", "kind": "dos", "label": "devptr"},
+    {"from": "dd", "to": "dv", "kind": "dos", "label": "driver"},
+    {"from": "dv", "to": "db", "kind": "dos", "label": "sector"},
+    {"from": "db", "to": "dk", "kind": "hw"},
+    {"from": "bp", "to": "bv", "kind": "bsd", "label": "path"},
+    {"from": "bv", "to": "bpart", "kind": "bsd", "label": "g_vfs"},
+    {"from": "bpart", "to": "bdisk", "kind": "bsd", "label": "+ offset"},
+    {"from": "bdisk", "to": "bd", "kind": "bsd", "label": "bio"},
+    {"from": "bd", "to": "bk", "kind": "hw"}
+  ],
+  "notes": [
+    {"x": 0.5, "y": 2.5, "w": 15, "text": "Two tables per drive letter, built at boot from the BPB; SUBST and JOIN only edit the CDS.", "size": 16, "kind": "dos", "style": "italic"},
+    {"x": 0.5, "y": 5.65, "w": 15, "text": "One tree of names; GEOM classes stack providers (partitions, encryption, mirrors) between file system and disk.", "size": 16, "kind": "bsd", "style": "italic"}
+  ]
+}
+

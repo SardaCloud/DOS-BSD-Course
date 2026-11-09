@@ -1,0 +1,31 @@
+{
+  "title": "The 1.44 MB lab floppy: what the 512-byte boot sector expects",
+  "width": 13.6, "height": 5.45,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 13.2, "h": 2.15, "label": "dos400.img: 2880 sectors of 512 bytes", "kind": "dos"}
+  ],
+  "nodes": [
+    {"id": "boot", "x": 0.5, "y": 0.9, "w": 2.3, "h": 1.15, "label": "Boot sector", "sub": "sector 0", "kind": "dos"},
+    {"id": "fat1", "x": 2.8, "y": 0.9, "w": 1.8, "h": 1.15, "label": "FAT 1", "sub": "sectors 1-9", "kind": "data"},
+    {"id": "fat2", "x": 4.6, "y": 0.9, "w": 1.8, "h": 1.15, "label": "FAT 2", "sub": "sectors 10-18", "kind": "data"},
+    {"id": "root", "x": 6.4, "y": 0.9, "w": 2.4, "h": 1.15, "label": "Root directory", "sub": "sectors 19-32", "kind": "data"},
+    {"id": "data", "x": 8.8, "y": 0.9, "w": 4.4, "h": 1.15, "label": "Data area", "sub": "sectors 33-2879", "kind": "data"},
+    {"id": "bpb", "x": 0.3, "y": 2.9, "w": 2.7, "h": 0.55, "label": "BPB at offset 0x0B", "kind": "dos", "size": 14},
+    {"id": "bpbv", "x": 0.3, "y": 3.5, "w": 2.7, "h": 1.5, "label": "512 bytes per sector\n1 sector per cluster\n2 FATs of 9 sectors\n224 root entries\nmedia byte F0h", "kind": "data", "size": 13.5, "weight": "400"},
+    {"id": "e1", "x": 6.2, "y": 2.9, "w": 2.8, "h": 0.55, "label": "entry 1: IO.SYS", "kind": "dos", "size": 14},
+    {"id": "e2", "x": 6.2, "y": 3.5, "w": 2.8, "h": 0.55, "label": "entry 2: MSDOS.SYS", "kind": "dos", "size": 14},
+    {"id": "e3", "x": 6.2, "y": 4.1, "w": 2.8, "h": 0.55, "label": "entry 3: volume label", "kind": "data", "size": 14},
+    {"id": "f1", "x": 9.7, "y": 2.9, "w": 2.6, "h": 0.95, "label": "IO.SYS", "sub": "first 3 sectors: loader", "kind": "dos", "size": 15},
+    {"id": "f2", "x": 9.7, "y": 3.95, "w": 2.6, "h": 0.7, "label": "MSDOS.SYS, COMMAND.COM ...", "kind": "data", "size": 13, "weight": "400"}
+  ],
+  "edges": [
+    {"from": "boot", "to": "bpb", "style": "dashed", "color": "#6B7280"},
+    {"from": "root", "to": "e1", "style": "dashed", "color": "#6B7280"},
+    {"from": "data", "to": "f1", "style": "dashed", "color": "#6B7280"}
+  ],
+  "notes": [
+    {"x": 3.2, "y": 3.05, "w": 2.8, "text": "1 + 2 x 9 + 14 = 33:\nthe first data sector\n\n224 entries x 32 bytes\n= 14 sectors", "size": 14, "kind": "neutral", "align": "middle"},
+    {"x": 6.2, "y": 4.75, "w": 2.8, "text": "the boot sector compares\nentries 1 and 2 by name", "size": 13, "kind": "dos", "style": "italic", "align": "middle"},
+    {"x": 9.7, "y": 4.75, "w": 2.6, "text": "and reads 3 sectors from\nsector 33, without the FAT", "size": 13, "kind": "dos", "style": "italic", "align": "middle"}
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "title": "Part of the newbus device tree of a PC under FreeBSD 15.1",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 15.6, "h": 6.1, "label": "FreeBSD 15.1: devinfo -v (abridged)", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "nexus", "x": 6.7, "y": 0.5, "w": 2.6, "h": 0.8, "label": "nexus0", "kind": "bsd", "size": 18},
+    {"id": "acpi", "x": 6.7, "y": 1.7, "w": 2.6, "h": 0.8, "label": "acpi0", "sub": "reads ACPI tables", "kind": "bsd", "size": 18},
+    {"id": "rtc", "x": 0.5, "y": 3.0, "w": 2.8, "h": 1.05, "label": "atrtc0", "sub": "ports 70h-71h, irq 8", "kind": "bsd", "size": 18},
+    {"id": "tmr", "x": 3.5, "y": 3.0, "w": 2.8, "h": 1.05, "label": "attimer0", "sub": "ports 40h-43h, irq 0", "kind": "bsd", "size": 18},
+    {"id": "kbdc", "x": 6.6, "y": 3.0, "w": 2.8, "h": 1.05, "label": "atkbdc0", "sub": "ports 60h, 64h", "kind": "bsd", "size": 18},
+    {"id": "uart", "x": 9.7, "y": 3.0, "w": 2.6, "h": 1.05, "label": "uart0", "sub": "port 3F8h", "kind": "bsd", "size": 18},
+    {"id": "pci", "x": 12.6, "y": 3.0, "w": 2.9, "h": 1.05, "label": "pcib0, pci0", "sub": "devices by vendor ID", "kind": "bsd", "size": 18},
+    {"id": "kbd", "x": 5.0, "y": 4.75, "w": 2.6, "h": 0.95, "label": "atkbd0", "sub": "irq 1", "kind": "bsd", "size": 18},
+    {"id": "psm", "x": 8.4, "y": 4.75, "w": 2.6, "h": 0.95, "label": "psm0", "sub": "irq 12, mouse", "kind": "bsd", "size": 18},
+    {"id": "vt", "x": 0.5, "y": 4.75, "w": 3.2, "h": 0.95, "label": "vt, /dev/ttyv0", "sub": "not a child: kbdmux", "kind": "bsd", "size": 18, "dashed": true}
+  ],
+  "edges": [
+    {"from": "nexus", "to": "acpi", "kind": "bsd"},
+    {"from": "acpi", "to": "rtc", "from_side": "bottom", "to_side": "top", "route": "vhv", "kind": "bsd"},
+    {"from": "acpi", "to": "tmr", "from_side": "bottom", "to_side": "top", "route": "vhv", "kind": "bsd"},
+    {"from": "acpi", "to": "kbdc", "from_side": "bottom", "to_side": "top", "route": "vhv", "kind": "bsd"},
+    {"from": "acpi", "to": "uart", "from_side": "bottom", "to_side": "top", "route": "vhv", "kind": "bsd"},
+    {"from": "acpi", "to": "pci", "from_side": "bottom", "to_side": "top", "route": "vhv", "kind": "bsd"},
+    {"from": "kbdc", "to": "kbd", "from_side": "bottom", "to_side": "top", "route": "vhv", "kind": "bsd"},
+    {"from": "kbdc", "to": "psm", "from_side": "bottom", "to_side": "top", "route": "vhv", "kind": "bsd"},
+    {"from": "kbd", "to": "vt", "from_side": "left", "to_side": "right", "style": "dashed", "kind": "bsd", "label": "keys", "size": 15}
+  ],
+  "notes": [
+    {"x": 11.3, "y": 4.75, "w": 4.3, "text": "Each box is a device_t.\nDrivers bid in probe; the winner\nattaches and allocates its\nresources from the parent bus.", "size": 15, "kind": "bsd", "style": "italic"}
+  ]
+}

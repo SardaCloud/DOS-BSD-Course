@@ -1,0 +1,229 @@
+{
+  "module": 0,
+  "title": "The lab",
+  "subtitle": "Building MS-DOS 4.00 from its own source, booting it, and a FreeBSD 15.1 machine",
+  "slides": [
+    {
+      "type": "section",
+      "title": "Two systems, one PC",
+      "notes": "This module sets up everything the course uses. Both systems are studied from their real source at fixed commits, and both are run, not just read."
+    },
+    {
+      "type": "figure",
+      "title": "The lab at a glance",
+      "diagram": "00-lab-wide",
+      "caption": "One host PC: DOSBox-X builds and boots MS-DOS 4.00; a Hyper-V Generation 1 VM runs FreeBSD 15.1",
+      "notes": "Left: the course repository with both source trees pinned. Top: DOSBox-X runs the 1988 toolchain over the MS-DOS source (build_dos.py), make_floppy.py writes dos400.img, and dos_run.py boots it. Bottom: the FreeBSD VM boots through the BIOS from its GPT disk; bsd_run.py reaches it over SSH and copies files, the DOS image included, with scp."
+    },
+    {
+      "type": "table",
+      "title": "What the lab contains",
+      "header": [
+        "Part",
+        "What it is",
+        "Used in"
+      ],
+      "rows": [
+        [
+          "Course repository",
+          "Notes, tools, slides, citation checker",
+          "All modules"
+        ],
+        [
+          "src-ext/MS-DOS",
+          "microsoft/MS-DOS at commit 2d04cac",
+          "All modules"
+        ],
+        [
+          "src-ext/freebsd-src",
+          "freebsd/freebsd-src at release/15.1.0",
+          "All modules"
+        ],
+        [
+          "DOSBox-X",
+          "PC emulator: runs the 1988 build tools, boots our DOS",
+          "All modules"
+        ],
+        [
+          "dos400.img",
+          "1.44 MB floppy with MS-DOS 4.00 built from source",
+          "Modules 1-3"
+        ],
+        [
+          "FreeBSD 15.1 VM",
+          "BIOS-booting VM with /usr/src at the same tag",
+          "Modules 1-3"
+        ]
+      ],
+      "notes": "Everything is pinned. The FreeBSD release's own REVISION file names the same commit, 96841ea08dcf, so the VM's binaries and the source we cite match."
+    },
+    {
+      "type": "bullets",
+      "title": "Every claim points at a source line",
+      "bullets": [
+        "Listings link to exact lines at the pinned commits",
+        "A line with only ⋮ means lines were left out",
+        "tools/check_citations.py verifies every listing mechanically",
+        "--excerpt prints any range, ready to paste",
+        "Code on slides is checked against the source too"
+      ],
+      "notes": "Show one link live: click it and land on the highlighted lines on GitHub. Then run check_citations.py --excerpt on the same range."
+    },
+    {
+      "type": "section",
+      "title": "MS-DOS 4.00 from source",
+      "notes": "The 2024 release includes the complete build tree with its own compilers. It does not build as published; four small problems stop it."
+    },
+    {
+      "type": "code",
+      "title": "The build environment the release expects",
+      "lang": "bat",
+      "code": "@echo off\necho setting up system to build the MS-DOS 4.01 SOURCE BAK...\nset CL=\nset LINK=\nset MASM=\nset COUNTRY=usa-ms\nset BAKROOT=d:\nrem BAKROOT points to the home drive/directory of the sources.\nset LIB=%BAKROOT%\\src\\tools\\lib\nset INIT=%BAKROOT%\\src\\tools\nset INCLUDE=%BAKROOT%\\src\\tools\\inc\nset PATH=%BAKROOT%\\src\\tools",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/SETENV.BAT#L1-L12",
+      "callouts": [
+        "Calls itself 4.01; the binaries say 4.00",
+        "tools\\lib and tools\\inc do not exist",
+        "The C headers and libraries are in TOOLS\\BLD"
+      ],
+      "notes": "SETENV.BAT is the official setup. Its LIB and INCLUDE paths point at folders that are not in the release; the compiler's files are under TOOLS\\BLD. Our generated BUILD.BAT has the corrected paths."
+    },
+    {
+      "type": "table",
+      "title": "Four problems, four fixes",
+      "header": [
+        "Problem",
+        "Symptom",
+        "Fix in prepare_dos_build.py"
+      ],
+      "rows": [
+        [
+          "LF line endings in git",
+          "1988 tools expect CR LF",
+          "Convert text files, detected by content"
+        ],
+        [
+          "U+FFFD in 20 files",
+          "MASM: line too long (GETMSG.ASM 473)",
+          "Map each back to one byte"
+        ],
+        [
+          "Wrong LIB/INCLUDE paths",
+          "Compiler cannot find headers",
+          "Generated BUILD.BAT with TOOLS\\BLD"
+        ],
+        [
+          "Emulator clock behind host",
+          "NMAKE reruns NOSRVBLD, which hangs",
+          "Fixed past date on all sources"
+        ]
+      ],
+      "notes": "Each problem was found by a failing build. Line endings, character encodings, environment assumptions and make's reliance on file times: a small lesson in why a source release is not yet a build."
+    },
+    {
+      "type": "figure",
+      "title": "The build pipeline",
+      "diagram": "00-build-wide",
+      "caption": "Python on the host prepares the tree and makes the floppy; the 1988 tools run inside DOSBox-X",
+      "notes": "Follow the arrows: prepare_dos_build.py copies the tree to build/dos4 and applies the four fixes; DOSBox-X mounts it as D: and BUILD.BAT runs one NMAKE per directory, which calls MASM, CL, LINK and EXE2BIN. build_dos.py then checks BUILD.LOG and the 62 files of CPY.BAT, make_floppy.py writes dos400.img, and dos_run.py boots it with BOOT A:."
+    },
+    {
+      "type": "stat",
+      "title": "The build, measured",
+      "stats": [
+        {
+          "value": "1.7 min",
+          "label": "for the whole tree in DOSBox-X"
+        },
+        {
+          "value": "62",
+          "label": "programs and drivers listed in CPY.BAT"
+        },
+        {
+          "value": "0",
+          "label": "bytes differ between two clean builds"
+        }
+      ],
+      "notes": "The build is reproducible: no 1988 tool writes a date, time or path into its output. Exercise 0.1 asks students to compare hashes with classmates and explain why they match."
+    },
+    {
+      "type": "code",
+      "title": "Why the floppy layout is not arbitrary",
+      "lang": "asm",
+      "code": "        MOV     DI,BX\n        MOV     CX,11\n        MOV     SI,OFFSET BIO           ; point to \"ibmbio  com\"\n        REPZ    CMPSB                   ; see if the same\n        JNZ     CKERR                   ; if not there advise the user\n;\n; Found the BIOS.  Check the second directory entry.\n;\n        LEA     DI,[BX+20h]\n        MOV     SI,OFFSET DOS           ; point to \"ibmdos  com\"\n        MOV     CX,11\n        REPZ    CMPSB\n        JZ      DoLoad",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/BOOT/MSBOOT.ASM#L256-L268",
+      "callouts": [
+        "Entry 1 must be IO.SYS, entry 2 MSDOS.SYS",
+        "Names compared as 11 bytes, as stored on disk",
+        "Then 3 sectors are read from the data start"
+      ],
+      "notes": "MSBOOT is 512 bytes, so it assumes a lot: the first two directory entries and IO.SYS starting at the first data sector. make_floppy.py builds the image to satisfy exactly these rules, playing the role of FORMAT /S."
+    },
+    {
+      "type": "figure",
+      "title": "The 1.44 MB lab floppy",
+      "diagram": "00-floppy-wide",
+      "caption": "IO.SYS must be directory entry 1 and start at the first data sector, sector 33",
+      "notes": "Walk through the arithmetic: 1 reserved sector, two FATs of 9 sectors, 14 root directory sectors, so data starts at sector 33. The boot sector checks the first two directory entries by name and reads three sectors from sector 33 without looking at the FAT. Exercise 1.1 in Module 1 decodes this boot sector byte by byte."
+    },
+    {
+      "type": "bullets",
+      "title": "Running MS-DOS 4.00",
+      "bullets": [
+        "python tools/dos_run.py: boot the image and work at A:\\>",
+        "With commands: run them and print their output",
+        "Output travels over COM1 into a file DOSBox-X writes",
+        "DIR *. | SORT shows two temporary files: the pipe",
+        "nasm assembles .COM programs; --file copies them in"
+      ],
+      "notes": "Demo live: dos_run.py \"DIR *. | SORT\". Two zero-byte files with hexadecimal names appear in the listing. Ask the class where they come from; Module 3 answers it from TPIPE.ASM."
+    },
+    {
+      "type": "figure",
+      "title": "How dos_run.py captures output",
+      "diagram": "00-dos-run-wide",
+      "caption": "Commands go in through a temporary AUTOEXEC.BAT; their output leaves through COM1 into a file on the host",
+      "notes": "dos_run.py writes a temporary AUTOEXEC.BAT that redirects each command to COM1, and tells DOSBox-X to write everything sent to COM1 into a file. After BOOT A: the machine runs only our boot sector, IO.SYS, MSDOS.SYS and COMMAND.COM. SYSINIT's messages come before AUTOEXEC.BAT and are not captured; tools/screen.asm can copy the screen to the output."
+    },
+    {
+      "type": "section",
+      "title": "FreeBSD 15.1",
+      "notes": "The FreeBSD side is a normal virtual machine, installed so that it boots through the BIOS like the DOS image does."
+    },
+    {
+      "type": "bullets",
+      "title": "The FreeBSD machine",
+      "bullets": [
+        "Hyper-V Generation 1, QEMU or VirtualBox without EFI",
+        "Install from disc1.iso, UFS, automatic partitioning",
+        "pkg install git nasm gdb",
+        "git clone release/15.1.0 into /usr/src, check the commit",
+        "mdconfig and mount -t msdosfs read the DOS image"
+      ],
+      "notes": "BIOS boot matters for Module 1, which studies boot0, boot1, boot2 and BTX. Boot code experiments go on memory disks, never on the VM's own boot disk."
+    },
+    {
+      "type": "bullets",
+      "title": "Homework",
+      "bullets": [
+        "Exercise 0.1: check your lab end to end",
+        "Print a listing with --excerpt and follow its link",
+        "Build MS-DOS 4.00, compare hashes, explain the match",
+        "Run your own .COM program in MS-DOS 4.00",
+        "Mount the image in FreeBSD and count its files"
+      ],
+      "notes": "Deliverable: a one-page lab report. The file count in step 5 differs from CHKDSK's; the volume label explains it."
+    },
+    {
+      "type": "bullets",
+      "title": "Key takeaways",
+      "bullets": [
+        "Both systems are studied from pinned source and run",
+        "A source release is not a build: four fixes needed",
+        "The 1988 toolchain builds the same bytes every time",
+        "512-byte boot code dictates the disk layout",
+        "The same FAT image is read by both kernels"
+      ],
+      "notes": "Close by connecting to Module 1: we have a disk that boots. Next we follow it from the BIOS jump to 0x7C00 all the way to COMMAND.COM and /sbin/init."
+    }
+  ]
+}

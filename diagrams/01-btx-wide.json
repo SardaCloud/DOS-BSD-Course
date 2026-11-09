@@ -1,0 +1,28 @@
+{
+  "title": "How a BTX client calls the BIOS: INT 31h, a trip back to real mode, and back",
+  "width": 16.8, "height": 6.75,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 16.4, "h": 1.95, "label": "Client, ring 3 (here: boot2)", "kind": "bsd"},
+    {"x": 0.2, "y": 2.35, "w": 16.4, "h": 1.95, "label": "BTX kernel, ring 0", "kind": "kernel"},
+    {"x": 0.2, "y": 4.5, "w": 16.4, "h": 1.95, "label": "Real mode", "kind": "hw"}
+  ],
+  "nodes": [
+    {"id": "a1", "x": 0.6, "y": 0.75, "w": 2.7, "h": 1.15, "label": "drvread()", "sub": "fills v86", "kind": "bsd", "size": 20},
+    {"id": "a2", "x": 3.85, "y": 0.75, "w": 2.7, "h": 1.15, "label": "__v86int", "sub": "registers", "kind": "bsd", "size": 20},
+    {"id": "b2", "x": 3.85, "y": 2.9, "w": 2.7, "h": 1.15, "label": "INT 31h\nhandler", "kind": "kernel", "size": 20},
+    {"id": "b3", "x": 7.1, "y": 2.9, "w": 2.7, "h": 1.15, "label": "CR0.PE = 0", "sub": "lidt IVT", "kind": "kernel", "size": 20},
+    {"id": "c3", "x": 7.1, "y": 5.05, "w": 2.7, "h": 1.15, "label": "xread", "sub": "boot1, 0x700", "kind": "bsd", "size": 20},
+    {"id": "c4", "x": 10.35, "y": 5.05, "w": 2.7, "h": 1.15, "label": "BIOS\nINT 13h", "kind": "hw", "size": 20},
+    {"id": "b5", "x": 13.6, "y": 2.9, "w": 2.7, "h": 1.15, "label": "rret_tramp", "sub": "protected", "kind": "kernel", "size": 20},
+    {"id": "a5", "x": 13.6, "y": 0.75, "w": 2.7, "h": 1.15, "label": "drvread()", "sub": "v86.eax, efl", "kind": "bsd", "size": 20}
+  ],
+  "edges": [
+    {"from": "a1", "to": "a2", "kind": "bsd"},
+    {"from": "a2", "to": "b2", "label": "int $0x31", "kind": "bsd", "size": 16},
+    {"from": "b2", "to": "b3"},
+    {"from": "b3", "to": "c3", "label": "IRET", "kind": "hw", "size": 16},
+    {"from": "c3", "to": "c4", "kind": "hw"},
+    {"from": "c4", "to": "b5", "from_side": "right", "to_side": "bottom", "route": "hv", "label": "return", "kind": "hw", "size": 16},
+    {"from": "b5", "to": "a5", "label": "registers", "kind": "bsd", "size": 16}
+  ]
+}

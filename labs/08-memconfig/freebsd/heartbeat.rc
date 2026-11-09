@@ -1,0 +1,40 @@
+#!/bin/sh
+#
+# PROVIDE: heartbeat
+# REQUIRE: DAEMON
+# KEYWORD: shutdown
+#
+# Lab 8.5: an rc.d script for the toy daemon /usr/local/libexec/heartbeat.
+# Install as /usr/local/etc/rc.d/heartbeat (mode 755) and enable it with
+#   sysrc heartbeat_enable=YES
+# Optional settings in /etc/rc.conf (defaults below):
+#   heartbeat_interval="10"                 seconds between two lines
+#   heartbeat_log="/var/log/heartbeat.log"  where the lines go
+
+. /etc/rc.subr
+
+name="heartbeat"
+desc="Toy daemon that writes a line every few seconds"
+rcvar="heartbeat_enable"
+
+load_rc_config $name
+
+: ${heartbeat_enable:="NO"}
+: ${heartbeat_interval:="10"}
+: ${heartbeat_log:="/var/log/heartbeat.log"}
+
+pidfile="/var/run/${name}.pid"
+procname="/usr/local/libexec/heartbeat"
+command_interpreter="/bin/sh"
+command="/usr/sbin/daemon"
+command_args="-f -p ${pidfile} -o ${heartbeat_log} ${procname} ${heartbeat_interval}"
+
+extra_commands="last"
+last_cmd="${name}_last"
+
+heartbeat_last()
+{
+	tail -n 3 "${heartbeat_log}"
+}
+
+run_rc_command "$1"

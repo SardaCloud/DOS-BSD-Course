@@ -1,0 +1,41 @@
+{
+  "title": "One read, two kernels: from the program to the disk",
+  "width": 17, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 14.3, "h": 2.95, "label": "MS-DOS 4.00", "kind": "dos"},
+    {"x": 0.2, "y": 3.35, "w": 14.3, "h": 2.95, "label": "FreeBSD 15.1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "dp", "x": 0.5, "y": 1.05, "w": 2.0, "h": 1.3, "label": "Program", "sub": "AH=3Fh, INT 21h", "kind": "user"},
+    {"id": "dd", "x": 2.85, "y": 1.05, "w": 2.0, "h": 1.3, "label": "Dispatcher", "sub": "MSDISP.ASM", "kind": "dos"},
+    {"id": "dh", "x": 5.2, "y": 1.05, "w": 2.0, "h": 1.3, "label": "Handle\nJFT -> SFT", "sub": "HANDLE.ASM", "kind": "dos"},
+    {"id": "dr", "x": 7.55, "y": 1.05, "w": 2.0, "h": 1.3, "label": "FAT code\n+ buffers", "sub": "DISK.ASM", "kind": "dos"},
+    {"id": "dv", "x": 9.9, "y": 1.05, "w": 2.0, "h": 1.3, "label": "Block\ndriver", "sub": "MSDISK.ASM", "kind": "dos"},
+    {"id": "db", "x": 12.25, "y": 1.05, "w": 2.0, "h": 1.3, "label": "BIOS\nINT 13h", "sub": "ROM", "kind": "hw"},
+    {"id": "bp", "x": 0.5, "y": 4.2, "w": 2.0, "h": 1.3, "label": "Program", "sub": "read(fd,buf,n)", "kind": "user"},
+    {"id": "bs", "x": 2.85, "y": 4.2, "w": 2.0, "h": 1.3, "label": "Syscall\nentry", "sub": "trap.c", "kind": "bsd"},
+    {"id": "bf", "x": 5.2, "y": 4.2, "w": 2.0, "h": 1.3, "label": "sys_read\nstruct file", "sub": "sys_generic.c", "kind": "bsd"},
+    {"id": "bv", "x": 7.55, "y": 4.2, "w": 2.0, "h": 1.3, "label": "VFS\nVOP_READ", "sub": "msdosfs, ufs", "kind": "bsd"},
+    {"id": "bb", "x": 9.9, "y": 4.2, "w": 2.0, "h": 1.3, "label": "Buffer cache\n+ GEOM", "sub": "vfs_bio.c", "kind": "bsd"},
+    {"id": "bd", "x": 12.25, "y": 4.2, "w": 2.0, "h": 1.3, "label": "Disk\ndriver", "sub": "ahci, nvme", "kind": "bsd"},
+    {"id": "hw", "x": 14.85, "y": 2.0, "w": 1.95, "h": 2.5, "label": "Disk\ncontroller\nand disk", "kind": "hw", "shape": "cyl"}
+  ],
+  "edges": [
+    {"from": "dp", "to": "dd", "kind": "dos"},
+    {"from": "dd", "to": "dh", "kind": "dos"},
+    {"from": "dh", "to": "dr", "kind": "dos"},
+    {"from": "dr", "to": "dv", "kind": "dos"},
+    {"from": "dv", "to": "db", "kind": "dos"},
+    {"from": "db", "to": "hw", "from_side": "right", "to_side": "top", "route": "hv", "kind": "hw"},
+    {"from": "bp", "to": "bs", "kind": "bsd"},
+    {"from": "bs", "to": "bf", "kind": "bsd"},
+    {"from": "bf", "to": "bv", "kind": "bsd"},
+    {"from": "bv", "to": "bb", "kind": "bsd"},
+    {"from": "bb", "to": "bd", "kind": "bsd"},
+    {"from": "bd", "to": "hw", "from_side": "right", "to_side": "bottom", "route": "hv", "kind": "hw"}
+  ],
+  "notes": [
+    {"x": 0.5, "y": 2.6, "w": 13.5, "text": "Real mode, one address space: the CPU waits in the driver and the BIOS while the disk works (I/O ports, polling).", "size": 15, "kind": "dos", "style": "italic"},
+    {"x": 0.5, "y": 5.75, "w": 13.5, "text": "Protected kernel: the thread sleeps while the disk transfers by DMA; an interrupt wakes it up.", "size": 15, "kind": "bsd", "style": "italic"}
+  ]
+}

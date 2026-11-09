@@ -1,0 +1,42 @@
+{
+  "title": "One key press, from the keyboard controller to the program",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 15.6, "h": 2.95, "label": "MS-DOS 4.00 with ANSI.SYS: COMMAND.COM in function 0Ah", "kind": "dos"},
+    {"x": 0.2, "y": 3.35, "w": 15.6, "h": 2.95, "label": "FreeBSD 15.1: sh in read(2) on /dev/ttyv0", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "dk", "x": 0.4, "y": 0.9, "w": 1.9, "h": 1.15, "label": "Key", "sub": "make code", "kind": "hw", "size": 18},
+    {"id": "dc", "x": 2.6, "y": 0.9, "w": 2.0, "h": 1.15, "label": "8042, 8259", "sub": "IRQ1, INT 09h", "kind": "hw", "size": 18},
+    {"id": "dr", "x": 4.9, "y": 0.9, "w": 2.1, "h": 1.15, "label": "ROM INT 09h", "sub": "via STACKS=", "kind": "hw", "size": 18},
+    {"id": "db", "x": 7.3, "y": 0.8, "w": 2.0, "h": 1.35, "label": "BIOS buffer", "sub": "16 words", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "dn", "x": 9.6, "y": 0.9, "w": 1.9, "h": 1.15, "label": "CON", "sub": "ANSI.SYS CHRIN", "kind": "dos", "size": 18},
+    {"id": "df", "x": 11.8, "y": 0.9, "w": 1.9, "h": 1.15, "label": "DOS fn 0Ah", "sub": "polls, edits", "kind": "dos", "size": 18},
+    {"id": "dp", "x": 14.0, "y": 0.9, "w": 1.6, "h": 1.15, "label": "COMMAND\n.COM", "kind": "user", "size": 18},
+    {"id": "bk", "x": 0.4, "y": 4.05, "w": 1.9, "h": 1.15, "label": "Key", "sub": "make code", "kind": "hw", "size": 18},
+    {"id": "bc", "x": 2.6, "y": 4.05, "w": 2.0, "h": 1.15, "label": "8042, APIC", "sub": "IRQ1", "kind": "hw", "size": 18},
+    {"id": "bi", "x": 4.9, "y": 4.05, "w": 2.1, "h": 1.15, "label": "ithread", "sub": "atkbd_intr", "kind": "bsd", "size": 18},
+    {"id": "bv", "x": 7.3, "y": 4.05, "w": 2.0, "h": 1.15, "label": "kbdmux, vt", "sub": "vt_kbdevent", "kind": "bsd", "size": 18},
+    {"id": "bt", "x": 9.6, "y": 4.05, "w": 1.9, "h": 1.15, "label": "ttydisc\n_rint", "sub": "edit, echo", "kind": "bsd", "size": 18},
+    {"id": "bq", "x": 11.8, "y": 3.95, "w": 1.9, "h": 1.35, "label": "tty queue", "sub": "a line", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "bp", "x": 14.0, "y": 4.05, "w": 1.6, "h": 1.15, "label": "sh", "sub": "read(2)", "kind": "user", "size": 18}
+  ],
+  "edges": [
+    {"from": "dk", "to": "dc", "kind": "hw"},
+    {"from": "dc", "to": "dr", "kind": "hw"},
+    {"from": "dr", "to": "db", "kind": "hw"},
+    {"from": "db", "to": "dn", "kind": "dos", "style": "dashed"},
+    {"from": "dn", "to": "df", "kind": "dos"},
+    {"from": "df", "to": "dp", "kind": "dos"},
+    {"from": "bk", "to": "bc", "kind": "hw"},
+    {"from": "bc", "to": "bi", "kind": "hw"},
+    {"from": "bi", "to": "bv", "kind": "bsd"},
+    {"from": "bv", "to": "bt", "kind": "bsd"},
+    {"from": "bt", "to": "bq", "kind": "bsd"},
+    {"from": "bq", "to": "bp", "kind": "bsd", "style": "dashed"}
+  ],
+  "notes": [
+    {"x": 0.5, "y": 2.4, "w": 15, "text": "No DOS code runs when the key is pressed; dashed: the key waits until DOS polls with INT 16h.", "size": 16, "kind": "dos", "style": "italic"},
+    {"x": 0.5, "y": 5.55, "w": 15, "text": "The key is processed on arrival; dashed: the reader sleeps until a line is complete (canonical mode).", "size": 16, "kind": "bsd", "style": "italic"}
+  ]
+}

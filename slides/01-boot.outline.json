@@ -1,0 +1,405 @@
+{
+  "module": 1,
+  "title": "Booting: from the BIOS to the first user program",
+  "subtitle": "MS-DOS 4.00 and FreeBSD 15.1, from 0x7C00 to the first user process",
+  "slides": [
+    {
+      "type": "section",
+      "title": "The PC BIOS boot contract"
+    },
+    {
+      "type": "bullets",
+      "title": "Real mode in one slide",
+      "bullets": [
+        "Linear address = segment * 16 + offset, 20 bits, 1 MB",
+        "0000:7C00, 07C0:0000 and 0700:0C00 are the same byte",
+        "IVT at 0x0000, BIOS data area at 0x0400",
+        "BIOS services via INT 10h, 13h, 16h, 12h, 19h",
+        "Boot code reloads all segment registers and the stack"
+      ],
+      "notes": "Every x86 CPU starts in real mode, the 8086's execution mode. Work two or three conversions on the board before showing any code. Stress that boot sectors set DS, ES and SS to zero so that offsets equal linear addresses."
+    },
+    {
+      "type": "stat",
+      "title": "Numbers that shape every boot sector",
+      "stats": [
+        {
+          "value": "512",
+          "label": "bytes in a boot sector"
+        },
+        {
+          "value": "0x7C00",
+          "label": "where the BIOS loads it"
+        },
+        {
+          "value": "0x55AA",
+          "label": "signature at offset 0x1FE"
+        },
+        {
+          "value": "640 KB",
+          "label": "conventional memory, still the loader's limit"
+        }
+      ],
+      "notes": "These four numbers appear in both code bases. The 640 KB limit is not only history: FreeBSD's loader Makefile still caps the loader at 500,000 bytes so that it fits below the video memory when booting through the BIOS."
+    },
+    {
+      "type": "figure",
+      "title": "The first megabyte during boot",
+      "diagram": "01-memory-map-wide",
+      "caption": "Linear addresses, not to scale. Both MBRs run at 0x600; FreeBSD fills 0x8C00-0xA000 with BTX and its client",
+      "notes": "All addresses are linear. The FreeBSD addresses come from .set lines in boot1.S and btx.S, the MS-DOS ones from EQUs in MSBOOT.ASM. The top of conventional memory is not a constant: both systems ask the BIOS."
+    },
+    {
+      "type": "section",
+      "title": "Master boot records"
+    },
+    {
+      "type": "code",
+      "title": "FDBOOT moves itself out of the way",
+      "lang": "asm",
+      "code": "        sti             ;interrupts ok now\n        cld\n        mov di,0600h    ;where to relocate this boot record to\n        mov cx,100h\n        repnz movsw     ;relocate to 0:0600\n;       jmp entry2\n        db   0eah\n        dw   $+4,0\nentry2:",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/CMD/FDISK/FDBOOT.ASM#L26-L34",
+      "callouts": [
+        "Copies 256 words from 0:7C00 to 0:0600",
+        "Far jump assembled by hand: EA, offset, segment",
+        "Frees 0x7C00 for the partition's boot sector"
+      ],
+      "notes": "Every MBR must load the next sector to 0x7C00, where it is itself running, so it relocates first. Both MS-DOS and FreeBSD pick 0x600. The hand-assembled far jump is worth decoding with the class."
+    },
+    {
+      "type": "figure",
+      "title": "What every MBR does",
+      "diagram": "01-mbr-wide",
+      "caption": "Relocate to 0x600, find the single active entry, load its first sector to 0x7C00, jump. boot0 replaces step 3 with a menu",
+      "notes": "Number the steps with the class. 1: the BIOS loads sector 0 to 0x7C00. 2: the MBR copies itself to 0x600 and far-jumps into the copy. 3: it scans the four entries at 0x1BE; none active means INT 18h, an invalid boot indicator or a second active entry means an error. 4: it reads the active partition's first sector to 0x7C00 and checks 55AA. 5: it jumps there with DL naming the drive and SI pointing at the entry. FDBOOT uses CHS and drive 0x80; mbr.S prefers EDD and trusts DL when valid."
+    },
+    {
+      "type": "compare",
+      "title": "Three MBR programs",
+      "left": {
+        "heading": "MS-DOS 4.00 FDBOOT",
+        "bullets": [
+          "Exactly one 0x80 entry, else 'Invalid partition table'",
+          "CHS reads only, five retries",
+          "Always reads BIOS drive 0x80",
+          "Never writes; FDISK keeps an existing MBR"
+        ]
+      },
+      "right": {
+        "heading": "FreeBSD 15.1 mbr / boot0",
+        "bullets": [
+          "mbr: same policy, same three messages",
+          "EDD packet reads when available, CHS fallback",
+          "boot0: F-key menu with timeout",
+          "boot0 writes the chosen default back to sector 0"
+        ]
+      },
+      "notes": "mbr.S is the closest FreeBSD relative of FDBOOT; even its error strings match. boot0 adds a user interface in the same 512 bytes. boot0cfg(8) edits boot0's configuration bytes from user space."
+    },
+    {
+      "type": "code",
+      "title": "boot0 remembers your choice",
+      "lang": "asm",
+      "code": "                shlb $0x4,%al                   # Point to\n                addw $partbl,%ax                #  selected\n                xchgw %bx,%ax                   #  partition\n                movb $0x80,(%bx)                # Flag active\n        /*\n         * If not asked to do a write-back (flags 0x40) don't do one.\n         * Around the call, save the partition pointer to %bx and\n         * restore to %si which is where the next stage expects it.\n         */\n        1:      pushw %bx                       # Save\n                testb $NOUPDATE,_FLAGS(%bp)     # No updates?\n                jnz 2f                          # skip update\n                movw $start,%bx                 # Data to write\n                movb $0x3,%ah                   # Write sector\n                callw intx13                    #  to disk\n        2:      popw %si                        # Restore",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/stand/i386/boot0/boot0.S#L448-L463",
+      "callouts": [
+        "The selected entry becomes active",
+        "Whole sector at 0x600 written to LBA 0",
+        "Skipped when NOUPDATE is set (timeout, noupdate)"
+      ],
+      "notes": "The write happens before the selected boot sector is read and checked. Its return status is ignored. Study case 1.B contrasts this with gptboot's checksummed GPT update and with MS-DOS boot code, which never writes."
+    },
+    {
+      "type": "figure",
+      "title": "When boot code writes to the disk",
+      "diagram": "01-boot0-writeback-wide",
+      "caption": "boot0 rewrites sector 0 only after a key press and unless NOUPDATE is set; MS-DOS boot code only reads",
+      "notes": "Trace both paths through boot0: a key press saves the option, marks the entry active and, unless flag 0x40 is set, writes the whole sector back before the chosen boot sector is even read. Timeout or Enter sets NOUPDATE, so nothing is written. Right: MS-DOS leaves all writing to FDISK, FORMAT and SYS; gptboot writes too, but to two checksummed GPT copies."
+    },
+    {
+      "type": "section",
+      "title": "The first stage"
+    },
+    {
+      "type": "table",
+      "title": "MSBOOT's BIOS Parameter Block (selected fields)",
+      "header": [
+        "Offset",
+        "Field",
+        "Assembled default"
+      ],
+      "rows": [
+        [
+          "0x00B",
+          "Bytes per sector",
+          "0x0200"
+        ],
+        [
+          "0x00D",
+          "Sectors per cluster",
+          "8"
+        ],
+        [
+          "0x00E",
+          "Reserved sectors",
+          "1"
+        ],
+        [
+          "0x010",
+          "Number of FATs",
+          "2"
+        ],
+        [
+          "0x011",
+          "Root directory entries",
+          "512"
+        ],
+        [
+          "0x016",
+          "Sectors per FAT",
+          "8"
+        ],
+        [
+          "0x018 / 0x01A",
+          "Sectors per track / heads",
+          "17 / 4"
+        ],
+        [
+          "0x01C",
+          "Hidden sectors (32-bit)",
+          "1"
+        ],
+        [
+          "0x024",
+          "Phydrv (drive for reads)",
+          "0x80"
+        ],
+        [
+          "0x026",
+          "Extended boot signature",
+          "0x29"
+        ]
+      ],
+      "notes": "The defaults describe a small hard disk; FORMAT overwrites them with the real medium's BPB and patches Phydrv. Offsets were checked against a sector assembled from this tree. Fields from 0x01C on are new in 4.00."
+    },
+    {
+      "type": "code",
+      "title": "MSBOOT checks the first two directory entries",
+      "lang": "asm",
+      "code": "        MOV     DI,BX\n        MOV     CX,11\n        MOV     SI,OFFSET BIO           ; point to \"ibmbio  com\"\n        REPZ    CMPSB                   ; see if the same\n        JNZ     CKERR                   ; if not there advise the user\n;\n; Found the BIOS.  Check the second directory entry.\n;\n        LEA     DI,[BX+20h]\n        MOV     SI,OFFSET DOS           ; point to \"ibmdos  com\"\n        MOV     CX,11\n        REPZ    CMPSB\n        JZ      DoLoad",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/BOOT/MSBOOT.ASM#L256-L268",
+      "callouts": [
+        "Directory sector was read to 0:0500",
+        "Names are IO.SYS and MSDOS.SYS in this build",
+        "Mismatch: 'Non-System disk or disk error'"
+      ],
+      "notes": "The comments still mention IBMBIO and IBMDOS, but IBMCOPYRIGHT is FALSE in VERSION.INC, so this tree assembles the Microsoft names. Ask students where the names sit in the sector: offsets 0x1DB to 0x1F0."
+    },
+    {
+      "type": "bullets",
+      "title": "Constraints MSBOOT puts on a bootable disk",
+      "bullets": [
+        "IO.SYS and MSDOS.SYS must be the first two directory entries",
+        "IO.SYS must start at the first data sector",
+        "Its first three sectors (MSLOAD) must be contiguous",
+        "Sector numbers must stay below SECLIM * 65536",
+        "No retries; 11 bytes of the sector left free"
+      ],
+      "notes": "Each constraint maps to a few lines of code: the two REPZ CMPSB comparisons, the DoLoad loop, IBMLOADSIZE, and the overflow guard in DODIV. This is why SYS.COM exists. MSLOAD in IO.SYS lifts the contiguity limit for the rest of the file."
+    },
+    {
+      "type": "figure",
+      "title": "Two boot chains",
+      "diagram": "01-boot-chains-wide",
+      "caption": "On GPT disks, pmbr replaces boot0 or mbr, and gptboot replaces boot1 and boot2",
+      "notes": "MS-DOS needs three small loaders and never leaves real mode. FreeBSD needs a protected-mode environment early because its loaders are C programs that read UFS, ELF and Lua. On GPT disks, pmbr and gptboot replace boot0/mbr and boot1/boot2."
+    },
+    {
+      "type": "code",
+      "title": "BTX calls the BIOS in real mode, not V86 mode",
+      "lang": "asm",
+      "code": "intusr.7:       movl %cr0,%eax                  # Leave\n                dec %al                         #  protected\n                movl %eax,%cr0                  #  mode\n                ljmpw $0x0,$intusr.8\nintusr.8:       xorw %ax,%ax                    # Reset %ds\n                movw %ax,%ds                    #  and\n                movw %ax,%ss                    #  %ss\n                lidt ivtdesc                    # Set IVT\n                popl %es                        # Restore\n                popl %ds                        #  seg\n                popl %fs                        #  regs\n                popl %gs\n                popal                           # Restore gp regs\n                movw $MEM_ESPR-0x16,%sp         # Switch to real mode stack\n                iret                            # Call target routine",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/stand/i386/btx/btx/btx.S#L570-L584",
+      "callouts": [
+        "Clears CR0.PE: back to real mode",
+        "Reloads the real-mode IVT",
+        "IRET into the BIOS routine; rret_tramp returns"
+      ],
+      "notes": "The interface is still named v86, but nothing in the 15.1 btx.S sets PSL_VM. Clients such as boot2 fill a v86 structure and execute INT 31h; BTX switches modes around the BIOS call. Check older descriptions against the pinned source."
+    },
+    {
+      "type": "figure",
+      "title": "One BIOS call from a BTX client",
+      "diagram": "01-btx-wide",
+      "caption": "Client in ring 3, BTX in ring 0, the BIOS in real mode: every disk read makes this round trip",
+      "notes": "Follow boot2's drvread(): it fills struct v86 and __v86int executes INT 31h. BTX sets up rret_tramp as the return address, clears CR0.PE, reloads the real-mode IVT and IRETs into xread in the relocated boot1, which calls the BIOS. The return lands in rret_tramp, which re-enters protected mode and hands the registers back to the client."
+    },
+    {
+      "type": "section",
+      "title": "Kernel initialisation"
+    },
+    {
+      "type": "code",
+      "title": "MSINIT finds MSDOS.SYS with MSBOOT's leftovers",
+      "lang": "asm",
+      "code": ";       THE BOOT PROGRAM HAS LEFT THE DIRECTORY AT 0:500\n\n        PUSH    DS\n        XOR     DI,DI\n        MOV     DS,DI                   ; ES:DI POINTS TO LOAD LOCATION\n        MOV     BX,DS:WORD PTR [53AH]   ;   CLUS=*53A;\n        POP     DS                      ;",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/BIOS/MSINIT.ASM#L1368-L1374",
+      "callouts": [
+        "53Ah = 500h + 20h + 1Ah",
+        "Starting cluster of the second directory entry",
+        "The boot sector's buffer is part of the interface"
+      ],
+      "notes": "MSINIT does not search the directory again; it reads the cluster number straight from the sector MSBOOT left at 0:0500. Then it follows the FAT chain and jumps to SYSINIT."
+    },
+    {
+      "type": "code",
+      "title": "SYSINIT starts the first user program",
+      "lang": "asm",
+      "code": "        MOV     BX,OFFSET COMEXE        ; Point to EXEC block\n        MOV     WORD PTR [BX.EXEC0_COM_LINE+2],CS       ; Set segments\n        MOV     WORD PTR [BX.EXEC0_5C_FCB+2],CS\n        MOV     WORD PTR [BX.EXEC0_6C_FCB+2],CS\n        XOR     AX,AX                   ;Load and go\n        MOV     AH,EXEC\n        STC                             ;IN CASE OF INT 24\n        INT     21H                     ;GO START UP COMMAND\n        ENDIF\n; NOTE FALL THROUGH IF EXEC RETURNS (an error)\n\nCOMERR:\n        MOV     DX,OFFSET BADCOM        ;WANT TO PRINT COMMAND ERROR\n        INVOKE  BADFIL\nSTALL:  JMP     STALL",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/BIOS/SYSINIT1.ASM#L835-L849",
+      "callouts": [
+        "INT 21h function 4Bh, AL=0: load and execute",
+        "Default program \\COMMAND.COM /P, or SHELL=",
+        "If EXEC returns: error message, then STALL"
+      ],
+      "notes": "By this point SYSINIT has moved itself to the top of memory, moved MSDOS.SYS into place, called DOSINIT, and processed CONFIG.SYS in several passes. The EXEC of the shell is where this module ends on the MS-DOS side."
+    },
+    {
+      "type": "code",
+      "title": "From the loader into 64-bit long mode",
+      "lang": "asm",
+      "code": "        /* Now we're in compatibility mode. set %cs for long mode */\n        movl    $VTOP(gdtdesc), %eax\n        movl    VTOP(entry_hi), %esi\n        movl    VTOP(entry_lo), %edi\n        lgdt    (%eax)\n        ljmp    $0x8, $VTOP(longmode)\n\n        .code64\nlongmode:\n        /* We're still running V=P, jump to entry point */\n        movl    %esi, %eax\n        salq    $32, %rax\n        orq     %rdi, %rax\n        pushq   %rax\n        ret",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/stand/i386/libi386/amd64_tramp.S#L97-L111",
+      "callouts": [
+        "Paging on, in compatibility mode",
+        "Far jump to a 64-bit code segment",
+        "Push the kernel entry, then ret"
+      ],
+      "notes": "The Lua loader (loader.lua, config.lua) reads loader.conf and loads the kernel and modules; elf64_exec() then builds the module metadata and simple page tables and calls this trampoline through BTX's exec service. The kernel's btext receives modulep and kernend on the stack."
+    },
+    {
+      "type": "code",
+      "title": "mi_startup(): the whole kernel start-up loop",
+      "lang": "c",
+      "code": "        while ((sip = STAILQ_FIRST(&sysinit_list)) != NULL) {\n                STAILQ_REMOVE_HEAD(&sysinit_list, next);\n                STAILQ_INSERT_TAIL(&sysinit_done_list, sip, next);\n\n                if (sip->subsystem == SI_SUB_DUMMY)\n                        continue;       /* skip dummy task(s)*/\n⋮\n                /* Call function */\n                (*(sip->func))(sip->udata);\n\n⋮\n                /* Check off the one we're just done */\n                last = sip->subsystem;\n        }",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/kern/init_main.c#L291-L335",
+      "callouts": [
+        "Always takes the first (lowest) entry",
+        "Entries added during boot are merged in order",
+        "Never returns: thread0 sleeps afterwards"
+      ],
+      "notes": "Before this, locore.S btext passed modulep and kernend to hammer_time(), which parsed the loader metadata and set up the CPU. After hammer_time() returns a stack, mi_startup() runs every SYSINIT in sorted order."
+    },
+    {
+      "type": "code",
+      "title": "start_init(): becoming /sbin/init",
+      "lang": "c",
+      "code": "                error = kern_execve(td, &args, NULL, oldvmspace);\n                KASSERT(error != 0,\n                    (\"kern_execve returned success, not EJUSTRETURN\"));\n                if (error == EJUSTRETURN) {\n                        exec_cleanup(td, oldvmspace);\n                        free(free_init_path, M_TEMP);\n                        TSEXIT();\n                        return;\n                }\n                if (error != ENOENT)\n                        printf(\"exec %s: error %d\\n\", path, error);\n        }\n        free(free_init_path, M_TEMP);\n        printf(\"init: not found in path %s\\n\", init_path);\n        panic(\"no init\");",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/kern/init_main.c#L797-L811",
+      "callouts": [
+        "Runs in process 1, created by create_init()",
+        "Tries each entry of init_path",
+        "EJUSTRETURN: return to user mode as init"
+      ],
+      "notes": "create_init() forked process 1 at SI_SUB_CREATE_INIT; kick_init() made it runnable at SI_SUB_KTHREAD_INIT. start_init() mounts root, then execs /sbin/init. If nothing can be executed, the kernel panics with 'no init'."
+    },
+    {
+      "type": "section",
+      "title": "Two SYSINITs"
+    },
+    {
+      "type": "code",
+      "title": "MS-DOS SYSINIT: CONFIG.SYS keywords",
+      "lang": "asm",
+      "code": "        DB      7,\"BUFFERS\",  'B'\n        DB      5,\"BREAK\",    'C'\n        DB      6,\"DEVICE\",   'D'\n        DB      5,\"FILES\",    'F'\n        DB      4,\"FCBS\",     'X'\n        DB      9,\"LASTDRIVE\",'L'\n        db     10,\"MULTITRACK\", 'M'     ;AN002;\n        DB      8,\"DRIVPARM\", 'P'       ; RS for DOS 3.2\n                IF     STACKSW\n        DB      6,\"STACKS\",   'K'       ; BAS for DOS 3.2\n                ENDIF\n        DB      7,\"COUNTRY\",  'Q'\n        DB      5,\"SHELL\",    'S'\n        db      7,\"INSTALL\",  'I'       ;AN000;\n        db      3,\"IFS\",      'J'       ;AN000;",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/BIOS/SYSINIT2.ASM#L1502-L1516",
+      "callouts": [
+        "ORGANIZE turns each keyword into a letter",
+        "Unknown keywords become Z",
+        "INSTALL= lines run in a later pass"
+      ],
+      "notes": "SYSINIT is a one-shot module that interprets a text file. Order of work is order of instructions plus fixed passes over the file. Third-party drivers join through DEVICE= and are linked at the head of the device chain."
+    },
+    {
+      "type": "code",
+      "title": "FreeBSD SYSINIT(): a declaration in a linker set",
+      "lang": "c",
+      "code": "#define C_SYSINIT(uniquifier, subsystem, order, func, ident)    \\\n        static struct sysinit uniquifier ## _sys_init = {       \\\n                subsystem,                                      \\\n                order,                                          \\\n                { NULL },                                       \\\n                func,                                           \\\n                (ident)                                         \\\n        };                                                      \\\n        DATA_WSET(sysinit_set, uniquifier ## _sys_init)\n#endif\n\n#define SYSINIT(uniquifier, subsystem, order, func, ident)      \\\n        C_SYSINIT(uniquifier, subsystem, order,                 \\\n        (sysinit_cfunc_t)(sysinit_nfunc_t)func, (void *)(ident))",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/sys/kernel.h#L269-L282",
+      "callouts": [
+        "Static struct sysinit per use",
+        "Pointer placed in ELF section set_sysinit_set",
+        "Sorted by subsystem, then order"
+      ],
+      "notes": "Any kernel file or module can declare work for any stage. The linker collects the pointers; mi_startup() sorts them. Preloaded modules' entries are merged into the same list; kldload'ed modules run their own entries at load time."
+    },
+    {
+      "type": "figure",
+      "title": "Two SYSINITs side by side",
+      "diagram": "01-sysinit-wide",
+      "caption": "MS-DOS: fixed passes over CONFIG.SYS, then EXEC of the shell. FreeBSD: a sorted linker set, then /sbin/init",
+      "notes": "Top: SYSINIT reads CONFIG.SYS, ORGANIZE turns keywords into letters, and the passes run in a fixed order, so every INSTALL= program runs after every DEVICE= driver. Bottom: no central list; SYSINIT() entries from any file or module land in set_sysinit_set, mi_startup() sorts them by (subsystem, order) and calls each, and two of them create and start process 1."
+    },
+    {
+      "type": "table",
+      "title": "Same name, different ideas",
+      "header": [
+        "",
+        "MS-DOS 4.00",
+        "FreeBSD 15.1"
+      ],
+      "rows": [
+        [
+          "What it is",
+          "Relocating init module in IO.SYS",
+          "Macro adding to a linker set"
+        ],
+        [
+          "Ordering",
+          "Instruction order, CONFIG.SYS passes",
+          "(subsystem, order) numbers, sorted"
+        ],
+        [
+          "Configuration",
+          "CONFIG.SYS parsed by SYSINIT",
+          "loader.conf, passed as kernel environment"
+        ],
+        [
+          "Extensions",
+          "DEVICE=, IFS=, INSTALL=",
+          "Modules with their own SYSINITs"
+        ],
+        [
+          "Ends with",
+          "EXEC of COMMAND.COM",
+          "kern_execve() of /sbin/init"
+        ]
+      ],
+      "notes": "Use this table to close the lecture. Students should be able to explain each row with one listing from each system. Study case 1.C goes deeper into how third-party code joins the boot."
+    },
+    {
+      "type": "bullets",
+      "title": "Homework",
+      "bullets": [
+        "1.1 Decode the DOS and FreeBSD boot sectors byte by byte",
+        "1.2 Trace MSBOOT into IO.SYS with QEMU and GDB",
+        "1.3 Write a two-sector boot program in NASM",
+        "1.4-1.5 CONFIG.SYS experiments; watch boot0 write back",
+        "1.6-1.7 Order SYSINITs with a module; essay on extensibility"
+      ],
+      "notes": "Exercises 1.1 to 1.5 need only the Module 0 lab. Exercise 1.6 needs the FreeBSD VM with /usr/src; its optional part needs a GENERIC-DEBUG kernel. Remind students that every claim needs a pinned permalink."
+    },
+    {
+      "type": "bullets",
+      "title": "Key takeaways",
+      "bullets": [
+        "Both systems start from the same 512-byte BIOS contract",
+        "MS-DOS: three tiny real-mode loaders, then SYSINIT and COMMAND.COM",
+        "FreeBSD: BTX, a C loader in protected mode, then long mode",
+        "Boot code that writes to disk trades safety for convenience",
+        "SYSINIT: a one-shot module versus a sorted declarative table"
+      ],
+      "notes": "Ask students which design decisions follow from 1980s hardware and which are still visible today. Point out that FreeBSD's BIOS path still lives within the same 640 KB and 512-byte limits that shaped MS-DOS."
+    }
+  ]
+}

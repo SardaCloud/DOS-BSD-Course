@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="Crash consistency: CHKDSK after the fact against ordered writes and a journal">
+<title>Crash consistency: CHKDSK after the fact against ordered writes and a journal</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1560.0" height="295.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="149.2" height="26" rx="13" fill="#0E7C86"/>
+<text x="106.6" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00, FAT</text>
+<rect x="20.0" y="335.0" width="1560.0" height="295.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="345.0" width="347.95" height="26" rx="13" fill="#AB2B28"/>
+<text x="205.975" y="363.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1, UFS2 with soft updates (+J)</text>
+<path d="M310.0,150.0 L370.0,150.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M570.0,150.0 L630.0,150.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M910.0,150.0 L970.0,150.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1230.0,150.0 L1290.0,150.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M310.0,465.0 L370.0,465.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M570.0,465.0 L630.0,465.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M910.0,465.0 L970.0,465.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1230.0,465.0 L1290.0,465.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="50.0" y="85.0" width="260.0" height="130.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="180.0" y="136.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">Dir entry, FAT 1,</text>
+<text x="180.0" y="158.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">FAT 2, data</text>
+<text x="180.0" y="176.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">any order</text>
+<rect x="370.0" y="85.0" width="200.0" height="130.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="470.0" y="145.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">Power</text>
+<text x="470.0" y="167.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">fails</text>
+<rect x="630.0" y="85.0" width="280.0" height="130.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="770.0" y="136.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">Lost clusters,</text>
+<text x="770.0" y="158.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">cross-links, bad size</text>
+<text x="770.0" y="176.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">no flag on disk</text>
+<rect x="970.0" y="85.0" width="260.0" height="130.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1100.0" y="145.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">DOS keeps using</text>
+<text x="1100.0" y="167.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">the damaged FAT</text>
+<rect x="1290.0" y="85.0" width="260.0" height="130.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1420.0" y="136.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">User runs</text>
+<text x="1420.0" y="158.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">CHKDSK /F</text>
+<text x="1420.0" y="176.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">guesses, FILEnnnn.CHK</text>
+<rect x="50.0" y="400.0" width="260.0" height="130.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="180.0" y="451.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">Inode before entry,</text>
+<text x="180.0" y="473.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">bitmap before inode</text>
+<text x="180.0" y="491.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">rollback if needed</text>
+<rect x="370.0" y="400.0" width="200.0" height="130.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="470.0" y="460.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">Power</text>
+<text x="470.0" y="482.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">fails</text>
+<rect x="630.0" y="400.0" width="280.0" height="130.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="770.0" y="451.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">Only leaks:</text>
+<text x="770.0" y="473.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">unreferenced blocks</text>
+<text x="770.0" y="491.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">fs_clean = 0</text>
+<rect x="970.0" y="400.0" width="260.0" height="130.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1100.0" y="462.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">Mount at once</text>
+<text x="1100.0" y="480.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">file system usable</text>
+<rect x="1290.0" y="400.0" width="260.0" height="130.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1420.0" y="451.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">fsck_ffs: background</text>
+<text x="1420.0" y="473.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">or journal replay</text>
+<text x="1420.0" y="491.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">frees the leaks</text>
+<text x="50.0" y="261.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#0B3D42" text-anchor="start" font-style="italic">Repair after the fact: CHKDSK cannot know which file owns a cross-linked cluster.</text>
+<text x="50.0" y="576.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#4A1312" text-anchor="start" font-style="italic">Ordered writes make the only possible damage the kind that is safe to repair automatically.</text>
+</svg>

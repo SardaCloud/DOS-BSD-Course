@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="How EMM386 answers INT 67h: virtual-8086 mode, a ring-0 monitor, and page tables">
+<title>How EMM386 answers INT 67h: virtual-8086 mode, a ring-0 monitor, and page tables</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowB7862A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B7862A"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1200.0" height="275.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="347.95" height="26" rx="13" fill="#0E7C86"/>
+<text x="205.975" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Virtual-8086 mode: DOS, BIOS and programs</text>
+<rect x="20.0" y="315.0" width="1200.0" height="315.0" rx="14" fill="#F4F5F7" stroke="#2E3440" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="325.0" width="340.0" height="26" rx="13" fill="#2E3440"/>
+<text x="202.0" y="343.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Protected mode, ring 0: EMM386&#x27;s monitor</text>
+<rect x="1240.0" y="20.0" width="340.0" height="610.0" rx="14" fill="#FDF8EE" stroke="#B7862A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="1252.0" y="30.0" width="117.4" height="26" rx="13" fill="#B7862A"/>
+<text x="1310.7" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">386 hardware</text>
+<path d="M200.0,230.0 L200.0,390.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="206.0" y="297.2" width="43.9" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="228.0" y="315.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#0E7C86" text-anchor="middle">trap</text>
+<path d="M350.0,460.0 L390.0,460.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M680.0,460.0 L800.0,460.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="722.3" y="447.2" width="35.4" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="740.0" y="465.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#0E7C86" text-anchor="middle">44h</text>
+<path d="M1180.0,460.0 L1280.0,460.0" fill="none" stroke="#B7862A" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<rect x="1199.6" y="447.2" width="60.9" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1230.0" y="465.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#B7862A" text-anchor="middle">4 PTEs</text>
+<path d="M1415.0,390.0 L1415.0,250.0" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<rect x="1421.0" y="307.2" width="86.3" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1464.2" y="325.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#B7862A" text-anchor="middle">translate</text>
+<path d="M535.0,390.0 L535.0,160.0 L690.0,160.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="541.0" y="262.2" width="171.1" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="626.6" y="280.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#0E7C86" text-anchor="middle">every call: reflect</text>
+<path d="M748.8,230.0 L748.8,425.0 L680.0,425.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="754.8" y="314.7" width="162.6" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="836.1" y="333.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#0E7C86" text-anchor="middle">44h: INT 67h again</text>
+<rect x="50.0" y="90.0" width="300.0" height="140.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="200.0" y="146.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">Program</text>
+<text x="200.0" y="168.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">INT 67h</text>
+<text x="200.0" y="186.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">AH = function</text>
+<rect x="690.0" y="90.0" width="490.0" height="140.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="935.0" y="146.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">Vector 67h: EMM_rEntry</text>
+<text x="935.0" y="168.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">43h, 45h ...: int67_Entry</text>
+<text x="935.0" y="186.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">EMM.ASM, EMMDISP.ASM</text>
+<rect x="50.0" y="390.0" width="300.0" height="140.0" rx="7" fill="#E4E6EA" stroke="#2E3440" stroke-width="2"/>
+<text x="200.0" y="446.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#15191E" text-anchor="middle">IDT gate 67h</text>
+<text x="200.0" y="468.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#15191E" text-anchor="middle">DPL 3</text>
+<text x="200.0" y="486.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#2E3440" text-anchor="middle">TABDEF.ASM</text>
+<rect x="390.0" y="390.0" width="290.0" height="140.0" rx="7" fill="#E4E6EA" stroke="#2E3440" stroke-width="2"/>
+<text x="535.0" y="457.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#15191E" text-anchor="middle">EMM_pEntry</text>
+<text x="535.0" y="475.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#2E3440" text-anchor="middle">EMM.ASM</text>
+<rect x="800.0" y="390.0" width="380.0" height="140.0" rx="7" fill="#E4E6EA" stroke="#2E3440" stroke-width="2"/>
+<text x="990.0" y="446.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#15191E" text-anchor="middle">_MapHandlePage</text>
+<text x="990.0" y="468.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#15191E" text-anchor="middle">map_EMM_page</text>
+<text x="990.0" y="486.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#2E3440" text-anchor="middle">EMMP.ASM</text>
+<rect x="1280.0" y="390.0" width="270.0" height="140.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1415.0" y="455.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">Page tables</text>
+<text x="1415.0" y="477.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">+ CR3</text>
+<path d="M1280.0,104.0 a135.0,14 0 0,0 270.0,0 v132.0 a135.0,14 0 0,1 -270.0,0 z" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<ellipse cx="1415.0" cy="104.0" rx="135.0" ry="14" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1415.0" y="179.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">Pool pages</text>
+<text x="1415.0" y="201.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">above 1 MB</text>
+<text x="50.0" y="570.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#1F2328" text-anchor="start" font-style="italic">IRETD returns to virtual-8086 mode. IN/OUT to the A20 and DMA ports and other privileged</text>
+<text x="50.0" y="588.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#1F2328" text-anchor="start" font-style="italic">instructions also trap here (VMINST.ASM, A20TRAP.ASM, ELIMTRAP.ASM).</text>
+</svg>

@@ -1,0 +1,37 @@
+{
+  "title": "The PC memory map seen by MS-DOS 4.00 (schematic, not to scale)",
+  "width": 10, "height": 12.0,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 9.6, "h": 7.2, "label": "First megabyte: real mode reaches it directly", "kind": "hw"},
+    {"x": 0.2, "y": 7.6, "w": 9.6, "h": 4.2, "label": "Above 1 MB: needs A20, protected mode or a driver", "kind": "neutral"}
+  ],
+  "nodes": [
+    {"id": "ivt", "x": 2.4, "y": 0.8, "w": 4.2, "h": 0.6, "label": "Vectors + BIOS data", "sub": "linear 00000-004FF", "kind": "hw"},
+    {"id": "dos", "x": 2.4, "y": 1.45, "w": 4.2, "h": 0.9, "label": "IO.SYS, MSDOS.SYS,\nCONFIG.SYS tables", "sub": "owner 8 (System Data)", "kind": "dos"},
+    {"id": "cmd", "x": 2.4, "y": 2.4, "w": 4.2, "h": 0.6, "label": "COMMAND.COM, TSRs", "kind": "dos"},
+    {"id": "tpa", "x": 2.4, "y": 3.05, "w": 4.2, "h": 1.0, "label": "Program area", "sub": "largest free block (MEM)", "kind": "user"},
+    {"id": "vid", "x": 2.4, "y": 4.3, "w": 4.2, "h": 0.6, "label": "Video memory", "sub": "A0000-BFFFF (text at B8000)", "kind": "hw"},
+    {"id": "rom", "x": 2.4, "y": 4.95, "w": 4.2, "h": 0.6, "label": "Option ROMs", "sub": "C0000: video BIOS", "kind": "hw"},
+    {"id": "gap", "x": 2.4, "y": 5.6, "w": 4.2, "h": 0.8, "label": "Unused gaps", "sub": "EMS page frame goes here", "kind": "data", "dashed": true},
+    {"id": "bios", "x": 2.4, "y": 6.45, "w": 4.2, "h": 0.6, "label": "System BIOS ROM", "sub": "F0000-FFFFF", "kind": "hw"},
+    {"id": "hma", "x": 2.4, "y": 8.2, "w": 4.2, "h": 0.8, "label": "HMA: 64 KB - 16 bytes", "sub": "100000-10FFEF = FFFF:0010-FFFF:FFFF", "kind": "neutral"},
+    {"id": "ext", "x": 2.4, "y": 9.1, "w": 4.2, "h": 1.5, "label": "Extended memory", "sub": "INT 15h 87h/88h", "kind": "neutral"},
+    {"id": "ems", "x": 7.0, "y": 8.4, "w": 2.6, "h": 2.6, "label": "Expanded\nmemory\n16 KB pages", "sub": "board or EMM386", "kind": "dos", "shape": "cyl"}
+  ],
+  "edges": [
+    {"from": "ems", "to": "gap", "from_side": "top", "to_side": "right", "route": "vh", "kind": "dos", "label": "INT 67h\nmaps pages", "style": "dashed"}
+  ],
+  "notes": [
+    {"x": 0.35, "y": 0.85, "w": 1.9, "text": "0", "size": 15, "align": "end"},
+    {"x": 0.35, "y": 4.05, "w": 1.9, "text": "640 KB  A0000", "size": 15, "align": "end", "kind": "dos"},
+    {"x": 0.35, "y": 2.3, "w": 1.9, "text": "conventional", "size": 13, "align": "end", "style": "italic"},
+    {"x": 0.35, "y": 2.6, "w": 1.9, "text": "memory", "size": 13, "align": "end", "style": "italic"},
+    {"x": 0.35, "y": 5.3, "w": 1.9, "text": "(UMA)", "size": 13, "align": "end", "style": "italic"},
+    {"x": 0.35, "y": 5.0, "w": 1.9, "text": "upper memory area", "size": 13, "align": "end", "style": "italic"},
+    {"x": 0.35, "y": 7.05, "w": 1.9, "text": "1 MB  100000", "size": 15, "align": "end"},
+    {"x": 0.35, "y": 10.55, "w": 1.9, "text": "16 MB on an AT", "size": 15, "align": "end"},
+    {"x": 6.85, "y": 1.6, "w": 3.0, "text": "MEM /PROGRAM lists\nevery block here", "size": 14, "kind": "dos"},
+    {"x": 6.85, "y": 4.35, "w": 3.0, "text": "MEMMAP.COM tests\nthese 16 KB pages", "size": 14},
+    {"x": 0.5, "y": 11.0, "w": 9.0, "text": "MS-DOS 4.00 manages only conventional memory. HMA, extended and expanded memory\nare used by drivers: RAMDRIVE, SMARTDRV, EMM386, BUFFERS=/X.", "size": 14, "style": "italic"}
+  ]
+}

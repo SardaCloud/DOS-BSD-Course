@@ -1,0 +1,202 @@
+{
+  "title": "The MS-DOS 4.00 device driver chain after boot with ANSI.SYS",
+  "width": 16,
+  "height": 6.5,
+  "lanes": [
+    {
+      "x": 0.2,
+      "y": 0.2,
+      "w": 15.6,
+      "h": 6.1,
+      "label": "MS-DOS 4.00: the device chain (Lab 6.5)",
+      "kind": "dos"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "nul",
+      "x": 0.5,
+      "y": 0.95,
+      "w": 2.4,
+      "h": 1.15,
+      "label": "NUL",
+      "sub": "in MSDOS.SYS data",
+      "kind": "dos",
+      "size": 18
+    },
+    {
+      "id": "cona",
+      "x": 3.4,
+      "y": 0.95,
+      "w": 2.6,
+      "h": 1.15,
+      "label": "CON",
+      "sub": "ANSI.SYS, C053h",
+      "kind": "dos",
+      "size": 18
+    },
+    {
+      "id": "coni",
+      "x": 6.5,
+      "y": 0.95,
+      "w": 2.6,
+      "h": 1.15,
+      "label": "CON (hidden)",
+      "sub": "IO.SYS, 8013h",
+      "kind": "dos",
+      "size": 18,
+      "dashed": true
+    },
+    {
+      "id": "aux",
+      "x": 9.6,
+      "y": 0.95,
+      "w": 2.6,
+      "h": 1.15,
+      "label": "AUX",
+      "sub": "IO.SYS, 8000h",
+      "kind": "dos",
+      "size": 18
+    },
+    {
+      "id": "prn",
+      "x": 12.7,
+      "y": 0.95,
+      "w": 2.8,
+      "h": 1.15,
+      "label": "PRN",
+      "sub": "IO.SYS, A040h",
+      "kind": "dos",
+      "size": 18
+    },
+    {
+      "id": "clk",
+      "x": 12.7,
+      "y": 2.95,
+      "w": 2.8,
+      "h": 1.15,
+      "label": "CLOCK$",
+      "sub": "IO.SYS, 8008h",
+      "kind": "dos",
+      "size": 18
+    },
+    {
+      "id": "blk",
+      "x": 9.6,
+      "y": 2.95,
+      "w": 2.6,
+      "h": 1.15,
+      "label": "Block device",
+      "sub": "A:, B: (0842h)",
+      "kind": "dos",
+      "size": 18
+    },
+    {
+      "id": "com",
+      "x": 6.5,
+      "y": 2.95,
+      "w": 2.6,
+      "h": 1.15,
+      "label": "COM1, LPT1-3,\nCOM2-4",
+      "sub": "IO.SYS",
+      "kind": "dos",
+      "size": 18
+    },
+    {
+      "id": "lol",
+      "x": 0.5,
+      "y": 4.85,
+      "w": 2.4,
+      "h": 0.95,
+      "label": "List of Lists",
+      "sub": "INT 21h AH=52h",
+      "kind": "data",
+      "size": 18
+    }
+  ],
+  "edges": [
+    {
+      "from": "nul",
+      "to": "cona",
+      "kind": "dos"
+    },
+    {
+      "from": "cona",
+      "to": "coni",
+      "kind": "dos"
+    },
+    {
+      "from": "coni",
+      "to": "aux",
+      "kind": "dos"
+    },
+    {
+      "from": "aux",
+      "to": "prn",
+      "kind": "dos"
+    },
+    {
+      "from": "prn",
+      "to": "clk",
+      "kind": "dos"
+    },
+    {
+      "from": "clk",
+      "to": "blk",
+      "kind": "dos"
+    },
+    {
+      "from": "blk",
+      "to": "com",
+      "kind": "dos"
+    },
+    {
+      "from": "lol",
+      "to": "nul",
+      "from_side": "top",
+      "to_side": "bottom",
+      "label": "offset 22h",
+      "size": 15
+    },
+    {
+      "from": "lol",
+      "to": "cona",
+      "from_side": "right",
+      "to_side": "bottom",
+      "route": "hv",
+      "label": "BCON (0Ch)",
+      "size": 15,
+      "style": "dashed"
+    },
+    {
+      "from": "lol",
+      "to": "clk",
+      "from_side": "right",
+      "to_side": "bottom",
+      "route": "hv",
+      "label": "BCLOCK (08h)",
+      "size": 15,
+      "style": "dashed"
+    }
+  ],
+  "notes": [
+    {
+      "x": 6.6,
+      "y": 4.18,
+      "w": 2.6,
+      "text": "last link: FFFFh",
+      "size": 15,
+      "kind": "dos",
+      "style": "italic"
+    },
+    {
+      "x": 4.6,
+      "y": 5.65,
+      "w": 11,
+      "text": "DEVICE= drivers are linked in right after NUL. All IO.SYS drivers share one strategy routine (0070:062A).",
+      "size": 15,
+      "kind": "dos",
+      "style": "italic"
+    }
+  ]
+}

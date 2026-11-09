@@ -1,0 +1,28 @@
+{
+  "title": "A FAT12 floppy and a UFS2 file system side by side",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 15.6, "h": 2.95, "label": "FAT12: the 1.44 MB lab floppy (sectors)", "kind": "dos"},
+    {"x": 0.2, "y": 3.35, "w": 15.6, "h": 2.95, "label": "UFS2: root file system of the VM image (4 KB fragments)", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "boot", "x": 0.5, "y": 0.9, "w": 1.6, "h": 1.3, "label": "Boot\nsector", "sub": "0", "kind": "dos", "size": 18},
+    {"id": "fat1", "x": 2.2, "y": 0.9, "w": 1.6, "h": 1.3, "label": "FAT 1", "sub": "1-9", "kind": "dos", "size": 18},
+    {"id": "fat2", "x": 3.9, "y": 0.9, "w": 1.6, "h": 1.3, "label": "FAT 2", "sub": "10-18", "kind": "dos", "size": 18},
+    {"id": "root", "x": 5.6, "y": 0.9, "w": 1.9, "h": 1.3, "label": "Root dir\n224 entries", "sub": "19-32", "kind": "dos", "size": 18},
+    {"id": "data", "x": 7.6, "y": 0.9, "w": 7.9, "h": 1.3, "label": "Data area: clusters 2 to 2848, files and subdirectories", "sub": "33-2879", "kind": "data", "size": 18},
+    {"id": "bb", "x": 0.5, "y": 4.05, "w": 1.6, "h": 1.3, "label": "Boot\narea", "sub": "0-64 KB", "kind": "neutral", "size": 18},
+    {"id": "sb", "x": 2.2, "y": 4.05, "w": 1.6, "h": 1.3, "label": "Super-\nblock", "sub": "frag 16", "kind": "bsd", "size": 18},
+    {"id": "cg0", "x": 3.9, "y": 4.05, "w": 1.6, "h": 1.3, "label": "CG 0\nheader", "sub": "frag 32", "kind": "bsd", "size": 18},
+    {"id": "ino0", "x": 5.6, "y": 4.05, "w": 1.9, "h": 1.3, "label": "Inodes\n80,256", "sub": "frag 40", "kind": "bsd", "size": 18},
+    {"id": "dat0", "x": 7.6, "y": 4.05, "w": 2.2, "h": 1.3, "label": "CG 0 data", "sub": "frag 5056", "kind": "data", "size": 18},
+    {"id": "cg1", "x": 9.9, "y": 4.05, "w": 2.6, "h": 1.3, "label": "CG 1: sb copy,\nheader, inodes, data", "sub": "frag 160336", "kind": "bsd", "size": 18},
+    {"id": "dots", "x": 12.6, "y": 4.05, "w": 0.8, "h": 1.3, "label": "...", "kind": "neutral", "size": 18},
+    {"id": "cg8", "x": 13.5, "y": 4.05, "w": 2.0, "h": 1.3, "label": "CG 8", "sub": "frag 1282688", "kind": "bsd", "size": 18}
+  ],
+  "edges": [],
+  "notes": [
+    {"x": 0.5, "y": 2.4, "w": 15, "text": "All metadata at the front; a fixed-size root directory; two FAT copies side by side.", "size": 16, "kind": "dos", "style": "italic"},
+    {"x": 0.5, "y": 5.55, "w": 15, "text": "Each of the 9 cylinder groups (626 MiB) has a superblock copy, its own bitmaps, its own inodes and its data.", "size": 16, "kind": "bsd", "style": "italic"}
+  ]
+}

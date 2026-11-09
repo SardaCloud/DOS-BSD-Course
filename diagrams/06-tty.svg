@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="Cooked and raw input: MS-DOS CON and the FreeBSD tty line discipline">
+<title>Cooked and raw input: MS-DOS CON and the FreeBSD tty line discipline</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1560.0" height="295.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="435.40000000000003" height="26" rx="13" fill="#0E7C86"/>
+<text x="249.70000000000002" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00: mode per SFT entry (IOCTL 4401h, bit 5)</text>
+<rect x="20.0" y="335.0" width="1560.0" height="295.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="345.0" width="347.95" height="26" rx="13" fill="#AB2B28"/>
+<text x="205.975" y="363.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1: mode per terminal (termios)</text>
+<path d="M290.0,152.5 L330.0,152.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M570.0,152.5 L610.0,152.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M800.0,152.5 L850.0,152.5 L850.0,85.0 L900.0,85.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="821.1" y="106.6" width="57.7" height="24.3" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="850.0" y="124.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#0E7C86" text-anchor="middle">cooked</text>
+<path d="M1200.0,85.0 L1230.0,85.0 L1230.0,152.5 L1260.0,152.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M800.0,152.5 L1260.0,152.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="949.5" y="140.3" width="161.1" height="24.3" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1030.0" y="157.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#0E7C86" text-anchor="middle">raw: exactly n keys</text>
+<path d="M290.0,467.5 L330.0,467.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M570.0,467.5 L605.0,467.5 L605.0,415.0 L640.0,415.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M570.0,467.5 L605.0,467.5 L605.0,537.5 L640.0,537.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M960.0,537.5 L1010.0,537.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1240.0,537.5 L1290.0,537.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M960.0,415.0 L1420.0,415.0 L1420.0,475.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="50.0" y="95.0" width="240.0" height="115.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="170.0" y="139.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">BIOS key</text>
+<text x="170.0" y="161.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">buffer</text>
+<text x="170.0" y="179.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">INT 16h</text>
+<rect x="330.0" y="95.0" width="240.0" height="115.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="450.0" y="150.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">CON driver</text>
+<text x="450.0" y="168.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">CHRIN</text>
+<rect x="610.0" y="100.0" width="190.0" height="105.0" rx="18" fill="#F3F2EE" stroke="#6B7280" stroke-width="2"/>
+<text x="705.0" y="158.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">raw bit?</text>
+<rect x="900.0" y="45.0" width="300.0" height="80.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1050.0" y="82.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">Line editor</text>
+<text x="1050.0" y="100.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">fn 0Ah via READCON</text>
+<rect x="1260.0" y="95.0" width="290.0" height="115.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1405.0" y="150.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">Program</text>
+<text x="1405.0" y="168.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">read(0, buf, n)</text>
+<rect x="50.0" y="410.0" width="240.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="170.0" y="454.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">vt, uart</text>
+<text x="170.0" y="476.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">or pts</text>
+<text x="170.0" y="494.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">terminal_input_char</text>
+<rect x="330.0" y="410.0" width="240.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="450.0" y="465.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">ttydisc_rint</text>
+<text x="450.0" y="483.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">every key, on arrival</text>
+<rect x="640.0" y="375.0" width="320.0" height="80.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="800.0" y="412.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">Signal to fg group</text>
+<text x="800.0" y="430.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">ISIG: ^C SIGINT</text>
+<path d="M640.0,489.0 a160.0,14 0 0,0 320.0,0 v97.0 a160.0,14 0 0,1 -320.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="800.0" cy="489.0" rx="160.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="800.0" y="549.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">Input queue</text>
+<text x="800.0" y="567.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">ICANON: line edited</text>
+<rect x="1010.0" y="475.0" width="230.0" height="125.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1125.0" y="535.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">ttydisc_read</text>
+<text x="1125.0" y="553.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">line, or VMIN</text>
+<rect x="1290.0" y="475.0" width="260.0" height="125.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1420.0" y="535.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">Program</text>
+<text x="1420.0" y="553.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">read(2)</text>
+<text x="330.0" y="249.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="14" fill="#0B3D42" text-anchor="start" font-style="italic">Cooked: echo to the device being read; Ctrl-C found only when DOS polls (DSKSTATCHK).</text>
+</svg>

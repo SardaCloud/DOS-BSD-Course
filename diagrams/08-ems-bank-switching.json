@@ -1,0 +1,33 @@
+{
+  "title": "EMS bank switching: four 16 KB windows onto a large pool of pages",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 4.3, "h": 6.1, "label": "Program (real mode)", "kind": "user"},
+    {"x": 4.7, "y": 0.2, "w": 4.4, "h": 6.1, "label": "Page frame in the UMA", "kind": "hw"},
+    {"x": 9.3, "y": 0.2, "w": 6.5, "h": 6.1, "label": "Expanded memory pool", "kind": "dos"}
+  ],
+  "nodes": [
+    {"id": "call", "x": 0.5, "y": 0.9, "w": 3.7, "h": 1.2, "label": "INT 67h AH=44h", "sub": "AL=window BX=page DX=handle", "kind": "user", "size": 18},
+    {"id": "use", "x": 0.5, "y": 3.1, "w": 3.7, "h": 1.2, "label": "MOV ES,CC00h\nMOV AL,ES:[0]", "sub": "an ordinary load", "kind": "user", "size": 18},
+    {"id": "w0", "x": 5.1, "y": 1.0, "w": 3.6, "h": 1.0, "label": "window 0  C400", "kind": "hw", "size": 18},
+    {"id": "w1", "x": 5.1, "y": 2.1, "w": 3.6, "h": 1.0, "label": "window 1  C800", "kind": "hw", "size": 18},
+    {"id": "w2", "x": 5.1, "y": 3.2, "w": 3.6, "h": 1.0, "label": "window 2  CC00", "kind": "hw", "size": 18},
+    {"id": "w3", "x": 5.1, "y": 4.3, "w": 3.6, "h": 1.0, "label": "window 3  D000", "kind": "hw", "size": 18},
+    {"id": "p3", "x": 10.1, "y": 1.0, "w": 2.7, "h": 1.0, "label": "handle 1, page 3", "kind": "data", "size": 17},
+    {"id": "p0", "x": 10.1, "y": 2.1, "w": 2.7, "h": 1.0, "label": "handle 1, page 0", "kind": "data", "size": 17},
+    {"id": "p1", "x": 10.1, "y": 3.2, "w": 2.7, "h": 1.0, "label": "handle 1, page 1", "kind": "data", "size": 17},
+    {"id": "p2", "x": 10.1, "y": 4.3, "w": 2.7, "h": 1.0, "label": "handle 1, page 2", "kind": "data", "size": 17},
+    {"id": "more", "x": 13.1, "y": 1.0, "w": 2.4, "h": 4.3, "label": "other pages,\nother handles\n(up to 32 MB\nin EMM386)", "kind": "data", "dashed": true, "size": 17}
+  ],
+  "edges": [
+    {"from": "call", "to": "w0", "from_side": "right", "to_side": "left", "kind": "user", "label": "remap", "size": 16},
+    {"from": "use", "to": "w2", "from_side": "right", "to_side": "left", "kind": "user", "style": "dashed", "label": "read", "size": 16},
+    {"from": "w0", "to": "p3", "from_side": "right", "to_side": "left", "kind": "dos", "style": "thick"},
+    {"from": "w0", "to": "p0", "from_side": "right", "to_side": "left", "route": "hvh", "kind": "dos", "style": "dashed"}
+  ],
+  "notes": [
+    {"x": 0.5, "y": 4.75, "w": 3.8, "text": "The program can reach only\n64 KB of the pool at a time.", "size": 16, "kind": "user", "style": "italic"},
+    {"x": 5.1, "y": 5.45, "w": 3.9, "text": "board: I/O registers\nEMM386: 4 PTEs per window", "size": 16, "style": "italic"},
+    {"x": 10.1, "y": 5.45, "w": 5.5, "text": "dashed: the mapping before the call", "size": 16, "kind": "dos", "style": "italic"}
+  ]
+}

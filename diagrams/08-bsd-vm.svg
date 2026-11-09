@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="FreeBSD virtual memory in practice: maps, objects, page queues, backing store">
+<title>FreeBSD virtual memory in practice: maps, objects, page queues, backing store</title>
+<defs><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker><marker id="arrowB7862A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B7862A"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="320.0" height="610.0" rx="14" fill="#F5F8FB" stroke="#4F6D8A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="93.55" height="26" rx="13" fill="#4F6D8A"/>
+<text x="78.775" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Processes</text>
+<rect x="360.0" y="20.0" width="350.0" height="610.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="372.0" y="30.0" width="101.5" height="26" rx="13" fill="#AB2B28"/>
+<text x="422.75" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">VM objects</text>
+<rect x="730.0" y="20.0" width="500.0" height="610.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="742.0" y="30.0" width="133.3" height="26" rx="13" fill="#AB2B28"/>
+<text x="808.65" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Physical pages</text>
+<rect x="1250.0" y="20.0" width="330.0" height="610.0" rx="14" fill="#FDF8EE" stroke="#B7862A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="1262.0" y="30.0" width="125.35000000000001" height="26" rx="13" fill="#B7862A"/>
+<text x="1324.675" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Backing store</text>
+<path d="M315.0,145.0 L385.0,145.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M315.0,425.0 L385.0,425.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M685.0,425.0 L722.5,425.0 L722.5,220.0 L760.0,220.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="696.3" y="309.7" width="52.4" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="722.5" y="328.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#AB2B28" text-anchor="middle">fault</text>
+<path d="M870.0,265.0 L870.0,300.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="876.0" y="269.7" width="77.8" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="914.9" y="288.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#AB2B28" text-anchor="middle">not used</text>
+<path d="M870.0,390.0 L870.0,425.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="876.0" y="394.7" width="52.4" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="902.2" y="413.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#AB2B28" text-anchor="middle">dirty</text>
+<path d="M980.0,345.0 L1040.0,345.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="983.8" y="332.2" width="52.4" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1010.0" y="350.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#AB2B28" text-anchor="middle">clean</text>
+<path d="M980.0,470.0 L1132.5,470.0 L1132.5,470.0 L1285.0,470.0" fill="none" stroke="#B7862A" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<rect x="1021.6" y="457.2" width="69.4" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1056.2" y="475.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#B7862A" text-anchor="middle">pageout</text>
+<path d="M685.0,145.0 L1285.0,145.0" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<rect x="933.4" y="132.2" width="103.3" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="985.0" y="150.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#B7862A" text-anchor="middle">vnode pager</text>
+<rect x="45.0" y="80.0" width="270.0" height="130.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="180.0" y="131.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">Process A</text>
+<text x="180.0" y="153.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">vm_map</text>
+<text x="180.0" y="171.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">procstat -v</text>
+<rect x="45.0" y="360.0" width="270.0" height="130.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="180.0" y="411.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">Process B</text>
+<text x="180.0" y="433.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">vm_map</text>
+<text x="180.0" y="451.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">procstat -v</text>
+<rect x="385.0" y="80.0" width="300.0" height="130.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="535.0" y="140.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">Vnode object</text>
+<text x="535.0" y="162.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">file pages</text>
+<rect x="385.0" y="360.0" width="300.0" height="130.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="535.0" y="420.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">Anonymous</text>
+<text x="535.0" y="442.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">heap, stack</text>
+<rect x="760.0" y="175.0" width="220.0" height="90.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="870.0" y="226.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">active</text>
+<rect x="760.0" y="300.0" width="220.0" height="90.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="870.0" y="351.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">inactive</text>
+<rect x="760.0" y="425.0" width="220.0" height="90.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="870.0" y="476.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">laundry</text>
+<rect x="1040.0" y="300.0" width="160.0" height="90.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1120.0" y="351.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">free</text>
+<path d="M1285.0,74.0 a130.0,14 0 0,0 260.0,0 v142.0 a130.0,14 0 0,1 -260.0,0 z" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<ellipse cx="1415.0" cy="74.0" rx="130.0" ry="14" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1415.0" y="156.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">Files</text>
+<text x="1415.0" y="174.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">UFS, ZFS</text>
+<path d="M1285.0,399.0 a130.0,14 0 0,0 260.0,0 v142.0 a130.0,14 0 0,1 -260.0,0 z" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<ellipse cx="1415.0" cy="399.0" rx="130.0" ry="14" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1415.0" y="481.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">Swap</text>
+<text x="1415.0" y="499.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">swapinfo</text>
+<text x="45.0" y="545.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#4A1312" text-anchor="start" font-style="italic">Shared libraries: one vnode object</text>
+<text x="45.0" y="563.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#4A1312" text-anchor="start" font-style="italic">in many maps. Fault = first touch.</text>
+<text x="760.0" y="555.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#4A1312" text-anchor="start" font-style="italic">+ wired pages (kernel, mlock)</text>
+<text x="760.0" y="573.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#4A1312" text-anchor="start" font-style="italic">vm.stats.vm.v_*_count, top</text>
+</svg>

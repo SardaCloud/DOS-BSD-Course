@@ -1,0 +1,477 @@
+{
+ "module": 9,
+ "title": "Toolsmith: the same tools on both systems",
+ "subtitle": "ARGS, WC, HD, SYSINFO, ASK and BACKUP on MS-DOS 4.00 and FreeBSD 15.1",
+ "slides": [
+  {
+   "type": "section",
+   "title": "The contract between a tool and the system"
+  },
+  {
+   "type": "table",
+   "title": "What a tool receives from each system",
+   "header": [
+    "Need",
+    "MS-DOS 4.00",
+    "FreeBSD 15.1"
+   ],
+   "rows": [
+    [
+     "Arguments",
+     "One tail of at most 127 bytes at PSP:81h, length at 80h",
+     "argc and argv strings on the new stack, up to ARG_MAX = 512 KB"
+    ],
+    [
+     "Wildcards",
+     "Each program, if it wants (SETARGV.OBJ)",
+     "The shell, before execve"
+    ],
+    [
+     "Program name",
+     "Full path after the environment strings",
+     "argv[0] as the caller chose; AT_EXECPATH"
+    ],
+    [
+     "Standard streams",
+     "Handles 0-4 in the PSP's Job File Table",
+     "Descriptors 0, 1 and 2"
+    ],
+    [
+     "First instruction",
+     ".COM: CS = DS = ES = SS = PSP, IP = 100h",
+     "rip = ELF entry, rdi = address of argc"
+    ],
+    [
+     "Exit code",
+     "AL of function 4Ch; exit type in AH",
+     "_exit(rval); 8 bits reach wait4"
+    ]
+   ],
+   "notes": "Table 9.1 condensed. Neither kernel knows about options, wildcards or quoting: those are conventions of the shell and of the C library. Everything in the module follows from the first row: a single 127-byte string on MS-DOS against an array of finished words on FreeBSD."
+  },
+  {
+   "type": "figure",
+   "title": "How the arguments travel",
+   "diagram": "09-args-travel-wide",
+   "caption": "COMMAND.COM passes text and the program splits it; sh passes words and execve copies them",
+   "notes": "On MS-DOS, COMMAND.COM removes the redirections, builds the tail and calls EXEC, which copies 128 bytes into the new PSP. The C start-up code splits the tail into argv. On FreeBSD sh splits, expands and removes quotes; exec_copyout_strings copies the strings and builds argv and envp; rdi points at argc when the program starts."
+  },
+  {
+   "type": "code",
+   "title": "EXEC copies the command tail into the PSP",
+   "lang": "asm",
+   "code": "        POP     SI                      ; get block (last time)\n        POP     DS\n        LDS     SI,[SI.exec0_com_line]  ; command line\n;\n; DS points to user space 80 command line\n;\n        OR      CL,80h\n        MOV     DI,CX\n        REP     MOVSB                   ; Wham!",
+   "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/DOS/EXEC.ASM#L719-L727",
+   "callouts": [
+    "CX is 0 after the FCB copy",
+    "OR CL,80h: 128 is both the count and the offset",
+    "Splitting into words is the program's job"
+   ],
+   "notes": "Listing 9.1. The two FCBs at 5Ch and 6Ch were parsed from the first two words just before this, a convention left over from CP/M. The program's own name is not in the tail: EXEC writes it after the environment strings (Module 3, section 3.7), and ARGS.COM prints it as word 0 in Lab 9.1."
+  },
+  {
+   "type": "figure",
+   "title": "Redirection around a tool",
+   "diagram": "09-redirection-wide",
+   "caption": "COMMAND.COM edits its Job File Table before EXEC; sh calls dup2 in the child before execve",
+   "notes": "Either way the tool just reads handle 0 and writes handle 1. Two differences matter for tools: COMMAND.COM can redirect only handles 0 and 1, so a message on handle 2 always reaches the screen; and a DOS pipe is two temporary files and two programs run one after the other (Module 3)."
+  },
+  {
+   "type": "figure",
+   "title": "Three ways to build a tool on each system",
+   "diagram": "09-build-pipelines-wide",
+   "caption": "Assembly without a library, C with its library, and a script read by the shell",
+   "notes": "nasm -f bin writes a .COM image with no header; MASM, LINK and EXE2BIN do the same for ASK.COM. CL /AS links SLIBCE.LIB into an MZ .EXE. On FreeBSD nasm -f elf64 and ld make a static ELF file, and cc links against crt1.o and libc.so.7. A .BAT file is not a process and has no exit code; a #! script is a program like any other."
+  },
+  {
+   "type": "table",
+   "title": "Sizes of the built tools, in bytes",
+   "header": [
+    "Tool",
+    "MS-DOS assembly",
+    "MS-DOS C",
+    "FreeBSD assembly",
+    "FreeBSD C"
+   ],
+   "rows": [
+    [
+     "ARGS",
+     "251",
+     "7,287 (8,407 with SETARGV)",
+     "2,176 (960 stripped)",
+     "9,984"
+    ],
+    [
+     "WC",
+     "215",
+     "10,537",
+     "2,136",
+     "11,528"
+    ],
+    [
+     "HD",
+     "254",
+     "9,721",
+     "2,384",
+     "12,048"
+    ],
+    [
+     "SYSINFO",
+     "428",
+     "7,735",
+     "--",
+     "11,176"
+    ],
+    [
+     "ASK",
+     "377",
+     "--",
+     "--",
+     "--"
+    ]
+   ],
+   "notes": "Table 9.5. The DOS assembly tools are instructions and strings, nothing else. The DOS C tools carry printf and the start-up code copied from SLIBCE.LIB. The FreeBSD assembly tools carry an ELF header, program headers and a symbol table; the FreeBSD C tools are 10 to 12 KB even though printf stays in libc.so.7. The scripts: ask.sh 1,186, BACKUP.BAT 1,514, backup.sh 989."
+  },
+  {
+   "type": "section",
+   "title": "Text, binary and exit codes"
+  },
+  {
+   "type": "figure",
+   "title": "Text and binary mode in Microsoft C 5.10",
+   "diagram": "09-text-binary-wide",
+   "caption": "Text mode turns CR LF into LF and stops at Ctrl-Z on read, and writes LF as CR LF",
+   "notes": "FCNTL.H documents only the CR LF translation; the Ctrl-Z stop was measured in Lab 9.4, because the runtime's source is not in the MS-DOS tree. Binary mode: \"rb\" in fopen, O_BINARY in open, setmode for standard input, or _fmode. FreeBSD's fopen accepts \"b\" and ignores it."
+  },
+  {
+   "type": "stat",
+   "title": "One 39-byte file, four answers",
+   "stats": [
+    {
+     "value": "39",
+     "label": "bytes on the disk: DIR, HD in binary mode, WC"
+    },
+    {
+     "value": "21",
+     "label": "bytes after COPY /A, which adds a Ctrl-Z to 20 of text"
+    },
+    {
+     "value": "20",
+     "label": "bytes that TYPE sends to a pipe; it stops at Ctrl-Z"
+    },
+    {
+     "value": "18",
+     "label": "bytes that HD -t reads: CR LF becomes LF, end of file at Ctrl-Z"
+    }
+   ],
+   "notes": "CTRLZ.TXT has two lines, a Ctrl-Z and a third line (Outputs 9.1 and 9.11). Only the binary readers agree with the directory entry. On FreeBSD all four would say 39: the Ctrl-Z is one more byte."
+  },
+  {
+   "type": "figure",
+   "title": "An exit code's journey",
+   "diagram": "09-exit-codes-wide",
+   "caption": "DOS: code in the low byte, reason in the high byte. FreeBSD: code in the high byte, signal in the low",
+   "notes": "COMMAND.COM sets RETCODE only after an external program; internal commands and \"Bad command or file name\" leave it alone. sh sets $? after every command. exit 300 gives 44 on both systems (Outputs 9.2 and 9.3)."
+  },
+  {
+   "type": "code",
+   "title": "IF ERRORLEVEL n compares one byte",
+   "lang": "asm",
+   "code": "GOTNUM:\n        PUSH    DS\n        MOV     DS,[RESSEG]\nASSUME  DS:RESGROUP\n        MOV     AH,BYTE PTR [RETCODE]\n        POP     DS\nASSUME  DS:TRANGROUP\n        XOR     AL,AL\n        CMP     AH,BL\n        JAE     IFRET\n        DEC     AL\n        JMP     SHORT IFRET",
+   "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/CMD/COMMAND/TBATCH2.ASM#L424-L435",
+   "callouts": [
+    "Only the low byte of RETCODE: the Ctrl-C exit type in AH is invisible",
+    "JAE: \"n or more\", so test the largest value first",
+    "n was built in BL without a check: ERRORLEVEL 300 is ERRORLEVEL 44"
+   ],
+   "notes": "End of Listing 9.11. The loop above GOTNUM multiplies by 10 in an 8-bit register. When DOS stops a program for Ctrl-C it fakes function 4Ch with AL = 0, so an interrupted program looks like one that succeeded."
+  },
+  {
+   "type": "code",
+   "title": "sh turns a wait status into $?",
+   "lang": "c",
+   "code": "        status = getjobstatus(jp);\n        if (signaled != NULL)\n                *signaled = WIFSIGNALED(status);\n        /* convert to 8 bits */\n        if (WIFEXITED(status))\n                st = WEXITSTATUS(status);\n#if JOBS\n        else if (WIFSTOPPED(status))\n                st = WSTOPSIG(status) + 128;\n#endif\n        else\n                st = WTERMSIG(status) + 128;",
+   "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/bin/sh/jobs.c#L1102-L1113",
+   "callouts": [
+    "Only 8 bits travel: KW_EXITCODE masks with 0xff",
+    "Killed by a signal: 128 + its number (kill -TERM gives 143)",
+    "Every command sets $?, builtins included; not found is 127"
+   ],
+   "notes": "Listing 9.13. The status word is the mirror image of DOS's: code in the high byte, signal in the low byte. The timeout test of Lab 9.6 shows 130 = 128 + SIGINT, so a script can tell \"interrupted\" from \"no answer\"."
+  },
+  {
+   "type": "section",
+   "title": "The six tools"
+  },
+  {
+   "type": "table",
+   "title": "The tool matrix: every cell built and run",
+   "header": [
+    "Tool",
+    "Lab",
+    "MS-DOS 4.00",
+    "FreeBSD 15.1"
+   ],
+   "rows": [
+    [
+     "ARGS",
+     "9.1, 9.2",
+     "ARGS.COM (NASM); ARGS.EXE, ARGSW.EXE (CL)",
+     "argsa (nasm, ld); args (cc)"
+    ],
+    [
+     "WC",
+     "9.3",
+     "WCA.COM; WC.EXE and text-mode WCT.EXE",
+     "wca; wc from the same C source"
+    ],
+    [
+     "HD",
+     "9.4",
+     "HDA.COM; HD.EXE",
+     "hda; hd from the same C source"
+    ],
+    [
+     "SYSINFO",
+     "9.5",
+     "SYSINFOA.COM; SYSINFO.EXE",
+     "sysinfo (C)"
+    ],
+    [
+     "ASK",
+     "9.6",
+     "ASK.COM (MASM, LINK, EXE2BIN); ASKDEMO.BAT",
+     "ask.sh, askdemo.sh"
+    ],
+    [
+     "BACKUP",
+     "9.7",
+     "BACKUP.BAT with XCOPY, FC, FIND, RC",
+     "backup.sh"
+    ]
+   ],
+   "notes": "Table 9.4. The DOS programs were built with tools/dos_tools.py (or NASM) and run on MS-DOS 4.00 with dos_run.py; the FreeBSD programs were built and run in the course VM. WC and HD are one C source each; the only system-dependent line is an #ifdef MSDOS around setmode. EXPECTED.TXT and expected.txt hold the captured outputs for self-checking."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 9.1: ARGS in assembly",
+   "bullets": [
+    "MS-DOS: walk the tail at PSP:81h and the path after the environment",
+    "The tail is the text as typed: blanks, a tab, quotes, but no >OUT.TXT",
+    "FreeBSD: argc at [rdi], then argv, envp and AT_EXECPATH",
+    "rsp is on argc in only some runs: the stack top moves by multiples of 8",
+    "ARGS.COM is 251 bytes; argsa 2,176, and 960 after strip"
+   ],
+   "notes": "Output 9.5: \"two words\" arrives as two words, *.TXT as three characters. rsprdi printed 0 0 8 0 8 8 8 0 with ASLR and 8 every time without it (Listing 9.15), which is why the starter takes argc from rdi and not from rsp."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 9.2: ARGS in C, and who expands *.TXT",
+   "bullets": [
+    "The C start-up code splits the tail and honours double quotes",
+    "Linked with SETARGV.OBJ (/link /NOE) it expands *.TXT, sorted",
+    "A pattern that matches nothing stays as it is, as in sh",
+    "On FreeBSD the shell expands once, the same for every program",
+    "Through a symbolic link: argv[0] is ./nick, AT_EXECPATH the real file"
+   ],
+   "notes": "Output 9.7: DIR lists the files in directory order, ARGSW sorts them. ARGS.EXE and ARGSW.EXE come from the same source and disagree about *.TXT: on MS-DOS each program decides. Without /NOE the link fails with L2044, because the library's own _setargv is pulled in too."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 9.3: WC, one source on both systems",
+   "bullets": [
+    "One #ifdef MSDOS: setmode puts standard input in binary mode",
+    "The same counts as FreeBSD's wc: POEM.TXT 6 30 155",
+    "Text-mode WCT: 149 bytes for POEM.TXT, 18 for CTRLZ.TXT",
+    "TYPE CTRLZ.TXT | WCA counts 20 bytes: TYPE stops at the Ctrl-Z",
+    "Counters are unsigned long: a 16-bit int wraps at 32,767"
+   ],
+   "notes": "COMMAND.COM is 37,556 bytes; WCI.C with int counters printed -27,980. WCA and wca read standard input only and must handle short reads. On FreeBSD, wca < /tmp fails in read (status 1), while wca < /nonexistent-dir never starts: sh reports the failed open and sets 2."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 9.4: HD, and why binary mode matters",
+   "bullets": [
+    "The format of FreeBSD's hd, which is hexdump under a third name",
+    "HD -t shows the text mode: CR LF becomes LF, end of file at Ctrl-Z",
+    "hda must collect 16 bytes per line: a pipe delivered 10, then 10",
+    "hd and hda match hd -v on /bin/sh byte for byte",
+    "HD RC.COM: be 81 00 is MOV SI,81h, b4 4c cd 21 the exit"
+   ],
+   "notes": "Output 9.11: three programs, three answers for the same 39 bytes. hexdump looks at the end of argv[0] and installs the -C format when it is hd (hexsyntax.c lines 50-57; the Makefile links hd and od to hexdump). A 66,000-byte file gave identical dumps from HDA.COM and HD.EXE: both keep a 32-bit offset."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 9.5: SYSINFO, asking the system about itself",
+   "bullets": [
+    "MS-DOS: INT 21h functions 30h, 19h, 47h, 36h and 48h",
+    "MKDIR WORK cost one 512-byte cluster",
+    "SYSINFO.EXE sees 71,088 bytes less free memory than SYSINFOA",
+    "Renamed IBMCACHE.COM, the same program is told MS-DOS 3.40",
+    "FreeBSD: sysctl, getcwd, statfs, getrlimit; UNAME_r fakes the release"
+   ],
+   "notes": "The 71,088 bytes are 256 + 6,240 + 65,536 - 944: SYSINFO.EXE keeps its code and a whole 64 KB DGROUP. The version lie comes from Version_Fake_Table in MSINIT.ASM (Listing 9.18). Module 8, Exercise 8.2 builds the full memory report; SYSINFO stays short on purpose."
+  },
+  {
+   "type": "code",
+   "title": "Programs that MS-DOS 4.00 lies to",
+   "lang": "asm",
+   "code": ";The following entries don't expect version 4.0\n;The entry format: name_length, name, expected version, fake count\n;fake_count: ff means the version will be reset when Abort or Exec is encountered\n;            n means the version will be reset after n DOS version calls are issued\n;\nVersion_Fake_Table:                         ;AN007  starting address for special\n        DB      12,\"IBMCACHE.COM\",3,40,255  ;AN007  ibmcache     1\n        DB      12,\"IBMCACHE.SYS\",3,40,255  ;AN007  ibmcache     2\n        DB      12,\"DXMA0MOD.SYS\",3,40,255  ;AN007  lan support  3\n        DB      10,\"WIN200.BIN\"  ,3,40,4    ;AN008  windows      4\n        DB       9,\"PSCPG.COM\"   ,3,40,255  ;AN008  vittoria     5\n        DB      11,\"DCJSS02.EXE\" ,3,40,255  ;AN008  netview      6\n        DB       8,\"ISAM.EXE\"    ,3,40,255  ;AN008  basic        7\n        DB       9,\"ISAM2.EXE\"   ,3,40,255  ;AN008  basic        8\n        DB      12,\"DFIA0MOD.SYS\",3,40,255  ;AN008  lan support  9\n        DB      20  dup(0)                  ;AN007",
+   "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/DOS/MSINIT.ASM#L646-L661",
+   "callouts": [
+    "Name, expected version 3.40, fake count",
+    "255: reset at the next Abort or Exec",
+    "WIN200.BIN: four calls are told 3.40, the fifth gets 4.00"
+   ],
+   "notes": "Listing 9.18. GETSET.ASM (Listing 9.19) returns the fake version while the count allows it. SYSINFOA copied to IBMCACHE.COM printed MS-DOS 3.40 in Output 9.13; the next SYSINFOA was back to 4.00. A test program copied to WIN200.BIN got 3.40 four times, then 4.00; an unused count carried over to the next program."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 9.6: ASK, an answer as an exit code",
+   "bullets": [
+    "IOCTL 4400h: is standard input the keyboard?",
+    "Keyboard: one key with function 08h; a file: skip wrong lines",
+    "Ctrl-C: exit type 1, but IF ERRORLEVEL sees only 0",
+    "FreeBSD: SIGINT goes to the whole process group; $? = 130",
+    "COMMAND /C ASKDEMO <EMPTY.ANS hangs at \"Abort, Fail?\""
+   ],
+   "notes": "MS-DOS 4.00 has no CHOICE command, so ASK fills the gap. ASK.COM is built with MASM, LINK and EXE2BIN. STUFF.COM types keys into the BIOS buffer; CCTEST shows exit type 1 from function 4Dh. COMMAND /F avoids the hang by failing every critical error."
+  },
+  {
+   "type": "code",
+   "title": "Why ASKDEMO hangs: the bit that cannot be cleared",
+   "lang": "asm",
+   "code": "ioctl_check_device:\n        TEST    AL,devid_device         ; can I set this handle?\n        JZ      do_exception            ; no, it is a file.\n        OR      DL,devid_device         ; Make sure user doesn't turn off the\n                                        ;   device bit!! He can muck with the\n                                        ;   others at will.\n        MOV     [EXTERR_LOCUS],errLOC_SerDev\n        MOV     BYTE PTR ES:[DI.sf_flags],DL  ;AC000;MS.; Set flags\ndo_exception:\n        OR      BYTE PTR ES:[DI.sf_flags+1],DH;AN000;MS.;set 100H bit for disk full\n\n        transfer    SYS_RET_OK",
+   "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/DOS/IOCTL.ASM#L275-L286",
+   "callouts": [
+    "On a file, 4400h gave DH = 0",
+    "SETSTDINON sends DH = 1, SETSTDINOFF sends DH = 0",
+    "OR with 0 changes nothing: the bit set before ECHO stays set"
+   ],
+   "notes": "Listing 9.23. COMMAND.COM sets bit 8 before an internal command and tries to clear it before EXEC (Listing 9.22). In a batch file every line shares one SFT, so ASK's read at the end of the file becomes a critical error, and the Abort, Fail? question reads the same empty file. The fix would be an AND before the OR."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 9.7: BACKUP, a script that trusts exit codes",
+   "bullets": [
+    "FOR runs one command: the batch file calls itself with :ONE",
+    "IF EXIST, then FC /B to compare, then XCOPY to copy",
+    "COPY sets no ERRORLEVEL; XCOPY returns 0 for \"File not found\"",
+    "A batch file has no exit code: RC 0 or RC 1 runs last",
+    "backup.sh: [ -nt ], cp -p and $((n + 1)); status 0, 1 or 2"
+   ],
+   "notes": "Plain BACKUP runs MS-DOS's own BACKUP.COM, which wins over .BAT. FOR drops a pattern that matches nothing (Listing 9.27), so *.XYZ is silently ignored. COPY of an empty file deletes the copy. CALL BACKUP.BAT >BAK.LOG leaves BAK.LOG empty; COMMAND /C BACKUP.BAT >BAK.LOG works."
+  },
+  {
+   "type": "compare",
+   "title": "Study case 9.A: 127 bytes or 512 KB",
+   "left": {
+    "heading": "MS-DOS 4.00",
+    "bullets": [
+     "127-byte tail, 128-byte command buffer",
+     "A long batch line is cut without a message",
+     "ARGS received 122 of 150 digits",
+     "Each program expands wildcards its own way"
+    ]
+   },
+   "right": {
+    "heading": "FreeBSD 15.1",
+    "bullets": [
+     "ARG_MAX = 524,288 bytes for arguments and environment",
+     "1 to 100,000 take 588,895 bytes: E2BIG, nothing runs",
+     "The shell expands, the same way for every program",
+     "xargs ran /bin/echo 20 times instead"
+    ]
+   },
+   "notes": "Listing 9.28: RDBAT counts every byte, including what %1 expands to, and TooLong discards the rest of the line. The cut also removed the >COM1 that dos_run.py appends. MS-DOS runs a different command without saying so; FreeBSD refuses to run anything and says why."
+  },
+  {
+   "type": "table",
+   "title": "Study case 9.B: what an exit code promises",
+   "header": [
+    "Tool",
+    "Yes",
+    "No",
+    "Cannot check",
+    "Wrong usage"
+   ],
+   "rows": [
+    [
+     "FIND",
+     "0",
+     "0",
+     "0",
+     "2"
+    ],
+    [
+     "FC",
+     "0",
+     "1",
+     "1",
+     "1"
+    ],
+    [
+     "XCOPY",
+     "0",
+     "--",
+     "0 (File not found); 4 (Access denied)",
+     "4"
+    ],
+    [
+     "COPY",
+     "unchanged",
+     "--",
+     "unchanged",
+     "unchanged"
+    ],
+    [
+     "grep",
+     "0",
+     "1",
+     "2",
+     "2"
+    ],
+    [
+     "cmp",
+     "0",
+     "1",
+     "2",
+     "2"
+    ],
+    [
+     "cp",
+     "0",
+     "--",
+     "1",
+     "64"
+    ]
+   ],
+   "notes": "Outputs 9.23 and 9.24. Both systems carry 8 bits; only FreeBSD's tools agree on what they mean. cp's 64 is EX_USAGE from sysexits.h, which the header itself deprecates for the base system (Listing 9.30). A DOS batch file can trust FC and its own RC.COM, and must check everything else with IF EXIST."
+  },
+  {
+   "type": "bullets",
+   "title": "Homework",
+   "bullets": [
+    "9.1 HD -s and -n: seek or read and discard, 32-bit offsets",
+    "9.2 pwc: count one file with N processes, pread and a pipe",
+    "9.3 MENU.BAT and menu.sh around ASK",
+    "9.4 Port FreeBSD's cat to Microsoft C 5.10",
+    "9.5 TEE in NASM and in C",
+    "9.6 Essay: writing a tool in 1988 and today"
+   ],
+   "notes": "Every program is built and run on its system: dos_tools.py and dos_run.py with --timeout on MS-DOS, the VM on FreeBSD. Warn about the last line of a batch file: a final label without CR LF makes COMMAND.COM 4.00 run the previous command again, and a GOTO to it from a CALLed batch file never returns to the caller."
+  },
+  {
+   "type": "bullets",
+   "title": "Key takeaways",
+   "bullets": [
+    "A tool's contract: arguments, environment, three streams, one small number",
+    "DOS hands over 127 bytes of text; FreeBSD hands over finished words",
+    "Text mode is a C library convention; files hold raw bytes on both",
+    "Both carry 8 bits of exit code; only FreeBSD's tools agree on them",
+    "Test by redirection, compare with a reference, read the source when surprised"
+   ],
+   "notes": "Close with the tool matrix: the same six tools, built three ways on two systems, and every difference in their behaviour traced to a line of source. The surprises of MS-DOS 4.00 in this module (the cut batch line, the exit codes of XCOPY and FIND, the SFT bit) were all found by running the tools and explained by reading the code."
+  }
+ ]
+}

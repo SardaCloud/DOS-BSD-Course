@@ -1,0 +1,28 @@
+{
+  "title": "Running MS-DOS 4.00 unattended: commands in through AUTOEXEC.BAT, output out through COM1",
+  "width": 16.1, "height": 5.45,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 15.7, "h": 2.25, "label": "Host PC", "kind": "user"},
+    {"x": 0.2, "y": 2.7, "w": 15.7, "h": 2.25, "label": "DOSBox-X", "kind": "hw"}
+  ],
+  "nodes": [
+    {"id": "run", "x": 0.5, "y": 0.85, "w": 2.6, "h": 1.15, "label": "dos_run.py", "sub": "\"VER\" \"CHKDSK A:\"", "kind": "user"},
+    {"id": "img", "x": 3.6, "y": 0.8, "w": 2.9, "h": 1.25, "label": "dos400.img", "sub": "+ temporary AUTOEXEC.BAT", "kind": "data", "shape": "cyl"},
+    {"id": "boot", "x": 3.6, "y": 3.35, "w": 2.9, "h": 1.15, "label": "BOOT A:", "sub": "sector 0 -> 0000:7C00", "kind": "hw"},
+    {"id": "dos", "x": 7.0, "y": 3.35, "w": 3.2, "h": 1.15, "label": "MS-DOS 4.00", "sub": "each command > COM1", "kind": "dos"},
+    {"id": "com", "x": 10.6, "y": 3.35, "w": 2.6, "h": 1.15, "label": "COM1", "sub": "serial port", "kind": "hw"},
+    {"id": "file", "x": 10.6, "y": 0.8, "w": 2.6, "h": 1.25, "label": "COM1 file", "sub": "written by DOSBox-X", "kind": "data", "shape": "cyl"},
+    {"id": "out", "x": 13.6, "y": 0.85, "w": 2.1, "h": 1.15, "label": "printed", "sub": "---- VER ...", "kind": "user"}
+  ],
+  "edges": [
+    {"from": "run", "to": "img", "kind": "dos"},
+    {"from": "img", "to": "boot", "label": "--file, then boot", "kind": "dos"},
+    {"from": "boot", "to": "dos", "kind": "dos"},
+    {"from": "dos", "to": "com", "kind": "dos"},
+    {"from": "com", "to": "file", "kind": "hw"},
+    {"from": "file", "to": "out", "kind": "dos"}
+  ],
+  "notes": [
+    {"x": 0.3, "y": 5.0, "w": 15.5, "text": "Messages printed before AUTOEXEC.BAT runs (SYSINIT's, for example) are not captured; --keep saves the disk afterwards.", "size": 13, "kind": "neutral", "style": "italic", "align": "middle"}
+  ]
+}

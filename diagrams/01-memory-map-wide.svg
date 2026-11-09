@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1760.0000000000002 695.0" width="1760.0000000000002" height="695.0" role="img" aria-label="The first megabyte during boot (linear addresses, not to scale)">
+<title>The first megabyte during boot (linear addresses, not to scale)</title>
+<defs></defs>
+<rect x="0" y="0" width="1760.0000000000002" height="695.0" fill="#FFFFFF"/>
+<rect x="172.0" y="83.0" width="1575.0" height="284.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="172.0" y="393.0" width="1575.0" height="284.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="20.0" y="95.0" width="145.0" height="260.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="92.5" y="220.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#0B3D42" text-anchor="middle">MS-DOS</text>
+<text x="92.5" y="243.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#0B3D42" text-anchor="middle">4.00</text>
+<rect x="20.0" y="405.0" width="145.0" height="260.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="92.5" y="530.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#4A1312" text-anchor="middle">FreeBSD</text>
+<text x="92.5" y="553.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#4A1312" text-anchor="middle">15.1</text>
+<rect x="185.0" y="95.0" width="130.0" height="570.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="250.0" y="377.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">IVT</text>
+<text x="250.0" y="395.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">256 x 4 B</text>
+<rect x="327.0" y="95.0" width="130.0" height="570.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="392.0" y="355.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">BIOS</text>
+<text x="392.0" y="377.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">data</text>
+<text x="392.0" y="399.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">area</text>
+<text x="392.0" y="417.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">0x413 KB</text>
+<rect x="469.0" y="95.0" width="130.0" height="260.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="534.0" y="200.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">root</text>
+<text x="534.0" y="222.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">dir</text>
+<text x="534.0" y="244.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">sector</text>
+<text x="534.0" y="262.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">MSBOOT</text>
+<rect x="611.0" y="95.0" width="130.0" height="260.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="676.0" y="222.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">FDBOOT</text>
+<text x="676.0" y="240.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">MBR</text>
+<rect x="611.0" y="405.0" width="130.0" height="260.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="676.0" y="521.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">mbr or</text>
+<text x="676.0" y="543.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">boot0</text>
+<text x="676.0" y="561.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">MBR</text>
+<rect x="753.0" y="95.0" width="130.0" height="260.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="818.0" y="222.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">IO.SYS</text>
+<text x="818.0" y="240.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">MSLOAD</text>
+<rect x="753.0" y="405.0" width="130.0" height="260.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="818.0" y="521.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">boot1</text>
+<text x="818.0" y="543.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">copy</text>
+<text x="818.0" y="561.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">xread</text>
+<rect x="895.0" y="95.0" width="130.0" height="570.0" rx="7" fill="#F3F2EE" stroke="#6B7280" stroke-width="2"/>
+<text x="960.0" y="366.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">boot</text>
+<text x="960.0" y="388.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">sector</text>
+<text x="960.0" y="406.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">512 B</text>
+<rect x="1037.0" y="405.0" width="130.0" height="260.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1102.0" y="521.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">boot1 +</text>
+<text x="1102.0" y="543.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">boot2</text>
+<text x="1102.0" y="561.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">16 sectors</text>
+<rect x="1179.0" y="405.0" width="130.0" height="260.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1244.0" y="521.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">BTX</text>
+<text x="1244.0" y="543.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">kernel</text>
+<text x="1244.0" y="561.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">btx.S</text>
+<rect x="1321.0" y="405.0" width="130.0" height="260.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1386.0" y="521.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">BTX</text>
+<text x="1386.0" y="543.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">client</text>
+<text x="1386.0" y="561.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">loader</text>
+<rect x="1463.0" y="95.0" width="130.0" height="260.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1528.0" y="211.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">MSLOAD,</text>
+<text x="1528.0" y="233.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">SYSINIT</text>
+<text x="1528.0" y="251.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">moved up</text>
+<rect x="1463.0" y="405.0" width="130.0" height="260.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1528.0" y="521.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">client</text>
+<text x="1528.0" y="543.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">stack</text>
+<text x="1528.0" y="561.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">BDA 0x413</text>
+<rect x="1605.0" y="95.0" width="130.0" height="570.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1670.0" y="375.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">video,</text>
+<text x="1670.0" y="397.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">ROMs</text>
+<text x="250.0" y="36.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="middle" font-style="normal">0x00000</text>
+<text x="392.0" y="36.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="middle" font-style="normal">0x00400</text>
+<text x="534.0" y="36.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="middle" font-style="normal">0x00500</text>
+<text x="676.0" y="36.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="middle" font-style="normal">0x00600</text>
+<text x="818.0" y="36.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="middle" font-style="normal">0x00700</text>
+<text x="960.0" y="36.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="middle" font-style="normal">0x07C00</text>
+<text x="1102.0" y="36.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="middle" font-style="normal">0x08C00</text>
+<text x="1244.0" y="36.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="middle" font-style="normal">0x09000</text>
+<text x="1386.0" y="36.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="middle" font-style="normal">0x0A000</text>
+<text x="1528.0" y="36.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="middle" font-style="normal">top</text>
+<text x="1670.0" y="36.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="middle" font-style="normal">0xA0000</text>
+</svg>

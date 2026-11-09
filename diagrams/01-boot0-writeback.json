@@ -1,0 +1,37 @@
+{
+  "title": "Boot code that writes: boot0's write-back of the chosen default, against MS-DOS and gptboot",
+  "width": 13, "height": 7.6,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 8.5, "h": 7.2, "label": "FreeBSD boot0", "kind": "bsd"},
+    {"x": 8.95, "y": 0.2, "w": 3.85, "h": 3.45, "label": "MS-DOS 4.00", "kind": "dos"},
+    {"x": 8.95, "y": 3.85, "w": 3.85, "h": 3.55, "label": "FreeBSD gptboot", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "menu", "x": 0.6, "y": 0.9, "w": 4.6, "h": 0.7, "label": "Menu, timeout running", "sub": "every active flag cleared", "kind": "bsd"},
+    {"id": "key", "x": 0.6, "y": 1.95, "w": 4.6, "h": 0.7, "label": "F1-F5 pressed?", "kind": "bsd", "shape": "round"},
+    {"id": "save", "x": 0.6, "y": 3.0, "w": 4.6, "h": 0.7, "label": "Save option, F1-F4: entry = 0x80", "sub": "_OPT(%bp), byte 0x1B5", "kind": "bsd", "size": 15},
+    {"id": "upd", "x": 0.6, "y": 4.05, "w": 4.6, "h": 0.7, "label": "NOUPDATE (flag 0x40) set?", "kind": "bsd", "shape": "round"},
+    {"id": "write", "x": 0.6, "y": 5.1, "w": 4.6, "h": 0.7, "label": "Write sector 0", "sub": "512 bytes at 0x600, status ignored", "kind": "bsd"},
+    {"id": "def", "x": 5.9, "y": 1.95, "w": 2.5, "h": 0.7, "label": "Timeout, Enter", "sub": "sets NOUPDATE", "kind": "bsd", "size": 15},
+    {"id": "skip", "x": 5.9, "y": 4.05, "w": 2.5, "h": 0.7, "label": "No write", "sub": "sector 0 unchanged", "kind": "bsd", "size": 15},
+    {"id": "boot", "x": 0.6, "y": 6.3, "w": 7.8, "h": 0.75, "label": "Read the chosen boot sector, check it, jump", "kind": "bsd"},
+    {"id": "dos1", "x": 9.2, "y": 0.85, "w": 3.35, "h": 1.0, "label": "Boot code never writes", "sub": "DOCALL: ROM_DISKRD", "kind": "dos", "size": 15},
+    {"id": "dos2", "x": 9.2, "y": 2.25, "w": 3.35, "h": 1.0, "label": "FDISK, FORMAT, SYS", "sub": "user runs them to write", "kind": "user", "size": 15},
+    {"id": "g1", "x": 9.2, "y": 4.5, "w": 3.35, "h": 0.75, "label": "bootonce partition chosen", "kind": "bsd", "size": 15},
+    {"id": "g2", "x": 9.2, "y": 5.5, "w": 3.35, "h": 0.75, "label": "clear bootme", "sub": "primary + backup GPT", "kind": "bsd", "size": 15},
+    {"id": "g3", "x": 9.2, "y": 6.5, "w": 3.35, "h": 0.75, "label": "new CRC-32, then boot", "sub": "gptupdate()", "kind": "bsd", "size": 15}
+  ],
+  "edges": [
+    {"from": "menu", "to": "key", "kind": "bsd"},
+    {"from": "key", "to": "save", "label": "yes", "kind": "bsd"},
+    {"from": "key", "to": "def", "label": "no", "kind": "bsd"},
+    {"from": "save", "to": "upd", "kind": "bsd"},
+    {"from": "def", "to": "skip", "kind": "bsd"},
+    {"from": "upd", "to": "write", "label": "no", "kind": "bsd"},
+    {"from": "upd", "to": "skip", "label": "yes", "kind": "bsd"},
+    {"from": "write", "to": "boot", "from_side": "bottom", "to_side": "top", "to_pos": 0.2949, "kind": "bsd"},
+    {"from": "skip", "to": "boot", "from_side": "bottom", "to_side": "top", "to_pos": 0.8397, "kind": "bsd"},
+    {"from": "g1", "to": "g2", "kind": "bsd"},
+    {"from": "g2", "to": "g3", "kind": "bsd"}
+  ]
+}

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650.0" width="1200" height="650.0" role="img" aria-label="An exit code&#x27;s journey: AL to RETCODE to IF ERRORLEVEL on MS-DOS; _exit to the wait status to $? on FreeBSD">
+<title>An exit code&#x27;s journey: AL to RETCODE to IF ERRORLEVEL on MS-DOS; _exit to the wait status to $? on FreeBSD</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker><marker id="arrowB7862A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B7862A"/></marker></defs>
+<rect x="0" y="0" width="1200" height="650.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1160.0" height="295.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="109.45" height="26" rx="13" fill="#0E7C86"/>
+<text x="86.725" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00</text>
+<rect x="20.0" y="335.0" width="1160.0" height="295.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="345.0" width="117.4" height="26" rx="13" fill="#AB2B28"/>
+<text x="90.7" y="363.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1</text>
+<path d="M234.0,116.25 L279.0,116.25" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M463.0,116.25 L508.0,116.25" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M692.0,116.25 L737.0,116.25" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M921.0,116.25 L966.0,116.25" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M234.0,431.25 L279.0,431.25" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M463.0,431.25 L508.0,431.25" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M692.0,431.25 L737.0,431.25" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M921.0,431.25 L966.0,431.25" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M371.0,187.5 L371.0,157.5" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<path d="M600.0,502.5 L600.0,472.5" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<rect x="50.0" y="75.0" width="184.0" height="82.5" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="142.0" y="105.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">Program</text>
+<text x="142.0" y="123.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">ends</text>
+<text x="142.0" y="138.6" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">AH=4Ch AL=2Ch</text>
+<rect x="279.0" y="75.0" width="184.0" height="82.5" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="371.0" y="105.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B3D42" text-anchor="middle">DOS keeps AL,</text>
+<text x="371.0" y="123.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B3D42" text-anchor="middle">exit type in AH</text>
+<text x="371.0" y="138.6" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">0 normal 1 ^C</text>
+<rect x="508.0" y="75.0" width="184.0" height="82.5" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="600.0" y="103.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B3D42" text-anchor="middle">Function 4Dh</text>
+<text x="600.0" y="121.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B3D42" text-anchor="middle">returns it,</text>
+<text x="600.0" y="139.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B3D42" text-anchor="middle">clears it</text>
+<rect x="737.0" y="75.0" width="184.0" height="82.5" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="829.0" y="105.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B3D42" text-anchor="middle">COMMAND.COM</text>
+<text x="829.0" y="123.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B3D42" text-anchor="middle">RETCODE</text>
+<text x="829.0" y="138.6" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">external only</text>
+<rect x="966.0" y="75.0" width="184.0" height="82.5" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1058.0" y="105.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">IF</text>
+<text x="1058.0" y="123.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">ERRORLEVEL n</text>
+<text x="1058.0" y="138.6" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">low byte &gt;= n</text>
+<rect x="279.0" y="187.5" width="184.0" height="82.5" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="371.0" y="226.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#4D3810" text-anchor="middle">Ctrl-C</text>
+<text x="371.0" y="241.9" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">fakes 4Ch, AL=0</text>
+<rect x="50.0" y="390.0" width="184.0" height="82.5" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="142.0" y="420.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">Program</text>
+<text x="142.0" y="438.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">ends</text>
+<text x="142.0" y="453.6" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">exit(44)</text>
+<rect x="279.0" y="390.0" width="184.0" height="82.5" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="371.0" y="420.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1312" text-anchor="middle">_exit(2): the</text>
+<text x="371.0" y="438.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1312" text-anchor="middle">kernel keeps it</text>
+<text x="371.0" y="453.6" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">p_xexit</text>
+<rect x="508.0" y="390.0" width="184.0" height="82.5" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="600.0" y="420.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1312" text-anchor="middle">wait4(2)</text>
+<text x="600.0" y="438.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1312" text-anchor="middle">status word</text>
+<text x="600.0" y="453.6" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">(44 &amp; 0xff) &lt;&lt; 8</text>
+<rect x="737.0" y="390.0" width="184.0" height="82.5" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="829.0" y="420.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1312" text-anchor="middle">sh: $? =</text>
+<text x="829.0" y="438.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1312" text-anchor="middle">WEXITSTATUS</text>
+<text x="829.0" y="453.6" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">every command</text>
+<rect x="966.0" y="390.0" width="184.0" height="82.5" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1058.0" y="427.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">if, &amp;&amp;, ||</text>
+<text x="1058.0" y="445.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">0 is true</text>
+<rect x="508.0" y="502.5" width="184.0" height="82.5" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="600.0" y="541.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#4D3810" text-anchor="middle">kill -TERM</text>
+<text x="600.0" y="556.9" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">signal 15</text>
+<text x="55.0" y="288.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13.5" fill="#0B3D42" text-anchor="start" font-style="italic">The code is the low byte, the reason the high byte; IF ERRORLEVEL sees only the code.</text>
+<text x="55.0" y="603.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13.5" fill="#4A1312" text-anchor="start" font-style="italic">The code is the high byte, the signal the low byte; $? is 128 + signal after a kill.</text>
+</svg>

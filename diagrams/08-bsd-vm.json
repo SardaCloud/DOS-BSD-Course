@@ -1,0 +1,36 @@
+{
+  "title": "FreeBSD virtual memory in practice: maps, objects, page queues, backing store",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 3.2, "h": 6.1, "label": "Processes", "kind": "user"},
+    {"x": 3.6, "y": 0.2, "w": 3.5, "h": 6.1, "label": "VM objects", "kind": "bsd"},
+    {"x": 7.3, "y": 0.2, "w": 5.0, "h": 6.1, "label": "Physical pages", "kind": "bsd"},
+    {"x": 12.5, "y": 0.2, "w": 3.3, "h": 6.1, "label": "Backing store", "kind": "hw"}
+  ],
+  "nodes": [
+    {"id": "pa", "x": 0.45, "y": 0.8, "w": 2.7, "h": 1.3, "label": "Process A\nvm_map", "sub": "procstat -v", "kind": "user", "size": 18},
+    {"id": "pb", "x": 0.45, "y": 3.6, "w": 2.7, "h": 1.3, "label": "Process B\nvm_map", "sub": "procstat -v", "kind": "user", "size": 18},
+    {"id": "vn", "x": 3.85, "y": 0.8, "w": 3.0, "h": 1.3, "label": "Vnode object\nfile pages", "kind": "bsd", "size": 18},
+    {"id": "anon", "x": 3.85, "y": 3.6, "w": 3.0, "h": 1.3, "label": "Anonymous\nheap, stack", "kind": "bsd", "size": 18},
+    {"id": "act", "x": 7.6, "y": 1.75, "w": 2.2, "h": 0.9, "label": "active", "kind": "bsd", "size": 18},
+    {"id": "inact", "x": 7.6, "y": 3.0, "w": 2.2, "h": 0.9, "label": "inactive", "kind": "bsd", "size": 18},
+    {"id": "laun", "x": 7.6, "y": 4.25, "w": 2.2, "h": 0.9, "label": "laundry", "kind": "bsd", "size": 18},
+    {"id": "free", "x": 10.4, "y": 3.0, "w": 1.6, "h": 0.9, "label": "free", "kind": "bsd", "size": 18},
+    {"id": "fs", "x": 12.85, "y": 0.6, "w": 2.6, "h": 1.7, "label": "Files", "sub": "UFS, ZFS", "kind": "hw", "shape": "cyl", "size": 18},
+    {"id": "swap", "x": 12.85, "y": 3.85, "w": 2.6, "h": 1.7, "label": "Swap", "sub": "swapinfo", "kind": "hw", "shape": "cyl", "size": 18}
+  ],
+  "edges": [
+    {"from": "pa", "to": "vn", "kind": "bsd"},
+    {"from": "pb", "to": "anon", "kind": "bsd"},
+    {"from": "anon", "to": "act", "from_side": "right", "to_side": "left", "route": "hvh", "kind": "bsd", "label": "fault", "size": 16, "label_on_line": true},
+    {"from": "act", "to": "inact", "kind": "bsd", "label": "not used", "size": 16},
+    {"from": "inact", "to": "laun", "kind": "bsd", "label": "dirty", "size": 16},
+    {"from": "inact", "to": "free", "kind": "bsd", "label": "clean", "size": 16},
+    {"from": "laun", "to": "swap", "from_side": "right", "to_side": "left", "route": "hvh", "kind": "hw", "style": "thick", "label": "pageout", "size": 16},
+    {"from": "vn", "to": "fs", "from_side": "right", "to_side": "left", "kind": "hw", "style": "dashed", "label": "vnode pager", "size": 16}
+  ],
+  "notes": [
+    {"x": 0.45, "y": 5.3, "w": 6.5, "text": "Shared libraries: one vnode object\nin many maps. Fault = first touch.", "size": 15, "style": "italic", "kind": "bsd"},
+    {"x": 7.6, "y": 5.4, "w": 4.6, "text": "+ wired pages (kernel, mlock)\nvm.stats.vm.v_*_count, top", "size": 15, "style": "italic", "kind": "bsd"}
+  ]
+}

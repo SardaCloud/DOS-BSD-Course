@@ -1,0 +1,45 @@
+{
+  "title": "Build pipelines: assembly, C and script on MS-DOS 4.00 and FreeBSD 15.1",
+  "width": 12, "height": 7.6,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 11.6, "h": 3.5, "label": "MS-DOS 4.00", "kind": "dos"},
+    {"x": 0.2, "y": 3.9, "w": 11.6, "h": 3.5, "label": "FreeBSD 15.1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "da0", "x": 0.5, "y": 0.75, "w": 2.413, "h": 0.733, "label": "ARGS.ASM", "kind": "data", "size": 15, "mono": true},
+    {"id": "da1", "x": 3.363, "y": 0.75, "w": 2.413, "h": 0.733, "label": "NASM -f bin", "kind": "dos", "size": 15, "sub": "or MASM, LINK, EXE2BIN"},
+    {"id": "da3", "x": 9.088, "y": 0.75, "w": 2.413, "h": 0.733, "label": "ARGS.COM", "kind": "user", "size": 15, "sub": "image at 100h, no header"},
+    {"id": "dc0", "x": 0.5, "y": 1.783, "w": 2.413, "h": 0.733, "label": "WC.C", "kind": "data", "size": 15, "mono": true},
+    {"id": "dc1", "x": 3.363, "y": 1.783, "w": 2.413, "h": 0.733, "label": "CL /AS /c", "kind": "dos", "size": 15, "sub": "C1, C2, C3 -> WC.OBJ"},
+    {"id": "dc2", "x": 6.225, "y": 1.783, "w": 2.413, "h": 0.733, "label": "LINK", "kind": "dos", "size": 15, "sub": "+ SLIBCE.LIB"},
+    {"id": "dc3", "x": 9.088, "y": 1.783, "w": 2.413, "h": 0.733, "label": "WC.EXE", "kind": "user", "size": 15, "sub": "MZ header, relocations"},
+    {"id": "ds0", "x": 0.5, "y": 2.817, "w": 2.413, "h": 0.733, "label": "BACKUP.BAT", "kind": "data", "size": 15, "mono": true},
+    {"id": "ds1", "x": 3.363, "y": 2.817, "w": 8.138, "h": 0.733, "label": "COMMAND.COM reads and runs it, one line at a time", "kind": "dos", "size": 15, "sub": "no build step"},
+    {"id": "ba0", "x": 0.5, "y": 4.45, "w": 2.413, "h": 0.733, "label": "args.asm", "kind": "data", "size": 15, "mono": true},
+    {"id": "ba1", "x": 3.363, "y": 4.45, "w": 2.413, "h": 0.733, "label": "nasm -f elf64", "kind": "bsd", "size": 15, "sub": "-> args.o"},
+    {"id": "ba2", "x": 6.225, "y": 4.45, "w": 2.413, "h": 0.733, "label": "ld", "kind": "bsd", "size": 15, "sub": "no libraries"},
+    {"id": "ba3", "x": 9.088, "y": 4.45, "w": 2.413, "h": 0.733, "label": "argsa", "kind": "user", "size": 15, "sub": "static ELF, syscall"},
+    {"id": "bc0", "x": 0.5, "y": 5.483, "w": 2.413, "h": 0.733, "label": "wc.c", "kind": "data", "size": 15, "mono": true},
+    {"id": "bc1", "x": 3.363, "y": 5.483, "w": 2.413, "h": 0.733, "label": "cc", "kind": "bsd", "size": 15, "sub": "compiles -> wc.o"},
+    {"id": "bc2", "x": 6.225, "y": 5.483, "w": 2.413, "h": 0.733, "label": "ld (run by cc)", "kind": "bsd", "size": 15, "sub": "+ crt1.o, libc.so.7"},
+    {"id": "bc3", "x": 9.088, "y": 5.483, "w": 2.413, "h": 0.733, "label": "wc", "kind": "user", "size": 15, "sub": "dynamic ELF"},
+    {"id": "bs0", "x": 0.5, "y": 6.517, "w": 2.413, "h": 0.733, "label": "backup.sh", "kind": "data", "size": 15, "mono": true},
+    {"id": "bs1", "x": 3.363, "y": 6.517, "w": 8.138, "h": 0.733, "label": "#!/bin/sh: the kernel starts /bin/sh with the script's path", "kind": "bsd", "size": 15, "sub": "chmod +x; no build step"}
+  ],
+  "edges": [
+    {"from": "da0", "to": "da1", "kind": "dos"},
+    {"from": "da1", "to": "da3", "kind": "dos"},
+    {"from": "dc0", "to": "dc1", "kind": "dos"},
+    {"from": "dc1", "to": "dc2", "kind": "dos"},
+    {"from": "dc2", "to": "dc3", "kind": "dos"},
+    {"from": "ds0", "to": "ds1", "kind": "dos"},
+    {"from": "ba0", "to": "ba1", "kind": "bsd"},
+    {"from": "ba1", "to": "ba2", "kind": "bsd"},
+    {"from": "ba2", "to": "ba3", "kind": "bsd"},
+    {"from": "bc0", "to": "bc1", "kind": "bsd"},
+    {"from": "bc1", "to": "bc2", "kind": "bsd"},
+    {"from": "bc2", "to": "bc3", "kind": "bsd"},
+    {"from": "bs0", "to": "bs1", "kind": "bsd"}
+  ],
+  "notes": []
+}

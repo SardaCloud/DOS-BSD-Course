@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 740.0" width="1700" height="740.0" role="img" aria-label="dir | sort &gt; out.txt: temporary files one stage at a time versus a pipe between concurrent processes">
+<title>dir | sort &gt; out.txt: temporary files one stage at a time versus a pipe between concurrent processes</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1700" height="740.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1660.0" height="320.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="284.35" height="26" rx="13" fill="#0E7C86"/>
+<text x="174.175" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00: dir | sort &gt; out.txt</text>
+<rect x="20.0" y="360.0" width="1660.0" height="360.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="370.0" width="284.35" height="26" rx="13" fill="#AB2B28"/>
+<text x="174.175" y="388.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1: ls | sort &gt; out.txt</text>
+<path d="M235.0,122.5 L265.0,122.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M455.0,122.5 L485.0,122.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M775.0,122.5 L805.0,122.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1015.0,122.5 L1045.0,122.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1375.0,122.5 L1405.0,122.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M630.0,170.0 L630.0,262.5 L720.0,262.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="593.2" y="204.1" width="73.6" height="24.3" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="630.0" y="221.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#0E7C86" text-anchor="middle">handle 1</text>
+<path d="M1140.0,262.5 L1210.0,262.5 L1210.0,170.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="1173.2" y="204.1" width="73.6" height="24.3" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1210.0" y="221.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#0E7C86" text-anchor="middle">handle 0</text>
+<path d="M235.0,457.5 L265.0,457.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M455.0,457.5 L485.0,457.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M675.0,457.5 L705.0,457.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M580.0,500.0 L580.0,565.0 L705.0,565.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M580.0,500.0 L580.0,665.0 L705.0,665.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M915.0,565.0 L945.0,565.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1275.0,565.0 L1305.0,565.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1515.0,565.0 L1560.0,565.0 L1560.0,665.0 L1515.0,665.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M915.0,665.0 L945.0,665.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="45.0" y="75.0" width="190.0" height="95.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="140.0" y="120.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">Prescan</text>
+<text x="140.0" y="138.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">PIPEFLAG</text>
+<rect x="265.0" y="75.0" width="190.0" height="95.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="360.0" y="109.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">Two temp</text>
+<text x="360.0" y="131.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">files</text>
+<text x="360.0" y="149.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">5Ah in C:\</text>
+<rect x="485.0" y="75.0" width="290.0" height="95.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="630.0" y="117.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">DIR runs inside</text>
+<text x="630.0" y="139.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">COMMAND.COM</text>
+<rect x="805.0" y="75.0" width="210.0" height="95.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="910.0" y="109.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">Swap</text>
+<text x="910.0" y="131.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">handles</text>
+<text x="910.0" y="149.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">out.txt -&gt; 1</text>
+<rect x="1045.0" y="75.0" width="330.0" height="95.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1210.0" y="120.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">SORT.EXE runs</text>
+<text x="1210.0" y="138.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">writes out.txt</text>
+<rect x="1405.0" y="75.0" width="250.0" height="95.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1530.0" y="120.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">PIPEDEL</text>
+<text x="1530.0" y="138.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">two UNLINKs</text>
+<path d="M720.0,219.0 a210.0,14 0 0,0 420.0,0 v87.0 a210.0,14 0 0,1 -420.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="930.0" cy="219.0" rx="210.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="930.0" y="282.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">temporary file in C:\</text>
+<rect x="45.0" y="415.0" width="190.0" height="85.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="140.0" y="455.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">Parse</text>
+<text x="140.0" y="473.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">NPIPE</text>
+<rect x="265.0" y="415.0" width="190.0" height="85.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="360.0" y="455.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">pipe2</text>
+<text x="360.0" y="473.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">fds 3, 4</text>
+<rect x="485.0" y="415.0" width="190.0" height="85.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="580.0" y="455.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">fork, fork</text>
+<text x="580.0" y="473.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">evalpipe</text>
+<rect x="705.0" y="415.0" width="950.0" height="85.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="1180.0" y="455.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">sh waits for the job</text>
+<text x="1180.0" y="473.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">waitforjob: wait3 collects both children</text>
+<rect x="705.0" y="525.0" width="210.0" height="80.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="810.0" y="562.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">child 1</text>
+<text x="810.0" y="580.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">dup2(4,1), execve</text>
+<rect x="945.0" y="525.0" width="330.0" height="80.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1110.0" y="562.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">ls runs</text>
+<text x="1110.0" y="580.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">writes the pipe</text>
+<rect x="1305.0" y="525.0" width="210.0" height="80.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1410.0" y="562.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">pipe</text>
+<text x="1410.0" y="580.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">16 KiB buffer</text>
+<rect x="705.0" y="625.0" width="210.0" height="80.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="810.0" y="662.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">child 2</text>
+<text x="810.0" y="680.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">dup2(3,0), execve</text>
+<rect x="945.0" y="625.0" width="570.0" height="80.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1230.0" y="662.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">sort runs at the same time</text>
+<text x="1230.0" y="680.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">reads the pipe, writes out.txt</text>
+<text x="45.0" y="236.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#0B3D42" text-anchor="start" font-style="italic">One program at a time: SORT starts</text>
+<text x="45.0" y="256.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#0B3D42" text-anchor="start" font-style="italic">only after DIR has finished, and the</text>
+<text x="45.0" y="276.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#0B3D42" text-anchor="start" font-style="italic">data waits on disk in between.</text>
+<text x="45.0" y="551.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#4A1312" text-anchor="start" font-style="italic">Both programs run at once; ls sleeps</text>
+<text x="45.0" y="571.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#4A1312" text-anchor="start" font-style="italic">(pipewr) while the buffer is full, and</text>
+<text x="45.0" y="591.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#4A1312" text-anchor="start" font-style="italic">sort sees end of file when ls exits.</text>
+<text x="1660.0" y="43.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="end" font-style="italic">time -&gt;</text>
+</svg>

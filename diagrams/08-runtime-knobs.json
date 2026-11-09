@@ -1,0 +1,30 @@
+{
+  "title": "When does a change take effect? Run-time knobs on both systems",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 15.6, "h": 2.85, "label": "MS-DOS 4.00", "kind": "dos"},
+    {"x": 0.2, "y": 3.25, "w": 15.6, "h": 3.05, "label": "FreeBSD 15.1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "dc", "x": 0.5, "y": 0.85, "w": 3.3, "h": 1.5, "label": "BUFFERS, FILES,\ndrivers", "sub": "CONFIG.SYS", "kind": "dos", "size": 18},
+    {"id": "dr", "x": 4.6, "y": 0.85, "w": 2.2, "h": 1.5, "label": "reboot", "kind": "hw", "size": 18, "shape": "round"},
+    {"id": "de", "x": 8.4, "y": 0.85, "w": 3.4, "h": 1.5, "label": "SET, PATH,\nMODE, KEYB", "sub": "command line", "kind": "dos", "size": 18},
+    {"id": "dn", "x": 12.6, "y": 0.85, "w": 3.0, "h": 1.5, "label": "now", "sub": "TSRs stay resident", "kind": "user", "size": 18, "shape": "round"},
+    {"id": "bt", "x": 0.5, "y": 3.85, "w": 3.3, "h": 1.0, "label": "tunable", "sub": "loader.conf", "kind": "bsd", "size": 18},
+    {"id": "br", "x": 4.6, "y": 3.85, "w": 2.2, "h": 1.0, "label": "reboot", "kind": "hw", "size": 18, "shape": "round"},
+    {"id": "bs", "x": 8.4, "y": 3.85, "w": 3.4, "h": 1.0, "label": "sysctl name=value", "sub": "CTLFLAG_RW", "kind": "bsd", "size": 18},
+    {"id": "bv", "x": 8.4, "y": 5.05, "w": 3.4, "h": 1.0, "label": "service x restart", "sub": "after sysrc / rc.conf", "kind": "bsd", "size": 18},
+    {"id": "bn", "x": 12.6, "y": 3.85, "w": 3.0, "h": 2.2, "label": "now", "sub": "no reboot", "kind": "user", "size": 18, "shape": "round"}
+  ],
+  "edges": [
+    {"from": "dc", "to": "dr", "kind": "dos"},
+    {"from": "de", "to": "dn", "kind": "dos"},
+    {"from": "bt", "to": "br", "kind": "bsd"},
+    {"from": "bs", "to": "bn", "from_side": "right", "to_side": "left", "kind": "bsd"},
+    {"from": "bv", "to": "bn", "from_side": "right", "to_side": "left", "route": "hvh", "kind": "bsd"}
+  ],
+  "notes": [
+    {"x": 0.5, "y": 2.5, "w": 15.0, "text": "The kernel has no interface for changing its own tables: SYSINIT sized them once, at boot.", "size": 15, "style": "italic", "kind": "dos"},
+    {"x": 0.5, "y": 5.1, "w": 7.6, "text": "CTLFLAG_RDTUN: read-only at run time,\nset by the loader before the kernel starts", "size": 15, "style": "italic", "kind": "bsd"}
+  ]
+}

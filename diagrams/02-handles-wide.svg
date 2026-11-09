@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 675.0" width="1700" height="675.0" role="img" aria-label="Three levels in both systems: number, per-process table, system-wide open file">
+<title>Three levels in both systems: number, per-process table, system-wide open file</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1700" height="675.0" fill="#FFFFFF"/>
+<rect x="20.0" y="65.0" width="1660.0" height="285.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="75.0" width="109.45" height="26" rx="13" fill="#0E7C86"/>
+<text x="86.725" y="93.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00</text>
+<rect x="20.0" y="370.0" width="1660.0" height="285.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="380.0" width="117.4" height="26" rx="13" fill="#AB2B28"/>
+<text x="90.7" y="398.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1</text>
+<path d="M310.0,147.5 L370.0,147.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M310.0,252.5 L370.0,252.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M630.0,147.5 L705.0,147.5 L705.0,200.0 L780.0,200.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M630.0,252.5 L705.0,252.5 L705.0,200.0 L780.0,200.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="649.8" y="239.7" width="35.4" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="667.5" y="258.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#0E7C86" text-anchor="middle">DUP</text>
+<path d="M1200.0,200.0 L1300.0,200.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="1209.2" y="187.8" width="81.5" height="24.3" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1250.0" y="205.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#0E7C86" text-anchor="middle">sf_devptr</text>
+<path d="M310.0,452.5 L370.0,452.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M310.0,557.5 L370.0,557.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M630.0,452.5 L705.0,452.5 L705.0,505.0 L780.0,505.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M630.0,557.5 L705.0,557.5 L705.0,505.0 L780.0,505.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="649.8" y="544.7" width="35.4" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="667.5" y="563.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#AB2B28" text-anchor="middle">dup</text>
+<path d="M1200.0,505.0 L1300.0,505.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="1217.2" y="492.9" width="65.7" height="24.3" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1250.0" y="510.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#AB2B28" text-anchor="middle">f_vnode</text>
+<rect x="50.0" y="110.0" width="260.0" height="75.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="180.0" y="153.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">handle 1</text>
+<rect x="50.0" y="215.0" width="260.0" height="75.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="180.0" y="258.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">handle 3</text>
+<rect x="370.0" y="110.0" width="260.0" height="75.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="500.0" y="153.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">JFT[1] = 07h</text>
+<rect x="370.0" y="215.0" width="260.0" height="75.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="500.0" y="258.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">JFT[3] = 07h</text>
+<rect x="780.0" y="110.0" width="420.0" height="180.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="990.0" y="197.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#0B3D42" text-anchor="middle">SFT entry, SFN 7</text>
+<text x="990.0" y="217.6" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">sf_ref_count, sf_position</text>
+<rect x="1300.0" y="145.0" width="360.0" height="110.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1480.0" y="195.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">DPB or</text>
+<text x="1480.0" y="217.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">device header</text>
+<rect x="50.0" y="415.0" width="260.0" height="75.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="180.0" y="458.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">fd 1</text>
+<rect x="50.0" y="520.0" width="260.0" height="75.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="180.0" y="563.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">fd 3</text>
+<rect x="370.0" y="415.0" width="260.0" height="75.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="500.0" y="458.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">fd_files[1]</text>
+<rect x="370.0" y="520.0" width="260.0" height="75.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="500.0" y="563.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">fd_files[3]</text>
+<rect x="780.0" y="415.0" width="420.0" height="180.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="990.0" y="502.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#4A1312" text-anchor="middle">struct file</text>
+<text x="990.0" y="522.6" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">f_count, f_offset, f_ops</text>
+<rect x="1300.0" y="450.0" width="360.0" height="110.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1480.0" y="502.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">vnode</text>
+<text x="1480.0" y="520.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">shared by all opens</text>
+<text x="180.0" y="35.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" fill="#1F2328" text-anchor="middle" font-style="italic">number</text>
+<text x="500.0" y="35.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" fill="#1F2328" text-anchor="middle" font-style="italic">per-process table</text>
+<text x="990.0" y="35.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" fill="#1F2328" text-anchor="middle" font-style="italic">system-wide open file</text>
+<text x="1480.0" y="35.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" fill="#1F2328" text-anchor="middle" font-style="italic">below the open file</text>
+<text x="780.0" y="313.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#0B3D42" text-anchor="start" font-style="italic">JFT: 20 bytes in each PSP. SFT: FILES= entries (8-255), one pool.</text>
+<text x="780.0" y="618.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#4A1312" text-anchor="start" font-style="italic">fd_files starts at NDFILE = 20 slots and grows; struct file on demand.</text>
+</svg>

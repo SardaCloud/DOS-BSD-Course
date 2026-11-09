@@ -1,0 +1,30 @@
+{
+  "title": "How EMM386 answers INT 67h: virtual-8086 mode, a ring-0 monitor, and page tables",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 12.0, "h": 2.75, "label": "Virtual-8086 mode: DOS, BIOS and programs", "kind": "dos"},
+    {"x": 0.2, "y": 3.15, "w": 12.0, "h": 3.15, "label": "Protected mode, ring 0: EMM386's monitor", "kind": "kernel"},
+    {"x": 12.4, "y": 0.2, "w": 3.4, "h": 6.1, "label": "386 hardware", "kind": "hw"}
+  ],
+  "nodes": [
+    {"id": "prog", "x": 0.5, "y": 0.9, "w": 3.0, "h": 1.4, "label": "Program\nINT 67h", "sub": "AH = function", "kind": "user", "size": 18},
+    {"id": "vect", "x": 6.9, "y": 0.9, "w": 4.9, "h": 1.4, "label": "Vector 67h: EMM_rEntry\n43h, 45h ...: int67_Entry", "sub": "EMM.ASM, EMMDISP.ASM", "kind": "dos", "size": 18},
+    {"id": "idt", "x": 0.5, "y": 3.9, "w": 3.0, "h": 1.4, "label": "IDT gate 67h\nDPL 3", "sub": "TABDEF.ASM", "kind": "kernel", "size": 18},
+    {"id": "pentry", "x": 3.9, "y": 3.9, "w": 2.9, "h": 1.4, "label": "EMM_pEntry", "sub": "EMM.ASM", "kind": "kernel", "size": 18},
+    {"id": "map", "x": 8.0, "y": 3.9, "w": 3.8, "h": 1.4, "label": "_MapHandlePage\nmap_EMM_page", "sub": "EMMP.ASM", "kind": "kernel", "size": 18},
+    {"id": "pt", "x": 12.8, "y": 3.9, "w": 2.7, "h": 1.4, "label": "Page tables\n+ CR3", "kind": "hw", "size": 18},
+    {"id": "mem", "x": 12.8, "y": 0.9, "w": 2.7, "h": 1.6, "label": "Pool pages\nabove 1 MB", "kind": "hw", "shape": "cyl", "size": 18}
+  ],
+  "edges": [
+    {"from": "prog", "to": "idt", "kind": "dos", "label": "trap", "size": 16},
+    {"from": "idt", "to": "pentry", "kind": "dos"},
+    {"from": "pentry", "to": "map", "kind": "dos", "label": "44h", "size": 16},
+    {"from": "map", "to": "pt", "kind": "hw", "style": "thick", "label": "4 PTEs", "size": 16},
+    {"from": "pt", "to": "mem", "kind": "hw", "label": "translate", "size": 16},
+    {"from": "pentry", "to": "vect", "from_side": "top", "to_side": "left", "route": "vh", "kind": "dos", "style": "dashed", "label": "every call: reflect", "size": 16},
+    {"from": "vect", "to": "pentry", "from_side": "bottom", "from_pos": 0.12, "to_side": "right", "to_pos": 0.25, "route": "vh", "kind": "dos", "style": "dashed", "label": "44h: INT 67h again", "size": 16}
+  ],
+  "notes": [
+    {"x": 0.5, "y": 5.55, "w": 11.4, "text": "IRETD returns to virtual-8086 mode. IN/OUT to the A20 and DMA ports and other privileged\ninstructions also trap here (VMINST.ASM, A20TRAP.ASM, ELIMTRAP.ASM).", "size": 15, "style": "italic"}
+  ]
+}

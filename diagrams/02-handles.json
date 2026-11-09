@@ -1,0 +1,43 @@
+{
+  "title": "Three levels in both systems: number, per-process table, system-wide open file",
+  "width": 14.4, "height": 6.5,
+  "lanes": [
+    {"x": 2.1, "y": 0.2, "w": 6.0, "h": 6.1, "label": "MS-DOS 4.00", "kind": "dos"},
+    {"x": 8.3, "y": 0.2, "w": 6.0, "h": 6.1, "label": "FreeBSD 15.1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "h1", "x": 2.5, "y": 0.85, "w": 2.4, "h": 0.7, "label": "handle 1", "sub": "index into JFT", "kind": "user"},
+    {"id": "h3", "x": 5.3, "y": 0.85, "w": 2.4, "h": 0.7, "label": "handle 3", "sub": "index into JFT", "kind": "user"},
+    {"id": "j1", "x": 2.5, "y": 2.05, "w": 2.4, "h": 0.75, "label": "JFT[1] = 07h", "sub": "SFN, 1 byte", "kind": "data"},
+    {"id": "j3", "x": 5.3, "y": 2.05, "w": 2.4, "h": 0.75, "label": "JFT[3] = 07h", "sub": "SFN, 1 byte", "kind": "data"},
+    {"id": "sft", "x": 2.5, "y": 3.4, "w": 5.2, "h": 0.8, "label": "SFT entry, SFN 7", "sub": "sf_ref_count, sf_position", "kind": "dos"},
+    {"id": "dpb", "x": 2.5, "y": 4.75, "w": 5.2, "h": 0.75, "label": "DPB or device header", "sub": "sf_devptr", "kind": "dos"},
+
+    {"id": "f1", "x": 8.7, "y": 0.85, "w": 2.4, "h": 0.7, "label": "fd 1", "sub": "index into fd_files", "kind": "user"},
+    {"id": "f3", "x": 11.5, "y": 0.85, "w": 2.4, "h": 0.7, "label": "fd 3", "sub": "index into fd_files", "kind": "user"},
+    {"id": "e1", "x": 8.7, "y": 2.05, "w": 2.4, "h": 0.75, "label": "fd_files[1]", "sub": "filedescent: fde_file", "kind": "data"},
+    {"id": "e3", "x": 11.5, "y": 2.05, "w": 2.4, "h": 0.75, "label": "fd_files[3]", "sub": "filedescent: fde_file", "kind": "data"},
+    {"id": "file", "x": 8.7, "y": 3.4, "w": 5.2, "h": 0.8, "label": "struct file", "sub": "f_count, f_offset, f_ops", "kind": "bsd"},
+    {"id": "vn", "x": 8.7, "y": 4.75, "w": 5.2, "h": 0.75, "label": "vnode", "sub": "f_vnode: shared by all opens", "kind": "bsd"}
+  ],
+  "edges": [
+    {"from": "h1", "to": "j1", "kind": "dos"},
+    {"from": "h3", "to": "j3", "kind": "dos"},
+    {"from": "j1", "to": "sft", "from_side": "bottom", "to_side": "top", "kind": "dos"},
+    {"from": "j3", "to": "sft", "from_side": "bottom", "to_side": "top", "kind": "dos", "label": "DUP"},
+    {"from": "sft", "to": "dpb", "kind": "dos"},
+    {"from": "f1", "to": "e1", "kind": "bsd"},
+    {"from": "f3", "to": "e3", "kind": "bsd"},
+    {"from": "e1", "to": "file", "from_side": "bottom", "to_side": "top", "kind": "bsd"},
+    {"from": "e3", "to": "file", "from_side": "bottom", "to_side": "top", "kind": "bsd", "label": "dup"},
+    {"from": "file", "to": "vn", "kind": "bsd"}
+  ],
+  "notes": [
+    {"x": 0.05, "y": 0.92, "w": 1.9, "text": "number used\nby the program", "align": "end", "style": "italic"},
+    {"x": 0.05, "y": 2.15, "w": 1.9, "text": "per-process\ntable", "align": "end", "style": "italic"},
+    {"x": 0.05, "y": 3.5, "w": 1.9, "text": "system-wide\nopen file:\ncount, position", "align": "end", "style": "italic"},
+    {"x": 0.05, "y": 4.85, "w": 1.9, "text": "below the\nopen file", "align": "end", "style": "italic"},
+    {"x": 2.4, "y": 5.7, "w": 5.6, "text": "JFT: 20 bytes in each PSP. SFT: FILES= entries\n(8-255), one pool for all programs.", "size": 12, "kind": "dos", "style": "italic"},
+    {"x": 8.6, "y": 5.7, "w": 5.6, "text": "fd_files: starts at NDFILE = 20 slots and grows.\nstruct file: allocated on demand.", "size": 12, "kind": "bsd", "style": "italic"}
+  ]
+}

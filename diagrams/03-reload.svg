@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 660.0" width="1700" height="660.0" role="img" aria-label="COMMAND.COM: resident and transient parts, and the reload check after every program">
+<title>COMMAND.COM: resident and transient parts, and the reload check after every program</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker></defs>
+<rect x="0" y="0" width="1700" height="660.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="320.0" height="620.0" rx="14" fill="#F7F6F2" stroke="#6B7280" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="173.05" height="26" rx="13" fill="#6B7280"/>
+<text x="118.525" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Memory, low to high</text>
+<rect x="360.0" y="20.0" width="360.0" height="620.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="372.0" y="30.0" width="133.3" height="26" rx="13" fill="#0E7C86"/>
+<text x="438.65" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Transient part</text>
+<rect x="740.0" y="20.0" width="540.0" height="620.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="752.0" y="30.0" width="125.35000000000001" height="26" rx="13" fill="#0E7C86"/>
+<text x="814.675" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Resident part</text>
+<rect x="1300.0" y="20.0" width="380.0" height="620.0" rx="14" fill="#F5F8FB" stroke="#4F6D8A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="1312.0" y="30.0" width="77.65" height="26" rx="13" fill="#4F6D8A"/>
+<text x="1350.825" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Program</text>
+<path d="M540.0,180.0 L540.0,210.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M690.0,260.0 L760.0,260.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M980.0,260.0 L1330.0,260.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="1134.1" y="247.8" width="41.8" height="24.3" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1155.0" y="265.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#0E7C86" text-anchor="middle">EXEC</text>
+<path d="M1490.0,310.0 L1490.0,390.0 L980.0,390.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="1166.4" y="368.7" width="137.2" height="42.6" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1235.0" y="386.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#0E7C86" text-anchor="middle">exit: back after</text>
+<text x="1235.0" y="404.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#0E7C86" text-anchor="middle">the INT 21h</text>
+<path d="M870.0,440.0 L870.0,470.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M980.0,520.0 L1060.0,520.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="987.2" y="507.9" width="65.7" height="24.3" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1020.0" y="525.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#0E7C86" text-anchor="middle">differs</text>
+<path d="M1160.0,570.0 L1160.0,600.0 L870.0,600.0 L870.0,570.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="966.3" y="587.9" width="97.5" height="24.3" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1015.0" y="605.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#0E7C86" text-anchor="middle">check again</text>
+<path d="M760.0,520.0 L368.0,520.0 L368.0,130.0 L390.0,130.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="511.3" y="507.9" width="105.4" height="24.3" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="564.0" y="525.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" fill="#0E7C86" text-anchor="middle">same: HAVCOM</text>
+<rect x="45.0" y="80.0" width="270.0" height="75.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="180.0" y="113.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#0B3D42" text-anchor="middle">DOS, drivers,</text>
+<text x="180.0" y="133.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#0B3D42" text-anchor="middle">buffers</text>
+<rect x="45.0" y="155.0" width="270.0" height="75.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="180.0" y="188.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#0B3D42" text-anchor="middle">COMMAND</text>
+<text x="180.0" y="208.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#0B3D42" text-anchor="middle">resident</text>
+<rect x="45.0" y="230.0" width="270.0" height="50.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="180.0" y="260.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#1F2328" text-anchor="middle">environment</text>
+<rect x="45.0" y="280.0" width="270.0" height="220.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="180.0" y="385.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#1F2F40" text-anchor="middle">TPA: free</text>
+<text x="180.0" y="406.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#1F2F40" text-anchor="middle">for programs</text>
+<rect x="45.0" y="500.0" width="270.0" height="110.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="180.0" y="550.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">transient</text>
+<text x="180.0" y="572.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">at TRNSEG</text>
+<rect x="390.0" y="80.0" width="300.0" height="100.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="540.0" y="116.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">Read, parse,</text>
+<text x="540.0" y="138.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">dispatch</text>
+<text x="540.0" y="156.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">TCOMMAND</text>
+<rect x="390.0" y="210.0" width="300.0" height="100.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="540.0" y="246.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">EXECUTE: free</text>
+<text x="540.0" y="268.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">own memory</text>
+<text x="540.0" y="286.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">DEALLOC (49h)</text>
+<rect x="760.0" y="210.0" width="220.0" height="100.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="870.0" y="255.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">EXT_EXEC:</text>
+<text x="870.0" y="277.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">INT 21h, 4Bh</text>
+<rect x="760.0" y="340.0" width="220.0" height="100.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="870.0" y="385.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">EXEC_WAIT:</text>
+<text x="870.0" y="407.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">4Dh, RETCODE</text>
+<rect x="760.0" y="470.0" width="220.0" height="100.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="870.0" y="515.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">LODCOM:</text>
+<text x="870.0" y="537.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">CHKSUM = SUM?</text>
+<rect x="1060.0" y="470.0" width="200.0" height="100.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1160.0" y="506.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">LOADCOM: read</text>
+<text x="1160.0" y="528.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">COMSPEC file</text>
+<text x="1160.0" y="546.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">TRANSTART</text>
+<rect x="1330.0" y="210.0" width="320.0" height="100.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1490.0" y="257.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">Program runs</text>
+<text x="1490.0" y="275.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">may overwrite the transient</text>
+<text x="395.0" y="350.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#0B3D42" text-anchor="start" font-style="italic">Checked from 100h to</text>
+<text x="395.0" y="368.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#0B3D42" text-anchor="start" font-style="italic">TranDataEnd: code and</text>
+<text x="395.0" y="387.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#0B3D42" text-anchor="start" font-style="italic">mostly constant data.</text>
+<text x="1330.0" y="440.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#1F2F40" text-anchor="start" font-style="italic">A program that leaves</text>
+<text x="1330.0" y="458.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#1F2F40" text-anchor="start" font-style="italic">the top of memory alone</text>
+<text x="1330.0" y="477.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#1F2F40" text-anchor="start" font-style="italic">never causes a reload.</text>
+</svg>

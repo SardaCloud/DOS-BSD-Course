@@ -1,0 +1,39 @@
+{
+  "title": "From exec to main",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.15, "y": 0.15, "w": 15.7, "h": 2.15, "label": "MS-DOS 4.00: EXEC (INT 21h AH=4Bh), then crt0", "kind": "dos"},
+    {"x": 0.15, "y": 2.5, "w": 15.7, "h": 3.85, "label": "FreeBSD 15.1: execve, then ld-elf.so.1, then crt1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "d1", "x": 0.4, "y": 0.75, "w": 2.6, "h": 1.25, "label": "read header,\nallocate block", "sub": "EXEC.ASM", "kind": "dos", "size": 18},
+    {"id": "d2", "x": 3.5, "y": 0.75, "w": 2.6, "h": 1.25, "label": "read image,\nadd load segment", "sub": "exec_reloc_one", "kind": "dos", "size": 18},
+    {"id": "d3", "x": 6.6, "y": 0.75, "w": 2.6, "h": 1.25, "label": "build PSP,\njump to CS:IP", "sub": "exec_go", "kind": "dos", "size": 18},
+    {"id": "d4", "x": 9.7, "y": 0.75, "w": 2.6, "h": 1.25, "label": "__astart", "sub": "crt0: stack, BSS, argv", "kind": "dos", "size": 18},
+    {"id": "d5", "x": 12.8, "y": 0.75, "w": 2.8, "h": 1.25, "label": "_main", "sub": "then exit: AH=4Ch", "kind": "user", "size": 18},
+    {"id": "k1", "x": 0.4, "y": 3.05, "w": 3.6, "h": 1.25, "label": "execve: map PT_LOADs", "sub": "imgact_elf.c", "kind": "kernel", "size": 18},
+    {"id": "k2", "x": 4.5, "y": 3.05, "w": 3.6, "h": 1.25, "label": "PT_INTERP: map\nld-elf.so.1", "sub": "load_interp", "kind": "kernel", "size": 18},
+    {"id": "k3", "x": 8.6, "y": 3.05, "w": 3.6, "h": 1.25, "label": "auxv, jump to\nrtld's entry", "sub": "AT_BASE AT_ENTRY AT_PHDR", "kind": "kernel", "size": 18},
+    {"id": "r1", "x": 0.4, "y": 4.85, "w": 2.6, "h": 1.25, "label": "_rtld()", "sub": "rtld_start.S", "kind": "bsd", "size": 18},
+    {"id": "r2", "x": 3.5, "y": 4.85, "w": 2.6, "h": 1.25, "label": "load NEEDED", "sub": "libc, libsys ...", "kind": "bsd", "size": 18},
+    {"id": "r3", "x": 6.6, "y": 4.85, "w": 2.6, "h": 1.25, "label": "relocate,\ninit", "sub": "relocate_objects", "kind": "bsd", "size": 18},
+    {"id": "r4", "x": 9.7, "y": 4.85, "w": 2.6, "h": 1.25, "label": "_start", "sub": "__libc_start1", "kind": "bsd", "size": 18},
+    {"id": "r5", "x": 12.8, "y": 4.85, "w": 2.8, "h": 1.25, "label": "main", "sub": "then exit(3)", "kind": "user", "size": 18}
+  ],
+  "edges": [
+    {"from": "d1", "to": "d2", "kind": "dos"},
+    {"from": "d2", "to": "d3", "kind": "dos"},
+    {"from": "d3", "to": "d4", "kind": "dos"},
+    {"from": "d4", "to": "d5", "kind": "dos"},
+    {"from": "k1", "to": "k2", "kind": "bsd"},
+    {"from": "k2", "to": "k3", "kind": "bsd"},
+    {"from": "k3", "to": "r1", "from_side": "bottom", "to_side": "top", "route": "vhv", "kind": "bsd"},
+    {"from": "r1", "to": "r2", "kind": "bsd"},
+    {"from": "r2", "to": "r3", "kind": "bsd"},
+    {"from": "r3", "to": "r4", "kind": "bsd"},
+    {"from": "r4", "to": "r5", "kind": "bsd"}
+  ],
+  "notes": [
+    {"x": 12.55, "y": 3.15, "w": 3.2, "text": "kernel (top row)\nuser mode (bottom row)", "size": 15, "kind": "bsd", "style": "italic"}
+  ]
+}

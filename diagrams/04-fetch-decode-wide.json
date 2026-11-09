@@ -1,0 +1,129 @@
+{
+ "title": "Fetch, decode, execute with the bytes of MOV AH,9 and INT 21h",
+ "width": 16,
+ "height": 6.5,
+ "lanes": [
+  {
+   "x": 12.3,
+   "y": 0.15,
+   "w": 3.55,
+   "h": 5.0,
+   "label": "Example",
+   "kind": "user"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "mem",
+   "x": 0.35,
+   "y": 1.4,
+   "w": 3.0,
+   "h": 2.7,
+   "label": "code bytes\nat 1741:0100",
+   "kind": "data",
+   "size": 18,
+   "sub": "B4 09 CD 21 ...",
+   "shape": "cyl"
+  },
+  {
+   "id": "f",
+   "x": 4.2,
+   "y": 0.75,
+   "w": 3.3,
+   "h": 1.5,
+   "label": "1 Fetch",
+   "kind": "hw",
+   "size": 18,
+   "sub": "bytes at CS:IP (RIP)"
+  },
+  {
+   "id": "d",
+   "x": 8.5,
+   "y": 0.75,
+   "w": 3.3,
+   "h": 1.5,
+   "label": "2 Decode",
+   "kind": "hw",
+   "size": 18,
+   "sub": "prefix, opcode, ModR/M, length"
+  },
+  {
+   "id": "a",
+   "x": 8.5,
+   "y": 3.5,
+   "w": 3.3,
+   "h": 1.5,
+   "label": "3 Advance IP",
+   "kind": "hw",
+   "size": 18,
+   "sub": "IP = IP + length"
+  },
+  {
+   "id": "x",
+   "x": 4.2,
+   "y": 3.5,
+   "w": 3.3,
+   "h": 1.5,
+   "label": "4 Execute",
+   "kind": "hw",
+   "size": 18,
+   "sub": "registers, memory, flags"
+  },
+  {
+   "id": "e1",
+   "x": 12.55,
+   "y": 0.75,
+   "w": 3.05,
+   "h": 1.5,
+   "label": "B4 09\nMOV AH,09h",
+   "kind": "user",
+   "size": 18,
+   "sub": "IP 0100 to 0102"
+  },
+  {
+   "id": "e2",
+   "x": 12.55,
+   "y": 3.5,
+   "w": 3.05,
+   "h": 1.5,
+   "label": "CD 21\nINT 21h",
+   "kind": "user",
+   "size": 18,
+   "sub": "pushes IP 0104; loads vector"
+  }
+ ],
+ "edges": [
+  {
+   "from": "mem",
+   "to": "f"
+  },
+  {
+   "from": "f",
+   "to": "d"
+  },
+  {
+   "from": "d",
+   "to": "a"
+  },
+  {
+   "from": "a",
+   "to": "x"
+  },
+  {
+   "from": "x",
+   "to": "f",
+   "label": "next"
+  }
+ ],
+ "notes": [
+  {
+   "x": 0.35,
+   "y": 5.45,
+   "w": 15.3,
+   "text": "Jumps, calls and INT load a new IP in step 4. Relative jumps and RIP-relative operands count from the end of the instruction, because IP has already advanced in step 3.",
+   "size": 15,
+   "kind": "neutral",
+   "style": "italic"
+  }
+ ]
+}

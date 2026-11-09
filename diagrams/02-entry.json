@@ -1,0 +1,47 @@
+{
+  "title": "Entering the kernel: INT 21h and its stack switch versus syscall and the per-thread kernel stack",
+  "width": 13, "height": 8.7,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 6.1, "h": 8.3, "label": "MS-DOS 4.00", "kind": "dos"},
+    {"x": 6.7, "y": 0.2, "w": 6.1, "h": 8.3, "label": "FreeBSD 15.1 (amd64)", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "d1", "x": 1.3, "y": 0.8, "w": 4.6, "h": 0.72, "label": "Program", "sub": "MOV AH,3Fh / INT 21h", "kind": "user"},
+    {"id": "d2", "x": 1.3, "y": 1.85, "w": 4.6, "h": 0.72, "label": "CPU: push FLAGS, CS, IP", "sub": "IF=0, jump via 0000:0084", "kind": "hw"},
+    {"id": "d3", "x": 1.3, "y": 2.9, "w": 4.6, "h": 0.72, "label": "save_world, INC INDOS", "sub": "registers on the caller's stack", "kind": "dos"},
+    {"id": "d4", "x": 1.3, "y": 3.95, "w": 4.6, "h": 0.72, "label": "Switch to a DOS stack", "sub": "SS:SP -> User_SS:User_SP, PSP", "kind": "dos"},
+    {"id": "d5", "x": 1.3, "y": 5.0, "w": 4.6, "h": 0.72, "label": "Dispatch[AH] -> $READ", "sub": "on DSKSTACK, IOSTACK or AUXSTACK", "kind": "dos"},
+    {"id": "d6", "x": 1.3, "y": 6.05, "w": 4.6, "h": 0.72, "label": "SYS_RET_OK / SYS_RET_ERR", "sub": "carry bit in the saved FLAGS", "kind": "dos"},
+    {"id": "d7", "x": 1.3, "y": 7.1, "w": 4.6, "h": 0.72, "label": "LEAVEDOS: IRET", "sub": "DEC INDOS, caller's SS:SP back", "kind": "dos"},
+
+    {"id": "b1", "x": 7.8, "y": 0.8, "w": 4.6, "h": 0.72, "label": "Program -> __sys_read", "sub": "mov $SYS_read,%eax; syscall", "kind": "user"},
+    {"id": "b2", "x": 7.8, "y": 1.85, "w": 4.6, "h": 0.72, "label": "CPU: syscall to ring 0", "sub": "RIP from MSR_LSTAR", "kind": "hw"},
+    {"id": "b3", "x": 7.8, "y": 2.9, "w": 4.6, "h": 0.72, "label": "fast_syscall: swapgs", "sub": "%rsp = PCPU(RSP0), kernel stack", "kind": "bsd"},
+    {"id": "b4", "x": 7.8, "y": 3.95, "w": 4.6, "h": 0.72, "label": "Build struct trapframe", "sub": "user registers, then sti", "kind": "bsd"},
+    {"id": "b5", "x": 7.8, "y": 5.0, "w": 4.6, "h": 0.72, "label": "sysent[3] -> sys_read", "sub": "amd64_syscall, syscallenter", "kind": "bsd"},
+    {"id": "b6", "x": 7.8, "y": 6.05, "w": 4.6, "h": 0.72, "label": "cpu_set_syscall_retval", "sub": "PSL_C in tf_rflags", "kind": "bsd"},
+    {"id": "b7", "x": 7.8, "y": 7.1, "w": 4.6, "h": 0.72, "label": "sysretq; jb cerror", "sub": "on error: errno, return -1", "kind": "bsd"}
+  ],
+  "edges": [
+    {"from": "d1", "to": "d2", "kind": "dos"},
+    {"from": "d2", "to": "d3", "kind": "dos"},
+    {"from": "d3", "to": "d4", "kind": "dos"},
+    {"from": "d4", "to": "d5", "kind": "dos"},
+    {"from": "d5", "to": "d6", "kind": "dos"},
+    {"from": "d6", "to": "d7", "kind": "dos"},
+    {"from": "d7", "to": "d1", "from_side": "left", "to_side": "left", "route": "hvh", "via": 0.75, "kind": "dos", "style": "dashed",
+     "label": "CF, AX", "label_on_line": true},
+    {"from": "b1", "to": "b2", "kind": "bsd"},
+    {"from": "b2", "to": "b3", "kind": "bsd"},
+    {"from": "b3", "to": "b4", "kind": "bsd"},
+    {"from": "b4", "to": "b5", "kind": "bsd"},
+    {"from": "b5", "to": "b6", "kind": "bsd"},
+    {"from": "b6", "to": "b7", "kind": "bsd"},
+    {"from": "b7", "to": "b1", "from_side": "left", "to_side": "left", "route": "hvh", "via": 7.25, "kind": "bsd", "style": "dashed",
+     "label": "CF, %rax", "label_on_line": true}
+  ],
+  "notes": [
+    {"x": 0.5, "y": 8.0, "w": 5.6, "text": "One set of stacks for the whole machine:\none DOS call in progress at a time.", "size": 13, "kind": "dos", "style": "italic"},
+    {"x": 7.0, "y": 8.0, "w": 5.6, "text": "A kernel stack per thread: many system calls\nin progress at once.", "size": 13, "kind": "bsd", "style": "italic"}
+  ]
+}

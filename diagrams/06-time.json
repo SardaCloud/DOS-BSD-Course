@@ -1,0 +1,234 @@
+{
+  "title": "Where the time comes from: MS-DOS 4.00 and FreeBSD 15.1",
+  "width": 16,
+  "height": 6.5,
+  "lanes": [
+    {
+      "x": 0.2,
+      "y": 0.2,
+      "w": 15.6,
+      "h": 2.95,
+      "label": "MS-DOS 4.00: the time is a count of interrupts",
+      "kind": "dos"
+    },
+    {
+      "x": 0.2,
+      "y": 3.35,
+      "w": 15.6,
+      "h": 2.95,
+      "label": "FreeBSD 15.1: the time is read from a counter",
+      "kind": "bsd"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "pit",
+      "x": 0.5,
+      "y": 0.8,
+      "w": 2.4,
+      "h": 1.0,
+      "label": "8254 timer",
+      "sub": "IRQ0, 18.2 Hz",
+      "kind": "hw",
+      "size": 18
+    },
+    {
+      "id": "rom",
+      "x": 3.4,
+      "y": 0.8,
+      "w": 2.6,
+      "h": 1.0,
+      "label": "ROM INT 08h",
+      "sub": "ticks since midnight",
+      "kind": "hw",
+      "size": 18
+    },
+    {
+      "id": "clk",
+      "x": 6.5,
+      "y": 0.8,
+      "w": 2.6,
+      "h": 1.0,
+      "label": "CLOCK$",
+      "sub": "INT 1Ah, ticks to h:m:s",
+      "kind": "dos",
+      "size": 18
+    },
+    {
+      "id": "rt",
+      "x": 9.6,
+      "y": 0.8,
+      "w": 2.5,
+      "h": 1.0,
+      "label": "READTIME",
+      "sub": "DOS kernel",
+      "kind": "dos",
+      "size": 18
+    },
+    {
+      "id": "dp",
+      "x": 12.6,
+      "y": 0.8,
+      "w": 2.9,
+      "h": 1.0,
+      "label": "Program",
+      "sub": "INT 21h AH=2Ch",
+      "kind": "user",
+      "size": 18
+    },
+    {
+      "id": "drtc",
+      "x": 0.5,
+      "y": 2.1,
+      "w": 2.4,
+      "h": 0.8,
+      "label": "CMOS RTC",
+      "kind": "hw",
+      "size": 18
+    },
+    {
+      "id": "brtc",
+      "x": 0.5,
+      "y": 3.9,
+      "w": 2.4,
+      "h": 0.8,
+      "label": "CMOS RTC",
+      "kind": "hw",
+      "size": 18
+    },
+    {
+      "id": "init",
+      "x": 3.4,
+      "y": 3.9,
+      "w": 2.9,
+      "h": 0.8,
+      "label": "inittodr",
+      "sub": "atrtc, once at boot",
+      "kind": "bsd",
+      "size": 18
+    },
+    {
+      "id": "cnt",
+      "x": 0.5,
+      "y": 5.1,
+      "w": 2.4,
+      "h": 0.85,
+      "label": "TSC, HPET,\ni8254",
+      "kind": "hw",
+      "size": 17
+    },
+    {
+      "id": "tc",
+      "x": 3.4,
+      "y": 5.1,
+      "w": 2.9,
+      "h": 0.85,
+      "label": "timecounter",
+      "sub": "tc_get_timecount",
+      "kind": "bsd",
+      "size": 18
+    },
+    {
+      "id": "th",
+      "x": 8.3,
+      "y": 4.3,
+      "w": 2.6,
+      "h": 1.25,
+      "label": "timehands",
+      "sub": "offset, scale",
+      "kind": "data",
+      "shape": "cyl",
+      "size": 18
+    },
+    {
+      "id": "cg",
+      "x": 11.6,
+      "y": 4.3,
+      "w": 3.9,
+      "h": 1.25,
+      "label": "clock_gettime(2)",
+      "sub": "often no system call",
+      "kind": "user",
+      "size": 18
+    }
+  ],
+  "edges": [
+    {
+      "from": "pit",
+      "to": "rom",
+      "kind": "dos"
+    },
+    {
+      "from": "rom",
+      "to": "clk",
+      "kind": "dos"
+    },
+    {
+      "from": "clk",
+      "to": "rt",
+      "kind": "dos"
+    },
+    {
+      "from": "rt",
+      "to": "dp",
+      "kind": "dos"
+    },
+    {
+      "from": "drtc",
+      "to": "clk",
+      "from_side": "right",
+      "to_side": "bottom",
+      "route": "hv",
+      "kind": "dos",
+      "style": "dashed",
+      "label": "date only, at boot",
+      "size": 15
+    },
+    {
+      "from": "brtc",
+      "to": "init",
+      "kind": "bsd"
+    },
+    {
+      "from": "init",
+      "to": "th",
+      "from_side": "right",
+      "to_side": "left",
+      "route": "hvh",
+      "kind": "bsd",
+      "label": "tc_setclock",
+      "size": 15
+    },
+    {
+      "from": "cnt",
+      "to": "tc",
+      "kind": "bsd"
+    },
+    {
+      "from": "tc",
+      "to": "th",
+      "from_side": "right",
+      "to_side": "left",
+      "route": "hvh",
+      "kind": "bsd",
+      "label": "tc_windup",
+      "size": 15
+    },
+    {
+      "from": "th",
+      "to": "cg",
+      "kind": "bsd"
+    }
+  ],
+  "notes": [
+    {
+      "x": 11.6,
+      "y": 5.7,
+      "w": 3.9,
+      "text": "adds scale x (counter now - then)",
+      "size": 15,
+      "kind": "bsd",
+      "style": "italic"
+    }
+  ]
+}

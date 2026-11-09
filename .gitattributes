@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.pptx binary
+*.png binary
+*.img binary
+# Lab files are stored byte for byte: MS-DOS files need CR LF, FreeBSD files LF.
+labs/** -text
+instructor/code/** -text

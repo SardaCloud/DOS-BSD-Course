@@ -1,0 +1,388 @@
+{
+  "module": 5,
+  "title": "From C to a running program",
+  "subtitle": "Compilers, linkers, executables and libraries: MS-DOS 4.00 vs FreeBSD 15.1",
+  "slides": [
+    {
+      "type": "section",
+      "title": "From source text to a process",
+      "subtitle": "Preprocess, compile, assemble, link, load: on both systems"
+    },
+    {
+      "type": "bullets",
+      "title": "Five stages, five kinds of file",
+      "bullets": [
+        "Preprocess: #include and #define expanded, comments gone (CL /P, cc -E)",
+        "Compile: C to instructions for one CPU and one calling convention",
+        "Assemble: bytes + names defined + names needed + relocations = object file",
+        "Link: combine objects and library members, fix addresses, write the executable",
+        "Load: copy or map it, finish relocation, jump to the entry point",
+        "FreeBSD adds a sixth step: the run-time linker attaches shared libraries"
+      ],
+      "notes": "Define the vocabulary first: translation unit, object file, relocation (Microsoft says fixup), executable, library, loader. Every later slide is one of these stages seen in a real file. Stress that both systems were built with exactly these tools: MS C 5.10 and LINK 3.65 are in v4.0/src/TOOLS, and every FreeBSD 15.1 binary names clang 19.1.7 and LLD 19.1.7 in its .comment section."
+    },
+    {
+      "type": "figure",
+      "title": "The pipeline on both systems",
+      "diagram": "05-pipeline",
+      "caption": "MS C 5.10 writes OMF directly from pass 3; clang has an integrated assembler. Only FreeBSD links at run time.",
+      "notes": "Walk left to right on both lanes. The striking point on MS-DOS is that there is no assembler run: C3 writes the object file. On FreeBSD the program file only names libc.so.7; the run-time linker brings in libc and libsys when the program starts."
+    },
+    {
+      "type": "code",
+      "title": "How MS-DOS 4.00 compiles its own C programs",
+      "lang": "make",
+      "code": "cc      =cl\ncflags  =-AS -Os -Zp $(extcsw)\ncinc    =-I. -I$(hinc)\n⋮\n.c.obj:\n        $(cc) -c $(cflags) $(cinc) -Fo$*.obj $*.c",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/TOOLS/TOOLS.INI#L35-L55",
+      "callouts": [
+        "-AS: small memory model",
+        "-Os: optimize for size",
+        "-Zp: packed structures",
+        "FDISK, MEM, ATTRIB, REPLACE ... are C"
+      ],
+      "notes": "The build counted bytes. Small model, size optimization, packed structs. The kernel, IO.SYS and COMMAND.COM are assembly; about a dozen utilities are C. MEM.EXE has the same C run-time segments as the students' HELLO.EXE."
+    },
+    {
+      "type": "diagram",
+      "title": "Lab 5.1: CL runs three passes (CL /Bd)",
+      "text": "CL /Bd /c HELLO.C\nP1 : ` T:\\c1.exe -il 014595 -f HELLO.C ... -A snd -Ze -DM_I86 -DMSDOS\n       -DM_I86SM -DM_I8086 -I T:/BLD/INC -W 1  '\nP2 : ` T:\\c2.exe -il 014595 -ef T:\\c23.err -Oc -Ot -G0 -A snd -W 1  '\nP3 : ` T:\\c3.exe -il 014595 ... -FPi -Ot -c HELLO.OBJ -A snd -CC 0sO  '\n\nC1: preprocess + parse     C2: optimize, generate code     C3: write OMF\nNo MASM pass.  /B1 T:\\C1L.EXE swaps pass 1: same object, byte for byte.",
+      "notes": "Real output, abridged. /Bd is not in CL.HLP; we found it in the strings of CL.EXE. It plays the role of cc -### on FreeBSD. In the lab, students run CL /P, CL /c /Fc and LINK /MAP and read every intermediate file: HELLO.I, HELLO.COD, HELLO.OBJ, HELLO.MAP, then run HELLO.EXE on MS-DOS 4.00."
+    },
+    {
+      "type": "compare",
+      "title": "One line of C, two compilers: abs()",
+      "left": {
+        "heading": "MS-DOS 4.00: MS C 5.10 /Ox",
+        "bullets": [
+          "Argument on the stack: [bp+4]",
+          "cmp, jge, neg: two return paths",
+          "No conditional move on the 8086",
+          "/Ox drops the __chkstk call",
+          "_myabs: names get an underscore"
+        ]
+      },
+      "right": {
+        "heading": "FreeBSD 15.1: clang 19 -O2",
+        "bullets": [
+          "Argument in a register: %edi",
+          "mov, neg, cmovs: no branch",
+          "Result in %eax, 7 instructions",
+          "Real code from /lib/libc.so.7",
+          "abs: no underscore"
+        ]
+      },
+      "notes": "Outputs 5.7 and 5.8. The source is the same line, return(j < 0 ? -j : j). The differences are the calling convention (stack versus registers), the instruction set (cmovs exists only from the Pentium Pro), and the optimizer. Ask the class to count bytes: 21 for MS C, 13 for clang."
+    },
+    {
+      "type": "figure",
+      "title": "Memory models: near and far",
+      "diagram": "05-models",
+      "caption": "A near pointer is a 16-bit offset; a far pointer is segment:offset. 64-bit FreeBSD has only code models.",
+      "notes": "The 8086 reaches 64 KB per segment register. Memory models decide which pointers and calls are near. DS = SS = DGROUP in every model, which is why a near pointer can point at globals and at locals. On amd64 the small code model keeps code and static data within 2 GB so that RIP-relative 32-bit displacements work."
+    },
+    {
+      "type": "diagram",
+      "title": "Lab 5.2: the same function, /AS and /AL",
+      "text": "/AS small                         /AL large\n_sum PROC NEAR                    _sum PROC FAR\nmov si,[bp+4]       8b 76 04      les si,[bp+6]         c4 76 06\nmov ax,[bx][si]     8b 00         mov ax,es:[bx][si]    26 8b 00\nret                 c3            retf                  cb\ncall _sum           e8 ba ff      push ds / push cs / call _sum\ncall _printf        e8 00 00      call FAR PTR _printf  9a 00 00 00 00\n\nMODS.EXE 7,301 bytes, 4 relocations    MODL.EXE 10,033 bytes, 70 relocations",
+      "notes": "Real .COD output, condensed (Output 5.10). Arguments move up by 2 because the return address is 4 bytes. Every far call holds a segment value, so every far call becomes a relocation in the .EXE: 3 in the user module, 55 in the library code, 12 in library data. push cs plus a near call fakes a far call to a function in the same segment."
+    },
+    {
+      "type": "section",
+      "title": "Object files, linking and start-up",
+      "subtitle": "OMF records and ELF sections; crt0 and crt1"
+    },
+    {
+      "type": "table",
+      "title": "What an object file must say",
+      "header": [
+        "Information",
+        "OMF (.OBJ)",
+        "ELF (.o)"
+      ],
+      "rows": [
+        [
+          "Pieces",
+          "SEGDEF, GRPDEF",
+          "section headers"
+        ],
+        [
+          "Bytes",
+          "LEDATA",
+          "section contents"
+        ],
+        [
+          "Names defined",
+          "PUBDEF",
+          ".symtab, defined"
+        ],
+        [
+          "Names needed",
+          "EXTDEF, COMDEF",
+          ".symtab, UND"
+        ],
+        [
+          "Relocations",
+          "FIXUPP: target + frame",
+          ".rela.*: symbol, type, addend"
+        ],
+        [
+          "Linker hints",
+          "COMENT: default library, DOSSEG",
+          "notes; -lc on the command line"
+        ]
+      ],
+      "notes": "The same six kinds of information in two encodings. OMF is a stream of records with names numbered by order of appearance; ELF is a set of tables. The frame in an OMF fixup has no ELF counterpart: it exists because 8086 addresses are relative to a segment register."
+    },
+    {
+      "type": "bullets",
+      "title": "Lab 5.3: reading HELLO.OBJ with omfdump.py",
+      "bullets": [
+        "COMENT 9Fh 'SLIBCE': the library name travels inside the object",
+        "EXTDEF __acrtused, _printf; COMDEF _table (200 bytes); PUBDEF _main",
+        "Fixup +017h: target _DATA, frame DGROUP: LINK stores 42h, not 0",
+        "call _square needs no fixup; call _printf does",
+        "CL /Zl removes the library comment: LINK fails with L2029"
+      ],
+      "notes": "Run omfdump live and match each fixup offset with an instruction in HELLO.COD. The frame/target distinction is the hard part: draw DGROUP, _DATA and _counter on a line. Then dump SLIBCE.LIB --member \"dos\\crt0.asm\" to show where __acrtused (absolute 9876h), the STACK segment and the start address come from."
+    },
+    {
+      "type": "code",
+      "title": "FreeBSD's entry point: _start",
+      "lang": "c",
+      "code": "_start:\n⋮\n        pushq   %rbp                    /* Align stack, terminate call chain. */\n⋮\n        movq    %rsp, %rbp\n⋮\n        movq    %rsi, %rcx              /* cleanup */\n        movslq  (%rdi), %rax            /* long *ap; tmpargc = *ap */\n        leaq    0x8(%rdi), %rsi         /* argv = ap + 1 */\n        leaq    0x10(%rdi, %rax, 8), %rdx /* env = ap + 2 + tmpargc */\n        movl    %eax, %edi              /* argc = tmpargc */\n⋮\n        /* __libc_start1(argc, argv, env, cleanup, main) */\n        callq   __libc_start1",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/lib/csu/amd64/crt1_s.S#L41-L80",
+      "callouts": [
+        "argc, argv, env from the initial stack",
+        "cleanup: from the run-time linker",
+        "(omitted lines) main's address into %r8",
+        "__libc_start1 calls main, then exit"
+      ],
+      "notes": "crt1.o is FreeBSD's crt0. The kernel or the run-time linker leaves argc, argv, NULL, envp, NULL on the stack; _start turns that into C arguments. __libc_start1 in libc registers cleanup with atexit, runs static initializers in static programs, sets errno to 0 and calls exit(main(...))."
+    },
+    {
+      "type": "compare",
+      "title": "Before main: crt0 and crt1",
+      "left": {
+        "heading": "MS-DOS 4.00: __astart (crt0)",
+        "bullets": [
+          "INT 21h AH=30h: refuse DOS 1.x",
+          "SS = DS = DGROUP, set SP",
+          "AH=4Ah: give back unused memory",
+          "Clear BSS with REP STOSB",
+          "Build argv, environ; call _main",
+          "exit: flush, __nullcheck, AH=4Ch"
+        ]
+      },
+      "right": {
+        "heading": "FreeBSD 15.1: _start (crt1.o)",
+        "bullets": [
+          "Kernel built the stack and auxv",
+          "Run-time linker ran the initializers",
+          "Kernel zero-fills BSS pages",
+          "__libc_start1: environ, __progname",
+          "errno = 0; exit(main(...))",
+          "atexit(cleanup) from ld-elf.so.1"
+        ]
+      },
+      "notes": "The jobs that crt0 must do itself (switch stack, shrink the memory block, clear BSS) are done by the kernel on FreeBSD. __nullcheck is a fun detail: it XORs the 42h bytes at DS:0 and prints R6001 null pointer assignment, changing exit code 0 to 255."
+    },
+    {
+      "type": "section",
+      "title": "Executable files and libraries",
+      "subtitle": ".COM, MZ, ELF; static and shared libraries"
+    },
+    {
+      "type": "figure",
+      "title": "Three executable formats",
+      "diagram": "05-exe-layouts",
+      "caption": ".COM: a memory image. MZ: header, relocation table, image. ELF: program headers the kernel maps.",
+      "notes": "EXEC decides .COM or .EXE by the first two bytes, not by the name. ELF segments are what the kernel maps; sections are for linkers and debuggers. FileSiz smaller than MemSiz in the last LOAD is BSS, the counterpart of e_minalloc (in ls's third LOAD the excess is only .relro_padding)."
+    },
+    {
+      "type": "code",
+      "title": "The MZ header in EXE.INC",
+      "lang": "asm",
+      "code": "EXE_file    STRUC\nexe_signature   DW  ?                   ; must contain 4D5A  (yay zibo!)\nexe_len_mod_512 DW  ?                   ; low 9 bits of length\nexe_pages       DW  ?                   ; number of 512b pages in file\nexe_rle_count   DW  ?                   ; count of reloc entries\nexe_par_dir     DW  ?                   ; number of paragraphs before image\nexe_min_BSS     DW  ?                   ; minimum number of para of BSS\nexe_max_BSS     DW  ?                   ; max number of para of BSS\nexe_SS          DW  ?                   ; stack of image\nexe_SP          DW  ?                   ; SP of image\nexe_chksum      DW  ?                   ; checksum  of file (ignored)\nexe_IP          DW  ?                   ; IP of entry\nexe_CS          DW  ?                   ; CS of entry\nexe_rle_table   DW  ?                   ; byte offset of reloc table\nexe_iov         DW  ?                   ; overlay number (0 for root)\nexe_sym_tab     DD  ?                   ; offset of symbol table in file\nEXE_file    ENDS",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/INC/EXE.INC#L52-L68",
+      "callouts": [
+        "MZ: Mark Zbikowski ('zibo')",
+        "Size in 512-byte pages",
+        "Relocation table: count, offset",
+        "SS:SP and CS:IP relative to the image"
+      ],
+      "notes": "Every field can be checked against HELLO.MAP: CS:IP = 0000:0040 is __astart, SS:SP = 0216:0800 is the end of STACK. e_minalloc is the BSS and stack that are not in the file; e_maxalloc = FFFFh asks for all memory, which is why crt0 gives memory back."
+    },
+    {
+      "type": "code",
+      "title": "EXEC relocates an .EXE",
+      "lang": "asm",
+      "code": "        MOV     SI,exec_rel_fac\n\nexec_reloc_one:\n        OR      DX,DX                   ; Any more entries?\n        JE      exec_set_PDBJ\n\nexec_get_addr:\n        LDS     BX,DWORD PTR ES:[DI]    ; Get ra/sa of entry\n        MOV     AX,DS                   ; Relocate address of item\n        ADD     AX,SI\n        MOV     DS,AX\n        ADD     [BX],SI\n        ADD     DI,4\n        DEC     DX\n        LOOP    exec_reloc_one          ; End of internal buffer?",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/DOS/EXEC.ASM#L515-L529",
+      "callouts": [
+        "SI = load segment",
+        "Entry: seg:off of a word",
+        "ADD [BX],SI: the whole relocation",
+        "No names, no types: one kind"
+      ],
+      "notes": "This is the entire relocation step of MS-DOS: add the load segment to every listed word. In SEGS.EXE the 4 words hold 0173h, DGROUP's paragraph; on our DOS they became 1387h (load segment 1214h). Offsets never change. The EXEPACK unpacker and CONVERT's stub contain copies of this loop."
+    },
+    {
+      "type": "stat",
+      "title": "Lab 5.4: numbers from the real MS-DOS 4.00",
+      "stats": [
+        {
+          "value": "65,279",
+          "label": "bytes: largest .COM that MS-DOS 4.00 EXEC runs"
+        },
+        {
+          "value": "53",
+          "label": "bytes: HELLOC.COM made by EXE2BIN from an 821-byte .EXE"
+        },
+        {
+          "value": "8",
+          "label": "MS-DOS 4.00 .COM files that are .EXEs wrapped by CONVERT"
+        },
+        {
+          "value": "11",
+          "label": "bytes SORT.EXE is shorter than its header says"
+        }
+      ],
+      "notes": "All measured in the lab. 65,280 bytes gives Program too big to fit in memory: EXEC asks for FF00h bytes and treats a full read as no memory (EXEC.ASM lines 597-598). EXE2BIN refuses SEGREF (one fixup) and HELLO.EXE (a stack segment). BACKUP.COM starts with a JMP, the word Converted and a complete MZ header."
+    },
+    {
+      "type": "bullets",
+      "title": "Lab 5.5: a static library with LIB",
+      "bullets": [
+        "LIB MYLIB +ADDUP +TIMES; builds a 2-member library",
+        "LINK /MAP USELIB,,,MYLIB; pulls ADDUP only: _times is not in the map",
+        "Without the library: L2029 Unresolved externals: _addup",
+        "Two objects defining _addup: L2025 symbol defined more than once",
+        "Same rules for ar and .a files on FreeBSD"
+      ],
+      "notes": "Members are linked whole, only when they define a name that is still undefined; object files named on the command line are always linked. That is why the C library has one function per module: printf.c is 60 bytes and calls __output, which is 2,267 bytes."
+    },
+    {
+      "type": "diagram",
+      "title": "Lab 5.6: an ELF object (nasm -f elf64 bump.asm)",
+      "text": "readelf -r bump.o\nOffset  Type            Symbol + Addend\n0x02    R_X86_64_PC32   counter - 4     mov 0x0(%rip),%eax\n0x08    R_X86_64_PC32   .data - 4       add 0x0(%rip),%eax\n0x0e    R_X86_64_PC32   counter - 4     mov %eax,0x0(%rip)\n0x15    R_X86_64_PLT32  report - 4      jmp report\n\nPC32: S + A - P.  A = -4: the CPU adds to the next instruction's address.\ncrt1.o: R_X86_64_64 main (movabs), R_X86_64_PLT32 __libc_start1",
+      "notes": "Real output, condensed. Even a reference to a variable in the same file (step in .data) needs a relocation, because .data has no address yet. Compare with the OMF self-relative fixup: same arithmetic. Ask students to compute the bytes for a given S and P."
+    },
+    {
+      "type": "table",
+      "title": "Lab 5.7: FreeBSD 15.1 binaries, read with readelf",
+      "header": [
+        "File",
+        "Type",
+        "INTERP",
+        "NEEDED / SONAME"
+      ],
+      "rows": [
+        [
+          "/bin/ls",
+          "DYN (PIE)",
+          "/libexec/ld-elf.so.1",
+          "libutil.so.10, libtinfow.so.9, libc.so.7"
+        ],
+        [
+          "/sbin/init",
+          "EXEC (static)",
+          "none",
+          "none (NO_SHARED)"
+        ],
+        [
+          "/lib/libc.so.7",
+          "DYN",
+          "none",
+          "NEEDED and AUXILIARY libsys.so.7"
+        ],
+        [
+          "/lib/libsys.so.7",
+          "DYN",
+          "none",
+          "SONAME libsys.so.7, no NEEDED"
+        ],
+        [
+          "/libexec/ld-elf.so.1",
+          "DYN",
+          "none",
+          "none: relocates itself (291 RELATIVE)"
+        ]
+      ],
+      "notes": "Real static facts from base.txz, confirmed in the course VM. 189 of the 191 ELF programs in /bin and /sbin are PIEs; init is static so that the first process does not depend on shared libraries, and /sbin/nologin is a symlink to a static /usr/sbin/nologin. In the VM, readelf, objdump and nm are the LLVM tools: same facts, slightly different layout. libsys.so.7 is new in FreeBSD 15: the system call stubs moved there; libc's write calls __sys_write through an interposing table."
+    },
+    {
+      "type": "figure",
+      "title": "Static and dynamic linking",
+      "diagram": "05-static-dynamic",
+      "caption": "MS-DOS copies library code into every .EXE; FreeBSD records NEEDED and binds at run time.",
+      "notes": "On MS-DOS the only shared code is the OS itself, reached by INT 21h. On FreeBSD a few hundred programs share one libc.so.7, on disk and in memory, because code pages are mapped from the same file and never written."
+    },
+    {
+      "type": "code",
+      "title": "Lazy binding: the first call",
+      "lang": "c",
+      "code": "Elf_Addr\n_rtld_bind(Obj_Entry *obj, Elf_Size reloff)\n{\n⋮\n        where = (Elf_Addr *)(obj->relocbase + rel->r_offset);\n        def = find_symdef(ELF_R_SYM(rel->r_info), obj, &defobj, SYMLOOK_IN_PLT,\n            NULL, &lockstate);\n        if (def == NULL)\n                rtld_die();\n⋮\n        target = reloc_jmpslot(where, target, defobj, obj, rel);\n        lock_release(rtld_bind_lock, &lockstate);\n        return (target);\n}",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/libexec/rtld-elf/rtld.c#L1056-L1104",
+      "callouts": [
+        "PLT -> GOT slot -> back into the PLT",
+        "PLT0 jumps to _rtld_bind_start",
+        "Look the symbol up by name",
+        "Store it in the GOT slot: later calls go direct"
+      ],
+      "notes": "In /bin/ls the GOT slot of __libc_start1 initially holds 0x8506, the push instruction in its own PLT entry. GOT[1] and GOT[2] are filled by init_pltgot with the object and _rtld_bind_start. LD_BIND_NOW binds everything at start-up instead."
+    },
+    {
+      "type": "figure",
+      "title": "From exec to main",
+      "diagram": "05-exec-to-main",
+      "caption": "EXEC does everything inside one INT 21h call; execve maps and starts ld-elf.so.1, which loads, relocates and jumps.",
+      "notes": "The kernel sets the entry point to the interpreter's and passes AT_PHDR, AT_ENTRY and AT_BASE in the auxiliary vector. _rtld relocates itself, loads NEEDED objects breadth-first, relocates, runs initializers and returns the program's entry. ldd stops it right after loading: LD_TRACE_LOADED_OBJECTS."
+    },
+    {
+      "type": "bullets",
+      "title": "Lab 5.8: the FreeBSD toolchain at work (VM)",
+      "bullets": [
+        "cc -###: in-process clang -cc1, then ld with crt1.o, crtbegin.o, -lc",
+        "No PIE unless asked: hello is EXEC at 0x200000",
+        "ldd and LD_TRACE_LOADED_OBJECTS: libc, libsys, [vdso]",
+        "truss: libmap.conf, hints, open + mmap per library, then write",
+        "Sizes: hello 9,832; hello-static 4,402,664; HELLO.EXE 7,271"
+      ],
+      "notes": "Outputs 5.40-5.45, captured in the course VM. Ask which file in the cc -### command plays the role of crt0 (crt1.o, not Scrt1.o: no PIE by default; the base system adds -fPIE -pie in bsd.prog.mk), and how each linker learns the name of the C library (COMENT 9Fh versus -lc). hello-static is big because of DWARF from libc.a, not code."
+    },
+    {
+      "type": "figure",
+      "title": "Study case 5.B: relocation twice",
+      "diagram": "05-relocation",
+      "caption": "MZ: add the load segment to listed words, in the kernel. ELF: base + addend or symbol lookup, in the process.",
+      "notes": "SEGS.EXE on our DOS: PSP 1204h, image at 1214h, DGROUP 1387h = 1214h + 173h. In ls, R_X86_64_RELATIVE writes B + 0x1d78 at B + 0x99e0. The GOT exists so that code is never patched and can stay shared."
+    },
+    {
+      "type": "bullets",
+      "title": "Homework",
+      "bullets": [
+        "5.1 One function, two compilers: sizes and instruction choice",
+        "5.2 mzdump.py: entry point and relocations as file offsets",
+        "5.3 A static library in C and assembly on both systems",
+        "5.4 Two link errors, and a FreeBSD error at run time",
+        "5.5 needed.py: ldd without running the program",
+        "5.6 Scripts that classify executables (sh and .BAT)",
+        "5.7 Essay: what executable formats assume"
+      ],
+      "notes": "Exercise 5.3 has a trap on purpose: MASM 5.10 upper-cases public names unless /Mx, and CL links with /NOI. Exercise 5.6: a batch file called from a batch file without CALL never returns."
+    },
+    {
+      "type": "bullets",
+      "title": "Key takeaways",
+      "bullets": [
+        "The same five stages on both systems; the files they leave are readable",
+        "Object files: code + names defined + names needed + relocations",
+        "MS-DOS relocates only segment values, once, inside EXEC",
+        "FreeBSD resolves names at run time: NEEDED, PLT, GOT, ld-elf.so.1",
+        "Memory models existed because of 64 KB segments; amd64 has code models",
+        "No shared libraries on MS-DOS: INT 21h and INT 2Fh played that role"
+      ],
+      "notes": "Close with the comparison tables of sections 5.6 and 5.8. The design difference is where names are resolved: before the file exists (MS-DOS) or when the process starts (FreeBSD)."
+    }
+  ]
+}

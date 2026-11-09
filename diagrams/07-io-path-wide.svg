@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="The disk I/O path: DOS buffers and INT 13h; FreeBSD&#x27;s buffer and page cache and GEOM">
+<title>The disk I/O path: DOS buffers and INT 13h; FreeBSD&#x27;s buffer and page cache and GEOM</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowB7862A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B7862A"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1560.0" height="295.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="109.45" height="26" rx="13" fill="#0E7C86"/>
+<text x="86.725" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00</text>
+<rect x="20.0" y="335.0" width="1560.0" height="295.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="345.0" width="117.4" height="26" rx="13" fill="#AB2B28"/>
+<text x="90.7" y="363.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1</text>
+<path d="M250.0,135.0 L300.0,135.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M510.0,135.0 L560.0,135.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M790.0,135.0 L840.0,135.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1050.0,135.0 L1100.0,135.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1290.0,135.0 L1320.0,135.0 L1320.0,140.0 L1350.0,140.0" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<path d="M790.0,255.0 L945.0,255.0 L945.0,190.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="807.4" y="244.1" width="120.2" height="21.9" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="867.5" y="259.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#0E7C86" text-anchor="middle">bypasses buffers</text>
+<path d="M250.0,450.0 L300.0,450.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M510.0,450.0 L560.0,450.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M790.0,450.0 L840.0,450.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1050.0,450.0 L1100.0,450.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1290.0,450.0 L1320.0,450.0 L1320.0,455.0 L1350.0,455.0" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<path d="M790.0,570.0 L945.0,570.0 L945.0,505.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="838.4" y="559.1" width="58.2" height="21.9" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="867.5" y="574.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#AB2B28" text-anchor="middle">checked</text>
+<rect x="50.0" y="80.0" width="200.0" height="110.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="150.0" y="132.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">Program</text>
+<text x="150.0" y="150.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">INT 21h</text>
+<rect x="300.0" y="80.0" width="210.0" height="110.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="405.0" y="121.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">FAT and</text>
+<text x="405.0" y="143.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">directory code</text>
+<text x="405.0" y="161.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">FAT.ASM, DIR.ASM</text>
+<rect x="560.0" y="80.0" width="230.0" height="110.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="675.0" y="121.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">BUFFERS=20</text>
+<text x="675.0" y="143.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">sector buffers</text>
+<text x="675.0" y="161.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">BUF.ASM</text>
+<rect x="840.0" y="80.0" width="210.0" height="110.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="945.0" y="121.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">Block driver</text>
+<text x="945.0" y="143.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">in IO.SYS</text>
+<text x="945.0" y="161.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">MSDISK.ASM</text>
+<rect x="1100.0" y="80.0" width="190.0" height="110.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1195.0" y="132.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">INT 13h</text>
+<text x="1195.0" y="150.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">BIOS ROM</text>
+<path d="M1350.0,84.0 a100.0,14 0 0,0 200.0,0 v112.0 a100.0,14 0 0,1 -200.0,0 z" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<ellipse cx="1450.0" cy="84.0" rx="100.0" ry="14" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1450.0" y="149.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">Floppy,</text>
+<text x="1450.0" y="171.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">hard disk</text>
+<rect x="300.0" y="215.0" width="490.0" height="80.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="545.0" y="261.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">DEBUG, CHKDSK: INT 25h / 26h</text>
+<rect x="50.0" y="395.0" width="200.0" height="110.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="150.0" y="447.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">Program</text>
+<text x="150.0" y="465.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">read(2)</text>
+<rect x="300.0" y="395.0" width="210.0" height="110.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="405.0" y="436.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">VFS and</text>
+<text x="405.0" y="458.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">UFS / FFS</text>
+<text x="405.0" y="476.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">ffs_read</text>
+<rect x="560.0" y="395.0" width="230.0" height="110.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="675.0" y="436.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">Buffer and</text>
+<text x="675.0" y="458.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">page cache</text>
+<text x="675.0" y="476.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">vfs_bio.c, vm</text>
+<rect x="840.0" y="395.0" width="210.0" height="110.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="945.0" y="436.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">GEOM</text>
+<text x="945.0" y="458.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">ada0p4, ada0</text>
+<text x="945.0" y="476.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">g_access</text>
+<rect x="1100.0" y="395.0" width="190.0" height="110.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1195.0" y="447.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">Driver</text>
+<text x="1195.0" y="465.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">ahci, md</text>
+<path d="M1350.0,399.0 a100.0,14 0 0,0 200.0,0 v112.0 a100.0,14 0 0,1 -200.0,0 z" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<ellipse cx="1450.0" cy="399.0" rx="100.0" ry="14" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1450.0" y="475.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">Disk</text>
+<rect x="300.0" y="530.0" width="490.0" height="80.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="545.0" y="576.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">dd of=/dev/md0: EPERM if mounted</text>
+</svg>

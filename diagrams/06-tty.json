@@ -1,0 +1,239 @@
+{
+  "title": "Cooked and raw input: MS-DOS CON and the FreeBSD tty line discipline",
+  "width": 16,
+  "height": 6.5,
+  "lanes": [
+    {
+      "x": 0.2,
+      "y": 0.2,
+      "w": 15.6,
+      "h": 2.95,
+      "label": "MS-DOS 4.00: mode per SFT entry (IOCTL 4401h, bit 5)",
+      "kind": "dos"
+    },
+    {
+      "x": 0.2,
+      "y": 3.35,
+      "w": 15.6,
+      "h": 2.95,
+      "label": "FreeBSD 15.1: mode per terminal (termios)",
+      "kind": "bsd"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "dkb",
+      "x": 0.5,
+      "y": 0.95,
+      "w": 2.4,
+      "h": 1.15,
+      "label": "BIOS key\nbuffer",
+      "sub": "INT 16h",
+      "kind": "hw",
+      "size": 18
+    },
+    {
+      "id": "dcon",
+      "x": 3.3,
+      "y": 0.95,
+      "w": 2.4,
+      "h": 1.15,
+      "label": "CON driver",
+      "sub": "CHRIN",
+      "kind": "dos",
+      "size": 18
+    },
+    {
+      "id": "ddec",
+      "x": 6.1,
+      "y": 1.0,
+      "w": 1.9,
+      "h": 1.05,
+      "label": "raw bit?",
+      "kind": "neutral",
+      "shape": "round",
+      "size": 18
+    },
+    {
+      "id": "ded",
+      "x": 9.0,
+      "y": 0.45,
+      "w": 3.0,
+      "h": 0.8,
+      "label": "Line editor",
+      "sub": "fn 0Ah via READCON",
+      "kind": "dos",
+      "size": 18
+    },
+    {
+      "id": "dprog",
+      "x": 12.6,
+      "y": 0.95,
+      "w": 2.9,
+      "h": 1.15,
+      "label": "Program",
+      "sub": "read(0, buf, n)",
+      "kind": "user",
+      "size": 18
+    },
+    {
+      "id": "bin",
+      "x": 0.5,
+      "y": 4.1,
+      "w": 2.4,
+      "h": 1.15,
+      "label": "vt, uart\nor pts",
+      "sub": "terminal_input_char",
+      "kind": "bsd",
+      "size": 18
+    },
+    {
+      "id": "brint",
+      "x": 3.3,
+      "y": 4.1,
+      "w": 2.4,
+      "h": 1.15,
+      "label": "ttydisc_rint",
+      "sub": "every key, on arrival",
+      "kind": "bsd",
+      "size": 18
+    },
+    {
+      "id": "bsig",
+      "x": 6.4,
+      "y": 3.75,
+      "w": 3.2,
+      "h": 0.8,
+      "label": "Signal to fg group",
+      "sub": "ISIG: ^C SIGINT",
+      "kind": "bsd",
+      "size": 18
+    },
+    {
+      "id": "bq",
+      "x": 6.4,
+      "y": 4.75,
+      "w": 3.2,
+      "h": 1.25,
+      "label": "Input queue",
+      "sub": "ICANON: line edited",
+      "kind": "data",
+      "shape": "cyl",
+      "size": 18
+    },
+    {
+      "id": "brd",
+      "x": 10.1,
+      "y": 4.75,
+      "w": 2.3,
+      "h": 1.25,
+      "label": "ttydisc_read",
+      "sub": "line, or VMIN",
+      "kind": "bsd",
+      "size": 18
+    },
+    {
+      "id": "bprog",
+      "x": 12.9,
+      "y": 4.75,
+      "w": 2.6,
+      "h": 1.25,
+      "label": "Program",
+      "sub": "read(2)",
+      "kind": "user",
+      "size": 18
+    }
+  ],
+  "edges": [
+    {
+      "from": "dkb",
+      "to": "dcon",
+      "kind": "dos"
+    },
+    {
+      "from": "dcon",
+      "to": "ddec",
+      "kind": "dos"
+    },
+    {
+      "from": "ddec",
+      "to": "ded",
+      "from_side": "right",
+      "to_side": "left",
+      "route": "hvh",
+      "kind": "dos",
+      "label": "cooked",
+      "size": 15,
+      "label_on_line": true
+    },
+    {
+      "from": "ded",
+      "to": "dprog",
+      "from_side": "right",
+      "to_side": "left",
+      "route": "hvh",
+      "kind": "dos"
+    },
+    {
+      "from": "ddec",
+      "to": "dprog",
+      "from_side": "right",
+      "to_side": "left",
+      "route": "straight",
+      "kind": "dos",
+      "label": "raw: exactly n keys",
+      "size": 15
+    },
+    {
+      "from": "bin",
+      "to": "brint",
+      "kind": "bsd"
+    },
+    {
+      "from": "brint",
+      "to": "bsig",
+      "from_side": "right",
+      "to_side": "left",
+      "route": "hvh",
+      "kind": "bsd"
+    },
+    {
+      "from": "brint",
+      "to": "bq",
+      "from_side": "right",
+      "to_side": "left",
+      "route": "hvh",
+      "kind": "bsd"
+    },
+    {
+      "from": "bq",
+      "to": "brd",
+      "kind": "bsd"
+    },
+    {
+      "from": "brd",
+      "to": "bprog",
+      "kind": "bsd"
+    },
+    {
+      "from": "bsig",
+      "to": "bprog",
+      "from_side": "right",
+      "to_side": "top",
+      "route": "hv",
+      "kind": "bsd",
+      "style": "dashed"
+    }
+  ],
+  "notes": [
+    {
+      "x": 3.3,
+      "y": 2.35,
+      "w": 8,
+      "text": "Cooked: echo to the device being read; Ctrl-C found only when DOS polls (DSKSTATCHK).",
+      "size": 14,
+      "kind": "dos",
+      "style": "italic"
+    }
+  ]
+}

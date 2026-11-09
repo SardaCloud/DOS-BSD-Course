@@ -1,0 +1,32 @@
+{
+  "title": "Building MS-DOS 4.00 from source and booting it",
+  "width": 13, "height": 9.2,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 6.1, "h": 8.8, "label": "Host PC: Python scripts", "kind": "user"},
+    {"x": 6.7, "y": 0.2, "w": 6.1, "h": 8.8, "label": "DOSBox-X: 1988 tools", "kind": "hw"}
+  ],
+  "nodes": [
+    {"id": "src", "x": 0.9, "y": 0.85, "w": 4.7, "h": 1.0, "label": "MS-DOS source tree", "sub": "src-ext/MS-DOS/v4.0/src", "kind": "dos", "shape": "cyl"},
+    {"id": "prep", "x": 0.9, "y": 2.25, "w": 4.7, "h": 1.0, "label": "prepare_dos_build.py", "sub": "copy to build/dos4/SRC", "kind": "user"},
+    {"id": "fixes", "x": 0.9, "y": 3.5, "w": 4.7, "h": 1.25, "label": "CR LF line endings\nU+FFFD -> one byte\nfixed file date", "sub": "BUILD.BAT: LIB, INCLUDE", "kind": "neutral", "shape": "note", "size": 14, "weight": "400"},
+    {"id": "bat", "x": 7.4, "y": 2.25, "w": 4.7, "h": 1.0, "label": "BUILD.BAT", "sub": "on drive D:", "kind": "dos"},
+    {"id": "nmake", "x": 7.4, "y": 3.65, "w": 4.7, "h": 1.0, "label": "NMAKE, one per directory", "sub": "order of the original MAKEFILE", "kind": "dos"},
+    {"id": "tools", "x": 7.4, "y": 5.05, "w": 4.7, "h": 1.0, "label": "MASM, CL, LINK, EXE2BIN", "sub": ".ASM .C -> .OBJ -> .EXE -> .SYS", "kind": "dos"},
+    {"id": "out", "x": 0.9, "y": 5.05, "w": 4.7, "h": 1.0, "label": "62 files listed in CPY.BAT", "sub": "IO.SYS MSDOS.SYS COMMAND.COM ...", "kind": "data"},
+    {"id": "floppy", "x": 0.9, "y": 6.45, "w": 4.7, "h": 1.0, "label": "make_floppy.py", "sub": "does the job of FORMAT /S", "kind": "user"},
+    {"id": "img", "x": 0.9, "y": 7.75, "w": 4.7, "h": 1.0, "label": "dos400.img", "sub": "1.44 MB floppy image", "kind": "data", "shape": "cyl"},
+    {"id": "boot", "x": 7.4, "y": 7.8, "w": 4.7, "h": 0.9, "label": "BOOT A: -> MS-DOS 4.00", "sub": "sector 0 -> 0000:7C00", "kind": "dos"},
+    {"id": "n1", "x": 7.4, "y": 0.8, "w": 4.7, "h": 1.1, "label": "NMAKE compares file times only:\nhence the fixed file date", "kind": "neutral", "shape": "note", "size": 14, "weight": "400"},
+    {"id": "n2", "x": 7.4, "y": 6.35, "w": 4.7, "h": 1.1, "label": "MSBOOT.ASM -> BOOT.INC (DBOF),\nincluded by FORMAT and SYS", "kind": "neutral", "shape": "note", "size": 14, "weight": "400"}
+  ],
+  "edges": [
+    {"from": "src", "to": "prep", "kind": "dos"},
+    {"from": "prep", "to": "bat", "label": "D: = build/dos4", "kind": "dos"},
+    {"from": "bat", "to": "nmake", "kind": "dos"},
+    {"from": "nmake", "to": "tools", "kind": "dos"},
+    {"from": "tools", "to": "out", "label": "build_dos.py checks", "kind": "dos"},
+    {"from": "out", "to": "floppy", "kind": "dos"},
+    {"from": "floppy", "to": "img", "kind": "dos"},
+    {"from": "img", "to": "boot", "label": "dos_run.py", "kind": "dos"}
+  ]
+}

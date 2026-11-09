@@ -1,0 +1,305 @@
+{
+ "module": 6,
+ "title": "Talking to the hardware: BIOS, ports, interrupts, drivers and consoles",
+ "subtitle": "MS-DOS 4.00 and FreeBSD 15.1, from IN and OUT to the terminal",
+ "slides": [
+  {
+   "type": "section",
+   "title": "The PC as a programmer sees it",
+   "subtitle": "Device memory, I/O ports, interrupts",
+   "notes": "Start from the hardware both systems share: the same chips, the same ports, the same IRQ lines."
+  },
+  {
+   "type": "figure",
+   "title": "From an interrupt request to a handler",
+   "diagram": "06-interrupts",
+   "caption": "Figure 6.1: PIC and vector table on MS-DOS; APIC, IDT, filters and interrupt threads on FreeBSD",
+   "notes": "Trace IRQ1 on both lanes. On MS-DOS any program can rewrite the vector; the handler runs on the interrupted program's time. On FreeBSD only drivers install handlers, and the work is split into a filter that runs at once and a thread that is scheduled. Ask why vector 8 cannot be IRQ0 in protected mode: it is the double fault."
+  },
+  {
+   "type": "code",
+   "title": "Reading the CMOS clock on MS-DOS: ports 70h and 71h",
+   "lang": "asm",
+   "code": "        cli\n        push    bx\n        push    ax                      ;save user NMI state\n        or      al,NMI                  ;disable NMI for us\n        out     CMOS_PORT,al\n        nop                             ;undocumented delay needed\n        in      al,CMOS_DATA            ;get data value\n\n         ;set NMI state to user specified\n        mov     bx,ax                   ;save data value\n        pop     ax                      ;get user NMI\n        and     al,NMI\n        or      al,CMOS_SHUT_DOWN\n        out     CMOS_PORT,al\n        nop\n        in      al,CMOS_DATA",
+   "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/BIOS/MSINIT.ASM#L2737-L2752",
+   "callouts": [
+    "CLI: one CPU, one program, enough",
+    "Index to 70h, data from 71h",
+    "NOP: the chip needed time",
+    "Bit 7 of the index masks NMI"
+   ],
+   "notes": "This is CMOS_READ in IO.SYS. Point out the undocumented delay and the NMI bit. MS-DOS uses this only to repair the RTC rate registers on early ATs; for time it asks the BIOS."
+  },
+  {
+   "type": "code",
+   "title": "The same chip from FreeBSD's atrtc driver",
+   "lang": "c",
+   "code": "static inline u_char\nrtcin_locked(int reg)\n{\n\n        if (rtc_reg != reg) {\n                inb(0x84);\n                outb(IO_RTC, reg);\n                rtc_reg = reg;\n                inb(0x84);\n        }\n        return (inb(IO_RTC + 1));\n}",
+   "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/x86/isa/atrtc.c#L98-L109",
+   "callouts": [
+    "Same index/data protocol",
+    "inb(0x84) is the delay",
+    "rtc_reg caches the selected register",
+    "Callers hold the spin mutex atrtc_lock"
+   ],
+   "notes": "Put this next to the previous slide. The protocol is identical; the locking is not: a spin mutex disables interrupts on this CPU and keeps the others out."
+  },
+  {
+   "type": "section",
+   "title": "Three layers on MS-DOS",
+   "subtitle": "BIOS, IO.SYS drivers, ANSI.SYS",
+   "notes": "DOS, BIOS, hardware: programs used all three."
+  },
+  {
+   "type": "figure",
+   "title": "The layers between a program and a device",
+   "diagram": "06-layers",
+   "caption": "Figure 6.2: on MS-DOS nothing enforces the layers; on FreeBSD the kernel does",
+   "notes": "The dashed arrows are the programs that bypass DOS. On FreeBSD there are no dashed arrows: IN and OUT fault in user mode."
+  },
+  {
+   "type": "figure",
+   "title": "The MS-DOS device driver chain after boot",
+   "diagram": "06-devchain",
+   "caption": "Figure 6.3: NUL first, DEVICE= drivers after it, BCON and BCLOCK pointers in the List of Lists",
+   "notes": "This is what Lab 6.5 prints. ANSI.SYS hides the IO.SYS console by coming first in the name search, and SYSINIT points BCON at it."
+  },
+  {
+   "type": "code",
+   "title": "DOS writes console characters with INT 29h",
+   "lang": "asm",
+   "code": "        PUSH    DS\n        LDS     BX,[SI.sf_devptr]               ; output to special?\n        TEST    BYTE PTR [BX+SDEVATT],ISSPEC\n        POP     DS\n        JZ      RAWNORM                         ; if not, do normally\n        INT     int_fastcon                     ; quickly output the char\nRAWRET:\n        CLC\nRAWRET1:\n        POP     BX\n        return\nRAWNORM:\n        CALL    RAWOUT3\n        JMP     RAWRET",
+   "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/DOS/CPMIO.ASM#L369-L382",
+   "callouts": [
+    "Is standard output a special device?",
+    "Then one INT 29h per character",
+    "Otherwise RAWOUT3 and IOFUNC"
+   ],
+   "notes": "RAWOUT is where the console output of functions 01h-0Ch ends. The special bit (bit 4) means the device owns INT 29h. This is why ANSI.SYS must hook vector 29h; a device without the bit, or a file when output is redirected, is reached through IOFUNC instead."
+  },
+  {
+   "type": "code",
+   "title": "The ANSI.SYS escape-sequence state machine",
+   "lang": "asm",
+   "code": "VIDEO:  MOV     SI,OFFSET STATE\n        JMP     [SI]\n\nS2:     CMP     AL,'['\n        JZ      S22\n        JMP     S1\nS22:    MOV     WORD PTR [SI],OFFSET S3\n        XOR     BX,BX\n        MOV     WORD PTR INQ,BX\n        JMP     SHORT S3B\n\nS3:     CMP     AL,';'\n        JNZ     S3C\nS3A:    INC     PRMCNT\nS3B:    CALL    GETPTR\n        XOR     AX,AX\n        MOV     WORD PTR [BX],AX    ;DEFAULT VALUE IS ZERO\n        RET",
+   "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/DEV/ANSI/ANSI.ASM#L831-L848",
+   "callouts": [
+    "STATE holds the address of the current state",
+    "S2: expect '['",
+    "S3: collect numeric parameters",
+    "A letter ends the sequence (S7)"
+   ],
+   "notes": "Show Lab 6.4 next: the same file with and without the driver. Mention the two features that write into the keyboard stream: the cursor report and key reassignment."
+  },
+  {
+   "type": "bullets",
+   "title": "Programs that bypass DOS",
+   "bullets": [
+    "Speed: one REP MOVSW into B800h versus a long call chain per character",
+    "No redirection: INT 10h and B800h never pass a handle (Lab 6.1)",
+    "No arbitration: the last program to hook a vector wins (the INT 1Ch story)",
+    "Later systems had to emulate the hardware: EMM386 traps ports in V86 mode",
+    "FreeBSD: IN and OUT fault; /dev/io is a controlled exception"
+   ],
+   "notes": "Use the BASCOM comment in MSBIO1.ASM as the story. Be fair: on a 4.77 MHz 8088 these shortcuts were what made software usable."
+  },
+  {
+   "type": "section",
+   "title": "FreeBSD: buses, drivers, interrupts",
+   "subtitle": "newbus, bus_space, interrupt threads",
+   "notes": "No BIOS after boot: the kernel finds the devices itself."
+  },
+  {
+   "type": "figure",
+   "title": "Part of the newbus device tree",
+   "diagram": "06-newbus",
+   "caption": "Figure 6.4: each box is a device_t; drivers bid in probe, the winner attaches",
+   "notes": "Compare with the DOS chain: a flat list loaded on command versus a tree discovered by buses. Resources come from the parent bus and are recorded, so two drivers cannot own the same port."
+  },
+  {
+   "type": "code",
+   "title": "Filters run now; handlers run in a thread",
+   "lang": "c",
+   "code": "                if (ih->ih_filter == NULL) {\n                        thread = true;\n                        continue;\n                }\n                CTR4(KTR_INTR, \"%s: exec %p(%p) for %s\", __func__,\n                    ih->ih_filter, ih->ih_argument, ih->ih_name);\n                ret = ih->ih_filter(ih->ih_argument);\n⋮\n        /* Schedule the ithread if needed. */\n        if (thread) {\n                int error __unused;\n\n                error =  intr_event_schedule_thread(ie, frame);\n                KASSERT(error == 0, (\"bad stray interrupt\"));\n        }",
+   "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/kern/kern_intr.c#L1389-L1451",
+   "callouts": [
+    "A handler without a filter means: schedule the thread",
+    "Filters run in interrupt context",
+    "intr_event_schedule_thread wakes the ithread"
+   ],
+   "notes": "atrtc installs a filter, atkbd a threaded handler. On x86 the EOI is sent before the thread runs; a level-triggered source is also masked until the thread has run, an edge-triggered one such as IRQ1 is not."
+  },
+  {
+   "type": "section",
+   "title": "Consoles",
+   "subtitle": "CON, cooked and raw; the tty line discipline",
+   "notes": "The device every program uses first."
+  },
+  {
+   "type": "figure",
+   "title": "Cooked and raw input on both systems",
+   "diagram": "06-tty",
+   "caption": "Figure 6.5: the line editor runs when DOS reads; the line discipline runs when the key arrives",
+   "notes": "Raw mode is per SFT entry on MS-DOS, per terminal on FreeBSD; neither is per process."
+  },
+  {
+   "type": "code",
+   "title": "DOS_READ on a device: raw or cooked",
+   "lang": "asm",
+   "code": ";\n; We need to hit the device.  Figure out if we do a raw read or we do the\n; bizarre std_con_string_input.\n;\nTESTRAW:\n        TEST    BL,devid_device_raw     ; Raw mode?\n        JNZ     DVRDRAW                 ; Yes, let the device do all local editing\n        TEST    BL,devid_device_con_in  ; Is it console device?\n        JZ      NOTRDCON\n        JMP     READCON",
+   "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/DOS/DISK.ASM#L239-L248",
+   "callouts": [
+    "Bit 5 of the device information: raw",
+    "Raw: one request for the full count",
+    "Cooked console: the line editor of function 0Ah"
+   ],
+   "notes": "IOCTL 4401h sets this bit. Run Lab 6.3 step 3 live: Ctrl-C, Ctrl-S and Ctrl-Z arrive as bytes."
+  },
+  {
+   "type": "table",
+   "title": "MS-DOS CON versus the FreeBSD terminal",
+   "header": [
+    "",
+    "MS-DOS 4.00",
+    "FreeBSD 15.1"
+   ],
+   "rows": [
+    [
+     "Line editing",
+     "DOS function 0Ah, when read",
+     "ttydisc_rint, on arrival"
+    ],
+    [
+     "Raw mode",
+     "IOCTL 4401h bit 5, per SFT entry",
+     "termios without ICANON, per terminal"
+    ],
+    [
+     "Ctrl-C",
+     "polled, then INT 23h",
+     "SIGINT to the foreground group at once"
+    ],
+    [
+     "End of file",
+     "Ctrl-Z",
+     "Ctrl-D (VEOF)"
+    ],
+    [
+     "Escape sequences",
+     "ANSI.SYS if installed",
+     "teken, always"
+    ],
+    [
+     "Remote console",
+     "CTTY COM1",
+     "ssh and a pseudo-terminal"
+    ]
+   ],
+   "notes": "Two Ctrl-Zs: end of file on DOS, suspend on FreeBSD."
+  },
+  {
+   "type": "bullets",
+   "title": "Time: a count of interrupts versus a counter",
+   "bullets": [
+    "MS-DOS: the BIOS counts IRQ0 ticks (18.2 Hz); CLOCK$ converts ticks to h:m:s.hh",
+    "IO.SYS reads only the date from the CMOS clock at boot",
+    "A lost interrupt makes the DOS clock late; two missed midnights lose a day",
+    "FreeBSD: the RTC once at boot (inittodr), then a timecounter (TSC; Hyper-V-TSC in the course VM)",
+    "time = timehands offset + scale x counter delta, often computed in user space"
+   ],
+   "notes": "Show Lab 6.2's output: four readings of the same clock. DOSBox-X's CMOS held UTC."
+  },
+  {
+   "type": "section",
+   "title": "Labs",
+   "subtitle": "Five on MS-DOS 4.00, two on FreeBSD 15.1",
+   "notes": "Every MS-DOS output in the labs is a real capture from the MS-DOS 4.00 built from source."
+  },
+  {
+   "type": "diagram",
+   "title": "Lab 6.1: three ways to print, one redirection",
+   "text": "---- THREE  (to) OUT.TXT\n---- TYPE OUT.TXT\n1 DOS   INT 21h AH=02h\n---- SCREEN\n2 BIOS  INT 10h AH=0Eh\n3 VIDEO B800:row*160\n2 BIOS  INT 10h AH=0Eh\n3 VIDEO B800:row*160",
+   "notes": "Only the INT 21h line reaches the file; the BIOS and video lines stay on the screen, twice."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 6.2: the clock read four ways",
+   "bullets": [
+    "INT 21h 2Ah/2Ch: binary, from CLOCK$",
+    "INT 1Ah 00h: 612,333 ticks = 9:20:32.7",
+    "INT 1Ah 04h/02h and ports 70h/71h: BCD from the chip",
+    "Register A 26h, B 03h: 24-hour, BCD",
+    "All one hour behind the host: DOSBox-X's CMOS held UTC"
+   ],
+   "notes": "Ask students to redo the tick conversion by hand with the formula in MSCLOCK.ASM."
+  },
+  {
+   "type": "diagram",
+   "title": "Lab 6.3: cooked, raw, and a sticky end of file",
+   "text": "handle 0 switched to raw\nhandle 0: DX=C0F3 ISDEV NOTEOF RAW SPECL ISCOT ISCIN\nhandle 1: DX=80C0 ISDEV NOTEOF\nhandle 2: DX=C0F3 ISDEV NOTEOF RAW SPECL ISCOT ISCIN\nread returned 0009h bytes: 61 62 08 63 0D 1A 03 13 71\n\nAfter a Ctrl-Z in a previous program:\n---- STUFF hi^M\n---- KEYS\nhandle 0: DX=C093 ISDEV SPECL ISCOT ISCIN\nhandle 1: DX=80C0 ISDEV NOTEOF\nhandle 2: DX=C093 ISDEV SPECL ISCOT ISCIN\ncooked read(0, buf, 40)\nread returned 0000h bytes:",
+   "notes": "Raw: nine keys, nine bytes. The second part is the surprise: the end-of-file bit lives in the shared SFT entry of CON and only a write through it resets it."
+  },
+  {
+   "type": "bullets",
+   "title": "Lab 6.4: ANSI.SYS",
+   "bullets": [
+    "Without the driver, ESC is printed as a glyph",
+    "With it, cursor moves and colours work",
+    "ESC[97;\"hello\"p: typing a now types hello",
+    "ESC[6n: the reply arrives as keyboard input",
+    "FreeBSD's emulator has the reply code under #if 0: the VM console never answers"
+   ],
+   "notes": "The key reassignment is the memorable part: a text file changed the keyboard."
+  },
+  {
+   "type": "diagram",
+   "title": "Lab 6.5: the driver chain, walked from NUL",
+   "text": "  # header     attr strat intr  name      flags\n  1 02C1:0048 8004 18DB  18E1  NUL       char NUL\n  2 0BA3:0000 C053 00C1  00CC  CON       char STDIN STDOUT INT29 IOCTL GENIOCTL\n  3 0070:016E 8013 062A  0635  CON       char STDIN STDOUT INT29\n  4 0070:0180 8000 062A  063B  AUX       char\n  5 0070:0192 A040 062A  0658  PRN       char OUTBUSY GENIOCTL\n  6 0070:01A4 8008 062A  067E  CLOCK$    char CLOCK\n  7 0070:01B6 0842 062A  0684  2 units   block 32BIT OPCL GENIOCTL\n  8 0070:01CA 8000 062A  063B  COM1      char",
+   "notes": "All IO.SYS drivers share the strategy routine at 062A; AUX and COM1 even share an interrupt entry. ANSI.SYS's CON comes first."
+  },
+  {
+   "type": "bullets",
+   "title": "Labs 6.6 and 6.7: FreeBSD drivers and termios",
+   "bullets": [
+    "grep DRIVER_MODULE: the same driver registers with isa and acpi",
+    "devinfo -u in the VM: the classic ports and IRQs, each with its driver",
+    "tcsetattr is ioctl(TIOCSETA = 0x802c7414) in the real libc.so.7",
+    "The VM has atkbd0 and Hyper-V's hvkbd0; console keys come through hvkbd0",
+    "rawkeys -r on the console: 61 62 08 63 0D 1A 03 13 71, as on MS-DOS"
+   ],
+   "notes": "All outputs were captured in the course VM. rawkeys on the vt console: canonical 61 63 0A; raw 61 62 08 63 0D 1A 03 13 71, the same nine bytes as MS-DOS in Lab 6.3 (Backspace sends 08 on vt). In vmstat -i, irq1: atkbd0 does not move when you type on the Hyper-V console; the cpuN:hyperv lines do."
+  },
+  {
+   "type": "figure",
+   "title": "Study case: one key press, end to end",
+   "diagram": "06-keypress",
+   "caption": "Figure 6.7: on MS-DOS the key waits until DOS polls; on FreeBSD it is processed on arrival",
+   "notes": "Walk the seven steps on both lanes, then the comparison table of Study case 6.A."
+  },
+  {
+   "type": "bullets",
+   "title": "Homework",
+   "bullets": [
+    "6.1 ZERO$: a character device driver loaded with DEVICE=",
+    "6.2 /dev/zeroish as a FreeBSD kernel module",
+    "6.3 Scan codes on both systems",
+    "6.4 Measuring time: INT 1Ch versus clock_gettime",
+    "6.5 Is the driver installed? C, batch and sh",
+    "6.6 Essay: what bypassing the OS costs"
+   ],
+   "notes": "Exercise 6.1 is the centrepiece: students will meet COPY's refusal to read a device in binary."
+  },
+  {
+   "type": "bullets",
+   "title": "Key takeaways",
+   "bullets": [
+    "Same chips, same ports, same IRQs; different rules about who may touch them",
+    "MS-DOS layers are conventions; FreeBSD layers are enforced",
+    "DOS drivers: a header, a packet, a chain; FreeBSD: newbus, kobj methods, resources",
+    "Console input: polled and edited on demand versus processed on arrival",
+    "Time: counting interrupts versus reading a counter"
+   ],
+   "notes": "Close by asking which design choice students would keep for a small embedded system today."
+  }
+ ]
+}

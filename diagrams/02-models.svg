@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 720.0" width="1300" height="720.0" role="img" aria-label="Two kernel models: one shared real-mode space versus a protected kernel and per-process spaces">
+<title>Two kernel models: one shared real-mode space versus a protected kernel and per-process spaces</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1300" height="720.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="610.0" height="680.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="300.25" height="26" rx="13" fill="#0E7C86"/>
+<text x="182.125" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00: one space for everyone</text>
+<rect x="670.0" y="20.0" width="610.0" height="680.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="682.0" y="30.0" width="284.35" height="26" rx="13" fill="#AB2B28"/>
+<text x="824.175" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1: one map per process</text>
+<path d="M455.0,480.0 L500.0,480.0 L500.0,262.5 L455.0,262.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="506.0" y="360.3" width="58.2" height="21.9" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="535.1" y="375.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#0E7C86" text-anchor="middle">INT 21h</text>
+<path d="M930.0,202.5 L975.0,202.5 L975.0,505.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1020.0,202.5 L975.0,202.5 L975.0,505.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="938.2" y="328.8" width="73.6" height="49.9" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="975.0" y="343.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#AB2B28" text-anchor="middle">syscall,</text>
+<text x="975.0" y="358.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#AB2B28" text-anchor="middle">exception,</text>
+<text x="975.0" y="372.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#AB2B28" text-anchor="middle">interrupt</text>
+<rect x="155.0" y="90.0" width="300.0" height="65.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="305.0" y="120.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2328" text-anchor="middle">Interrupt vector table</text>
+<text x="305.0" y="136.6" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#6B7280" text-anchor="middle">256 far pointers</text>
+<rect x="155.0" y="155.0" width="300.0" height="60.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="305.0" y="182.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#4D3810" text-anchor="middle">ROM BIOS data area</text>
+<text x="305.0" y="199.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#B7862A" text-anchor="middle">segment 40h</text>
+<rect x="155.0" y="215.0" width="300.0" height="95.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="305.0" y="260.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0B3D42" text-anchor="middle">IO.SYS, MSDOS.SYS</text>
+<text x="305.0" y="276.6" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#0E7C86" text-anchor="middle">SFTs, buffers, CDS</text>
+<rect x="155.0" y="310.0" width="300.0" height="60.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="305.0" y="345.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">COMMAND.COM</text>
+<rect x="155.0" y="370.0" width="300.0" height="60.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="305.0" y="405.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">TSRs</text>
+<rect x="155.0" y="430.0" width="300.0" height="100.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="305.0" y="485.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">Running program</text>
+<rect x="155.0" y="530.0" width="300.0" height="75.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="305.0" y="573.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2328" text-anchor="middle">Free blocks</text>
+<rect x="700.0" y="115.0" width="230.0" height="50.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="815.0" y="144.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1F2328" text-anchor="middle">unmapped page 0</text>
+<rect x="700.0" y="165.0" width="230.0" height="75.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="815.0" y="198.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">text, data,</text>
+<text x="815.0" y="217.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">heap</text>
+<rect x="700.0" y="240.0" width="230.0" height="75.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="815.0" y="273.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">shared libs,</text>
+<text x="815.0" y="292.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">mmap</text>
+<rect x="700.0" y="315.0" width="230.0" height="55.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="815.0" y="348.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">user stack</text>
+<rect x="700.0" y="370.0" width="230.0" height="135.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="815.0" y="433.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2328" text-anchor="middle">unmapped</text>
+<text x="815.0" y="452.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2328" text-anchor="middle">hole</text>
+<rect x="1020.0" y="115.0" width="230.0" height="50.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="1135.0" y="144.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1F2328" text-anchor="middle">unmapped page 0</text>
+<rect x="1020.0" y="165.0" width="230.0" height="75.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1135.0" y="198.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">text, data,</text>
+<text x="1135.0" y="217.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">heap</text>
+<rect x="1020.0" y="240.0" width="230.0" height="75.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1135.0" y="273.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">shared libs,</text>
+<text x="1135.0" y="292.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">mmap</text>
+<rect x="1020.0" y="315.0" width="230.0" height="55.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1135.0" y="348.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">user stack</text>
+<rect x="1020.0" y="370.0" width="230.0" height="135.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="1135.0" y="433.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2328" text-anchor="middle">unmapped</text>
+<text x="1135.0" y="452.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2328" text-anchor="middle">hole</text>
+<rect x="700.0" y="505.0" width="550.0" height="100.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="975.0" y="552.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#4A1312" text-anchor="middle">Kernel: ring 0 only</text>
+<text x="975.0" y="569.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#AB2B28" text-anchor="middle">same in every process</text>
+<text x="145.0" y="91.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" fill="#0B3D42" text-anchor="end" font-style="normal">0x00000</text>
+<text x="145.0" y="156.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" fill="#0B3D42" text-anchor="end" font-style="normal">0x00400</text>
+<text x="145.0" y="418.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" fill="#0B3D42" text-anchor="end" font-style="italic">arena:</text>
+<text x="145.0" y="434.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" fill="#0B3D42" text-anchor="end" font-style="italic">MCB chain</text>
+<text x="145.0" y="567.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="12" fill="#0B3D42" text-anchor="end" font-style="normal">top of</text>
+<text x="145.0" y="582.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="12" fill="#0B3D42" text-anchor="end" font-style="normal">conventional</text>
+<text x="145.0" y="597.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="12" fill="#0B3D42" text-anchor="end" font-style="normal">memory</text>
+<text x="50.0" y="643.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" fill="#0B3D42" text-anchor="start" font-style="italic">No protection: any program can read or write any byte,</text>
+<text x="50.0" y="659.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" fill="#0B3D42" text-anchor="start" font-style="italic">including the vectors that lead into DOS.</text>
+<text x="815.0" y="89.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="14" fill="#4A1312" text-anchor="middle" font-style="normal">process A</text>
+<text x="1135.0" y="89.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="14" fill="#4A1312" text-anchor="middle" font-style="normal">process B</text>
+<text x="700.0" y="643.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" fill="#4A1312" text-anchor="start" font-style="italic">Each process has its own user part; the kernel part is</text>
+<text x="700.0" y="659.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" fill="#4A1312" text-anchor="start" font-style="italic">protected, and only the kernel sets its entry points.</text>
+</svg>

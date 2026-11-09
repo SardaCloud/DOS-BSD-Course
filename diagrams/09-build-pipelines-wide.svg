@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="Build pipelines: assembly, C and script on MS-DOS 4.00 and FreeBSD 15.1">
+<title>Build pipelines: assembly, C and script on MS-DOS 4.00 and FreeBSD 15.1</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1560.0" height="295.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="109.45" height="26" rx="13" fill="#0E7C86"/>
+<text x="86.725" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00</text>
+<rect x="20.0" y="335.0" width="1560.0" height="295.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="345.0" width="117.4" height="26" rx="13" fill="#AB2B28"/>
+<text x="90.7" y="363.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1</text>
+<path d="M387.5,105.15 L437.5,105.15" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M775.0,105.15 L1212.5,105.15" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M387.5,187.45000000000002 L437.5,187.45000000000002" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M775.0,187.45000000000002 L825.0,187.45000000000002" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1162.5,187.45000000000002 L1212.5,187.45000000000002" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M387.5,269.84999999999997 L437.5,269.84999999999997" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M387.5,420.15 L437.5,420.15" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M775.0,420.15 L825.0,420.15" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1162.5,420.15 L1212.5,420.15" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M387.5,502.45 L437.5,502.45" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M775.0,502.45 L825.0,502.45" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1162.5,502.45 L1212.5,502.45" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M387.5,584.85 L437.5,584.85" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="50.0" y="75.0" width="337.5" height="60.3" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="218.75" y="111.5" font-family="Consolas, Menlo, monospace" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">ARGS.ASM</text>
+<rect x="437.5" y="75.0" width="337.5" height="60.3" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="606.25" y="102.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">NASM -f bin</text>
+<text x="606.25" y="121.0" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">or MASM, LINK, EXE2BIN</text>
+<rect x="1212.5" y="75.0" width="337.5" height="60.3" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1381.25" y="102.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">ARGS.COM</text>
+<text x="1381.25" y="121.0" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">image at 100h, no header</text>
+<rect x="50.0" y="157.3" width="337.5" height="60.3" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="218.75" y="193.8" font-family="Consolas, Menlo, monospace" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">WC.C</text>
+<rect x="437.5" y="157.3" width="337.5" height="60.3" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="606.25" y="185.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">CL /AS /c</text>
+<text x="606.25" y="203.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">C1, C2, C3 -&gt; WC.OBJ</text>
+<rect x="825.0" y="157.3" width="337.5" height="60.3" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="993.75" y="185.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">LINK</text>
+<text x="993.75" y="203.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">+ SLIBCE.LIB</text>
+<rect x="1212.5" y="157.3" width="337.5" height="60.3" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1381.25" y="185.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">WC.EXE</text>
+<text x="1381.25" y="203.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">MZ header, relocations</text>
+<rect x="50.0" y="239.7" width="337.5" height="60.3" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="218.75" y="276.1" font-family="Consolas, Menlo, monospace" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">BACKUP.BAT</text>
+<rect x="437.5" y="239.7" width="1112.5" height="60.3" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="993.75" y="267.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">COMMAND.COM reads and runs it, one line at a time</text>
+<text x="993.75" y="285.7" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">no build step</text>
+<rect x="50.0" y="390.0" width="337.5" height="60.3" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="218.75" y="426.4" font-family="Consolas, Menlo, monospace" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">args.asm</text>
+<rect x="437.5" y="390.0" width="337.5" height="60.3" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="606.25" y="417.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">nasm -f elf64</text>
+<text x="606.25" y="436.0" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">-&gt; args.o</text>
+<rect x="825.0" y="390.0" width="337.5" height="60.3" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="993.75" y="417.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">ld</text>
+<text x="993.75" y="436.0" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">no libraries</text>
+<rect x="1212.5" y="390.0" width="337.5" height="60.3" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1381.25" y="417.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">argsa</text>
+<text x="1381.25" y="436.0" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">static ELF, syscall</text>
+<rect x="50.0" y="472.3" width="337.5" height="60.3" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="218.75" y="508.8" font-family="Consolas, Menlo, monospace" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">wc.c</text>
+<rect x="437.5" y="472.3" width="337.5" height="60.3" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="606.25" y="500.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">cc</text>
+<text x="606.25" y="518.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">compiles -&gt; wc.o</text>
+<rect x="825.0" y="472.3" width="337.5" height="60.3" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="993.75" y="500.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">ld (run by cc)</text>
+<text x="993.75" y="518.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">+ crt1.o, libc.so.7</text>
+<rect x="1212.5" y="472.3" width="337.5" height="60.3" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1381.25" y="500.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">wc</text>
+<text x="1381.25" y="518.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">dynamic ELF</text>
+<rect x="50.0" y="554.7" width="337.5" height="60.3" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="218.75" y="591.1" font-family="Consolas, Menlo, monospace" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">backup.sh</text>
+<rect x="437.5" y="554.7" width="1112.5" height="60.3" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="993.75" y="582.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">#!/bin/sh: the kernel starts /bin/sh with the script&#x27;s path</text>
+<text x="993.75" y="600.7" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">chmod +x; no build step</text>
+</svg>

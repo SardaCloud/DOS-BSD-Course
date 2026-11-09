@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# heartbeat - a toy daemon for Lab 8.5: write a time-stamped line every few seconds.
+# Install as /usr/local/libexec/heartbeat (mode 755). The rc.d script starts it
+# through daemon(8), which detaches it and sends its output to a log file.
+#
+interval=${1:-10}
+
+trap 'echo "$(date "+%F %T") heartbeat[$$]: SIGTERM, stopping"; exit 0' TERM
+
+echo "$(date "+%F %T") heartbeat[$$]: started, interval ${interval}s"
+while :; do
+	sleep "$interval" &
+	wait $!		# wait is interrupted by SIGTERM; a foreground sleep would delay the trap
+	echo "$(date "+%F %T") heartbeat[$$]: alive"
+done

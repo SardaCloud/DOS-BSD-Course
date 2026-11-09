@@ -1,0 +1,49 @@
+{
+  "title": "FAT12: two entries in three bytes, and the cluster chain they encode",
+  "width": 17, "height": 6.55,
+  "nodes": [
+    {"id": "y0", "x": 2.6, "y": 0.9, "w": 1.5, "h": 0.75, "label": "F0", "kind": "data", "mono": true, "size": 20},
+    {"id": "y1", "x": 4.1, "y": 0.9, "w": 1.5, "h": 0.75, "label": "FF", "kind": "data", "mono": true, "size": 20},
+    {"id": "y2", "x": 5.6, "y": 0.9, "w": 1.5, "h": 0.75, "label": "FF", "kind": "data", "mono": true, "size": 20},
+    {"id": "y3", "x": 7.1, "y": 0.9, "w": 1.5, "h": 0.75, "label": "03", "kind": "data", "mono": true, "size": 20},
+    {"id": "y4", "x": 8.6, "y": 0.9, "w": 1.5, "h": 0.75, "label": "40", "kind": "data", "mono": true, "size": 20},
+    {"id": "y5", "x": 10.1, "y": 0.9, "w": 1.5, "h": 0.75, "label": "00", "kind": "data", "mono": true, "size": 20},
+    {"id": "y6", "x": 11.6, "y": 0.9, "w": 1.5, "h": 0.75, "label": "FF", "kind": "data", "mono": true, "size": 20},
+    {"id": "y7", "x": 13.1, "y": 0.9, "w": 1.5, "h": 0.75, "label": "0F", "kind": "data", "mono": true, "size": 20},
+    {"id": "y8", "x": 14.6, "y": 0.9, "w": 1.5, "h": 0.75, "label": "00", "kind": "data", "mono": true, "size": 20},
+    {"id": "e0", "x": 2.6, "y": 1.9, "w": 2.25, "h": 1.0, "label": "entry 0 = FF0", "sub": "even, reserved", "kind": "data", "size": 18},
+    {"id": "e1", "x": 4.85, "y": 1.9, "w": 2.25, "h": 1.0, "label": "entry 1 = FFF", "sub": "odd, reserved", "kind": "data", "size": 18, "dashed": true},
+    {"id": "e2", "x": 7.1, "y": 1.9, "w": 2.25, "h": 1.0, "label": "entry 2 = 003", "sub": "even: AND 0FFFh", "kind": "data", "size": 18},
+    {"id": "e3", "x": 9.35, "y": 1.9, "w": 2.25, "h": 1.0, "label": "entry 3 = 004", "sub": "odd: SHR 4", "kind": "data", "size": 18, "dashed": true},
+    {"id": "e4", "x": 11.6, "y": 1.9, "w": 2.25, "h": 1.0, "label": "entry 4 = FFF", "sub": "even: AND 0FFFh", "kind": "data", "size": 18},
+    {"id": "dir", "x": 2.6, "y": 3.6, "w": 2.4, "h": 0.95, "label": "directory entry", "sub": "first cluster 2", "kind": "data", "size": 18},
+    {"id": "c2", "x": 5.9, "y": 3.6, "w": 1.9, "h": 0.95, "label": "cluster 2", "kind": "data", "size": 18},
+    {"id": "c3", "x": 8.7, "y": 3.6, "w": 1.9, "h": 0.95, "label": "cluster 3", "kind": "data", "size": 18},
+    {"id": "c4", "x": 11.5, "y": 3.6, "w": 1.9, "h": 0.95, "label": "cluster 4", "kind": "data", "size": 18},
+    {"id": "end", "x": 14.3, "y": 3.6, "w": 1.8, "h": 0.95, "label": "end", "sub": ">= FF8", "kind": "data", "size": 18, "dashed": true}
+  ],
+  "edges": [
+    {"from": "dir", "to": "c2", "label": "first", "size": 15},
+    {"from": "c2", "to": "c3", "label": "FAT[2]", "size": 15},
+    {"from": "c3", "to": "c4", "label": "FAT[3]", "size": 15},
+    {"from": "c4", "to": "end", "label": "FAT[4]", "size": 15}
+  ],
+  "notes": [
+    {"x": 2.6, "y": 0.42, "w": 1.5, "text": "0", "align": "middle", "size": 15},
+    {"x": 4.1, "y": 0.42, "w": 1.5, "text": "1", "align": "middle", "size": 15},
+    {"x": 5.6, "y": 0.42, "w": 1.5, "text": "2", "align": "middle", "size": 15},
+    {"x": 7.1, "y": 0.42, "w": 1.5, "text": "3", "align": "middle", "size": 15},
+    {"x": 8.6, "y": 0.42, "w": 1.5, "text": "4", "align": "middle", "size": 15},
+    {"x": 10.1, "y": 0.42, "w": 1.5, "text": "5", "align": "middle", "size": 15},
+    {"x": 11.6, "y": 0.42, "w": 1.5, "text": "6", "align": "middle", "size": 15},
+    {"x": 13.1, "y": 0.42, "w": 1.5, "text": "7", "align": "middle", "size": 15},
+    {"x": 14.6, "y": 0.42, "w": 1.5, "text": "8", "align": "middle", "size": 15},
+    {"x": 0.1, "y": 1.12, "w": 2.3, "text": "FAT bytes", "align": "end", "size": 16, "style": "italic"},
+    {"x": 0.1, "y": 2.0, "w": 2.3, "text": "12-bit\nentries", "align": "end", "size": 16, "style": "italic"},
+    {"x": 0.1, "y": 3.7, "w": 2.3, "text": "the chain\nof a file", "align": "end", "size": 16, "style": "italic"},
+    {"x": 0.1, "y": 0.42, "w": 2.3, "text": "offset", "align": "end", "size": 15, "style": "italic"},
+    {"x": 2.6, "y": 4.95, "w": 13.5, "text": "Entry n starts at byte n * 3 / 2: for even n take the 16-bit word AND 0FFFh, for odd n shift the word right 4 bits.", "size": 16},
+    {"x": 2.6, "y": 5.42, "w": 13.5, "text": "MS-DOS: MAPCLUSTER computes n / 2 + n and UNPACK shifts or masks (FAT.ASM).", "size": 16, "kind": "dos", "style": "italic"},
+    {"x": 2.6, "y": 5.84, "w": 13.5, "text": "FreeBSD: FATOFS uses pm_fatmult / pm_fatdiv = 3 / 2 for FAT12 (msdosfs).", "size": 16, "kind": "bsd", "style": "italic"}
+  ]
+}

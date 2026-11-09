@@ -1,0 +1,34 @@
+{
+  "title": "How arguments travel from the command line to a program on MS-DOS and on FreeBSD",
+  "width": 12, "height": 5.7,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 11.6, "h": 2.55, "label": "MS-DOS 4.00", "kind": "dos"},
+    {"x": 0.2, "y": 2.95, "w": 11.6, "h": 2.55, "label": "FreeBSD 15.1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "d1", "x": 0.5, "y": 0.75, "w": 1.84, "h": 1.37, "label": "Command line", "kind": "user", "size": 15, "sub": "ARGS *.TXT >O"},
+    {"id": "d2", "x": 2.79, "y": 0.75, "w": 1.84, "h": 1.37, "label": "COMMAND.COM\ntakes out\n< > |", "kind": "dos", "size": 15},
+    {"id": "d3", "x": 5.08, "y": 0.75, "w": 1.84, "h": 1.37, "label": "EXEC\nINT 21h 4B00h", "kind": "dos", "size": 15, "sub": "copies 128 bytes"},
+    {"id": "d4", "x": 7.37, "y": 0.75, "w": 1.84, "h": 1.37, "label": "PSP at 80h:\nlength, text,\nCR", "kind": "data", "size": 15, "sub": "<= 127 bytes"},
+    {"id": "d5", "x": 9.66, "y": 0.75, "w": 1.84, "h": 1.37, "label": "The program\nsplits the\ntail itself", "kind": "user", "size": 15, "sub": "ARGS.COM, C start-up"},
+    {"id": "b1", "x": 0.5, "y": 3.5, "w": 1.84, "h": 1.37, "label": "Command line", "kind": "user", "size": 15, "sub": "./args *.txt >o"},
+    {"id": "b2", "x": 2.79, "y": 3.5, "w": 1.84, "h": 1.37, "label": "sh splits,\nexpands,\nremoves quotes", "kind": "bsd", "size": 15},
+    {"id": "b3", "x": 5.08, "y": 3.5, "w": 1.84, "h": 1.37, "label": "execve(2)\ncopies the\nstrings", "kind": "bsd", "size": 15, "sub": "<= 512 KB"},
+    {"id": "b4", "x": 7.37, "y": 3.5, "w": 1.84, "h": 1.37, "label": "New stack:\nargc, argv[],\nNULL, envp", "kind": "data", "size": 15, "sub": "rdi -> argc"},
+    {"id": "b5", "x": 9.66, "y": 3.5, "w": 1.84, "h": 1.37, "label": "The program\ngets finished\nwords", "kind": "user", "size": 15, "sub": "argsa, crt1.o"}
+  ],
+  "edges": [
+    {"from": "d1", "to": "d2", "kind": "dos"},
+    {"from": "d2", "to": "d3", "kind": "dos"},
+    {"from": "d3", "to": "d4", "kind": "dos"},
+    {"from": "d4", "to": "d5", "kind": "dos"},
+    {"from": "b1", "to": "b2", "kind": "bsd"},
+    {"from": "b2", "to": "b3", "kind": "bsd"},
+    {"from": "b3", "to": "b4", "kind": "bsd"},
+    {"from": "b4", "to": "b5", "kind": "bsd"}
+  ],
+  "notes": [
+    {"x": 0.55, "y": 2.17, "w": 10.9, "text": "One string: the program finds the words itself, and *.TXT arrives as written unless the program\nis linked with SETARGV.OBJ (Lab 9.2). The program's name comes after the environment.", "size": 13.5, "style": "italic", "kind": "dos"},
+    {"x": 0.55, "y": 4.92, "w": 10.9, "text": "An array of words: the shell has already expanded *.txt into a.txt b.txt ... and removed quotes\nand >o; the program never sees them. Arguments and environment together: at most ARG_MAX.", "size": 13.5, "style": "italic", "kind": "bsd"}
+  ]
+}

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="The PC memory map seen by MS-DOS 4.00 (schematic)">
+<title>The PC memory map seen by MS-DOS 4.00 (schematic)</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1560.0" height="285.0" rx="14" fill="#FDF8EE" stroke="#B7862A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="228.70000000000002" height="26" rx="13" fill="#B7862A"/>
+<text x="146.35000000000002" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">First megabyte (real mode)</text>
+<rect x="20.0" y="325.0" width="1560.0" height="305.0" rx="14" fill="#F7F6F2" stroke="#6B7280" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="335.0" width="101.5" height="26" rx="13" fill="#6B7280"/>
+<text x="82.75" y="353.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Above 1 MB</text>
+<path d="M1325.0,350.0 L1325.0,290.0 L1325.0,290.0 L1325.0,230.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="1331.0" y="307.2" width="69.4" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1365.7" y="325.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#0E7C86" text-anchor="middle">INT 67h</text>
+<path d="M880.0,465.0 L1125.0,465.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="950.9" y="452.2" width="103.3" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1002.5" y="470.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#0E7C86" text-anchor="middle">EMM386 pool</text>
+<rect x="40.0" y="90.0" width="150.0" height="140.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="115.0" y="146.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">Vectors</text>
+<text x="115.0" y="168.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">BIOS data</text>
+<text x="115.0" y="186.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">00000</text>
+<rect x="200.0" y="90.0" width="230.0" height="140.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="315.0" y="146.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">DOS + drivers</text>
+<text x="315.0" y="168.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">+ tables</text>
+<text x="315.0" y="186.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">00700</text>
+<rect x="440.0" y="90.0" width="170.0" height="140.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="525.0" y="155.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">COMMAND</text>
+<text x="525.0" y="177.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">TSRs</text>
+<rect x="620.0" y="90.0" width="260.0" height="140.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="750.0" y="157.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">Programs</text>
+<text x="750.0" y="175.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">up to 9FFFF</text>
+<rect x="900.0" y="90.0" width="170.0" height="140.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="985.0" y="157.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">Video</text>
+<text x="985.0" y="175.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">A0000</text>
+<rect x="1080.0" y="90.0" width="140.0" height="140.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1150.0" y="157.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">ROMs</text>
+<text x="1150.0" y="175.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">C0000</text>
+<rect x="1230.0" y="90.0" width="190.0" height="140.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="1325.0" y="155.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">Gaps:</text>
+<text x="1325.0" y="177.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">page frame</text>
+<rect x="1430.0" y="90.0" width="130.0" height="140.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1495.0" y="157.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">BIOS</text>
+<text x="1495.0" y="175.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">F0000</text>
+<rect x="40.0" y="395.0" width="260.0" height="140.0" rx="7" fill="#F3F2EE" stroke="#6B7280" stroke-width="2"/>
+<text x="170.0" y="462.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">HMA</text>
+<text x="170.0" y="480.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">100000-10FFEF</text>
+<rect x="320.0" y="395.0" width="560.0" height="140.0" rx="7" fill="#F3F2EE" stroke="#6B7280" stroke-width="2"/>
+<text x="600.0" y="462.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">Extended memory</text>
+<text x="600.0" y="480.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">INT 15h 87h move, 88h size</text>
+<path d="M1125.0,364.0 a200.0,14 0 0,0 400.0,0 v202.0 a200.0,14 0 0,1 -400.0,0 z" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<ellipse cx="1325.0" cy="364.0" rx="200.0" ry="14" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1325.0" y="465.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">Expanded memory</text>
+<text x="1325.0" y="487.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">16 KB pages</text>
+<text x="1325.0" y="505.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">board, or EMM386</text>
+<text x="880.0" y="251.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#0B3D42" text-anchor="end" font-style="normal">640 KB</text>
+<text x="1560.0" y="251.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="end" font-style="normal">1 MB</text>
+<text x="40.0" y="571.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="start" font-style="italic">MS-DOS 4.00 itself uses only the first 640 KB; drivers use the rest.</text>
+</svg>

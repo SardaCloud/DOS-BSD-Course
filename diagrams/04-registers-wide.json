@@ -1,0 +1,169 @@
+{
+ "title": "The register files of the 8086 and of x86-64",
+ "width": 16,
+ "height": 6.5,
+ "lanes": [
+  {
+   "x": 0.15,
+   "y": 0.15,
+   "w": 6.1,
+   "h": 6.2,
+   "label": "8086: fourteen 16-bit registers",
+   "kind": "dos"
+  },
+  {
+   "x": 6.45,
+   "y": 0.15,
+   "w": 9.4,
+   "h": 6.2,
+   "label": "x86-64 (FreeBSD amd64): 64-bit registers",
+   "kind": "bsd"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "d1",
+   "x": 0.45,
+   "y": 0.8,
+   "w": 5.5,
+   "h": 1.15,
+   "label": "AX BX CX DX",
+   "kind": "dos",
+   "size": 18,
+   "sub": "each also AH:AL, BH:BL, CH:CL, DH:DL"
+  },
+  {
+   "id": "d2",
+   "x": 0.45,
+   "y": 2.15,
+   "w": 5.5,
+   "h": 1.15,
+   "label": "SI DI BP SP",
+   "kind": "dos",
+   "size": 18,
+   "sub": "index, base and stack pointer"
+  },
+  {
+   "id": "d3",
+   "x": 0.45,
+   "y": 3.5,
+   "w": 5.5,
+   "h": 1.15,
+   "label": "CS DS SS ES",
+   "kind": "dos",
+   "size": 18,
+   "sub": "segment * 16 + offset (Figure 4.3)"
+  },
+  {
+   "id": "d4",
+   "x": 0.45,
+   "y": 4.85,
+   "w": 5.5,
+   "h": 1.15,
+   "label": "IP and FLAGS",
+   "kind": "dos",
+   "size": 18,
+   "sub": "CS:IP = next instruction"
+  },
+  {
+   "id": "b1",
+   "x": 6.75,
+   "y": 0.8,
+   "w": 4.3,
+   "h": 1.15,
+   "label": "RAX RBX RCX RDX",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "EAX, AX, AH, AL inside"
+  },
+  {
+   "id": "b2",
+   "x": 6.75,
+   "y": 2.15,
+   "w": 4.3,
+   "h": 1.15,
+   "label": "RSI RDI RBP RSP",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "also ESI, SI, SIL ..."
+  },
+  {
+   "id": "b3",
+   "x": 6.75,
+   "y": 3.5,
+   "w": 4.3,
+   "h": 1.15,
+   "label": "CS DS SS ES",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "base 0; CS: 64-bit mode, ring"
+  },
+  {
+   "id": "b4",
+   "x": 6.75,
+   "y": 4.85,
+   "w": 4.3,
+   "h": 1.15,
+   "label": "RIP and RFLAGS",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "flags in the 8086 bit positions"
+  },
+  {
+   "id": "b5",
+   "x": 11.3,
+   "y": 0.8,
+   "w": 4.25,
+   "h": 1.15,
+   "label": "R8 to R15",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "R8D, R8W, R8B inside"
+  },
+  {
+   "id": "b6",
+   "x": 11.3,
+   "y": 2.15,
+   "w": 4.25,
+   "h": 1.15,
+   "label": "FS and GS",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "keep a base: TLS, per-CPU data"
+  },
+  {
+   "id": "b7",
+   "x": 11.3,
+   "y": 3.5,
+   "w": 4.25,
+   "h": 2.5,
+   "label": "RAX 63-0, EAX 31-0\nAX 15-0 = AH:AL",
+   "kind": "hw",
+   "size": 18,
+   "sub": "writing EAX zeroes bits 63-32"
+  }
+ ],
+ "edges": [
+  {
+   "from": "d1",
+   "to": "b1",
+   "style": "dashed"
+  },
+  {
+   "from": "d2",
+   "to": "b2",
+   "style": "dashed"
+  },
+  {
+   "from": "d3",
+   "to": "b3",
+   "style": "dashed"
+  },
+  {
+   "from": "d4",
+   "to": "b4",
+   "style": "dashed"
+  }
+ ],
+ "notes": []
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Text and binary mode in the Microsoft C 5.10 runtime: CR LF and Ctrl-Z on read, LF on write",
+  "width": 12, "height": 6.2,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 11.6, "h": 2.8, "label": "MS-DOS 4.00, Microsoft C 5.10", "kind": "dos"},
+    {"x": 0.2, "y": 3.2, "w": 11.6, "h": 2.8, "label": "FreeBSD 15.1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "df", "x": 0.5, "y": 0.75, "w": 2.413, "h": 1.8, "label": "CTRLZ.TXT\n39 bytes", "kind": "hw", "size": 15, "sub": "CR LF, 1A, more", "shape": "cyl"},
+    {"id": "dt", "x": 3.363, "y": 0.75, "w": 2.413, "h": 0.75, "label": "Text mode", "kind": "dos", "size": 15, "sub": "\"r\", the default"},
+    {"id": "dtp", "x": 6.225, "y": 0.75, "w": 5.275, "h": 0.75, "label": "The program sees 18 bytes", "kind": "user", "size": 15, "sub": "CR LF -> LF; end at Ctrl-Z"},
+    {"id": "db", "x": 3.363, "y": 1.8, "w": 2.413, "h": 0.75, "label": "Binary mode", "kind": "dos", "size": 15, "sub": "\"rb\", O_BINARY, setmode"},
+    {"id": "dbp", "x": 6.225, "y": 1.8, "w": 5.275, "h": 0.75, "label": "The program sees all 39 bytes", "kind": "user", "size": 15, "sub": "as DIR counts them"},
+    {"id": "bf", "x": 0.5, "y": 3.75, "w": 2.413, "h": 1.8, "label": "ctrlz.txt\n39 bytes", "kind": "hw", "size": 15, "shape": "cyl"},
+    {"id": "bt", "x": 3.363, "y": 3.75, "w": 2.413, "h": 1.8, "label": "read(2)", "kind": "bsd", "size": 15, "sub": "\"r\" = \"rb\""},
+    {"id": "bp", "x": 6.225, "y": 3.75, "w": 5.275, "h": 1.8, "label": "The program sees all 39 bytes", "kind": "user", "size": 15, "sub": "what is on the disk"}
+  ],
+  "edges": [
+    {"from": "df", "to": "dt", "kind": "dos"},
+    {"from": "dt", "to": "dtp", "kind": "dos"},
+    {"from": "df", "to": "db", "kind": "dos"},
+    {"from": "db", "to": "dbp", "kind": "dos"},
+    {"from": "bf", "to": "bt", "kind": "bsd"},
+    {"from": "bt", "to": "bp", "kind": "bsd"}
+  ],
+  "notes": [
+    {"x": 0.55, "y": 2.6, "w": 10.9, "text": "Writing in text mode turns each LF into CR LF. TYPE also stops at the Ctrl-Z, but keeps the CRs (20 bytes).", "size": 13.5, "style": "italic", "kind": "dos"},
+    {"x": 0.55, "y": 5.6, "w": 10.9, "text": "One line ending (LF) and no end-of-file character: \"b\" is accepted and changes nothing.", "size": 13.5, "style": "italic", "kind": "bsd"}
+  ]
+}

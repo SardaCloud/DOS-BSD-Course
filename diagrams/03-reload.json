@@ -1,0 +1,39 @@
+{
+  "title": "COMMAND.COM: resident and transient parts, and the reload check after every program",
+  "width": 17, "height": 6.6,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 3.2, "h": 6.2, "label": "Memory, low to high", "kind": "neutral"},
+    {"x": 3.6, "y": 0.2, "w": 3.6, "h": 6.2, "label": "Transient part", "kind": "dos"},
+    {"x": 7.4, "y": 0.2, "w": 5.4, "h": 6.2, "label": "Resident part", "kind": "dos"},
+    {"x": 13.0, "y": 0.2, "w": 3.8, "h": 6.2, "label": "Program", "kind": "user"}
+  ],
+  "nodes": [
+    {"id": "m1", "x": 0.45, "y": 0.8, "w": 2.7, "h": 0.75, "label": "DOS, drivers,\nbuffers", "kind": "dos", "size": 17},
+    {"id": "m2", "x": 0.45, "y": 1.55, "w": 2.7, "h": 0.75, "label": "COMMAND\nresident", "kind": "dos", "size": 17},
+    {"id": "m3", "x": 0.45, "y": 2.3, "w": 2.7, "h": 0.5, "label": "environment", "kind": "data", "size": 17},
+    {"id": "m4", "x": 0.45, "y": 2.8, "w": 2.7, "h": 2.2, "label": "TPA: free\nfor programs", "kind": "user", "dashed": true, "size": 17},
+    {"id": "m5", "x": 0.45, "y": 5.0, "w": 2.7, "h": 1.1, "label": "transient\nat TRNSEG", "kind": "dos", "size": 18},
+
+    {"id": "t1", "x": 3.9, "y": 0.8, "w": 3.0, "h": 1.0, "label": "Read, parse,\ndispatch", "sub": "TCOMMAND", "kind": "dos", "size": 18},
+    {"id": "t2", "x": 3.9, "y": 2.1, "w": 3.0, "h": 1.0, "label": "EXECUTE: free\nown memory", "sub": "DEALLOC (49h)", "kind": "dos", "size": 18},
+    {"id": "r1", "x": 7.6, "y": 2.1, "w": 2.2, "h": 1.0, "label": "EXT_EXEC:\nINT 21h, 4Bh", "kind": "dos", "size": 18},
+    {"id": "r2", "x": 7.6, "y": 3.4, "w": 2.2, "h": 1.0, "label": "EXEC_WAIT:\n4Dh, RETCODE", "kind": "dos", "size": 18},
+    {"id": "r3", "x": 7.6, "y": 4.7, "w": 2.2, "h": 1.0, "label": "LODCOM:\nCHKSUM = SUM?", "kind": "dos", "size": 18},
+    {"id": "r4", "x": 10.6, "y": 4.7, "w": 2.0, "h": 1.0, "label": "LOADCOM: read\nCOMSPEC file", "sub": "TRANSTART", "kind": "dos", "size": 18},
+    {"id": "p", "x": 13.3, "y": 2.1, "w": 3.2, "h": 1.0, "label": "Program runs", "sub": "may overwrite the transient", "kind": "user", "size": 18}
+  ],
+  "edges": [
+    {"from": "t1", "to": "t2", "kind": "dos"},
+    {"from": "t2", "to": "r1", "kind": "dos"},
+    {"from": "r1", "to": "p", "kind": "dos", "label": "EXEC", "size": 15},
+    {"from": "p", "to": "r2", "from_side": "bottom", "to_side": "right", "route": "vh", "kind": "dos", "label": "exit: back after\nthe INT 21h", "size": 15},
+    {"from": "r2", "to": "r3", "kind": "dos"},
+    {"from": "r3", "to": "r4", "kind": "dos", "label": "differs", "size": 15},
+    {"from": "r4", "to": "r3", "from_side": "bottom", "to_side": "bottom", "route": "vhv", "via": 6.0, "kind": "dos", "label": "check again", "size": 15},
+    {"from": "r3", "to": "t1", "from_side": "left", "to_side": "left", "route": "hvh", "via": 3.68, "kind": "dos", "label": "same: HAVCOM", "size": 15}
+  ],
+  "notes": [
+    {"x": 3.95, "y": 3.35, "w": 3.0, "text": "Checked from 100h to\nTranDataEnd: code and\nmostly constant data.", "size": 15, "kind": "dos", "style": "italic"},
+    {"x": 13.3, "y": 4.25, "w": 3.3, "text": "A program that leaves\nthe top of memory alone\nnever causes a reload.", "size": 15, "kind": "user", "style": "italic"}
+  ]
+}

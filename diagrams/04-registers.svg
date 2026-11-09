@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 740.0" width="1600" height="740.0" role="img" aria-label="The register files of the 8086 and of x86-64">
+<title>The register files of the 8086 and of x86-64</title>
+<defs><marker id="arrow4B5563" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4B5563"/></marker></defs>
+<rect x="0" y="0" width="1600" height="740.0" fill="#FFFFFF"/>
+<rect x="15.0" y="15.0" width="610.0" height="620.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="27.0" y="25.0" width="268.45000000000005" height="26" rx="13" fill="#0E7C86"/>
+<text x="161.22500000000002" y="43.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">8086: fourteen 16-bit registers</text>
+<rect x="645.0" y="15.0" width="940.0" height="620.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="657.0" y="25.0" width="340.0" height="26" rx="13" fill="#AB2B28"/>
+<text x="827.0" y="43.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">x86-64 (FreeBSD amd64): 64-bit registers</text>
+<path d="M595.0,137.5 L675.0,137.5" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M595.0,272.5 L675.0,272.5" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M595.0,407.5 L675.0,407.5" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M595.0,542.5 L675.0,542.5" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<rect x="45.0" y="80.0" width="550.0" height="115.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="320.0" y="135.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">AX BX CX DX</text>
+<text x="320.0" y="153.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">each also AH:AL, BH:BL, CH:CL, DH:DL</text>
+<rect x="45.0" y="215.0" width="550.0" height="115.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="320.0" y="270.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">SI DI BP SP</text>
+<text x="320.0" y="288.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">index, base and stack pointer</text>
+<rect x="45.0" y="350.0" width="550.0" height="115.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="320.0" y="405.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">CS DS SS ES</text>
+<text x="320.0" y="423.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">segment * 16 + offset (Figure 4.3)</text>
+<rect x="45.0" y="485.0" width="550.0" height="115.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="320.0" y="540.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">IP and FLAGS</text>
+<text x="320.0" y="558.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">CS:IP = next instruction</text>
+<rect x="675.0" y="80.0" width="430.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="890.0" y="135.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">RAX RBX RCX RDX</text>
+<text x="890.0" y="153.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">EAX, AX, AH, AL inside</text>
+<rect x="675.0" y="215.0" width="430.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="890.0" y="270.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">RSI RDI RBP RSP</text>
+<text x="890.0" y="288.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">also ESI, SI, SIL ...</text>
+<rect x="675.0" y="350.0" width="430.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="890.0" y="405.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">CS DS SS ES</text>
+<text x="890.0" y="423.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">base 0; CS: 64-bit mode, ring</text>
+<rect x="675.0" y="485.0" width="430.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="890.0" y="540.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">RIP and RFLAGS</text>
+<text x="890.0" y="558.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">flags in the 8086 bit positions</text>
+<rect x="1130.0" y="80.0" width="425.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1342.5" y="135.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">R8 to R15</text>
+<text x="1342.5" y="153.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">R8D, R8W, R8B inside</text>
+<rect x="1130.0" y="215.0" width="425.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1342.5" y="270.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">FS and GS</text>
+<text x="1342.5" y="288.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">keep a base: TLS, per-CPU data</text>
+<rect x="1130.0" y="350.0" width="425.0" height="250.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1342.5" y="461.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">RAX 63-0, EAX 31-0</text>
+<text x="1342.5" y="483.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">AX 15-0 = AH:AL</text>
+<text x="1342.5" y="501.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">writing EAX zeroes bits 63-32</text>
+<text x="35.0" y="670.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#1F2328" text-anchor="start" font-style="italic">Not shown: the x87, SSE and AVX registers (XMM0 to XMM15 hold the vectorised sum of Lab 4.8), and the control, debug and model-specific registers.</text>
+</svg>

@@ -1,0 +1,45 @@
+{
+  "title": "The two BIOS boot chains, from the firmware to the first user program",
+  "width": 17.9, "height": 7.2,
+  "lanes": [
+    {"x": 2.05, "y": 0.2, "w": 15.65, "h": 3.3, "label": "MS-DOS 4.00: real mode all the way", "kind": "dos"},
+    {"x": 2.05, "y": 3.7, "w": 15.65, "h": 3.3, "label": "FreeBSD 15.1: real -> 32-bit protected -> 64-bit long mode", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "bios", "x": 0.2, "y": 2.35, "w": 1.6, "h": 2.5, "label": "PC\nBIOS", "sub": "0x7C00", "kind": "hw", "size": 20},
+    {"id": "d1", "x": 2.3, "y": 0.9, "w": 1.65, "h": 2.0, "label": "FDBOOT\n(MBR)", "sub": "0x600", "kind": "dos", "size": 18},
+    {"id": "d2", "x": 4.2, "y": 0.9, "w": 1.65, "h": 2.0, "label": "MSBOOT\n(VBR)", "sub": "3 sectors", "kind": "dos", "size": 18},
+    {"id": "d3", "x": 6.1, "y": 0.9, "w": 1.65, "h": 2.0, "label": "MSLOAD", "sub": "IO.SYS", "kind": "dos", "size": 18},
+    {"id": "d4", "x": 8.0, "y": 0.9, "w": 1.65, "h": 2.0, "label": "MSINIT", "sub": "MSDOS.SYS", "kind": "dos", "size": 18},
+    {"id": "d5", "x": 9.9, "y": 0.9, "w": 1.65, "h": 2.0, "label": "SYSINIT\nmoves", "sub": "itself, DOS", "kind": "dos", "size": 18},
+    {"id": "d6", "x": 11.8, "y": 0.9, "w": 1.65, "h": 2.0, "label": "DOSINIT", "sub": "INT 21h", "kind": "dos", "size": 18},
+    {"id": "d7", "x": 13.7, "y": 0.9, "w": 1.65, "h": 2.0, "label": "SYSINIT", "sub": "CONFIG.SYS", "kind": "dos", "size": 18},
+    {"id": "d8", "x": 15.6, "y": 0.9, "w": 1.95, "h": 2.0, "label": "COMMAND.COM", "sub": "EXEC", "kind": "user", "size": 18},
+    {"id": "b1", "x": 2.3, "y": 4.4, "w": 1.65, "h": 2.0, "label": "boot0\nor mbr", "sub": "GPT: pmbr", "kind": "bsd", "size": 18},
+    {"id": "b2", "x": 4.2, "y": 4.4, "w": 1.65, "h": 2.0, "label": "boot1\n(VBR)", "sub": "16 sectors", "kind": "bsd", "size": 18},
+    {"id": "b3", "x": 6.1, "y": 4.4, "w": 1.65, "h": 2.0, "label": "BTX +\nboot2", "sub": "GPT: gptboot", "kind": "bsd", "size": 18},
+    {"id": "b4", "x": 8.0, "y": 4.4, "w": 1.65, "h": 2.0, "label": "loader", "sub": "Lua", "kind": "bsd", "size": 18},
+    {"id": "b5", "x": 9.9, "y": 4.4, "w": 1.65, "h": 2.0, "label": "amd64_tramp", "sub": "long mode", "kind": "bsd", "size": 18},
+    {"id": "b6", "x": 11.8, "y": 4.4, "w": 1.65, "h": 2.0, "label": "hammer_time()", "sub": "machdep.c", "kind": "bsd", "size": 18},
+    {"id": "b7", "x": 13.7, "y": 4.4, "w": 1.65, "h": 2.0, "label": "mi_startup()", "sub": "SYSINITs", "kind": "bsd", "size": 18},
+    {"id": "b8", "x": 15.6, "y": 4.4, "w": 1.95, "h": 2.0, "label": "/sbin/init", "sub": "pid 1", "kind": "user", "size": 18}
+  ],
+  "edges": [
+    {"from": "bios", "to": "d1", "from_side": "top", "to_side": "left", "route": "vh", "kind": "hw"},
+    {"from": "bios", "to": "b1", "from_side": "bottom", "to_side": "left", "route": "vh", "kind": "hw"},
+    {"from": "d1", "to": "d2", "kind": "dos"},
+    {"from": "d2", "to": "d3", "kind": "dos"},
+    {"from": "d3", "to": "d4", "kind": "dos"},
+    {"from": "d4", "to": "d5", "kind": "dos"},
+    {"from": "d5", "to": "d6", "kind": "dos"},
+    {"from": "d6", "to": "d7", "kind": "dos"},
+    {"from": "d7", "to": "d8", "kind": "dos"},
+    {"from": "b1", "to": "b2", "kind": "bsd"},
+    {"from": "b2", "to": "b3", "kind": "bsd"},
+    {"from": "b3", "to": "b4", "kind": "bsd"},
+    {"from": "b4", "to": "b5", "kind": "bsd"},
+    {"from": "b5", "to": "b6", "kind": "bsd"},
+    {"from": "b6", "to": "b7", "kind": "bsd"},
+    {"from": "b7", "to": "b8", "kind": "bsd"}
+  ]
+}

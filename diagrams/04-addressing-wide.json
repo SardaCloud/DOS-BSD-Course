@@ -1,0 +1,181 @@
+{
+ "title": "Real-mode address formation and 64-bit virtual addresses",
+ "width": 16,
+ "height": 6.5,
+ "lanes": [
+  {
+   "x": 0.15,
+   "y": 0.15,
+   "w": 15.7,
+   "h": 2.95,
+   "label": "8086 real mode: physical = segment * 16 + offset",
+   "kind": "dos"
+  },
+  {
+   "x": 0.15,
+   "y": 3.3,
+   "w": 15.7,
+   "h": 3.05,
+   "label": "x86-64 on FreeBSD: a virtual address, translated by page tables",
+   "kind": "bsd"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "seg",
+   "x": 0.45,
+   "y": 0.75,
+   "w": 2.8,
+   "h": 1.0,
+   "label": "segment 02C1",
+   "kind": "dos",
+   "size": 18,
+   "sub": "CS, DS, SS or ES"
+  },
+  {
+   "id": "shl",
+   "x": 3.7,
+   "y": 0.75,
+   "w": 2.8,
+   "h": 1.0,
+   "label": "* 16 = 02C10",
+   "kind": "hw",
+   "size": 18,
+   "sub": "shift left 4 bits"
+  },
+  {
+   "id": "off",
+   "x": 3.7,
+   "y": 1.95,
+   "w": 2.8,
+   "h": 1.0,
+   "label": "offset 1716",
+   "kind": "dos",
+   "size": 18,
+   "sub": "IP, SP, BX+SI+disp"
+  },
+  {
+   "id": "add",
+   "x": 7.0,
+   "y": 1.35,
+   "w": 1.1,
+   "h": 1.0,
+   "label": "+",
+   "kind": "hw",
+   "size": 18,
+   "shape": "round"
+  },
+  {
+   "id": "pa",
+   "x": 8.6,
+   "y": 1.35,
+   "w": 3.0,
+   "h": 1.0,
+   "label": "04326h",
+   "kind": "hw",
+   "size": 18,
+   "sub": "20 bits, no checks"
+  },
+  {
+   "id": "mem",
+   "x": 12.1,
+   "y": 0.75,
+   "w": 3.5,
+   "h": 2.2,
+   "label": "1 MB of memory",
+   "kind": "data",
+   "size": 18,
+   "sub": "04326h: INT 21h entry",
+   "shape": "cyl"
+  },
+  {
+   "id": "va",
+   "x": 0.45,
+   "y": 4.0,
+   "w": 3.0,
+   "h": 1.15,
+   "label": "0x200120",
+   "kind": "user",
+   "size": 18,
+   "sub": "RIP + disp32 (Lab 4.6)"
+  },
+  {
+   "id": "idx",
+   "x": 3.95,
+   "y": 4.0,
+   "w": 3.4,
+   "h": 1.15,
+   "label": "page indexes\n+ 12-bit offset",
+   "kind": "hw",
+   "size": 18,
+   "sub": "9 bits per level"
+  },
+  {
+   "id": "pt",
+   "x": 7.85,
+   "y": 4.0,
+   "w": 3.4,
+   "h": 1.15,
+   "label": "page-table walk\n(4 or 5 levels)",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "per process; CR3"
+  },
+  {
+   "id": "ppa",
+   "x": 11.75,
+   "y": 4.0,
+   "w": 3.85,
+   "h": 1.15,
+   "label": "physical page + offset",
+   "kind": "hw",
+   "size": 18,
+   "sub": "or a page fault"
+  }
+ ],
+ "edges": [
+  {
+   "from": "seg",
+   "to": "shl"
+  },
+  {
+   "from": "shl",
+   "to": "add"
+  },
+  {
+   "from": "off",
+   "to": "add"
+  },
+  {
+   "from": "add",
+   "to": "pa"
+  },
+  {
+   "from": "pa",
+   "to": "mem"
+  },
+  {
+   "from": "va",
+   "to": "idx"
+  },
+  {
+   "from": "idx",
+   "to": "pt"
+  },
+  {
+   "from": "pt",
+   "to": "ppa"
+  }
+ ],
+ "notes": [
+  {
+   "x": 0.45,
+   "y": 5.55,
+   "w": 15.1,
+   "text": "User addresses stay below 0x0000800000000000 (128 TiB); every page has user/kernel, write and execute permissions.",
+   "size": 15,
+   "kind": "bsd",
+   "style": "italic"
+  }
+ ]
+}

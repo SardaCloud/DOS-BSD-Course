@@ -1,0 +1,41 @@
+{
+  "title": "One read, two kernels: from the program to the disk",
+  "width": 13, "height": 9.4,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 6.1, "h": 9.0, "label": "MS-DOS 4.00", "kind": "dos"},
+    {"x": 6.7, "y": 0.2, "w": 6.1, "h": 9.0, "label": "FreeBSD 15.1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "dp", "x": 1.2, "y": 0.8, "w": 4.1, "h": 0.75, "label": "Program", "sub": "MOV AH,3Fh / INT 21h", "kind": "user"},
+    {"id": "dd", "x": 1.2, "y": 1.95, "w": 4.1, "h": 0.75, "label": "INT 21h dispatcher", "sub": "MSDISP.ASM: switch stack", "kind": "dos"},
+    {"id": "dh", "x": 1.2, "y": 3.1, "w": 4.1, "h": 0.75, "label": "Handle -> JFT -> SFT", "sub": "HANDLE.ASM, SF.INC", "kind": "dos"},
+    {"id": "dr", "x": 1.2, "y": 4.25, "w": 4.1, "h": 0.75, "label": "FAT read + buffers", "sub": "DISK.ASM, FAT.ASM, BUF.ASM", "kind": "dos"},
+    {"id": "dv", "x": 1.2, "y": 5.4, "w": 4.1, "h": 0.75, "label": "Block device driver", "sub": "IO.SYS MSDISK.ASM", "kind": "dos"},
+    {"id": "db", "x": 1.2, "y": 6.55, "w": 4.1, "h": 0.75, "label": "BIOS INT 13h", "sub": "ROM code, CHS sectors", "kind": "hw"},
+    {"id": "bp", "x": 7.7, "y": 0.8, "w": 4.1, "h": 0.75, "label": "Program", "sub": "read(fd, buf, n)", "kind": "user"},
+    {"id": "bs", "x": 7.7, "y": 1.95, "w": 4.1, "h": 0.75, "label": "syscall -> amd64_syscall", "sub": "exception.S, trap.c", "kind": "bsd"},
+    {"id": "bf", "x": 7.7, "y": 3.1, "w": 4.1, "h": 0.75, "label": "sys_read -> struct file", "sub": "sys_generic.c, fo_read", "kind": "bsd"},
+    {"id": "bv", "x": 7.7, "y": 4.25, "w": 4.1, "h": 0.75, "label": "VFS: VOP_READ", "sub": "msdosfs_read / ffs_read", "kind": "bsd"},
+    {"id": "bb", "x": 7.7, "y": 5.4, "w": 4.1, "h": 0.75, "label": "Buffer cache + GEOM", "sub": "vfs_bio.c, geom_io.c", "kind": "bsd"},
+    {"id": "bd", "x": 7.7, "y": 6.55, "w": 4.1, "h": 0.75, "label": "Disk driver", "sub": "ahci, nvme, ata", "kind": "bsd"},
+    {"id": "hw", "x": 3.9, "y": 8.0, "w": 5.2, "h": 0.9, "label": "Disk controller and disk", "kind": "hw", "shape": "cyl"}
+  ],
+  "edges": [
+    {"from": "dp", "to": "dd", "label": "INT 21h", "kind": "dos"},
+    {"from": "dd", "to": "dh", "kind": "dos"},
+    {"from": "dh", "to": "dr", "kind": "dos"},
+    {"from": "dr", "to": "dv", "label": "request packet", "kind": "dos"},
+    {"from": "dv", "to": "db", "label": "INT 13h", "kind": "dos"},
+    {"from": "db", "to": "hw", "from_side": "bottom", "to_side": "left", "label": "I/O ports", "kind": "hw", "label_on_line": true},
+    {"from": "bp", "to": "bs", "label": "syscall", "kind": "bsd"},
+    {"from": "bs", "to": "bf", "kind": "bsd"},
+    {"from": "bf", "to": "bv", "kind": "bsd"},
+    {"from": "bv", "to": "bb", "label": "bread / cluster_read", "kind": "bsd"},
+    {"from": "bb", "to": "bd", "label": "struct bio", "kind": "bsd"},
+    {"from": "bd", "to": "hw", "from_side": "bottom", "to_side": "right", "label": "DMA + IRQ", "kind": "hw", "label_on_line": true}
+  ],
+  "notes": [
+    {"x": 0.45, "y": 7.45, "w": 3.5, "text": "real mode, one address space,\nthe CPU waits for the disk", "size": 12, "kind": "dos", "style": "italic"},
+    {"x": 10.3, "y": 7.45, "w": 2.4, "text": "protected kernel: the thread\nsleeps while the disk works", "size": 12, "kind": "bsd", "style": "italic"}
+  ]
+}

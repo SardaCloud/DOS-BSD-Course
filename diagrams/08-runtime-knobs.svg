@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="When does a change take effect? Run-time knobs on both systems">
+<title>When does a change take effect? Run-time knobs on both systems</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1560.0" height="285.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="109.45" height="26" rx="13" fill="#0E7C86"/>
+<text x="86.725" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00</text>
+<rect x="20.0" y="325.0" width="1560.0" height="305.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="335.0" width="117.4" height="26" rx="13" fill="#AB2B28"/>
+<text x="90.7" y="353.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1</text>
+<path d="M380.0,160.0 L460.0,160.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1180.0,160.0 L1260.0,160.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M380.0,435.0 L460.0,435.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1180.0,435.0 L1220.0,435.0 L1220.0,495.0 L1260.0,495.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1180.0,555.0 L1220.0,555.0 L1220.0,495.0 L1260.0,495.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="50.0" y="85.0" width="330.0" height="150.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="215.0" y="146.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">BUFFERS, FILES,</text>
+<text x="215.0" y="168.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">drivers</text>
+<text x="215.0" y="186.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">CONFIG.SYS</text>
+<rect x="460.0" y="85.0" width="220.0" height="150.0" rx="18" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="570.0" y="166.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">reboot</text>
+<rect x="840.0" y="85.0" width="340.0" height="150.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1010.0" y="146.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">SET, PATH,</text>
+<text x="1010.0" y="168.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">MODE, KEYB</text>
+<text x="1010.0" y="186.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">command line</text>
+<rect x="1260.0" y="85.0" width="300.0" height="150.0" rx="18" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1410.0" y="157.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">now</text>
+<text x="1410.0" y="175.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">TSRs stay resident</text>
+<rect x="50.0" y="385.0" width="330.0" height="100.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="215.0" y="432.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">tunable</text>
+<text x="215.0" y="450.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">loader.conf</text>
+<rect x="460.0" y="385.0" width="220.0" height="100.0" rx="18" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="570.0" y="441.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">reboot</text>
+<rect x="840.0" y="385.0" width="340.0" height="100.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1010.0" y="432.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">sysctl name=value</text>
+<text x="1010.0" y="450.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">CTLFLAG_RW</text>
+<rect x="840.0" y="505.0" width="340.0" height="100.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1010.0" y="552.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">service x restart</text>
+<text x="1010.0" y="570.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">after sysrc / rc.conf</text>
+<rect x="1260.0" y="385.0" width="300.0" height="220.0" rx="18" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1410.0" y="492.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">now</text>
+<text x="1410.0" y="510.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">no reboot</text>
+<text x="50.0" y="265.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#0B3D42" text-anchor="start" font-style="italic">The kernel has no interface for changing its own tables: SYSINIT sized them once, at boot.</text>
+<text x="50.0" y="525.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#4A1312" text-anchor="start" font-style="italic">CTLFLAG_RDTUN: read-only at run time,</text>
+<text x="50.0" y="543.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#4A1312" text-anchor="start" font-style="italic">set by the loader before the kernel starts</text>
+</svg>

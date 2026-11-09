@@ -1,0 +1,42 @@
+{
+  "title": "Two SYSINITs: a module that interprets CONFIG.SYS, and a sorted list of declarations",
+  "width": 13, "height": 8.35,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 6.1, "h": 7.95, "label": "MS-DOS 4.00: SYSINIT is a module", "kind": "dos"},
+    {"x": 6.7, "y": 0.2, "w": 6.1, "h": 7.95, "label": "FreeBSD 15.1: SYSINIT() is a declaration", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "cfg", "x": 0.7, "y": 0.95, "w": 5.1, "h": 0.75, "label": "\\CONFIG.SYS", "sub": "read with DOS calls (DOCONF)", "kind": "data"},
+    {"id": "org", "x": 0.7, "y": 2.0, "w": 5.1, "h": 0.75, "label": "ORGANIZE", "sub": "keyword -> letter (COMTAB)", "kind": "dos"},
+    {"id": "p1", "x": 0.7, "y": 3.05, "w": 5.1, "h": 0.62, "label": "pass: XMAEM.SYS, BUFFERS= /X", "kind": "dos", "size": 15},
+    {"id": "p2", "x": 0.7, "y": 3.92, "w": 5.1, "h": 0.62, "label": "main pass: DEVICE=, FILES=, ...", "kind": "dos", "size": 15},
+    {"id": "p3", "x": 0.7, "y": 4.79, "w": 5.1, "h": 0.62, "label": "pass: IFS=", "kind": "dos", "size": 15},
+    {"id": "p4", "x": 0.7, "y": 5.66, "w": 5.1, "h": 0.62, "label": "pass: INSTALL=", "kind": "dos", "size": 15},
+    {"id": "sh", "x": 0.7, "y": 6.6, "w": 5.1, "h": 0.75, "label": "EXEC \\COMMAND.COM", "sub": "INT 21h, AH=4Bh", "kind": "user"},
+    {"id": "s1", "x": 7.0, "y": 0.95, "w": 1.72, "h": 0.75, "label": "init_main.c", "sub": "SYSINIT()", "kind": "bsd", "size": 14},
+    {"id": "s2", "x": 8.89, "y": 0.95, "w": 1.72, "h": 0.75, "label": "VM, drivers", "sub": "SYSINIT()", "kind": "bsd", "size": 14},
+    {"id": "s3", "x": 10.78, "y": 0.95, "w": 1.72, "h": 0.75, "label": "a module", "sub": "SYSINIT()", "kind": "bsd", "size": 14},
+    {"id": "set", "x": 7.0, "y": 2.0, "w": 5.5, "h": 0.75, "label": "set_sysinit_set", "sub": "ELF section: one pointer per entry", "kind": "data"},
+    {"id": "mk", "x": 7.0, "y": 3.05, "w": 5.5, "h": 0.75, "label": "mi_startup(): sysinit_mklist()", "sub": "merge sort by (subsystem, order)", "kind": "bsd"},
+    {"id": "list", "x": 7.0, "y": 4.15, "w": 5.5, "h": 2.05, "label": "SI_SUB_TUNABLES ...\nSI_SUB_VM ...\nSI_SUB_INTRINSIC: proc0_init\nSI_SUB_CREATE_INIT: create_init\n...\nSI_SUB_KTHREAD_INIT: kick_init", "kind": "data", "size": 14, "weight": "400", "mono": true},
+    {"id": "init", "x": 7.0, "y": 6.6, "w": 5.5, "h": 0.75, "label": "start_init(): /sbin/init", "sub": "kern_execve() in process 1", "kind": "user"}
+  ],
+  "edges": [
+    {"from": "cfg", "to": "org", "kind": "dos"},
+    {"from": "org", "to": "p1", "kind": "dos"},
+    {"from": "p1", "to": "p2", "kind": "dos"},
+    {"from": "p2", "to": "p3", "kind": "dos"},
+    {"from": "p3", "to": "p4", "kind": "dos"},
+    {"from": "p4", "to": "sh", "kind": "dos"},
+    {"from": "s1", "to": "set", "from_side": "bottom", "to_side": "top", "route": "vhv", "kind": "bsd"},
+    {"from": "s2", "to": "set", "kind": "bsd"},
+    {"from": "s3", "to": "set", "from_side": "bottom", "to_side": "top", "route": "vhv", "kind": "bsd"},
+    {"from": "set", "to": "mk", "label": "SET_BEGIN, SET_LIMIT", "kind": "bsd"},
+    {"from": "mk", "to": "list", "label": "call each func in order", "kind": "bsd"},
+    {"from": "list", "to": "init", "kind": "bsd"}
+  ],
+  "notes": [
+    {"x": 0.5, "y": 7.55, "w": 5.5, "text": "order = order of the code and of the passes", "size": 13, "kind": "dos", "style": "italic", "align": "middle"},
+    {"x": 7.0, "y": 7.55, "w": 5.5, "text": "order = each entry's (subsystem, order) pair", "size": 13, "kind": "bsd", "style": "italic", "align": "middle"}
+  ]
+}

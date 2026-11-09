@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1650.0 685.0" width="1650.0" height="685.0" role="img" aria-label="The master boot record: move out of the way to 0x600, choose the active partition, load its first sector">
+<title>The master boot record: move out of the way to 0x600, choose the active partition, load its first sector</title>
+<defs><marker id="arrowB7862A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B7862A"/></marker><marker id="arrow4B5563" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4B5563"/></marker></defs>
+<rect x="0" y="0" width="1650.0" height="685.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="340.0" height="645.0" rx="14" fill="#FDF8EE" stroke="#B7862A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="53.8" height="26" rx="13" fill="#B7862A"/>
+<text x="58.9" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Disk</text>
+<rect x="415.0" y="20.0" width="340.0" height="645.0" rx="14" fill="#FAFAFA" stroke="#6B7280" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="427.0" y="30.0" width="69.7" height="26" rx="13" fill="#6B7280"/>
+<text x="461.85" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Memory</text>
+<rect x="810.0" y="20.0" width="820.0" height="645.0" rx="14" fill="#F4F5F7" stroke="#2E3440" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="822.0" y="30.0" width="292.3" height="26" rx="13" fill="#2E3440"/>
+<text x="968.15" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MBR program: FDBOOT or FreeBSD mbr</text>
+<path d="M335.0,160.0 L387.5,160.0 L387.5,426.0 L440.0,426.0" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<rect x="393.5" y="280.2" width="69.4" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="428.2" y="298.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#B7862A" text-anchor="middle">1. BIOS</text>
+<path d="M585.0,390.0 L585.0,220.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<rect x="591.0" y="282.5" width="77.8" height="45.0" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="629.9" y="300.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#4B5563" text-anchor="middle">2. copy,</text>
+<text x="629.9" y="320.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#4B5563" text-anchor="middle">far jump</text>
+<path d="M730.0,160.0 L870.0,160.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<rect x="769.6" y="147.2" width="60.9" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="800.0" y="165.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#4B5563" text-anchor="middle">3. run</text>
+<path d="M1040.0,220.0 L1040.0,245.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M1210.0,305.0 L1285.0,305.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<rect x="1234.0" y="292.2" width="27.0" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1247.5" y="310.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#4B5563" text-anchor="middle">no</text>
+<path d="M1040.0,365.0 L1040.0,390.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<rect x="1046.0" y="364.7" width="35.4" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1063.7" y="383.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#4B5563" text-anchor="middle">yes</text>
+<path d="M335.0,474.0 L440.0,474.0" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<rect x="352.8" y="461.2" width="69.4" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="387.5" y="479.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#B7862A" text-anchor="middle">4. read</text>
+<path d="M1040.0,510.0 L1040.0,535.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M870.0,587.5 L585.0,587.5 L585.0,510.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<rect x="692.8" y="574.7" width="69.4" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="727.5" y="593.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#4B5563" text-anchor="middle">5. jump</text>
+<rect x="45.0" y="100.0" width="290.0" height="120.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="190.0" y="157.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#4D3810" text-anchor="middle">Sector 0: MBR</text>
+<text x="190.0" y="176.7" font-family="Consolas, Menlo, monospace" font-size="14.82" font-weight="400" fill="#B7862A" text-anchor="middle">table at 0x1BE</text>
+<rect x="45.0" y="390.0" width="290.0" height="120.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="190.0" y="447.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#4D3810" text-anchor="middle">Active partition</text>
+<text x="190.0" y="466.7" font-family="Consolas, Menlo, monospace" font-size="14.82" font-weight="400" fill="#B7862A" text-anchor="middle">first sector</text>
+<rect x="440.0" y="100.0" width="290.0" height="120.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="585.0" y="157.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#1F2328" text-anchor="middle">0x0600</text>
+<text x="585.0" y="176.7" font-family="Consolas, Menlo, monospace" font-size="14.82" font-weight="400" fill="#6B7280" text-anchor="middle">the MBR runs here</text>
+<rect x="440.0" y="390.0" width="290.0" height="120.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="585.0" y="447.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#1F2328" text-anchor="middle">0x7C00</text>
+<text x="585.0" y="466.7" font-family="Consolas, Menlo, monospace" font-size="14.82" font-weight="400" fill="#6B7280" text-anchor="middle">MBR, then VBR</text>
+<rect x="870.0" y="100.0" width="340.0" height="120.0" rx="7" fill="#E4E6EA" stroke="#2E3440" stroke-width="2"/>
+<text x="1040.0" y="157.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#15191E" text-anchor="middle">Scan 4 entries</text>
+<text x="1040.0" y="176.7" font-family="Consolas, Menlo, monospace" font-size="14.82" font-weight="400" fill="#2E3440" text-anchor="middle">boot indicator</text>
+<rect x="870.0" y="245.0" width="340.0" height="120.0" rx="18" fill="#E4E6EA" stroke="#2E3440" stroke-width="2"/>
+<text x="1040.0" y="311.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#15191E" text-anchor="middle">Exactly one active?</text>
+<rect x="1285.0" y="245.0" width="310.0" height="120.0" rx="7" fill="#E4E6EA" stroke="#2E3440" stroke-width="2"/>
+<text x="1440.0" y="300.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#15191E" text-anchor="middle">none: INT 18h</text>
+<text x="1440.0" y="322.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#15191E" text-anchor="middle">else: error</text>
+<rect x="870.0" y="390.0" width="340.0" height="120.0" rx="7" fill="#E4E6EA" stroke="#2E3440" stroke-width="2"/>
+<text x="1040.0" y="447.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#15191E" text-anchor="middle">Read the VBR</text>
+<text x="1040.0" y="466.7" font-family="Consolas, Menlo, monospace" font-size="14.82" font-weight="400" fill="#2E3440" text-anchor="middle">check 55AA</text>
+<rect x="870.0" y="535.0" width="340.0" height="105.0" rx="7" fill="#E4E6EA" stroke="#2E3440" stroke-width="2"/>
+<text x="1040.0" y="584.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#15191E" text-anchor="middle">JMP 0000:7C00</text>
+<text x="1040.0" y="604.2" font-family="Consolas, Menlo, monospace" font-size="14.82" font-weight="400" fill="#2E3440" text-anchor="middle">DL, SI = entry</text>
+</svg>

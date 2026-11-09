@@ -1,0 +1,34 @@
+{
+  "title": "Crash consistency: CHKDSK after the fact against ordered writes and a journal",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 15.6, "h": 2.95, "label": "MS-DOS 4.00, FAT", "kind": "dos"},
+    {"x": 0.2, "y": 3.35, "w": 15.6, "h": 2.95, "label": "FreeBSD 15.1, UFS2 with soft updates (+J)", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "d1", "x": 0.5, "y": 0.85, "w": 2.6, "h": 1.3, "label": "Dir entry, FAT 1,\nFAT 2, data", "sub": "any order", "kind": "dos", "size": 18},
+    {"id": "d2", "x": 3.7, "y": 0.85, "w": 2.0, "h": 1.3, "label": "Power\nfails", "kind": "hw", "size": 18},
+    {"id": "d3", "x": 6.3, "y": 0.85, "w": 2.8, "h": 1.3, "label": "Lost clusters,\ncross-links, bad size", "sub": "no flag on disk", "kind": "dos", "size": 18},
+    {"id": "d4", "x": 9.7, "y": 0.85, "w": 2.6, "h": 1.3, "label": "DOS keeps using\nthe damaged FAT", "kind": "dos", "size": 18},
+    {"id": "d5", "x": 12.9, "y": 0.85, "w": 2.6, "h": 1.3, "label": "User runs\nCHKDSK /F", "sub": "guesses, FILEnnnn.CHK", "kind": "dos", "size": 18},
+    {"id": "b1", "x": 0.5, "y": 4.0, "w": 2.6, "h": 1.3, "label": "Inode before entry,\nbitmap before inode", "sub": "rollback if needed", "kind": "bsd", "size": 18},
+    {"id": "b2", "x": 3.7, "y": 4.0, "w": 2.0, "h": 1.3, "label": "Power\nfails", "kind": "hw", "size": 18},
+    {"id": "b3", "x": 6.3, "y": 4.0, "w": 2.8, "h": 1.3, "label": "Only leaks:\nunreferenced blocks", "sub": "fs_clean = 0", "kind": "bsd", "size": 18},
+    {"id": "b4", "x": 9.7, "y": 4.0, "w": 2.6, "h": 1.3, "label": "Mount at once", "sub": "file system usable", "kind": "bsd", "size": 18},
+    {"id": "b5", "x": 12.9, "y": 4.0, "w": 2.6, "h": 1.3, "label": "fsck_ffs: background\nor journal replay", "sub": "frees the leaks", "kind": "bsd", "size": 18}
+  ],
+  "edges": [
+    {"from": "d1", "to": "d2", "kind": "dos"},
+    {"from": "d2", "to": "d3", "kind": "dos"},
+    {"from": "d3", "to": "d4", "kind": "dos"},
+    {"from": "d4", "to": "d5", "kind": "dos"},
+    {"from": "b1", "to": "b2", "kind": "bsd"},
+    {"from": "b2", "to": "b3", "kind": "bsd"},
+    {"from": "b3", "to": "b4", "kind": "bsd"},
+    {"from": "b4", "to": "b5", "kind": "bsd"}
+  ],
+  "notes": [
+    {"x": 0.5, "y": 2.45, "w": 15, "text": "Repair after the fact: CHKDSK cannot know which file owns a cross-linked cluster.", "size": 16, "kind": "dos", "style": "italic"},
+    {"x": 0.5, "y": 5.6, "w": 15, "text": "Ordered writes make the only possible damage the kind that is safe to repair automatically.", "size": 16, "kind": "bsd", "style": "italic"}
+  ]
+}

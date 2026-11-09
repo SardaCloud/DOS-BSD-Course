@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 1060.0" width="1300" height="1060.0" role="img" aria-label="The two BIOS boot chains, from the firmware to the first user program">
+<title>The two BIOS boot chains, from the firmware to the first user program</title>
+<defs><marker id="arrowB7862A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B7862A"/></marker><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1300" height="1060.0" fill="#FFFFFF"/>
+<rect x="20.0" y="125.0" width="610.0" height="915.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="135.0" width="109.45" height="26" rx="13" fill="#0E7C86"/>
+<text x="86.725" y="153.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00</text>
+<rect x="670.0" y="125.0" width="610.0" height="915.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="682.0" y="135.0" width="117.4" height="26" rx="13" fill="#AB2B28"/>
+<text x="740.7" y="153.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1</text>
+<path d="M400.0,57.5 L325.0,57.5 L325.0,185.0" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<path d="M900.0,57.5 L975.0,57.5 L975.0,185.0" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<path d="M325.0,257.0 L325.0,285.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M325.0,357.0 L325.0,385.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M325.0,457.0 L325.0,485.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M325.0,557.0 L325.0,585.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M325.0,657.0 L325.0,685.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M325.0,757.0 L325.0,785.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M325.0,857.0 L325.0,885.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M975.0,257.0 L975.0,285.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M975.0,357.0 L975.0,385.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M975.0,457.0 L975.0,485.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M975.0,557.0 L975.0,585.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M975.0,657.0 L975.0,685.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M975.0,757.0 L975.0,785.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M975.0,857.0 L975.0,885.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="400.0" y="20.0" width="500.0" height="75.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="650.0" y="55.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#4D3810" text-anchor="middle">PC BIOS</text>
+<text x="650.0" y="71.6" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#B7862A" text-anchor="middle">sector 0 -&gt; 0000:7C00, drive in DL</text>
+<rect x="80.0" y="185.0" width="490.0" height="72.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="325.0" y="218.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0B3D42" text-anchor="middle">FDBOOT (master boot record)</text>
+<text x="325.0" y="235.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#0E7C86" text-anchor="middle">relocates to 0x600, active entry</text>
+<rect x="80.0" y="285.0" width="490.0" height="72.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="325.0" y="318.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0B3D42" text-anchor="middle">MSBOOT (FAT boot sector)</text>
+<text x="325.0" y="335.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#0E7C86" text-anchor="middle">3 sectors -&gt; 0070:0000</text>
+<rect x="80.0" y="385.0" width="490.0" height="72.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="325.0" y="418.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0B3D42" text-anchor="middle">MSLOAD (start of IO.SYS)</text>
+<text x="325.0" y="435.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#0E7C86" text-anchor="middle">rest of IO.SYS via the FAT</text>
+<rect x="80.0" y="485.0" width="490.0" height="72.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="325.0" y="518.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0B3D42" text-anchor="middle">MSINIT (BIOS INIT)</text>
+<text x="325.0" y="535.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#0E7C86" text-anchor="middle">drivers, loads MSDOS.SYS</text>
+<rect x="80.0" y="585.0" width="490.0" height="72.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="325.0" y="618.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0B3D42" text-anchor="middle">SYSINIT: moves things</text>
+<text x="325.0" y="635.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#0E7C86" text-anchor="middle">itself up, MSDOS.SYS down</text>
+<rect x="80.0" y="685.0" width="490.0" height="72.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="325.0" y="718.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0B3D42" text-anchor="middle">DOSINIT (MSDOS.SYS)</text>
+<text x="325.0" y="735.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#0E7C86" text-anchor="middle">devices, DPBs, INT 21h vector</text>
+<rect x="80.0" y="785.0" width="490.0" height="72.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="325.0" y="818.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0B3D42" text-anchor="middle">SYSINIT: CONFIG.SYS</text>
+<text x="325.0" y="835.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#0E7C86" text-anchor="middle">several passes over the file</text>
+<rect x="80.0" y="885.0" width="490.0" height="72.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="325.0" y="918.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">COMMAND.COM</text>
+<text x="325.0" y="935.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#4F6D8A" text-anchor="middle">INT 21h EXEC (AH=4Bh)</text>
+<rect x="730.0" y="185.0" width="490.0" height="72.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="975.0" y="218.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#4A1312" text-anchor="middle">boot0 or mbr (MBR)</text>
+<text x="975.0" y="235.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#AB2B28" text-anchor="middle">relocates to 0x600; GPT: pmbr</text>
+<rect x="730.0" y="285.0" width="490.0" height="72.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="975.0" y="318.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#4A1312" text-anchor="middle">boot1 (slice boot sector)</text>
+<text x="975.0" y="335.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#AB2B28" text-anchor="middle">re-reads the MBR, loads 16 sectors</text>
+<rect x="730.0" y="385.0" width="490.0" height="72.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="975.0" y="418.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#4A1312" text-anchor="middle">BTX + boot2</text>
+<text x="975.0" y="435.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#AB2B28" text-anchor="middle">32-bit protected mode; GPT: gptboot</text>
+<rect x="730.0" y="485.0" width="490.0" height="72.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="975.0" y="518.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#4A1312" text-anchor="middle">/boot/loader (Lua)</text>
+<text x="975.0" y="535.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#AB2B28" text-anchor="middle">loads kernel and modules</text>
+<rect x="730.0" y="585.0" width="490.0" height="72.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="975.0" y="618.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#4A1312" text-anchor="middle">amd64_tramp</text>
+<text x="975.0" y="635.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#AB2B28" text-anchor="middle">64-bit long mode</text>
+<rect x="730.0" y="685.0" width="490.0" height="72.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="975.0" y="718.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#4A1312" text-anchor="middle">btext -&gt; hammer_time()</text>
+<text x="975.0" y="735.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#AB2B28" text-anchor="middle">locore.S, machdep.c</text>
+<rect x="730.0" y="785.0" width="490.0" height="72.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="975.0" y="818.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#4A1312" text-anchor="middle">mi_startup()</text>
+<text x="975.0" y="835.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#AB2B28" text-anchor="middle">sorted SYSINIT list</text>
+<rect x="730.0" y="885.0" width="490.0" height="72.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="975.0" y="918.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">/sbin/init (process 1)</text>
+<text x="975.0" y="935.1" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#4F6D8A" text-anchor="middle">start_init(): kern_execve()</text>
+<text x="325.0" y="988.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" fill="#0B3D42" text-anchor="middle" font-style="italic">real mode all the way: no A20, no protected mode</text>
+<text x="975.0" y="988.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" fill="#4A1312" text-anchor="middle" font-style="italic">real -&gt; 32-bit protected (BTX) -&gt; 64-bit long mode</text>
+</svg>

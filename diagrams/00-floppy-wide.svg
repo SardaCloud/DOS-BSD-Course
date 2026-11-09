@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 610.0" width="1500" height="610.0" role="img" aria-label="The 1.44 MB lab floppy: what the 512-byte boot sector expects">
+<title>The 1.44 MB lab floppy: what the 512-byte boot sector expects</title>
+<defs><marker id="arrow6B7280" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6B7280"/></marker></defs>
+<rect x="0" y="0" width="1500" height="610.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1460.0" height="230.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="316.15000000000003" height="26" rx="13" fill="#0E7C86"/>
+<text x="190.07500000000002" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">dos400.img: 2880 sectors of 512 bytes</text>
+<path d="M175.0,220.0 L175.0,310.0" fill="none" stroke="#6B7280" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow6B7280)"/>
+<path d="M840.0,220.0 L840.0,310.0" fill="none" stroke="#6B7280" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow6B7280)"/>
+<path d="M1215.0,220.0 L1215.0,310.0" fill="none" stroke="#6B7280" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow6B7280)"/>
+<rect x="50.0" y="90.0" width="250.0" height="130.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="175.0" y="152.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#0B3D42" text-anchor="middle">Boot sector</text>
+<text x="175.0" y="172.6" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">sector 0</text>
+<rect x="300.0" y="90.0" width="200.0" height="130.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="400.0" y="152.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#1F2328" text-anchor="middle">FAT 1</text>
+<text x="400.0" y="172.6" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">sectors 1-9</text>
+<rect x="500.0" y="90.0" width="200.0" height="130.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="600.0" y="152.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#1F2328" text-anchor="middle">FAT 2</text>
+<text x="600.0" y="172.6" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">sectors 10-18</text>
+<rect x="700.0" y="90.0" width="280.0" height="130.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="840.0" y="152.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#1F2328" text-anchor="middle">Root directory</text>
+<text x="840.0" y="172.6" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">sectors 19-32</text>
+<rect x="980.0" y="90.0" width="470.0" height="130.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="1215.0" y="152.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#1F2328" text-anchor="middle">Data area</text>
+<text x="1215.0" y="172.6" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">sectors 33-2879</text>
+<rect x="25.0" y="310.0" width="300.0" height="65.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="175.0" y="348.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">BPB at offset 0x0B</text>
+<rect x="25.0" y="380.0" width="300.0" height="205.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="175.0" y="444.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#1F2328" text-anchor="middle">512 bytes per sector</text>
+<text x="175.0" y="466.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#1F2328" text-anchor="middle">1 sector per cluster</text>
+<text x="175.0" y="488.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#1F2328" text-anchor="middle">2 FATs of 9 sectors</text>
+<text x="175.0" y="510.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#1F2328" text-anchor="middle">224 root entries</text>
+<text x="175.0" y="532.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#1F2328" text-anchor="middle">media byte F0h</text>
+<rect x="690.0" y="310.0" width="300.0" height="65.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="840.0" y="348.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">entry 1: IO.SYS</text>
+<rect x="690.0" y="380.0" width="300.0" height="65.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="840.0" y="418.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">entry 2: MSDOS.SYS</text>
+<rect x="690.0" y="450.0" width="300.0" height="65.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="840.0" y="488.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">entry 3: volume label</text>
+<rect x="1075.0" y="310.0" width="280.0" height="105.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1215.0" y="359.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#0B3D42" text-anchor="middle">IO.SYS</text>
+<text x="1215.0" y="379.2" font-family="Consolas, Menlo, monospace" font-size="14.82" font-weight="400" fill="#0E7C86" text-anchor="middle">first 3 sectors: loader</text>
+<rect x="1075.0" y="425.0" width="280.0" height="90.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="1215.0" y="465.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#1F2328" text-anchor="middle">MSDOS.SYS,</text>
+<text x="1215.0" y="487.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#1F2328" text-anchor="middle">COMMAND.COM ...</text>
+<text x="510.0" y="338.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" fill="#1F2328" text-anchor="middle" font-style="normal">1 + 2 x 9 + 14 = 33:</text>
+<text x="510.0" y="360.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" fill="#1F2328" text-anchor="middle" font-style="normal">the first data sector</text>
+<text x="510.0" y="383.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" fill="#1F2328" text-anchor="middle" font-style="normal"></text>
+<text x="510.0" y="405.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" fill="#1F2328" text-anchor="middle" font-style="normal">224 entries x 32 bytes</text>
+<text x="510.0" y="428.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" fill="#1F2328" text-anchor="middle" font-style="normal">= 14 sectors</text>
+<text x="840.0" y="541.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#0B3D42" text-anchor="middle" font-style="italic">the boot sector compares</text>
+<text x="840.0" y="561.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#0B3D42" text-anchor="middle" font-style="italic">entries 1 and 2 by name</text>
+<text x="1215.0" y="541.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#0B3D42" text-anchor="middle" font-style="italic">and reads 3 sectors from</text>
+<text x="1215.0" y="561.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#0B3D42" text-anchor="middle" font-style="italic">sector 33, without the FAT</text>
+</svg>

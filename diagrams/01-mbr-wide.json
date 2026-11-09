@@ -1,0 +1,31 @@
+{
+  "title": "The master boot record: move out of the way to 0x600, choose the active partition, load its first sector",
+  "width": 16.5, "height": 6.85,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 3.4, "h": 6.45, "label": "Disk", "kind": "hw"},
+    {"x": 4.15, "y": 0.2, "w": 3.4, "h": 6.45, "label": "Memory", "kind": "data"},
+    {"x": 8.1, "y": 0.2, "w": 8.2, "h": 6.45, "label": "MBR program: FDBOOT or FreeBSD mbr", "kind": "kernel"}
+  ],
+  "nodes": [
+    {"id": "s0", "x": 0.45, "y": 1.0, "w": 2.9, "h": 1.2, "label": "Sector 0: MBR", "sub": "table at 0x1BE", "kind": "hw", "size": 19},
+    {"id": "vbr", "x": 0.45, "y": 3.9, "w": 2.9, "h": 1.2, "label": "Active partition", "sub": "first sector", "kind": "hw", "size": 19},
+    {"id": "m600", "x": 4.4, "y": 1.0, "w": 2.9, "h": 1.2, "label": "0x0600", "sub": "the MBR runs here", "kind": "data", "size": 19},
+    {"id": "m7c", "x": 4.4, "y": 3.9, "w": 2.9, "h": 1.2, "label": "0x7C00", "sub": "MBR, then VBR", "kind": "data", "size": 19},
+    {"id": "scan", "x": 8.7, "y": 1.0, "w": 3.4, "h": 1.2, "label": "Scan 4 entries", "sub": "boot indicator", "kind": "kernel", "size": 19},
+    {"id": "one", "x": 8.7, "y": 2.45, "w": 3.4, "h": 1.2, "label": "Exactly one active?", "kind": "kernel", "shape": "round", "size": 19},
+    {"id": "err", "x": 12.85, "y": 2.45, "w": 3.1, "h": 1.2, "label": "none: INT 18h\nelse: error", "kind": "kernel", "size": 18, "weight": "400"},
+    {"id": "read", "x": 8.7, "y": 3.9, "w": 3.4, "h": 1.2, "label": "Read the VBR", "sub": "check 55AA", "kind": "kernel", "size": 19},
+    {"id": "jmp", "x": 8.7, "y": 5.35, "w": 3.4, "h": 1.05, "label": "JMP 0000:7C00", "sub": "DL, SI = entry", "kind": "kernel", "size": 19}
+  ],
+  "edges": [
+    {"from": "s0", "to": "m7c", "from_side": "right", "to_side": "left", "route": "hvh", "to_pos": 0.3, "label": "1. BIOS", "kind": "hw", "size": 16},
+    {"from": "m7c", "to": "m600", "label": "2. copy,\nfar jump", "size": 16},
+    {"from": "m600", "to": "scan", "label": "3. run", "size": 16},
+    {"from": "scan", "to": "one"},
+    {"from": "one", "to": "err", "label": "no", "size": 16},
+    {"from": "one", "to": "read", "label": "yes", "size": 16},
+    {"from": "vbr", "to": "m7c", "from_side": "right", "to_side": "left", "to_pos": 0.7, "from_pos": 0.7, "label": "4. read", "kind": "hw", "size": 16},
+    {"from": "read", "to": "jmp"},
+    {"from": "jmp", "to": "m7c", "from_side": "left", "to_side": "bottom", "route": "hv", "label": "5. jump", "size": 16}
+  ]
+}

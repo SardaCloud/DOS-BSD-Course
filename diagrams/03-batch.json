@@ -1,0 +1,37 @@
+{
+  "title": "Running a batch file line by line with BatSeek versus running an sh script command by command",
+  "width": 17, "height": 6.8,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 16.6, "h": 3.3, "label": "MS-DOS 4.00: open, seek, read one line, close, run it; repeat", "kind": "dos"},
+    {"x": 0.2, "y": 3.7, "w": 16.6, "h": 2.9, "label": "FreeBSD 15.1: one open descriptor, one complete command at a time", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "d0", "x": 0.45, "y": 0.8, "w": 2.42, "h": 1.25, "label": "BatCom", "sub": "batch segment", "kind": "dos", "size": 18},
+    {"id": "d1", "x": 3.17, "y": 0.8, "w": 2.42, "h": 1.25, "label": "BatOpen:\nopen by name", "sub": "BatFile", "kind": "dos", "size": 18},
+    {"id": "d2", "x": 5.89, "y": 0.8, "w": 2.42, "h": 1.25, "label": "LSEEK to\nBatSeek", "kind": "dos", "size": 18},
+    {"id": "d3", "x": 8.61, "y": 0.8, "w": 2.42, "h": 1.25, "label": "Read up to CR", "sub": "BatSeek+1 per byte", "kind": "dos", "size": 18},
+    {"id": "d4", "x": 11.33, "y": 0.8, "w": 2.42, "h": 1.25, "label": "BATCLOSE", "sub": "eat LF, close", "kind": "dos", "size": 18},
+    {"id": "d5", "x": 14.05, "y": 0.8, "w": 2.42, "h": 1.25, "label": "Run the line", "sub": "no handle held", "kind": "dos", "size": 18},
+
+    {"id": "b1", "x": 0.45, "y": 4.3, "w": 2.42, "h": 1.25, "label": "Open the\nscript once", "sub": "fd stays open", "kind": "bsd", "size": 18},
+    {"id": "b2", "x": 3.17, "y": 4.3, "w": 2.42, "h": 1.25, "label": "preadfd", "sub": "read(2), 1024 B", "kind": "bsd", "size": 18},
+    {"id": "b3", "x": 5.89, "y": 4.3, "w": 2.42, "h": 1.25, "label": "Parse one\ncomplete command", "sub": "may span lines", "kind": "bsd", "size": 18},
+    {"id": "b4", "x": 8.61, "y": 4.3, "w": 2.42, "h": 1.25, "label": "Evaluate", "sub": "loops from the tree", "kind": "bsd", "size": 18}
+  ],
+  "edges": [
+    {"from": "d0", "to": "d1", "kind": "dos"},
+    {"from": "d1", "to": "d2", "kind": "dos"},
+    {"from": "d2", "to": "d3", "kind": "dos"},
+    {"from": "d3", "to": "d4", "kind": "dos"},
+    {"from": "d4", "to": "d5", "kind": "dos"},
+    {"from": "d5", "to": "d1", "from_side": "bottom", "to_side": "bottom", "route": "vhv", "via": 2.45, "kind": "dos", "style": "dashed", "label": "next line: open the file again", "size": 15},
+    {"from": "b1", "to": "b2", "kind": "bsd"},
+    {"from": "b2", "to": "b3", "kind": "bsd"},
+    {"from": "b3", "to": "b4", "kind": "bsd"},
+    {"from": "b4", "to": "b2", "from_side": "bottom", "to_side": "bottom", "route": "vhv", "via": 6.0, "kind": "bsd", "style": "dashed", "label": "next command", "size": 15}
+  ],
+  "notes": [
+    {"x": 0.45, "y": 2.62, "w": 16, "text": "Ctrl-Z or end of file ends batch mode; GOTO rescans from byte 0. A file edited while a line runs\nis read on from the new text at the old byte offset, possibly from the middle of a line.", "size": 17, "kind": "dos", "style": "italic"},
+    {"x": 11.4, "y": 4.35, "w": 5.2, "text": "Text already parsed is never re-read:\na while loop or a function runs from\nmemory, and the descriptor keeps\nits own offset.", "size": 17, "kind": "bsd", "style": "italic"}
+  ]
+}

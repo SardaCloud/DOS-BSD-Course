@@ -1,0 +1,31 @@
+{
+  "title": "How a BTX client calls the BIOS: INT 31h, a trip back to real mode, and back",
+  "width": 13, "height": 6.95,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 4.1, "h": 6.2, "label": "Client, ring 3 (here: boot2)", "kind": "bsd"},
+    {"x": 4.45, "y": 0.2, "w": 4.1, "h": 6.2, "label": "BTX kernel, ring 0 (0x9000)", "kind": "kernel"},
+    {"x": 8.7, "y": 0.2, "w": 4.1, "h": 6.2, "label": "Real mode", "kind": "hw"}
+  ],
+  "nodes": [
+    {"id": "a1", "x": 0.45, "y": 0.95, "w": 3.3, "h": 0.85, "label": "drvread()", "sub": "fills struct v86: V86_CALLF", "kind": "bsd"},
+    {"id": "a2", "x": 0.45, "y": 2.1, "w": 3.3, "h": 0.85, "label": "__v86int", "sub": "loads the registers", "kind": "bsd"},
+    {"id": "b2", "x": 4.95, "y": 2.1, "w": 3.3, "h": 0.85, "label": "INT 31h handler", "sub": "return trampoline rret_tramp", "kind": "kernel"},
+    {"id": "b3", "x": 4.95, "y": 3.25, "w": 3.3, "h": 0.85, "label": "Leave protected mode", "sub": "CR0.PE = 0, lidt IVT", "kind": "kernel"},
+    {"id": "c3", "x": 9.25, "y": 3.25, "w": 3.3, "h": 0.85, "label": "xread (boot1 at 0x700)", "sub": "real-mode code", "kind": "bsd"},
+    {"id": "c4", "x": 9.25, "y": 4.4, "w": 3.3, "h": 0.85, "label": "BIOS INT 13h", "sub": "reads the sectors", "kind": "hw"},
+    {"id": "b5", "x": 4.95, "y": 5.3, "w": 3.3, "h": 0.85, "label": "rret_tramp", "sub": "protected mode again", "kind": "kernel"},
+    {"id": "a5", "x": 0.45, "y": 5.3, "w": 3.3, "h": 0.85, "label": "back in drvread()", "sub": "result in v86.eax, v86.efl", "kind": "bsd"}
+  ],
+  "edges": [
+    {"from": "a1", "to": "a2", "kind": "bsd"},
+    {"from": "a2", "to": "b2", "label": "int $0x31", "kind": "bsd"},
+    {"from": "b2", "to": "b3"},
+    {"from": "b3", "to": "c3", "label": "IRET", "kind": "hw"},
+    {"from": "c3", "to": "c4", "kind": "hw"},
+    {"from": "c4", "to": "b5", "from_side": "bottom", "to_side": "right", "route": "vh", "label": "return", "kind": "hw"},
+    {"from": "b5", "to": "a5", "label": "registers", "kind": "bsd"}
+  ],
+  "notes": [
+    {"x": 0.3, "y": 6.55, "w": 12.4, "text": "The client's segments have base MEM_USR = 0xA000. IRQs are reflected to the BIOS handlers the same way; INT 30h is BTX's exit and exec service.", "size": 13, "kind": "kernel", "style": "italic", "align": "middle"}
+  ]
+}

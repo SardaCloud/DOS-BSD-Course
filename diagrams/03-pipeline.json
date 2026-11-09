@@ -1,0 +1,50 @@
+{
+  "title": "dir | sort > out.txt: temporary files one stage at a time versus a pipe between concurrent processes",
+  "width": 17, "height": 7.4,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 16.6, "h": 3.2, "label": "MS-DOS 4.00: dir | sort > out.txt", "kind": "dos"},
+    {"x": 0.2, "y": 3.6, "w": 16.6, "h": 3.6, "label": "FreeBSD 15.1: ls | sort > out.txt", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "d1", "x": 0.45, "y": 0.75, "w": 1.9, "h": 0.95, "label": "Prescan", "sub": "PIPEFLAG", "kind": "dos", "size": 18},
+    {"id": "d2", "x": 2.65, "y": 0.75, "w": 1.9, "h": 0.95, "label": "Two temp\nfiles", "sub": "5Ah in C:\\", "kind": "dos", "size": 18},
+    {"id": "d3", "x": 4.85, "y": 0.75, "w": 2.9, "h": 0.95, "label": "DIR runs inside\nCOMMAND.COM", "kind": "dos", "size": 18},
+    {"id": "d4", "x": 8.05, "y": 0.75, "w": 2.1, "h": 0.95, "label": "Swap\nhandles", "sub": "out.txt -> 1", "kind": "dos", "size": 18},
+    {"id": "d5", "x": 10.45, "y": 0.75, "w": 3.3, "h": 0.95, "label": "SORT.EXE runs", "sub": "writes out.txt", "kind": "user", "size": 18},
+    {"id": "d6", "x": 14.05, "y": 0.75, "w": 2.5, "h": 0.95, "label": "PIPEDEL", "sub": "two UNLINKs", "kind": "dos", "size": 18},
+    {"id": "tmp", "x": 7.2, "y": 2.05, "w": 4.2, "h": 1.15, "label": "temporary file in C:\\", "kind": "data", "shape": "cyl", "size": 18},
+
+    {"id": "b1", "x": 0.45, "y": 4.15, "w": 1.9, "h": 0.85, "label": "Parse", "sub": "NPIPE", "kind": "bsd", "size": 18},
+    {"id": "b2", "x": 2.65, "y": 4.15, "w": 1.9, "h": 0.85, "label": "pipe2", "sub": "fds 3, 4", "kind": "bsd", "size": 18},
+    {"id": "b3", "x": 4.85, "y": 4.15, "w": 1.9, "h": 0.85, "label": "fork, fork", "sub": "evalpipe", "kind": "bsd", "size": 18},
+    {"id": "b4", "x": 7.05, "y": 4.15, "w": 9.5, "h": 0.85, "label": "sh waits for the job", "sub": "waitforjob: wait3 collects both children", "kind": "bsd", "dashed": true, "size": 18},
+    {"id": "c1", "x": 7.05, "y": 5.25, "w": 2.1, "h": 0.8, "label": "child 1", "sub": "dup2(4,1), execve", "kind": "bsd", "size": 18},
+    {"id": "ls", "x": 9.45, "y": 5.25, "w": 3.3, "h": 0.8, "label": "ls runs", "sub": "writes the pipe", "kind": "user", "size": 18},
+    {"id": "pipe", "x": 13.05, "y": 5.25, "w": 2.1, "h": 0.8, "label": "pipe", "sub": "16 KiB buffer", "kind": "bsd", "size": 18},
+    {"id": "c2", "x": 7.05, "y": 6.25, "w": 2.1, "h": 0.8, "label": "child 2", "sub": "dup2(3,0), execve", "kind": "bsd", "size": 18},
+    {"id": "sort", "x": 9.45, "y": 6.25, "w": 5.7, "h": 0.8, "label": "sort runs at the same time", "sub": "reads the pipe, writes out.txt", "kind": "user", "size": 18}
+  ],
+  "edges": [
+    {"from": "d1", "to": "d2", "kind": "dos"},
+    {"from": "d2", "to": "d3", "kind": "dos"},
+    {"from": "d3", "to": "d4", "kind": "dos"},
+    {"from": "d4", "to": "d5", "kind": "dos"},
+    {"from": "d5", "to": "d6", "kind": "dos"},
+    {"from": "d3", "to": "tmp", "from_side": "bottom", "to_side": "left", "route": "vh", "kind": "dos", "label": "handle 1", "size": 15, "label_on_line": true},
+    {"from": "tmp", "to": "d5", "from_side": "right", "to_side": "bottom", "route": "hv", "kind": "dos", "label": "handle 0", "size": 15, "label_on_line": true},
+    {"from": "b1", "to": "b2", "kind": "bsd"},
+    {"from": "b2", "to": "b3", "kind": "bsd"},
+    {"from": "b3", "to": "b4", "kind": "bsd"},
+    {"from": "b3", "to": "c1", "from_side": "bottom", "to_side": "left", "route": "vh", "kind": "bsd"},
+    {"from": "b3", "to": "c2", "from_side": "bottom", "to_side": "left", "route": "vh", "kind": "bsd"},
+    {"from": "c1", "to": "ls", "kind": "bsd"},
+    {"from": "ls", "to": "pipe", "kind": "bsd"},
+    {"from": "pipe", "to": "sort", "from_side": "right", "to_side": "right", "route": "hvh", "via": 15.6, "kind": "bsd"},
+    {"from": "c2", "to": "sort", "kind": "bsd"}
+  ],
+  "notes": [
+    {"x": 0.45, "y": 2.2, "w": 6.0, "text": "One program at a time: SORT starts\nonly after DIR has finished, and the\ndata waits on disk in between.", "size": 16, "kind": "dos", "style": "italic"},
+    {"x": 0.45, "y": 5.35, "w": 6.3, "text": "Both programs run at once; ls sleeps\n(pipewr) while the buffer is full, and\nsort sees end of file when ls exits.", "size": 16, "kind": "bsd", "style": "italic"},
+    {"x": 14.4, "y": 0.27, "w": 2.2, "text": "time ->", "align": "end", "size": 16, "style": "italic"}
+  ]
+}

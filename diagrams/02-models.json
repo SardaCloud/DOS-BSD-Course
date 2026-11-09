@@ -1,0 +1,45 @@
+{
+  "title": "Two kernel models: one shared real-mode space versus a protected kernel and per-process spaces",
+  "width": 13, "height": 7.2,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 6.1, "h": 6.8, "label": "MS-DOS 4.00: one space for everyone", "kind": "dos"},
+    {"x": 6.7, "y": 0.2, "w": 6.1, "h": 6.8, "label": "FreeBSD 15.1: one map per process", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "ivt", "x": 1.55, "y": 0.9, "w": 3.0, "h": 0.65, "label": "Interrupt vector table", "sub": "256 far pointers", "kind": "data"},
+    {"id": "bda", "x": 1.55, "y": 1.55, "w": 3.0, "h": 0.6, "label": "ROM BIOS data area", "sub": "segment 40h", "kind": "hw"},
+    {"id": "dos", "x": 1.55, "y": 2.15, "w": 3.0, "h": 0.95, "label": "IO.SYS, MSDOS.SYS", "sub": "SFTs, buffers, CDS", "kind": "dos"},
+    {"id": "cmd", "x": 1.55, "y": 3.1, "w": 3.0, "h": 0.6, "label": "COMMAND.COM", "kind": "user"},
+    {"id": "tsr", "x": 1.55, "y": 3.7, "w": 3.0, "h": 0.6, "label": "TSRs", "kind": "user"},
+    {"id": "prg", "x": 1.55, "y": 4.3, "w": 3.0, "h": 1.0, "label": "Running program", "kind": "user"},
+    {"id": "free", "x": 1.55, "y": 5.3, "w": 3.0, "h": 0.75, "label": "Free blocks", "kind": "data", "dashed": true},
+
+    {"id": "a0", "x": 7.0, "y": 1.15, "w": 2.3, "h": 0.5, "label": "unmapped page 0", "kind": "data", "dashed": true, "size": 14},
+    {"id": "atext", "x": 7.0, "y": 1.65, "w": 2.3, "h": 0.75, "label": "text, data,\nheap", "kind": "user"},
+    {"id": "alib", "x": 7.0, "y": 2.4, "w": 2.3, "h": 0.75, "label": "shared libs,\nmmap", "kind": "user"},
+    {"id": "astk", "x": 7.0, "y": 3.15, "w": 2.3, "h": 0.55, "label": "user stack", "kind": "user"},
+    {"id": "ahole", "x": 7.0, "y": 3.7, "w": 2.3, "h": 1.35, "label": "unmapped\nhole", "kind": "data", "dashed": true},
+    {"id": "b0", "x": 10.2, "y": 1.15, "w": 2.3, "h": 0.5, "label": "unmapped page 0", "kind": "data", "dashed": true, "size": 14},
+    {"id": "btext", "x": 10.2, "y": 1.65, "w": 2.3, "h": 0.75, "label": "text, data,\nheap", "kind": "user"},
+    {"id": "blib", "x": 10.2, "y": 2.4, "w": 2.3, "h": 0.75, "label": "shared libs,\nmmap", "kind": "user"},
+    {"id": "bstk", "x": 10.2, "y": 3.15, "w": 2.3, "h": 0.55, "label": "user stack", "kind": "user"},
+    {"id": "bhole", "x": 10.2, "y": 3.7, "w": 2.3, "h": 1.35, "label": "unmapped\nhole", "kind": "data", "dashed": true},
+    {"id": "kern", "x": 7.0, "y": 5.05, "w": 5.5, "h": 1.0, "label": "Kernel: ring 0 only", "sub": "same in every process", "kind": "bsd"}
+  ],
+  "edges": [
+    {"from": "prg", "to": "dos", "from_side": "right", "to_side": "right", "route": "hvh", "via": 5.0, "label": "INT 21h", "kind": "dos"},
+    {"from": "atext", "to": "kern", "from_side": "right", "to_side": "top", "route": "hv", "kind": "bsd"},
+    {"from": "btext", "to": "kern", "from_side": "left", "to_side": "top", "route": "hv", "kind": "bsd",
+     "label": "syscall,\nexception,\ninterrupt", "label_on_line": true, "size": 12}
+  ],
+  "notes": [
+    {"x": 0.25, "y": 0.78, "w": 1.2, "text": "0x00000", "align": "end", "kind": "dos"},
+    {"x": 0.25, "y": 1.43, "w": 1.2, "text": "0x00400", "align": "end", "kind": "dos"},
+    {"x": 0.25, "y": 4.05, "w": 1.2, "text": "arena:\nMCB chain", "align": "end", "kind": "dos", "style": "italic"},
+    {"x": 0.25, "y": 5.55, "w": 1.2, "text": "top of\nconventional\nmemory", "align": "end", "kind": "dos", "size": 12},
+    {"x": 0.5, "y": 6.3, "w": 5.6, "text": "No protection: any program can read or write any byte,\nincluding the vectors that lead into DOS.", "size": 13, "kind": "dos", "style": "italic"},
+    {"x": 7.0, "y": 0.75, "w": 2.3, "text": "process A", "align": "middle", "kind": "bsd", "size": 14},
+    {"x": 10.2, "y": 0.75, "w": 2.3, "text": "process B", "align": "middle", "kind": "bsd", "size": 14},
+    {"x": 7.0, "y": 6.3, "w": 5.6, "text": "Each process has its own user part; the kernel part is\nprotected, and only the kernel sets its entry points.", "size": 13, "kind": "bsd", "style": "italic"}
+  ]
+}

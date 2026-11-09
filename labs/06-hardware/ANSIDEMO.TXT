@@ -1,0 +1,5 @@
+[2J
+[3;10HThis is row 3, column 10
+[5;1H[1;33;44mBright yellow on blue[0m and normal again
+[7;1H[7mReverse video[0m
+[9;1HEnd of ANSIDEMO.TXT

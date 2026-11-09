@@ -1,0 +1,37 @@
+{
+  "title": "From an interrupt request to a handler: MS-DOS 4.00 and FreeBSD 15.1",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 15.6, "h": 2.95, "label": "MS-DOS 4.00 (real mode)", "kind": "dos"},
+    {"x": 0.2, "y": 3.35, "w": 15.6, "h": 2.95, "label": "FreeBSD 15.1 (long mode, SMP)", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "pic", "x": 0.5, "y": 0.85, "w": 2.3, "h": 1.3, "label": "8259 PIC", "sub": "IRQ0-15", "kind": "hw", "size": 18},
+    {"id": "ivt", "x": 3.3, "y": 0.85, "w": 2.6, "h": 1.3, "label": "Vector table", "sub": "INT 08h-0Fh, 70h-77h", "kind": "data", "size": 18},
+    {"id": "stk", "x": 6.4, "y": 0.85, "w": 2.6, "h": 1.3, "label": "STACKS= hook", "sub": "IO.SYS MSSTACK.INC", "kind": "dos", "size": 18},
+    {"id": "rom", "x": 9.5, "y": 0.85, "w": 2.7, "h": 1.3, "label": "ROM handler", "sub": "e.g. INT 09h, port 60h", "kind": "hw", "size": 18},
+    {"id": "eoi1", "x": 12.7, "y": 0.85, "w": 2.8, "h": 1.3, "label": "EOI to port 20h,\nIRET", "kind": "hw", "size": 18},
+    {"id": "apic", "x": 0.5, "y": 4.15, "w": 2.3, "h": 1.3, "label": "I/O APIC,\nlocal APIC", "kind": "hw", "size": 18},
+    {"id": "idt", "x": 3.3, "y": 4.15, "w": 2.6, "h": 1.3, "label": "IDT vector", "sub": "from 48 (APIC_IO_INTS)", "kind": "data", "size": 18},
+    {"id": "ieh", "x": 6.4, "y": 4.15, "w": 2.6, "h": 1.3, "label": "intr_event\n_handle", "sub": "kern_intr.c", "kind": "bsd", "size": 18},
+    {"id": "flt", "x": 9.4, "y": 3.75, "w": 2.5, "h": 0.85, "label": "Filter, now", "sub": "rtc_intr", "kind": "bsd", "size": 18},
+    {"id": "ith", "x": 9.4, "y": 4.8, "w": 2.5, "h": 0.85, "label": "Interrupt thread", "sub": "irq1: atkbd0", "kind": "bsd", "size": 18},
+    {"id": "eoi2", "x": 13.3, "y": 4.15, "w": 2.2, "h": 1.3, "label": "PIC driver", "sub": "EOI; unmask", "kind": "hw", "size": 18}
+  ],
+  "edges": [
+    {"from": "pic", "to": "ivt", "kind": "dos"},
+    {"from": "ivt", "to": "stk", "kind": "dos"},
+    {"from": "stk", "to": "rom", "kind": "dos"},
+    {"from": "rom", "to": "eoi1", "kind": "dos"},
+    {"from": "apic", "to": "idt", "kind": "bsd"},
+    {"from": "idt", "to": "ieh", "kind": "bsd"},
+    {"from": "ieh", "to": "flt", "from_side": "right", "to_side": "left", "route": "hvh", "kind": "bsd"},
+    {"from": "ieh", "to": "ith", "from_side": "right", "to_side": "left", "route": "hvh", "kind": "bsd", "style": "dashed"},
+    {"from": "flt", "to": "eoi2", "from_side": "right", "to_side": "left", "route": "hvh", "kind": "bsd", "label": "EOI"},
+    {"from": "ith", "to": "eoi2", "from_side": "right", "to_side": "left", "route": "hvh", "kind": "bsd", "style": "dashed", "label": "unmask"}
+  ],
+  "notes": [
+    {"x": 0.5, "y": 2.45, "w": 15, "text": "Any program may rewrite a vector; the handler runs on the interrupted program's time.", "size": 16, "kind": "dos", "style": "italic"},
+    {"x": 0.5, "y": 5.85, "w": 15, "text": "Only drivers install handlers (bus_setup_intr). Dashed: runs later as a thread; the EOI comes first, and a level-triggered source stays masked until the thread ends.", "size": 16, "kind": "bsd", "style": "italic"}
+  ]
+}

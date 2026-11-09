@@ -1,0 +1,29 @@
+{
+  "title": "The lab: one host PC, DOSBox-X for MS-DOS 4.00, a Hyper-V virtual machine for FreeBSD 15.1",
+  "width": 17, "height": 7.2,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 16.6, "h": 6.8, "label": "Host PC", "kind": "neutral"},
+    {"x": 0.45, "y": 0.75, "w": 3.65, "h": 6.0, "label": "Course repository", "kind": "user"},
+    {"x": 4.6, "y": 0.75, "w": 11.95, "h": 2.2, "label": "DOSBox-X (PC emulator)", "kind": "hw"},
+    {"x": 4.6, "y": 4.55, "w": 11.95, "h": 2.2, "label": "Hyper-V: Generation 1 virtual machine", "kind": "hw"}
+  ],
+  "nodes": [
+    {"id": "msdos", "x": 0.75, "y": 1.3, "w": 3.05, "h": 1.1, "label": "src-ext/MS-DOS", "sub": "commit 2d04cac", "kind": "dos", "shape": "cyl", "size": 20},
+    {"id": "notes", "x": 0.75, "y": 2.7, "w": 3.05, "h": 0.85, "label": "Notes, slides", "sub": "course/ slides/", "kind": "data", "size": 20},
+    {"id": "fbsd", "x": 0.75, "y": 3.8, "w": 3.05, "h": 1.1, "label": "src-ext/freebsd-src", "sub": "tag release/15.1.0", "kind": "bsd", "shape": "cyl", "size": 20},
+    {"id": "bsdrun", "x": 0.75, "y": 5.2, "w": 3.05, "h": 1.2, "label": "tools/bsd_run.py", "sub": "ssh, scp with a key", "kind": "user", "size": 20},
+    {"id": "build", "x": 5.4, "y": 1.25, "w": 4.0, "h": 1.2, "label": "1. Build", "sub": "MASM CL LINK NMAKE (1988)", "kind": "dos", "size": 20},
+    {"id": "boot", "x": 11.9, "y": 1.25, "w": 4.2, "h": 1.2, "label": "2. Boot: MS-DOS 4.00", "sub": "IO.SYS MSDOS.SYS COMMAND.COM", "kind": "dos", "size": 20},
+    {"id": "img", "x": 9.4, "y": 3.2, "w": 2.4, "h": 1.1, "label": "dos400.img", "sub": "1.44 MB floppy", "kind": "data", "shape": "cyl", "size": 20},
+    {"id": "vm", "x": 8.45, "y": 5.15, "w": 4.3, "h": 1.3, "label": "FreeBSD 15.1-RELEASE\n/usr/src at release/15.1.0", "sub": "truss ktrace dtrace gdb nasm", "kind": "bsd", "size": 20},
+    {"id": "disk", "x": 14.2, "y": 5.1, "w": 2.2, "h": 1.4, "label": "Virtual disk", "sub": "GPT, 20 GB", "kind": "hw", "shape": "cyl", "size": 20}
+  ],
+  "edges": [
+    {"from": "msdos", "to": "build", "label": "build_dos.py", "kind": "dos", "size": 16},
+    {"from": "build", "to": "img", "from_side": "bottom", "to_side": "left", "route": "vh", "label": "make_floppy.py", "kind": "dos", "size": 16},
+    {"from": "img", "to": "boot", "from_side": "right", "to_side": "bottom", "route": "hv", "label": "dos_run.py", "kind": "dos", "size": 16},
+    {"from": "bsdrun", "to": "vm", "label": "SSH", "kind": "bsd", "size": 16},
+    {"from": "img", "to": "vm", "from_side": "bottom", "to_side": "top", "label": "--put (scp)", "style": "dashed", "size": 16},
+    {"from": "disk", "to": "vm", "label": "BIOS boot", "kind": "hw", "size": 16}
+  ]
+}

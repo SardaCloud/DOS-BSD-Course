@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1610.0000000000002 545.0" width="1610.0000000000002" height="545.0" role="img" aria-label="Running MS-DOS 4.00 unattended: commands in through AUTOEXEC.BAT, output out through COM1">
+<title>Running MS-DOS 4.00 unattended: commands in through AUTOEXEC.BAT, output out through COM1</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowB7862A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B7862A"/></marker></defs>
+<rect x="0" y="0" width="1610.0000000000002" height="545.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1570.0" height="225.0" rx="14" fill="#F5F8FB" stroke="#4F6D8A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="77.65" height="26" rx="13" fill="#4F6D8A"/>
+<text x="70.825" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Host PC</text>
+<rect x="20.0" y="270.0" width="1570.0" height="225.0" rx="14" fill="#FDF8EE" stroke="#B7862A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="280.0" width="85.6" height="26" rx="13" fill="#B7862A"/>
+<text x="74.8" y="298.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">DOSBox-X</text>
+<path d="M310.0,142.5 L360.0,142.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M505.0,205.0 L505.0,335.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="511.0" y="259.1" width="127.1" height="21.9" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="574.6" y="274.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#0E7C86" text-anchor="middle">--file, then boot</text>
+<path d="M650.0,392.5 L700.0,392.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1020.0,392.5 L1060.0,392.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1190.0,335.0 L1190.0,205.0" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<path d="M1320.0,142.5 L1360.0,142.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="50.0" y="85.0" width="260.0" height="115.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="180.0" y="140.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">dos_run.py</text>
+<text x="180.0" y="156.6" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#4F6D8A" text-anchor="middle">&quot;VER&quot; &quot;CHKDSK A:&quot;</text>
+<path d="M360.0,94.0 a145.0,14 0 0,0 290.0,0 v97.0 a145.0,14 0 0,1 -290.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="505.0" cy="94.0" rx="145.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="505.0" y="154.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2328" text-anchor="middle">dos400.img</text>
+<text x="505.0" y="170.6" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#6B7280" text-anchor="middle">+ temporary AUTOEXEC.BAT</text>
+<rect x="360.0" y="335.0" width="290.0" height="115.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="505.0" y="390.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#4D3810" text-anchor="middle">BOOT A:</text>
+<text x="505.0" y="406.6" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#B7862A" text-anchor="middle">sector 0 -&gt; 0000:7C00</text>
+<rect x="700.0" y="335.0" width="320.0" height="115.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="860.0" y="390.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0B3D42" text-anchor="middle">MS-DOS 4.00</text>
+<text x="860.0" y="406.6" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#0E7C86" text-anchor="middle">each command &gt; COM1</text>
+<rect x="1060.0" y="335.0" width="260.0" height="115.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1190.0" y="390.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#4D3810" text-anchor="middle">COM1</text>
+<text x="1190.0" y="406.6" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#B7862A" text-anchor="middle">serial port</text>
+<path d="M1060.0,94.0 a130.0,14 0 0,0 260.0,0 v97.0 a130.0,14 0 0,1 -260.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="1190.0" cy="94.0" rx="130.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="1190.0" y="154.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2328" text-anchor="middle">COM1 file</text>
+<text x="1190.0" y="170.6" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#6B7280" text-anchor="middle">written by DOSBox-X</text>
+<rect x="1360.0" y="85.0" width="210.0" height="115.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1465.0" y="140.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2F40" text-anchor="middle">printed</text>
+<text x="1465.0" y="156.6" font-family="Consolas, Menlo, monospace" font-size="12.48" font-weight="400" fill="#4F6D8A" text-anchor="middle">---- VER ...</text>
+<text x="805.0" y="513.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" fill="#1F2328" text-anchor="middle" font-style="italic">Messages printed before AUTOEXEC.BAT runs (SYSINIT&#x27;s, for example) are not captured; --keep saves the disk afterwards.</text>
+</svg>

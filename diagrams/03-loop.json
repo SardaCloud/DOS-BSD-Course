@@ -1,0 +1,51 @@
+{
+  "title": "The command loop: COMMAND.COM's TCOMMAND versus sh's cmdloop",
+  "width": 17, "height": 7.0,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 16.6, "h": 3.2, "label": "MS-DOS 4.00 COMMAND.COM: one line at a time", "kind": "dos"},
+    {"x": 0.2, "y": 3.6, "w": 16.6, "h": 3.2, "label": "FreeBSD 15.1 sh: one complete command, as a tree", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "d1", "x": 0.45, "y": 0.75, "w": 2.2, "h": 0.95, "label": "TCOMMAND", "sub": "pick the source", "kind": "dos", "size": 18},
+    {"id": "d2", "x": 2.95, "y": 0.75, "w": 2.2, "h": 0.95, "label": "Prompt, read", "sub": "INT 21h 0Ah", "kind": "dos", "size": 18},
+    {"id": "d3", "x": 5.45, "y": 0.75, "w": 2.2, "h": 0.95, "label": "PRESCAN,\nparseline", "kind": "dos", "size": 18},
+    {"id": "d4", "x": 7.95, "y": 0.75, "w": 2.2, "h": 0.95, "label": "fndcom", "sub": "scan COMTAB", "kind": "dos", "size": 18},
+    {"id": "d5", "x": 10.9, "y": 0.75, "w": 2.55, "h": 0.95, "label": "Internal: call\nthe handler", "kind": "dos", "size": 18},
+    {"id": "d6", "x": 7.95, "y": 2.1, "w": 2.2, "h": 0.95, "label": "path_search", "sub": "every time", "kind": "dos", "size": 18},
+    {"id": "d7", "x": 10.9, "y": 2.1, "w": 2.55, "h": 0.95, "label": "EXECUTE (.COM,\n.EXE) or BatCom", "kind": "dos", "size": 18},
+    {"id": "d9", "x": 14.05, "y": 0.75, "w": 2.5, "h": 2.3, "label": "back to\nTCOMMAND", "sub": "after every command", "kind": "dos", "size": 18},
+
+    {"id": "b1", "x": 0.45, "y": 4.15, "w": 2.2, "h": 0.95, "label": "cmdloop", "sub": "main.c", "kind": "bsd", "size": 18},
+    {"id": "b2", "x": 2.95, "y": 4.15, "w": 2.2, "h": 0.95, "label": "Prompt, read", "sub": "PS1, read(2)", "kind": "bsd", "size": 18},
+    {"id": "b3", "x": 5.45, "y": 4.15, "w": 2.2, "h": 0.95, "label": "parsecmd", "sub": "tree of nodes", "kind": "bsd", "size": 18},
+    {"id": "b4", "x": 7.95, "y": 4.15, "w": 2.2, "h": 0.95, "label": "find_command", "sub": "hash table", "kind": "bsd", "size": 18},
+    {"id": "b5", "x": 10.9, "y": 4.15, "w": 2.55, "h": 0.95, "label": "Builtin or\nfunction", "sub": "runs in the shell", "kind": "bsd", "size": 18},
+    {"id": "b6", "x": 7.95, "y": 5.5, "w": 2.2, "h": 0.95, "label": "fork or\nvfork", "kind": "bsd", "size": 18},
+    {"id": "b7", "x": 10.9, "y": 5.5, "w": 2.55, "h": 0.95, "label": "Child execve,\nsh waits", "sub": "wait3 -> $?", "kind": "bsd", "size": 18},
+    {"id": "b9", "x": 14.05, "y": 4.15, "w": 2.5, "h": 2.3, "label": "back to\ncmdloop", "sub": "next command", "kind": "bsd", "size": 18}
+  ],
+  "edges": [
+    {"from": "d1", "to": "d2", "kind": "dos"},
+    {"from": "d2", "to": "d3", "kind": "dos"},
+    {"from": "d3", "to": "d4", "kind": "dos"},
+    {"from": "d4", "to": "d5", "kind": "dos", "label": "found", "size": 15},
+    {"from": "d4", "to": "d6", "kind": "dos", "label": "not found", "size": 15},
+    {"from": "d6", "to": "d7", "kind": "dos"},
+    {"from": "d5", "to": "d9", "from_side": "right", "to_side": "left", "kind": "dos"},
+    {"from": "d7", "to": "d9", "from_side": "right", "to_side": "left", "kind": "dos"},
+    {"from": "d9", "to": "d1", "from_side": "bottom", "to_side": "bottom", "route": "vhv", "via": 3.25, "kind": "dos", "style": "dashed"},
+    {"from": "b1", "to": "b2", "kind": "bsd"},
+    {"from": "b2", "to": "b3", "kind": "bsd"},
+    {"from": "b3", "to": "b4", "kind": "bsd"},
+    {"from": "b4", "to": "b5", "kind": "bsd", "label": "builtin", "size": 15},
+    {"from": "b4", "to": "b6", "kind": "bsd", "label": "external", "size": 15},
+    {"from": "b6", "to": "b7", "kind": "bsd"},
+    {"from": "b5", "to": "b9", "from_side": "right", "to_side": "left", "kind": "bsd"},
+    {"from": "b7", "to": "b9", "from_side": "right", "to_side": "left", "kind": "bsd"},
+    {"from": "b9", "to": "b1", "from_side": "bottom", "to_side": "bottom", "route": "vhv", "via": 6.65, "kind": "bsd", "style": "dashed"}
+  ],
+  "notes": [
+    {"x": 2.0, "y": 2.15, "w": 5.8, "text": "Pipes, FOR, batch files and /C are served\nbefore the keyboard; at most 128 bytes.", "size": 16, "kind": "dos", "style": "italic"},
+    {"x": 2.0, "y": 5.55, "w": 5.8, "text": "A pipeline or a while loop is parsed whole;\nPATH lookups are cached in the hash table.", "size": 16, "kind": "bsd", "style": "italic"}
+  ]
+}

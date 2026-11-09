@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="From C source to a running process on both systems">
+<title>From C source to a running process on both systems</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="15.0" y="15.0" width="1570.0" height="300.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="27.0" y="25.0" width="340.0" height="26" rx="13" fill="#0E7C86"/>
+<text x="197.0" y="43.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00: Microsoft C 5.10, LINK 3.65</text>
+<rect x="15.0" y="335.0" width="1570.0" height="300.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="27.0" y="345.0" width="363.85" height="26" rx="13" fill="#AB2B28"/>
+<text x="208.925" y="363.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1: clang 19, ld.lld, ld-elf.so.1</text>
+<path d="M180.0,152.5 L215.0,152.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M410.0,152.5 L445.0,152.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M640.0,152.5 L675.0,152.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M840.0,152.5 L875.0,152.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1090.0,152.5 L1125.0,152.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M1290.0,152.5 L1325.0,152.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M180.0,472.5 L215.0,472.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M410.0,472.5 L445.0,472.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M640.0,472.5 L675.0,472.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M840.0,472.5 L875.0,472.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1090.0,472.5 L1125.0,472.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1290.0,472.5 L1325.0,472.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="35.0" y="85.0" width="145.0" height="135.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="107.5" y="150.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">HELLO.C</text>
+<text x="107.5" y="168.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">source</text>
+<rect x="215.0" y="85.0" width="195.0" height="135.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="312.5" y="139.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">C1</text>
+<text x="312.5" y="161.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">parse</text>
+<text x="312.5" y="179.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">CL /P, /E</text>
+<rect x="445.0" y="85.0" width="195.0" height="135.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="542.5" y="139.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">C2, C3</text>
+<text x="542.5" y="161.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">code, OMF</text>
+<text x="542.5" y="179.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">CL /c /Fc</text>
+<path d="M675.0,99.0 a82.5,14 0 0,0 165.0,0 v107.0 a82.5,14 0 0,1 -165.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="757.5" cy="99.0" rx="82.5" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="757.5" y="153.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">HELLO</text>
+<text x="757.5" y="175.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">.OBJ</text>
+<text x="757.5" y="193.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">OMF</text>
+<rect x="875.0" y="85.0" width="215.0" height="135.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="982.5" y="139.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">LINK</text>
+<text x="982.5" y="161.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">+ SLIBCE.LIB</text>
+<text x="982.5" y="179.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">crt0, printf</text>
+<path d="M1125.0,99.0 a82.5,14 0 0,0 165.0,0 v107.0 a82.5,14 0 0,1 -165.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="1207.5" cy="99.0" rx="82.5" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="1207.5" y="153.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">HELLO</text>
+<text x="1207.5" y="175.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">.EXE</text>
+<text x="1207.5" y="193.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">MZ</text>
+<rect x="1325.0" y="85.0" width="240.0" height="135.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1445.0" y="139.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">EXEC: load,</text>
+<text x="1445.0" y="161.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">relocate, go</text>
+<text x="1445.0" y="179.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">INT 21h AH=4Bh</text>
+<rect x="35.0" y="405.0" width="145.0" height="135.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="107.5" y="470.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">hello.c</text>
+<text x="107.5" y="488.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">source</text>
+<rect x="215.0" y="405.0" width="195.0" height="135.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="312.5" y="459.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">clang</text>
+<text x="312.5" y="481.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">front end</text>
+<text x="312.5" y="499.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">cc -E, cc -S</text>
+<rect x="445.0" y="405.0" width="195.0" height="135.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="542.5" y="459.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">integrated</text>
+<text x="542.5" y="481.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">assembler</text>
+<text x="542.5" y="499.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">cc -c</text>
+<path d="M675.0,419.0 a82.5,14 0 0,0 165.0,0 v107.0 a82.5,14 0 0,1 -165.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="757.5" cy="419.0" rx="82.5" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="757.5" y="484.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">hello.o</text>
+<text x="757.5" y="502.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">ELF REL</text>
+<rect x="875.0" y="405.0" width="215.0" height="135.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="982.5" y="459.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">ld.lld</text>
+<text x="982.5" y="481.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">+ crt*.o</text>
+<text x="982.5" y="499.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">libc.so: names only</text>
+<path d="M1125.0,419.0 a82.5,14 0 0,0 165.0,0 v107.0 a82.5,14 0 0,1 -165.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="1207.5" cy="419.0" rx="82.5" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="1207.5" y="484.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">hello</text>
+<text x="1207.5" y="502.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">ELF DYN</text>
+<rect x="1325.0" y="405.0" width="240.0" height="135.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1445.0" y="459.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">execve +</text>
+<text x="1445.0" y="481.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">ld-elf.so.1</text>
+<text x="1445.0" y="499.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">map, link, relocate</text>
+<text x="40.0" y="261.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#0B3D42" text-anchor="start" font-style="italic">Three compiler passes write the .OBJ directly (no assembler run). The library code is copied into the .EXE.</text>
+<text x="40.0" y="581.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#4A1312" text-anchor="start" font-style="italic">One driver, integrated assembler. Only libc.so.7 is named in the file; ld-elf.so.1 loads it and libsys.so.7 at run time.</text>
+</svg>

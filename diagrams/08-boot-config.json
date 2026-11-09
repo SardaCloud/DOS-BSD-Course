@@ -1,0 +1,36 @@
+{
+  "title": "Boot-time configuration: CONFIG.SYS and AUTOEXEC.BAT versus loader.conf, rc.conf and rc.d",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 15.6, "h": 2.85, "label": "MS-DOS 4.00", "kind": "dos"},
+    {"x": 0.2, "y": 3.25, "w": 15.6, "h": 3.05, "label": "FreeBSD 15.1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "sys", "x": 0.5, "y": 0.9, "w": 2.6, "h": 1.5, "label": "IO.SYS\nSYSINIT", "sub": "SYSINIT1.ASM", "kind": "dos", "size": 18},
+    {"id": "cfg", "x": 3.6, "y": 0.9, "w": 3.6, "h": 1.5, "label": "CONFIG.SYS", "sub": "DEVICE= BUFFERS= FILES=", "kind": "dos", "size": 18},
+    {"id": "cmd", "x": 7.7, "y": 0.9, "w": 2.5, "h": 1.5, "label": "COMMAND.COM\n/P", "kind": "dos", "size": 18},
+    {"id": "aut", "x": 10.7, "y": 0.9, "w": 2.8, "h": 1.5, "label": "AUTOEXEC.BAT", "sub": "SET PATH KEYB MODE", "kind": "dos", "size": 18},
+    {"id": "dpr", "x": 14.0, "y": 0.9, "w": 1.6, "h": 1.5, "label": "A:\\>", "kind": "user", "size": 18},
+    {"id": "ldr", "x": 0.5, "y": 4.0, "w": 2.2, "h": 1.5, "label": "loader", "sub": "loader.conf", "kind": "bsd", "size": 18},
+    {"id": "krn", "x": 3.1, "y": 4.0, "w": 2.2, "h": 1.5, "label": "kernel", "sub": "tunables", "kind": "bsd", "size": 18},
+    {"id": "ini", "x": 5.7, "y": 4.0, "w": 1.7, "h": 1.5, "label": "init", "kind": "bsd", "size": 18},
+    {"id": "rc", "x": 7.8, "y": 4.0, "w": 2.4, "h": 1.5, "label": "/etc/rc", "sub": "rc.conf", "kind": "bsd", "size": 18},
+    {"id": "rcd", "x": 10.6, "y": 4.0, "w": 2.6, "h": 1.5, "label": "rcorder\nrc.d/*", "sub": "sysctl.conf, fstab", "kind": "bsd", "size": 18},
+    {"id": "gty", "x": 13.6, "y": 4.0, "w": 2.0, "h": 1.5, "label": "getty\nlogin", "sub": "ttys", "kind": "bsd", "size": 18}
+  ],
+  "edges": [
+    {"from": "sys", "to": "cfg", "kind": "dos"},
+    {"from": "cfg", "to": "cmd", "kind": "dos"},
+    {"from": "cmd", "to": "aut", "kind": "dos"},
+    {"from": "aut", "to": "dpr", "kind": "dos"},
+    {"from": "ldr", "to": "krn", "kind": "bsd"},
+    {"from": "krn", "to": "ini", "kind": "bsd"},
+    {"from": "ini", "to": "rc", "kind": "bsd"},
+    {"from": "rc", "to": "rcd", "kind": "bsd"},
+    {"from": "rcd", "to": "gty", "kind": "bsd"}
+  ],
+  "notes": [
+    {"x": 0.5, "y": 2.5, "w": 15.0, "text": "Several passes over one file; a change needs a reboot. Mistakes: \"Error in CONFIG.SYS line n\", or a hang.", "size": 15, "style": "italic", "kind": "dos"},
+    {"x": 0.5, "y": 5.65, "w": 15.0, "text": "Defaults files + small overrides; scripts ordered by PROVIDE/REQUIRE; most services restart without a reboot.", "size": 15, "style": "italic", "kind": "bsd"}
+  ]
+}

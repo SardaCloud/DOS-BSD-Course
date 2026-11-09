@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 570.0" width="1200" height="570.0" role="img" aria-label="How arguments travel from the command line to a program on MS-DOS and on FreeBSD">
+<title>How arguments travel from the command line to a program on MS-DOS and on FreeBSD</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1200" height="570.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1160.0" height="255.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="109.45" height="26" rx="13" fill="#0E7C86"/>
+<text x="86.725" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00</text>
+<rect x="20.0" y="295.0" width="1160.0" height="255.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="305.0" width="117.4" height="26" rx="13" fill="#AB2B28"/>
+<text x="90.7" y="323.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1</text>
+<path d="M234.0,143.5 L279.0,143.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M463.0,143.5 L508.0,143.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M692.0,143.5 L737.0,143.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M921.0,143.5 L966.0,143.5" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M234.0,418.5 L279.0,418.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M463.0,418.5 L508.0,418.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M692.0,418.5 L737.0,418.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M921.0,418.5 L966.0,418.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="50.0" y="75.0" width="184.0" height="137.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="142.0" y="141.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">Command line</text>
+<text x="142.0" y="156.7" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">ARGS *.TXT &gt;O</text>
+<rect x="279.0" y="75.0" width="184.0" height="137.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="371.0" y="130.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B3D42" text-anchor="middle">COMMAND.COM</text>
+<text x="371.0" y="148.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B3D42" text-anchor="middle">takes out</text>
+<text x="371.0" y="167.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B3D42" text-anchor="middle">&lt; &gt; |</text>
+<rect x="508.0" y="75.0" width="184.0" height="137.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="600.0" y="132.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B3D42" text-anchor="middle">EXEC</text>
+<text x="600.0" y="150.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B3D42" text-anchor="middle">INT 21h 4B00h</text>
+<text x="600.0" y="165.8" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">copies 128 bytes</text>
+<rect x="737.0" y="75.0" width="184.0" height="137.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="829.0" y="123.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2328" text-anchor="middle">PSP at 80h:</text>
+<text x="829.0" y="141.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2328" text-anchor="middle">length, text,</text>
+<text x="829.0" y="159.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2328" text-anchor="middle">CR</text>
+<text x="829.0" y="175.0" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">&lt;= 127 bytes</text>
+<rect x="966.0" y="75.0" width="184.0" height="137.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1058.0" y="123.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">The program</text>
+<text x="1058.0" y="141.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">splits the</text>
+<text x="1058.0" y="159.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">tail itself</text>
+<text x="1058.0" y="175.0" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">ARGS.COM, C start-up</text>
+<rect x="50.0" y="350.0" width="184.0" height="137.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="142.0" y="416.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">Command line</text>
+<text x="142.0" y="431.7" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">./args *.txt &gt;o</text>
+<rect x="279.0" y="350.0" width="184.0" height="137.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="371.0" y="405.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1312" text-anchor="middle">sh splits,</text>
+<text x="371.0" y="423.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1312" text-anchor="middle">expands,</text>
+<text x="371.0" y="442.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1312" text-anchor="middle">removes quotes</text>
+<rect x="508.0" y="350.0" width="184.0" height="137.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="600.0" y="398.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1312" text-anchor="middle">execve(2)</text>
+<text x="600.0" y="416.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1312" text-anchor="middle">copies the</text>
+<text x="600.0" y="434.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1312" text-anchor="middle">strings</text>
+<text x="600.0" y="450.0" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">&lt;= 512 KB</text>
+<rect x="737.0" y="350.0" width="184.0" height="137.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="829.0" y="398.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2328" text-anchor="middle">New stack:</text>
+<text x="829.0" y="416.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2328" text-anchor="middle">argc, argv[],</text>
+<text x="829.0" y="434.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2328" text-anchor="middle">NULL, envp</text>
+<text x="829.0" y="450.0" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">rdi -&gt; argc</text>
+<rect x="966.0" y="350.0" width="184.0" height="137.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1058.0" y="398.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">The program</text>
+<text x="1058.0" y="416.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">gets finished</text>
+<text x="1058.0" y="434.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F2F40" text-anchor="middle">words</text>
+<text x="1058.0" y="450.0" font-family="Consolas, Menlo, monospace" font-size="11.700000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">argsa, crt1.o</text>
+<text x="55.0" y="230.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13.5" fill="#0B3D42" text-anchor="start" font-style="italic">One string: the program finds the words itself, and *.TXT arrives as written unless the program</text>
+<text x="55.0" y="247.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13.5" fill="#0B3D42" text-anchor="start" font-style="italic">is linked with SETARGV.OBJ (Lab 9.2). The program&#x27;s name comes after the environment.</text>
+<text x="55.0" y="505.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13.5" fill="#4A1312" text-anchor="start" font-style="italic">An array of words: the shell has already expanded *.txt into a.txt b.txt ... and removed quotes</text>
+<text x="55.0" y="522.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13.5" fill="#4A1312" text-anchor="start" font-style="italic">and &gt;o; the program never sees them. Arguments and environment together: at most ARG_MAX.</text>
+</svg>

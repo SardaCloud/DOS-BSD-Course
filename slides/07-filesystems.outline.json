@@ -1,0 +1,403 @@
+{
+ "module": 7,
+ "title": "Disks and file systems: FAT against UFS2",
+ "subtitle": "MS-DOS 4.00 and FreeBSD 15.1, from raw sectors to files",
+ "slides": [
+  {
+   "type": "section",
+   "title": "Disks as arrays of sectors"
+  },
+  {
+   "type": "figure",
+   "title": "From a name to a sector",
+   "diagram": "07-naming-wide",
+   "caption": "Drive letter, CDS and DPB on MS-DOS; GEOM providers on FreeBSD",
+   "notes": "Start from what a program names. On MS-DOS a drive letter selects a CDS entry, which points to the DPB built from the BPB at boot, which points to the driver unit; the driver turns a logical sector into CHS for INT 13h. On FreeBSD a path leads to a mounted file system, which is a consumer of a GEOM provider such as ada0p4; the PART class adds the partition offset and passes a bio to the disk."
+  },
+  {
+   "type": "code",
+   "title": "The Drive Parameter Block",
+   "lang": "asm",
+   "code": "dpb_drive           DB      ?           ; Logical drive # assoc with DPB (A=0,B=1,...)\ndpb_UNIT            DB      ?           ; Driver unit number of DPB\ndpb_sector_size     DW      ?           ; Size of physical sector in bytes\ndpb_cluster_mask    DB      ?           ; Sectors/cluster - 1\ndpb_cluster_shift   DB      ?           ; Log2 of sectors/cluster\ndpb_first_FAT       DW      ?           ; Starting record of FATs\ndpb_FAT_count       DB      ?           ; Number of FATs for this drive\ndpb_root_entries    DW      ?           ; Number of directory entries\ndpb_first_sector    DW      ?           ; First sector of first cluster\ndpb_max_cluster     DW      ?           ; Number of clusters on drive + 1\n⋮\ndpb_first_access    DB      ?           ; This is initialized to -1 to force a media\n                                        ; check the first time this DPB is used\ndpb_next_dpb        DD      ?           ; Pointer to next Drive parameter block\ndpb_next_free       DW      ?           ; Cluster # of last allocated cluster\ndpb_free_cnt        DW      ?           ; Count of free clusters, -1 if unknown",
+   "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/INC/DPB.INC#L8-L26",
+   "callouts": [
+    "Geometry digested from the BPB",
+    "Shift and mask avoid DIV",
+    "next_free: the allocation cursor",
+    "free_cnt: -1 when unknown"
+   ],
+   "notes": "One DPB per drive letter. Point at dpb_cluster_mask and dpb_cluster_shift: the kernel turns cluster numbers into sectors with shifts. dpb_next_free and dpb_free_cnt come back in Lab 7.3 and Exercise 7.5, where DPBINFO.C prints them."
+  },
+  {
+   "type": "table",
+   "title": "Partitions and disks in the official FreeBSD VM image",
+   "header": [
+    "Partition",
+    "Type",
+    "LBA range",
+    "Size"
+   ],
+   "rows": [
+    [
+     "p1",
+     "freebsd-boot",
+     "34 - 154",
+     "0.1 MiB"
+    ],
+    [
+     "p2",
+     "efi (a FAT file system)",
+     "155 - 66738",
+     "32.5 MiB"
+    ],
+    [
+     "p3",
+     "freebsd-swap",
+     "66739 - 2163890",
+     "1 GiB"
+    ],
+    [
+     "p4",
+     "freebsd-ufs",
+     "2163891 - 12649650",
+     "5 GiB"
+    ]
+   ],
+   "notes": "Real output of vhdpart.py on FreeBSD-15.1-RELEASE-amd64-ufs.vhd.xz. A GPT disk with a protective MBR of type EEh. Note that the EFI system partition is FAT: firmware everywhere reads FAT, which is part of the essay question."
+  },
+  {
+   "type": "section",
+   "title": "FAT12 and FAT16 in MS-DOS 4.00"
+  },
+  {
+   "type": "figure",
+   "title": "Two layouts",
+   "diagram": "07-layout-wide",
+   "caption": "FAT keeps all metadata at the front; UFS2 repeats it in every cylinder group",
+   "notes": "Numbers are real: the lab floppy (sectors) and the root file system of the VM image (4 KB fragments). FAT: boot sector, two FATs side by side, fixed root directory, data. UFS2: superblock at 64 KB, then nine cylinder groups each with a superblock copy, bitmaps, 80,256 inodes and data."
+  },
+  {
+   "type": "code",
+   "title": "A directory entry is the file's whole description",
+   "lang": "asm",
+   "code": "dir_entry   STRUC\ndir_name    DB      11 DUP (?)          ; file name\ndir_attr    DB      ?                   ; attribute bits\ndir_codepg  dw      ?                   ; code page DOS 4.00\ndir_extcluster dw   ?                   ; extended attribute starting cluster\ndir_attr2   db      ?                   ; reserved\ndir_pad     DB      5  DUP (?)          ; reserved for expansion\ndir_time    DW      ?                   ; time of last write\ndir_date    DW      ?                   ; date of last write\ndir_first   DW      ?                   ; first allocation unit of file\ndir_size_l  DW      ?                   ; low 16 bits of file size\ndir_size_h  DW      ?                   ; high 16 bits of file size\ndir_entry   ENDS",
+   "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/INC/DIRENT.INC#L28-L40",
+   "callouts": [
+    "11 bytes of name, no dot",
+    "Attributes: R H S V D A",
+    "Time and date packed in 16 bits each",
+    "First cluster; the FAT has the rest"
+   ],
+   "notes": "Decode Output 7.4 live: 4916h is 9:08:44, 5D69h is 2026-11-09. Ask why a directory's size field is 0, and why two names for one file are impossible when the metadata lives here."
+  },
+  {
+   "type": "code",
+   "title": "ALLOCATE: next fit from dpb_next_free",
+   "lang": "asm",
+   "code": "        mov     bx,es:[bp.dpb_next_free]\n        cmp     bx,2\n        ja      findfre\n⋮\nFINDFRE:\n        INC     BX\n⋮\naupk:\n        invoke  UNPACK          ; check out this cluster\n        jc      ads4            ; FAT error             [INTERR?]\n        jnz     findfre         ; not free, keep on truckin\n\n;   Have found a free cluster.  Chain it to the file\n;\n;       (BX) = found free cluster #\n;       (DX) = current last cluster in file\n\n        mov     es:[bp.dpb_next_free],bx        ; next time start search here",
+   "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/DOS/ROM.ASM#L663-L699",
+   "callouts": [
+    "Start at the cursor, not at cluster 2",
+    "UNPACK: is this cluster free?",
+    "Remember where we stopped"
+   ],
+   "notes": "The search continues from the last cluster allocated. Apart from the wrap-around to cluster 2 at the end of the disk, the cursor is reset only when the DPB is rebuilt, which happens whenever the floppy driver answers 'don't know' to a media check, for example after an access to another drive. That is the whole explanation of Lab 7.3."
+  },
+  {
+   "type": "compare",
+   "title": "Lab 7.3: the same batch file, two layouts",
+   "left": {
+    "heading": "FRAG.BAT run from A:",
+    "bullets": [
+     "COMMAND reads each line from A:",
+     "Every B: access follows an A: access",
+     "Media check: don't know, DPB rebuilt",
+     "Allocation restarts at cluster 2",
+     "All specified file(s) are contiguous"
+    ]
+   },
+   "right": {
+    "heading": "FRAG.BAT run from B:",
+    "bullets": [
+     "Only B: is touched",
+     "Door latch: not changed, DPB kept",
+     "Cursor continues after C.DAT",
+     "A.DAT grows to 29-32, hole 13-20 stays",
+     "A.DAT Contains 2 non-contiguous blocks"
+    ]
+   },
+   "notes": "Real CHKDSK output from both runs. Ask the class to predict the layout before showing it. The lesson: on FAT, placement depends on a single global cursor and on the driver's guess about media changes; UFS2 decides per cylinder group from bitmaps."
+  },
+  {
+   "type": "stat",
+   "title": "Limits of the 4.00 formats",
+   "stats": [
+    {
+     "value": "4,084",
+     "label": "max clusters of FAT12 (max_cluster < 4086)"
+    },
+    {
+     "value": "65,525",
+     "label": "cluster numbers of FAT16 (2 to FFF6h)"
+    },
+    {
+     "value": "2 GB",
+     "label": "FAT16 with 32 KB clusters"
+    },
+    {
+     "value": "32 MB",
+     "label": "the old limit of the 16-bit sector count"
+    }
+   ],
+   "notes": "DOS 4.00 added the 32-bit total in the extended BPB and 32-bit sector numbers in the kernel (HIGH_SECTOR). The IO.SYS table goes to 128 sectors per cluster, but 64 KB clusters overflow 16-bit byte counts in the utilities, so 2 GB is the practical limit. Exercise 7.2 asks for the derivation."
+  },
+  {
+   "type": "section",
+   "title": "UFS2 in FreeBSD 15.1"
+  },
+  {
+   "type": "table",
+   "title": "The superblock of the official VM image (real)",
+   "header": [
+    "Field",
+    "Value",
+    "Meaning"
+   ],
+   "rows": [
+    [
+     "fs_magic",
+     "0x19540119",
+     "UFS2"
+    ],
+    [
+     "fs_bsize / fs_fsize",
+     "32768 / 4096",
+     "block and fragment"
+    ],
+    [
+     "fs_ncg x fs_fpg",
+     "9 x 160336 frags",
+     "626 MiB per cylinder group"
+    ],
+    [
+     "fs_ipg",
+     "80256",
+     "inodes per group"
+    ],
+    [
+     "fs_nindir",
+     "4096",
+     "pointers per indirect block"
+    ],
+    [
+     "fs_flags",
+     "0x2",
+     "soft updates, no journal"
+    ],
+    [
+     "fs_maxfilesize",
+     "2252349704110079",
+     "about 2 PiB"
+    ]
+   ],
+   "notes": "From ufsx.py sb on the root partition copied out of the .vhd.xz with vhdpart.py. Every value is a field of struct fs in fs.h. fs_maxfilesize is computed by mkfs from bsize and NINDIR: 12 direct blocks plus single, double and triple indirect."
+  },
+  {
+   "type": "code",
+   "title": "struct ufs2_dinode: 256 bytes per file",
+   "lang": "c",
+   "code": "struct ufs2_dinode {\n        uint16_t        di_mode;        /*   0: IFMT, permissions; see below. */\n        uint16_t        di_nlink;       /*   2: File link count. */\n        uint32_t        di_uid;         /*   4: File owner. */\n        uint32_t        di_gid;         /*   8: File group. */\n        uint32_t        di_blksize;     /*  12: Inode blocksize. */\n        uint64_t        di_size;        /*  16: File byte count. */\n        uint64_t        di_blocks;      /*  24: Blocks actually held. */\n        ufs_time_t      di_atime;       /*  32: Last access time. */\n        ufs_time_t      di_mtime;       /*  40: Last modified time. */\n        ufs_time_t      di_ctime;       /*  48: Last inode change time. */\n⋮\n                        ufs2_daddr_t    di_db /* 112: Direct disk blocks. */\n                            [UFS_NDADDR];\n                        ufs2_daddr_t    di_ib /* 208: Indirect disk blocks. */\n                            [UFS_NIADDR];",
+   "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/ufs/ufs/dinode.h#L125-L151",
+   "callouts": [
+    "Mode, links, owner, group",
+    "64-bit size and times",
+    "12 direct, 3 indirect pointers"
+   ],
+   "notes": "Compare with the 32-byte DOS entry. Everything except the name is here; the directory only maps names to inode numbers. Pointers count 4 KB fragments: di_db[0] = 5057 for the root directory means byte 5057 x 4096 of the partition."
+  },
+  {
+   "type": "figure",
+   "title": "Where is block n?",
+   "diagram": "07-chain-vs-inode-wide",
+   "caption": "A FAT chain of links against direct and indirect pointers",
+   "notes": "Real data: A.DAT of Lab 7.3 and /boot/kernel/kernel of the VM image, 897 blocks, 12 direct and 885 through one indirect block at fragment 29112, placed right after the last direct block as ffs_blkpref_ufs2 says. Study case 7.A: byte 100,000 costs 195 links on the floppy, one array lookup on UFS2."
+  },
+  {
+   "type": "figure",
+   "title": "Directory entries",
+   "diagram": "07-direntry-wide",
+   "caption": "FAT's entry is the metadata; UFS2's entry only names an inode",
+   "notes": "UFS directory records have variable length (d_reclen) inside 512-byte chunks; the last record of a chunk absorbs the free space. The root directory of the image is 20 records in 512 bytes, the last one 240 bytes long. Hard links are just two records with the same d_ino."
+  },
+  {
+   "type": "code",
+   "title": "Soft updates: roll back, write, roll forward",
+   "lang": "c",
+   "code": "/*\n * Allocation dependencies are handled with undo/redo on the in-memory\n * copy of the data. A particular data dependency is eliminated when\n * it is ALLCOMPLETE: that is ATTACHED, DEPCOMPLETE, and COMPLETE.\n *\n * The ATTACHED flag means that the data is not currently being written\n * to disk.\n *\n * The UNDONE flag means that the data has been rolled back to a safe\n * state for writing to the disk. When the I/O completes, the data is\n * restored to its current form and the state reverts to ATTACHED.\n * The data must be locked throughout the rollback, I/O, and roll\n * forward so that the rolled back information is never visible to",
+   "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/ufs/ffs/softdep.h#L43-L55",
+   "callouts": [
+    "Dependencies tracked in memory",
+    "Unsafe changes rolled back in the copy written",
+    "Restored after the I/O"
+   ],
+   "notes": "The goal: whatever subset of writes reaches the disk, the only damage is leaked blocks and inodes. SU+J adds a small journal so fsck_ffs replays instead of scanning. newfs -j runs tunefs -j enable after mkfs."
+  },
+  {
+   "type": "section",
+   "title": "Comparing the two, and the I/O path"
+  },
+  {
+   "type": "table",
+   "title": "FAT against UFS2",
+   "header": [
+    "",
+    "FAT12/16 (MS-DOS 4.00)",
+    "UFS2 (FreeBSD 15.1)"
+   ],
+   "rows": [
+    [
+     "File map",
+     "Linked list in the FAT",
+     "Pointer array in the inode"
+    ],
+    [
+     "Free space",
+     "FAT entries = 0, next-fit cursor",
+     "Bitmap per cylinder group"
+    ],
+    [
+     "Names",
+     "8.3, upper case",
+     "Up to 255 bytes"
+    ],
+    [
+     "Owners, permissions",
+     "None (R, H, S, A)",
+     "uid, gid, mode, ACLs"
+    ],
+    [
+     "Links, sparse files",
+     "No",
+     "Yes"
+    ],
+    [
+     "After a crash",
+     "CHKDSK by hand",
+     "Leaks only; background fsck or journal"
+    ]
+   ],
+   "notes": "Each row has a permalink in section 7.4. Be fair to FAT: it is tiny, needs no notion of users, and every firmware can read it. That is why the EFI partition of the FreeBSD image is FAT."
+  },
+  {
+   "type": "figure",
+   "title": "The disk I/O path",
+   "diagram": "07-io-path-wide",
+   "caption": "INT 25h/26h bypass the DOS buffers; GEOM refuses writes under a mounted file system",
+   "notes": "DOS: BUFFERS=20 one-sector buffers, then the IO.SYS driver and INT 13h. INT 26h goes straight to the driver and does not update a buffer holding the same sector. FreeBSD: buffer and page cache, then GEOM; a write open of a provider that a mounted file system holds exclusively fails with EPERM."
+  },
+  {
+   "type": "code",
+   "title": "GEOM says no",
+   "lang": "c",
+   "code": "                ;\n        /* If we try exclusive but already write: fail */\n        else if (dce > 0 && pw > 0)\n                return (EPERM);\n        /* If we try write but already exclusive: fail */\n        else if (dcw > 0 && pe > 0)\n                return (EPERM);\n        /* If we try to open more but provider is error'ed: fail */\n        else if ((dcr > 0 || dcw > 0 || dce > 0) && pp->error != 0) {",
+   "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/geom/geom_subr.c#L1017-L1025",
+   "callouts": [
+    "Foot-shooting flag: only for debugging",
+    "Exclusive holder present: write refused"
+   ],
+   "notes": "UFS opens its provider with read, write and exclusive access (g_vfs_open). dd of=/dev/md0 then asks for write access and gets EPERM. kern.geom.debugflags=0x10 lifts the check on disks; its name says what the developers think of it."
+  },
+  {
+   "type": "section",
+   "title": "Labs"
+  },
+  {
+   "type": "bullets",
+   "title": "Labs 7.1 and 7.2: sectors and a FAT explorer",
+   "bullets": [
+    "7.1: DEBUG L reads sectors 0, 1 and 19 of the boot disk",
+    "Decode the BPB, the FAT and IO.SYS's entry by hand",
+    "7.2: fatx.py info, ls, chain, entry, check on a kept image",
+    "Every number matches DIR and CHKDSK",
+    "CHKDSK's third hidden file is the volume label"
+   ],
+   "notes": "All outputs are real, from MS-DOS 4.00 built from source. The label quirk is in CHKPROC.ASM: in pass one a volume label jumps straight to the hidden-file counter. Give students time to read fatx.py next to DIRENT.INC and FAT.ASM."
+  },
+  {
+   "type": "bullets",
+   "title": "Labs 7.3 and 7.4: fragmentation and damage",
+   "bullets": [
+    "7.3: one batch file, two layouts (next-fit cursor)",
+    "7.4: setfat makes a lost chain and a cross-link",
+    "CHKDSK hangs: label + cross-link + media F0h",
+    "The kernel's IsEof accepts FF0h; CROSSLOOK does not",
+    "FILE0000.CHK dated 1994: SHL AL,CL loses the year"
+   ],
+   "notes": "Two real bugs in the 1988 CHKDSK, both explained from the source: the second pass follows the label's cluster 0 into FAT entry 0 = FF0h and walks off the FAT; Systime shifts the year inside the 8-bit AL, so only 1980-1995 work."
+  },
+  {
+   "type": "code",
+   "title": "CROSSLOOK stops only at EOFVAL",
+   "lang": "asm",
+   "code": "CHLP:\n        PUSH    BX                                         ;an014;bgb\n        CALL    UNPACK                                     ;an014;bgb\n        POP     BX                                         ;an014;bgb\n        XCHG    SI,DI                                      ;an014;bgb\n        CMP     SI,[EOFVAL]                                ;an014;bgb\n        jae     chaindone                                  ;an014;bgb                      ;an014;bgb\n;;;;;;;;JAE     Check_XA_Cross                             ;an014;bgb                      ;an014;bgb\n        CALL    CROSSCHK                                   ;an014;bgb\n        JZ      CHLP                                       ;an014;bgb\n        JMP SHORT CROSSLINK                                ;an014;bgb",
+   "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/CMD/CHKDSK/CHKPROC.ASM#L781-L791",
+   "callouts": [
+    "UNPACK(0) returns FAT[0] = FF0h on a 1.44 MB disk",
+    "FF0h < FF8h: treated as a cluster",
+    "The loop reads past the FAT table"
+   ],
+   "notes": "Remove the volume label with DEBUG W (or empty files) and CHKDSK completes and reports the cross-link. On a hard disk, media F8h, FAT[0] is FF8h and the loop ends at once. The kernel fixed the same problem in IsEof in 1986."
+  },
+  {
+   "type": "bullets",
+   "title": "Labs 7.5 to 7.7: UFS2 and msdosfs",
+   "bullets": [
+    "7.5: mkufs.sh in the VM; ufsx.py on the real VM image",
+    "Superblock, cylinder group 0, inodes, /etc/rc.conf",
+    "7.6: one file on both: 32 + 3 bytes against 256 + 16",
+    "7.7: msdosfs makes up owner, mode, links and inode numbers",
+    "Inode number = position of the directory entry"
+   ],
+   "notes": "All VM outputs were captured in the course VM. In 7.5, dir lands in cylinder group 3 (inode 3456): ffs_dirpref at work; fsdb -r refuses cd because FL_ST is 0x0003 and overlaps the write flags, so the script uses inode N. In 7.7, IO.SYS is inode 304: root directory sector 19 times 16 entries per sector, entry 0."
+  },
+  {
+   "type": "code",
+   "title": "msdosfs_getattr invents what FAT lacks",
+   "lang": "c",
+   "code": "        mode = S_IRWXU|S_IRWXG|S_IRWXO;\n        if (dep->de_Attributes & ATTR_READONLY)\n                mode &= ~(S_IWUSR|S_IWGRP|S_IWOTH);\n        vap->va_mode = mode &\n            (ap->a_vp->v_type == VDIR ? pmp->pm_dirmask : pmp->pm_mask);\n        vap->va_uid = pmp->pm_uid;\n        vap->va_gid = pmp->pm_gid;\n        vap->va_nlink = 1;",
+   "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/fs/msdosfs/msdosfs_vnops.c#L283-L290",
+   "callouts": [
+    "All permissions, minus write if read-only",
+    "Then the mount's mask",
+    "Owner and group from the mount",
+    "Always one link"
+   ],
+   "notes": "The only per-file inputs are the DOS attributes. Defaults come from the mount point directory (mount_msdosfs.c). Ask what chmod does on such a file system."
+  },
+  {
+   "type": "bullets",
+   "title": "Homework",
+   "bullets": [
+    "7.1: fatx.py put and rm, verified with CHKDSK",
+    "7.2: maximum file and volume sizes, derived",
+    "7.3: BOOTINFO.COM with INT 25h (32-bit packet)",
+    "7.4: sbinfo.c with <ufs/ffs/fs.h> and pread",
+    "7.5: DPBINFO.C with MS C 5.10 and INT 21h 32h",
+    "7.6: frag.sh on UFS2; 7.7: essay on FAT's survival"
+   ],
+   "notes": "Every DOS program must be run on the lab system with dos_run.py or dosb.py. The FreeBSD programs run in the VM. Exercise 7.1 is the core one: it forces students to write both FATs and think about the order of writes."
+  },
+  {
+   "type": "bullets",
+   "title": "Key takeaways",
+   "bullets": [
+    "FAT: one global table, metadata in the directory entry",
+    "UFS2: inodes, bitmaps and data spread over cylinder groups",
+    "Finding byte n: n/cluster links against at most 3 indirect blocks",
+    "FAT repairs after the fact; soft updates order the writes",
+    "Raw disk writes: unchecked on DOS, refused by GEOM when mounted"
+   ],
+   "notes": "Close with the essay question: FAT lost on every technical axis except simplicity and universality, and those turned out to matter most for removable media and firmware. Next module: memory."
+  }
+ ]
+}

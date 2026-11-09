@@ -1,0 +1,115 @@
+Expected output of the completed Module 9 tools on MS-DOS 4.00, captured with
+tools/dos_run.py on 2026-11-09. Each "---- " line is the command that was run;
+(to), (from) and (pipe) stand for >, < and |. The SYSINFO numbers depend on the
+disk and on the configuration. The full command is in the README of Module 9.
+
+---- CTTY COM1
+
+---- PATH A:\
+---- ARGS one  two three
+tail: 15 bytes [ one  two three]
+0: [A:\ARGS.COM]
+1: [one]
+2: [two]
+3: [three]
+---- ARGS.EXE "two words" x
+argc: 3
+0: [A:\ARGS.EXE]
+1: [two words]
+2: [x]
+---- ARGSW *.TXT
+argc: 3
+0: [A:\ARGSW.EXE]
+1: [CTRLZ.TXT]
+2: [POEM.TXT]
+---- WC POEM.TXT
+       6      30     155 POEM.TXT
+---- WC *.TXT
+       3       7      39 CTRLZ.TXT
+       6      30     155 POEM.TXT
+       9      37     194 total
+---- WCA  (from) POEM.TXT
+       6      30     155
+---- WC  (from) CTRLZ.TXT
+       3       7      39
+---- TYPE CTRLZ.TXT  (pipe)  WCA
+       2       4      20
+---- HD CTRLZ.TXT
+00000000  6c 69 6e 65 20 6f 6e 65  0d 0a 6c 69 6e 65 20 74  |line one..line t|
+00000010  77 6f 0d 0a 1a 61 66 74  65 72 20 74 68 65 20 43  |wo...after the C|
+00000020  74 72 6c 2d 5a 0d 0a                              |trl-Z..|
+00000027
+---- HD -t CTRLZ.TXT
+00000000  6c 69 6e 65 20 6f 6e 65  0a 6c 69 6e 65 20 74 77  |line one.line tw|
+00000010  6f 0a                                             |o.|
+00000012
+---- HDA  (from) CTRLZ.TXT
+00000000  6c 69 6e 65 20 6f 6e 65  0d 0a 6c 69 6e 65 20 74  |line one..line t|
+00000010  77 6f 0d 0a 1a 61 66 74  65 72 20 74 68 65 20 43  |wo...after the C|
+00000020  74 72 6c 2d 5a 0d 0a                              |trl-Z..|
+00000027
+---- SYSINFO
+system:    MS-DOS 4.00
+directory: A:\
+disk:      222720 bytes free of 1457664
+memory:    largest free block 509504 bytes
+---- SYSINFOA
+system:    MS-DOS 4.00
+directory: A:\
+disk:      222720 bytes free of 1457664
+memory:    largest free block 580592 bytes
+---- ASK YN Continue  (from) Y.ANS
+Continue [Y,N]? Y
+---- CALL A:\EL
+exit code 1
+---- ASK YN Continue  (from) N.ANS
+Continue [Y,N]? N
+---- CALL A:\EL
+exit code 2
+---- ASK YN Continue  (from) JUNK.ANS
+Continue [Y,N]? 
+---- CALL A:\EL
+exit code 0
+---- MKDIR WORK
+---- MKDIR SAVE
+---- COPY *.TXT WORK
+POEM.TXT
+CTRLZ.TXT
+        2 File(s) copied
+---- COPY *.ANS WORK
+Y.ANS
+N.ANS
+JUNK.ANS
+EMPTY.ANS
+        3 File(s) copied
+---- CD WORK
+---- CALL A:\BACKUP.BAT A:\SAVE *.TXT *.ANS NOSUCH.DAT
+copied  POEM.TXT
+copied  CTRLZ.TXT
+copied  Y.ANS
+copied  N.ANS
+copied  JUNK.ANS
+FAILED  NOSUCH.DAT
+
+---------- A:\SAVE\COPIED.LST: 5
+
+---------- A:\SAVE\SAME.LST: 0
+
+---------- A:\SAVE\FAILED.LST: 1
+---- CALL A:\EL
+exit code 1
+---- ECHO more (to)  (to) Y.ANS
+---- CALL A:\BACKUP.BAT A:\SAVE *.TXT *.ANS
+same    POEM.TXT
+same    CTRLZ.TXT
+copied  Y.ANS
+same    N.ANS
+same    JUNK.ANS
+
+---------- A:\SAVE\COPIED.LST: 1
+
+---------- A:\SAVE\SAME.LST: 4
+
+---------- A:\SAVE\FAILED.LST: 0
+---- CALL A:\EL
+exit code 0

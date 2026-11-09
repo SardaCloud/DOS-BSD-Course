@@ -1,0 +1,4 @@
+src-ext/
+build/
+*.pyc
+__pycache__/

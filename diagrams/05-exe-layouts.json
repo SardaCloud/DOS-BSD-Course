@@ -1,0 +1,31 @@
+{
+  "title": "Executable files and the memory they become",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.15, "y": 0.15, "w": 7.75, "h": 6.2, "label": "MS-DOS 4.00: .COM and MZ .EXE", "kind": "dos"},
+    {"x": 8.1, "y": 0.15, "w": 7.75, "h": 6.2, "label": "FreeBSD 15.1: ELF", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "cf", "x": 0.4, "y": 0.85, "w": 1.9, "h": 1.5, "label": "HELLOC\n.COM", "sub": "53 B, no header", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "cm", "x": 3.55, "y": 0.85, "w": 4.1, "h": 1.5, "label": "PSP | code at 100h |\nstack", "sub": "one segment: CS=DS=ES=SS", "kind": "dos", "size": 18},
+    {"id": "mf", "x": 0.4, "y": 2.9, "w": 1.9, "h": 1.5, "label": "HELLO\n.EXE", "sub": "header + image", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "mm", "x": 3.55, "y": 2.9, "w": 4.1, "h": 1.5, "label": "PSP | _TEXT | DGROUP\n| free", "sub": "4 words + load segment", "kind": "dos", "size": 18},
+    {"id": "ef", "x": 8.4, "y": 0.85, "w": 2.2, "h": 4.6, "label": "ELF file\n/bin/ls", "sub": "ehdr, phdrs", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "p1", "x": 11.3, "y": 0.75, "w": 4.3, "h": 1.0, "label": "PT_LOAD  R", "sub": "headers, .rodata, .rela", "kind": "bsd", "size": 18},
+    {"id": "p2", "x": 11.3, "y": 1.95, "w": 4.3, "h": 1.0, "label": "PT_LOAD  R E", "sub": ".text .init .plt", "kind": "bsd", "size": 18},
+    {"id": "p3", "x": 11.3, "y": 3.15, "w": 4.3, "h": 1.0, "label": "PT_LOAD  RW (x2)", "sub": ".data .got .got.plt .bss", "kind": "bsd", "size": 18},
+    {"id": "p4", "x": 11.3, "y": 4.35, "w": 4.3, "h": 1.0, "label": "PT_INTERP", "sub": "/libexec/ld-elf.so.1", "kind": "neutral", "size": 18}
+  ],
+  "edges": [
+    {"from": "cf", "to": "cm", "kind": "dos", "label": "copy"},
+    {"from": "mf", "to": "mm", "kind": "dos", "label": "copy + fix"},
+    {"from": "ef", "to": "p1", "from_side": "right", "to_side": "left", "kind": "bsd"},
+    {"from": "ef", "to": "p2", "from_side": "right", "to_side": "left", "kind": "bsd"},
+    {"from": "ef", "to": "p3", "from_side": "right", "to_side": "left", "kind": "bsd"},
+    {"from": "ef", "to": "p4", "from_side": "right", "to_side": "left", "kind": "bsd", "style": "dashed"}
+  ],
+  "notes": [
+    {"x": 0.45, "y": 4.75, "w": 7.2, "text": "EXEC reads the bytes into a memory block. For an .EXE it\nthen adds the load segment to every word listed in the\nrelocation table. A .COM has no header and no relocations.", "size": 15, "kind": "dos", "style": "italic"},
+    {"x": 8.45, "y": 5.6, "w": 7.2, "text": "The kernel maps the file; pages are read on first touch.", "size": 15, "kind": "bsd", "style": "italic"}
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Building MS-DOS 4.00 from source and booting it",
+  "width": 17.4, "height": 6.9,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 17.0, "h": 3.0, "label": "Host PC: Python scripts", "kind": "user"},
+    {"x": 0.2, "y": 3.5, "w": 17.0, "h": 3.2, "label": "DOSBox-X: 1988 tools", "kind": "hw"}
+  ],
+  "nodes": [
+    {"id": "src", "x": 0.4, "y": 1.0, "w": 2.2, "h": 1.4, "label": "MS-DOS\nsource", "sub": "src-ext/MS-DOS", "kind": "dos", "shape": "cyl", "size": 19},
+    {"id": "prep", "x": 3.0, "y": 1.0, "w": 2.9, "h": 1.4, "label": "prepare_dos_build.py", "sub": "build/dos4/SRC", "kind": "user", "size": 19},
+    {"id": "fixes", "x": 6.3, "y": 1.0, "w": 2.7, "h": 1.4, "label": "CR LF, U+FFFD,\nfile dates, paths", "kind": "neutral", "shape": "note", "size": 18, "weight": "400"},
+    {"id": "out", "x": 9.4, "y": 1.0, "w": 2.4, "h": 1.4, "label": "62 outputs", "sub": "listed in CPY.BAT", "kind": "data", "size": 19},
+    {"id": "floppy", "x": 12.2, "y": 1.0, "w": 2.3, "h": 1.4, "label": "make_floppy.py", "sub": "as FORMAT /S", "kind": "user", "size": 19},
+    {"id": "img", "x": 14.9, "y": 1.0, "w": 1.9, "h": 1.4, "label": "dos400.img", "sub": "1.44 MB", "kind": "data", "shape": "cyl", "size": 19},
+    {"id": "bat", "x": 3.2, "y": 4.4, "w": 2.5, "h": 1.4, "label": "BUILD.BAT", "sub": "on drive D:", "kind": "dos", "size": 19},
+    {"id": "nmake", "x": 6.15, "y": 4.4, "w": 2.8, "h": 1.4, "label": "NMAKE per\ndirectory", "sub": "MAKEFILE order", "kind": "dos", "size": 19},
+    {"id": "tools", "x": 9.4, "y": 4.4, "w": 2.4, "h": 1.4, "label": "MASM, CL,\nLINK, EXE2BIN", "sub": ".OBJ .EXE .SYS", "kind": "dos", "size": 19},
+    {"id": "boot", "x": 14.85, "y": 4.4, "w": 2.0, "h": 1.4, "label": "BOOT A:", "sub": "MS-DOS 4.00", "kind": "dos", "size": 19}
+  ],
+  "edges": [
+    {"from": "src", "to": "prep", "kind": "dos"},
+    {"from": "prep", "to": "bat", "label": "D: = build/dos4", "kind": "dos", "size": 16},
+    {"from": "bat", "to": "nmake", "kind": "dos"},
+    {"from": "nmake", "to": "tools", "kind": "dos"},
+    {"from": "tools", "to": "out", "label": "build_dos.py checks", "kind": "dos", "size": 16},
+    {"from": "out", "to": "floppy", "kind": "dos"},
+    {"from": "floppy", "to": "img", "kind": "dos"},
+    {"from": "img", "to": "boot", "label": "dos_run.py", "kind": "dos", "size": 16}
+  ]
+}

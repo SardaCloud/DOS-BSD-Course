@@ -1,0 +1,34 @@
+{
+  "title": "Static linking on MS-DOS, dynamic linking on FreeBSD",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.15, "y": 0.15, "w": 15.7, "h": 3.0, "label": "MS-DOS 4.00: copy at link time", "kind": "dos"},
+    {"x": 0.15, "y": 3.35, "w": 15.7, "h": 3.0, "label": "FreeBSD 15.1: name at link time, bind at run time", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "dobj", "x": 0.4, "y": 0.7, "w": 2.2, "h": 1.05, "label": "HELLO.OBJ", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "dlib", "x": 0.4, "y": 1.9, "w": 2.2, "h": 1.05, "label": "SLIBCE.LIB", "sub": "402 members", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "dlink", "x": 3.2, "y": 1.0, "w": 2.1, "h": 1.4, "label": "LINK 3.65", "sub": "copies members", "kind": "dos", "size": 18},
+    {"id": "dexe", "x": 5.8, "y": 1.0, "w": 2.0, "h": 1.4, "label": "HELLO.EXE", "sub": "7,271 bytes", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "drun", "x": 9.0, "y": 1.0, "w": 2.8, "h": 1.4, "label": "the program", "sub": "crt0 printf _write main", "kind": "user", "size": 18},
+    {"id": "ddos", "x": 12.6, "y": 1.0, "w": 3.0, "h": 1.4, "label": "MSDOS.SYS", "sub": "the only shared code", "kind": "dos", "size": 18},
+    {"id": "bobj", "x": 0.4, "y": 3.9, "w": 2.2, "h": 1.05, "label": "hello.o", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "blib", "x": 0.4, "y": 5.1, "w": 2.2, "h": 1.05, "label": "libc.so", "sub": "symbols checked", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "blink", "x": 3.2, "y": 4.2, "w": 2.1, "h": 1.4, "label": "ld.lld", "sub": "writes NEEDED", "kind": "bsd", "size": 18},
+    {"id": "bexe", "x": 5.8, "y": 4.2, "w": 2.0, "h": 1.4, "label": "hello", "sub": "PLT + GOT", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "brtld", "x": 9.0, "y": 4.2, "w": 2.8, "h": 1.4, "label": "ld-elf.so.1", "sub": "maps, binds lazily", "kind": "bsd", "size": 18},
+    {"id": "bso", "x": 12.6, "y": 4.2, "w": 3.0, "h": 1.4, "label": "libc.so.7\nlibsys.so.7", "sub": "pages shared by all", "kind": "bsd", "size": 18}
+  ],
+  "edges": [
+    {"from": "dobj", "to": "dlink", "from_side": "right", "to_side": "left", "kind": "dos"},
+    {"from": "dlib", "to": "dlink", "from_side": "right", "to_side": "left", "kind": "dos"},
+    {"from": "dlink", "to": "dexe", "kind": "dos"},
+    {"from": "dexe", "to": "drun", "kind": "dos", "label": "EXEC"},
+    {"from": "drun", "to": "ddos", "kind": "dos", "label": "INT 21h"},
+    {"from": "bobj", "to": "blink", "from_side": "right", "to_side": "left", "kind": "bsd"},
+    {"from": "blib", "to": "blink", "from_side": "right", "to_side": "left", "kind": "bsd", "style": "dashed"},
+    {"from": "blink", "to": "bexe", "kind": "bsd"},
+    {"from": "bexe", "to": "brtld", "kind": "bsd", "label": "PT_INTERP"},
+    {"from": "brtld", "to": "bso", "kind": "bsd", "label": "mmap"}
+  ]
+}

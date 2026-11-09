@@ -1,0 +1,42 @@
+{
+  "title": "From C source to a running process on both systems",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.15, "y": 0.15, "w": 15.7, "h": 3.0, "label": "MS-DOS 4.00: Microsoft C 5.10, LINK 3.65", "kind": "dos"},
+    {"x": 0.15, "y": 3.35, "w": 15.7, "h": 3.0, "label": "FreeBSD 15.1: clang 19, ld.lld, ld-elf.so.1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "d1", "x": 0.35, "y": 0.85, "w": 1.45, "h": 1.35, "label": "HELLO.C", "sub": "source", "kind": "user", "size": 18},
+    {"id": "d2", "x": 2.15, "y": 0.85, "w": 1.95, "h": 1.35, "label": "C1\nparse", "sub": "CL /P, /E", "kind": "dos", "size": 18},
+    {"id": "d3", "x": 4.45, "y": 0.85, "w": 1.95, "h": 1.35, "label": "C2, C3\ncode, OMF", "sub": "CL /c /Fc", "kind": "dos", "size": 18},
+    {"id": "d4", "x": 6.75, "y": 0.85, "w": 1.65, "h": 1.35, "label": "HELLO\n.OBJ", "sub": "OMF", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "d5", "x": 8.75, "y": 0.85, "w": 2.15, "h": 1.35, "label": "LINK\n+ SLIBCE.LIB", "sub": "crt0, printf", "kind": "dos", "size": 18},
+    {"id": "d6", "x": 11.25, "y": 0.85, "w": 1.65, "h": 1.35, "label": "HELLO\n.EXE", "sub": "MZ", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "d7", "x": 13.25, "y": 0.85, "w": 2.4, "h": 1.35, "label": "EXEC: load,\nrelocate, go", "sub": "INT 21h AH=4Bh", "kind": "dos", "size": 18},
+    {"id": "b1", "x": 0.35, "y": 4.05, "w": 1.45, "h": 1.35, "label": "hello.c", "sub": "source", "kind": "user", "size": 18},
+    {"id": "b2", "x": 2.15, "y": 4.05, "w": 1.95, "h": 1.35, "label": "clang\nfront end", "sub": "cc -E, cc -S", "kind": "bsd", "size": 18},
+    {"id": "b3", "x": 4.45, "y": 4.05, "w": 1.95, "h": 1.35, "label": "integrated\nassembler", "sub": "cc -c", "kind": "bsd", "size": 18},
+    {"id": "b4", "x": 6.75, "y": 4.05, "w": 1.65, "h": 1.35, "label": "hello.o", "sub": "ELF REL", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "b5", "x": 8.75, "y": 4.05, "w": 2.15, "h": 1.35, "label": "ld.lld\n+ crt*.o", "sub": "libc.so: names only", "kind": "bsd", "size": 18},
+    {"id": "b6", "x": 11.25, "y": 4.05, "w": 1.65, "h": 1.35, "label": "hello", "sub": "ELF DYN", "kind": "data", "shape": "cyl", "size": 18},
+    {"id": "b7", "x": 13.25, "y": 4.05, "w": 2.4, "h": 1.35, "label": "execve +\nld-elf.so.1", "sub": "map, link, relocate", "kind": "bsd", "size": 18}
+  ],
+  "edges": [
+    {"from": "d1", "to": "d2", "kind": "dos"},
+    {"from": "d2", "to": "d3", "kind": "dos"},
+    {"from": "d3", "to": "d4", "kind": "dos"},
+    {"from": "d4", "to": "d5", "kind": "dos"},
+    {"from": "d5", "to": "d6", "kind": "dos"},
+    {"from": "d6", "to": "d7", "kind": "dos"},
+    {"from": "b1", "to": "b2", "kind": "bsd"},
+    {"from": "b2", "to": "b3", "kind": "bsd"},
+    {"from": "b3", "to": "b4", "kind": "bsd"},
+    {"from": "b4", "to": "b5", "kind": "bsd"},
+    {"from": "b5", "to": "b6", "kind": "bsd"},
+    {"from": "b6", "to": "b7", "kind": "bsd"}
+  ],
+  "notes": [
+    {"x": 0.4, "y": 2.45, "w": 15, "text": "Three compiler passes write the .OBJ directly (no assembler run). The library code is copied into the .EXE.", "size": 16, "kind": "dos", "style": "italic"},
+    {"x": 0.4, "y": 5.65, "w": 15, "text": "One driver, integrated assembler. Only libc.so.7 is named in the file; ld-elf.so.1 loads it and libsys.so.7 at run time.", "size": 16, "kind": "bsd", "style": "italic"}
+  ]
+}

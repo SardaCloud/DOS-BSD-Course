@@ -1,0 +1,186 @@
+{
+ "title": "The stack frame of sum() in Lab 4.8 on the 8086 and on x86-64",
+ "width": 16,
+ "height": 7.4,
+ "lanes": [
+  {
+   "x": 0.15,
+   "y": 0.15,
+   "w": 7.75,
+   "h": 6.2,
+   "label": "8086: SUM16 stopped at 011A (Output 4.26)",
+   "kind": "dos"
+  },
+  {
+   "x": 8.1,
+   "y": 0.15,
+   "w": 7.75,
+   "h": 6.2,
+   "label": "x86-64: sum at 0x201694 (Output 4.27)",
+   "kind": "bsd"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "c1",
+   "x": 0.45,
+   "y": 0.75,
+   "w": 4.3,
+   "h": 0.92,
+   "label": "n = 000A",
+   "kind": "user",
+   "size": 18,
+   "sub": "SS:FFFC = [BP+6]"
+  },
+  {
+   "id": "c2",
+   "x": 0.45,
+   "y": 1.75,
+   "w": 4.3,
+   "h": 0.92,
+   "label": "a = 0154",
+   "kind": "user",
+   "size": 18,
+   "sub": "SS:FFFA = [BP+4]"
+  },
+  {
+   "id": "c3",
+   "x": 0.45,
+   "y": 2.75,
+   "w": 4.3,
+   "h": 0.92,
+   "label": "return address 010B",
+   "kind": "user",
+   "size": 18,
+   "sub": "SS:FFF8 = [BP+2]"
+  },
+  {
+   "id": "c4",
+   "x": 0.45,
+   "y": 3.75,
+   "w": 4.3,
+   "h": 0.92,
+   "label": "caller's BP 0000",
+   "kind": "user",
+   "size": 18,
+   "sub": "SS:FFF6 = [BP]"
+  },
+  {
+   "id": "c5",
+   "x": 0.45,
+   "y": 4.75,
+   "w": 4.3,
+   "h": 0.92,
+   "label": "saved SI 0000",
+   "kind": "user",
+   "size": 18,
+   "sub": "SS:FFF4 = [BP-2]"
+  },
+  {
+   "id": "bp",
+   "x": 5.3,
+   "y": 3.75,
+   "w": 2.3,
+   "h": 0.92,
+   "label": "BP = FFF6",
+   "kind": "dos",
+   "size": 18
+  },
+  {
+   "id": "sp",
+   "x": 5.3,
+   "y": 4.75,
+   "w": 2.3,
+   "h": 0.92,
+   "label": "SP = FFF4",
+   "kind": "dos",
+   "size": 18
+  },
+  {
+   "id": "regs",
+   "x": 8.4,
+   "y": 0.75,
+   "w": 7.2,
+   "h": 1.15,
+   "label": "RDI = 0x2004a0 (a), RSI = 10 (n)",
+   "kind": "hw",
+   "size": 18,
+   "sub": "the arguments arrive in registers"
+  },
+  {
+   "id": "e1",
+   "x": 8.4,
+   "y": 2.75,
+   "w": 4.9,
+   "h": 0.92,
+   "label": "return address 0x201673",
+   "kind": "user",
+   "size": 18,
+   "sub": "[rbp+8], into main"
+  },
+  {
+   "id": "e2",
+   "x": 8.4,
+   "y": 3.75,
+   "w": 4.9,
+   "h": 0.92,
+   "label": "main's RBP 0x7fffffffea70",
+   "kind": "user",
+   "size": 18,
+   "sub": "[rbp] at 0x7fffffffea50"
+  },
+  {
+   "id": "rbp",
+   "x": 13.6,
+   "y": 3.75,
+   "w": 2.0,
+   "h": 0.92,
+   "label": "RBP = RSP",
+   "kind": "bsd",
+   "size": 18
+  }
+ ],
+ "edges": [
+  {
+   "from": "bp",
+   "to": "c4"
+  },
+  {
+   "from": "sp",
+   "to": "c5"
+  },
+  {
+   "from": "rbp",
+   "to": "e2"
+  }
+ ],
+ "notes": [
+  {
+   "x": 0.45,
+   "y": 5.8,
+   "w": 7.2,
+   "text": "main pushed n and a, CALL pushed the return address, sum pushed BP and SI.",
+   "size": 15,
+   "kind": "dos",
+   "style": "italic"
+  },
+  {
+   "x": 8.4,
+   "y": 4.85,
+   "w": 7.2,
+   "text": "sum pushed only RBP. Higher addresses are drawn at the top: the stack grows down.",
+   "size": 15,
+   "kind": "bsd",
+   "style": "italic"
+  },
+  {
+   "x": 0.35,
+   "y": 6.55,
+   "w": 15.3,
+   "text": "MS C 5.10 builds the same 8086 frame as SUM16; FreeBSD's cc builds the RBP frame even with -O2, and a leaf function may also use the 128-byte red zone below RSP.",
+   "size": 15,
+   "kind": "neutral",
+   "style": "italic"
+  }
+ ]
+}

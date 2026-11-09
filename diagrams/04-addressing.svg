@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 740.0" width="1600" height="740.0" role="img" aria-label="Real-mode address formation and 64-bit virtual addresses">
+<title>Real-mode address formation and 64-bit virtual addresses</title>
+<defs><marker id="arrow4B5563" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4B5563"/></marker></defs>
+<rect x="0" y="0" width="1600" height="740.0" fill="#FFFFFF"/>
+<rect x="15.0" y="15.0" width="1570.0" height="295.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="27.0" y="25.0" width="403.6" height="26" rx="13" fill="#0E7C86"/>
+<text x="228.8" y="43.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">8086 real mode: physical = segment * 16 + offset</text>
+<rect x="15.0" y="330.0" width="1570.0" height="305.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="27.0" y="340.0" width="522.85" height="26" rx="13" fill="#AB2B28"/>
+<text x="288.425" y="358.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">x86-64 on FreeBSD: a virtual address, translated by page tables</text>
+<path d="M325.0,125.0 L370.0,125.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M650.0,125.0 L675.0,125.0 L675.0,185.0 L700.0,185.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M650.0,245.0 L675.0,245.0 L675.0,185.0 L700.0,185.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M810.0,185.0 L860.0,185.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M1160.0,185.0 L1210.0,185.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M345.0,457.5 L395.0,457.5" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M735.0,457.5 L785.0,457.5" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M1125.0,457.5 L1175.0,457.5" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<rect x="45.0" y="75.0" width="280.0" height="100.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="185.0" y="122.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">segment 02C1</text>
+<text x="185.0" y="140.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">CS, DS, SS or ES</text>
+<rect x="370.0" y="75.0" width="280.0" height="100.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="510.0" y="122.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">* 16 = 02C10</text>
+<text x="510.0" y="140.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">shift left 4 bits</text>
+<rect x="370.0" y="195.0" width="280.0" height="100.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="510.0" y="242.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">offset 1716</text>
+<text x="510.0" y="260.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">IP, SP, BX+SI+disp</text>
+<rect x="700.0" y="135.0" width="110.0" height="100.0" rx="18" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="755.0" y="191.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">+</text>
+<rect x="860.0" y="135.0" width="300.0" height="100.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1010.0" y="182.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">04326h</text>
+<text x="1010.0" y="200.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">20 bits, no checks</text>
+<path d="M1210.0,89.0 a175.0,14 0 0,0 350.0,0 v192.0 a175.0,14 0 0,1 -350.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="1385.0" cy="89.0" rx="175.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="1385.0" y="196.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">1 MB of memory</text>
+<text x="1385.0" y="214.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">04326h: INT 21h entry</text>
+<rect x="45.0" y="400.0" width="300.0" height="115.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="195.0" y="455.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">0x200120</text>
+<text x="195.0" y="473.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">RIP + disp32 (Lab 4.6)</text>
+<rect x="395.0" y="400.0" width="340.0" height="115.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="565.0" y="444.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">page indexes</text>
+<text x="565.0" y="466.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">+ 12-bit offset</text>
+<text x="565.0" y="484.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">9 bits per level</text>
+<rect x="785.0" y="400.0" width="340.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="955.0" y="444.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">page-table walk</text>
+<text x="955.0" y="466.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">(4 or 5 levels)</text>
+<text x="955.0" y="484.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">per process; CR3</text>
+<rect x="1175.0" y="400.0" width="385.0" height="115.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1367.5" y="455.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">physical page + offset</text>
+<text x="1367.5" y="473.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">or a page fault</text>
+<text x="45.0" y="570.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#4A1312" text-anchor="start" font-style="italic">User addresses stay below 0x0000800000000000 (128 TiB); every page has user/kernel, write and execute permissions.</text>
+<text x="35.0" y="670.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#1F2328" text-anchor="start" font-style="italic">Real mode: many segment:offset pairs name the same byte (0040:0017 and 0000:0417 are both 00417h), and FFFF:FFFF would be 10FFEFh, which the 8086 wraps to 0FFEFh.</text>
+</svg>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="Executable files and the memory they become">
+<title>Executable files and the memory they become</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="15.0" y="15.0" width="775.0" height="620.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="27.0" y="25.0" width="252.55" height="26" rx="13" fill="#0E7C86"/>
+<text x="153.275" y="43.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00: .COM and MZ .EXE</text>
+<rect x="810.0" y="15.0" width="775.0" height="620.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="822.0" y="25.0" width="157.15" height="26" rx="13" fill="#AB2B28"/>
+<text x="900.575" y="43.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1: ELF</text>
+<path d="M230.0,160.0 L355.0,160.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="273.7" y="149.1" width="37.6" height="21.9" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="292.5" y="164.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#0E7C86" text-anchor="middle">copy</text>
+<path d="M230.0,365.0 L355.0,365.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="253.1" y="354.1" width="78.9" height="21.9" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="292.5" y="369.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#0E7C86" text-anchor="middle">copy + fix</text>
+<path d="M1060.0,315.0 L1095.0,315.0 L1095.0,125.0 L1130.0,125.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1060.0,315.0 L1095.0,315.0 L1095.0,245.0 L1130.0,245.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1060.0,315.0 L1095.0,315.0 L1095.0,365.0 L1130.0,365.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M1060.0,315.0 L1095.0,315.0 L1095.0,485.0 L1130.0,485.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M40.0,99.0 a95.0,14 0 0,0 190.0,0 v122.0 a95.0,14 0 0,1 -190.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="135.0" cy="99.0" rx="95.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="135.0" y="160.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">HELLOC</text>
+<text x="135.0" y="182.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">.COM</text>
+<text x="135.0" y="200.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">53 B, no header</text>
+<rect x="355.0" y="85.0" width="410.0" height="150.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="560.0" y="146.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">PSP | code at 100h |</text>
+<text x="560.0" y="168.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">stack</text>
+<text x="560.0" y="186.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">one segment: CS=DS=ES=SS</text>
+<path d="M40.0,304.0 a95.0,14 0 0,0 190.0,0 v122.0 a95.0,14 0 0,1 -190.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="135.0" cy="304.0" rx="95.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="135.0" y="365.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">HELLO</text>
+<text x="135.0" y="387.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">.EXE</text>
+<text x="135.0" y="405.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">header + image</text>
+<rect x="355.0" y="290.0" width="410.0" height="150.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="560.0" y="351.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">PSP | _TEXT | DGROUP</text>
+<text x="560.0" y="373.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">| free</text>
+<text x="560.0" y="391.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">4 words + load segment</text>
+<path d="M840.0,99.0 a110.0,14 0 0,0 220.0,0 v432.0 a110.0,14 0 0,1 -220.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="950.0" cy="99.0" rx="110.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="950.0" y="315.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">ELF file</text>
+<text x="950.0" y="337.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">/bin/ls</text>
+<text x="950.0" y="355.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">ehdr, phdrs</text>
+<rect x="1130.0" y="75.0" width="430.0" height="100.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1345.0" y="122.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">PT_LOAD  R</text>
+<text x="1345.0" y="140.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">headers, .rodata, .rela</text>
+<rect x="1130.0" y="195.0" width="430.0" height="100.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1345.0" y="242.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">PT_LOAD  R E</text>
+<text x="1345.0" y="260.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">.text .init .plt</text>
+<rect x="1130.0" y="315.0" width="430.0" height="100.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1345.0" y="362.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">PT_LOAD  RW (x2)</text>
+<text x="1345.0" y="380.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">.data .got .got.plt .bss</text>
+<rect x="1130.0" y="435.0" width="430.0" height="100.0" rx="7" fill="#F3F2EE" stroke="#6B7280" stroke-width="2"/>
+<text x="1345.0" y="482.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">PT_INTERP</text>
+<text x="1345.0" y="500.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">/libexec/ld-elf.so.1</text>
+<text x="45.0" y="490.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#0B3D42" text-anchor="start" font-style="italic">EXEC reads the bytes into a memory block. For an .EXE it</text>
+<text x="45.0" y="508.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#0B3D42" text-anchor="start" font-style="italic">then adds the load segment to every word listed in the</text>
+<text x="45.0" y="527.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#0B3D42" text-anchor="start" font-style="italic">relocation table. A .COM has no header and no relocations.</text>
+<text x="845.0" y="575.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#4A1312" text-anchor="start" font-style="italic">The kernel maps the file; pages are read on first touch.</text>
+</svg>

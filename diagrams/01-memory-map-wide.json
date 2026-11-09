@@ -1,0 +1,286 @@
+{
+ "title": "The first megabyte during boot (linear addresses, not to scale)",
+ "width": 17.6,
+ "height": 6.95,
+ "lanes": [
+  {
+   "x": 1.72,
+   "y": 0.83,
+   "w": 15.75,
+   "h": 2.84,
+   "kind": "dos"
+  },
+  {
+   "x": 1.72,
+   "y": 3.9299999999999997,
+   "w": 15.75,
+   "h": 2.84,
+   "kind": "bsd"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "hd",
+   "x": 0.2,
+   "y": 0.95,
+   "w": 1.45,
+   "h": 2.6,
+   "label": "MS-DOS\n4.00",
+   "kind": "dos",
+   "size": 19
+  },
+  {
+   "id": "hb",
+   "x": 0.2,
+   "y": 4.05,
+   "w": 1.45,
+   "h": 2.6,
+   "label": "FreeBSD\n15.1",
+   "kind": "bsd",
+   "size": 19
+  },
+  {
+   "id": "ivt",
+   "x": 1.85,
+   "y": 0.95,
+   "w": 1.3,
+   "h": 5.7,
+   "label": "IVT",
+   "kind": "hw",
+   "size": 18,
+   "sub": "256 x 4 B"
+  },
+  {
+   "id": "bda",
+   "x": 3.27,
+   "y": 0.95,
+   "w": 1.3,
+   "h": 5.7,
+   "label": "BIOS\ndata\narea",
+   "kind": "hw",
+   "size": 18,
+   "sub": "0x413 KB"
+  },
+  {
+   "id": "d5",
+   "x": 4.69,
+   "y": 0.95,
+   "w": 1.3,
+   "h": 2.6,
+   "label": "root\ndir\nsector",
+   "kind": "dos",
+   "size": 18,
+   "sub": "MSBOOT"
+  },
+  {
+   "id": "d6",
+   "x": 6.11,
+   "y": 0.95,
+   "w": 1.3,
+   "h": 2.6,
+   "label": "FDBOOT",
+   "kind": "dos",
+   "size": 18,
+   "sub": "MBR"
+  },
+  {
+   "id": "b6",
+   "x": 6.11,
+   "y": 4.05,
+   "w": 1.3,
+   "h": 2.6,
+   "label": "mbr or\nboot0",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "MBR"
+  },
+  {
+   "id": "d7",
+   "x": 7.53,
+   "y": 0.95,
+   "w": 1.3,
+   "h": 2.6,
+   "label": "IO.SYS",
+   "kind": "dos",
+   "size": 18,
+   "sub": "MSLOAD"
+  },
+  {
+   "id": "b7",
+   "x": 7.53,
+   "y": 4.05,
+   "w": 1.3,
+   "h": 2.6,
+   "label": "boot1\ncopy",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "xread"
+  },
+  {
+   "id": "bs",
+   "x": 8.95,
+   "y": 0.95,
+   "w": 1.3,
+   "h": 5.7,
+   "label": "boot\nsector",
+   "kind": "neutral",
+   "size": 18,
+   "sub": "512 B"
+  },
+  {
+   "id": "b8",
+   "x": 10.37,
+   "y": 4.05,
+   "w": 1.3,
+   "h": 2.6,
+   "label": "boot1 +\nboot2",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "16 sectors"
+  },
+  {
+   "id": "b9",
+   "x": 11.79,
+   "y": 4.05,
+   "w": 1.3,
+   "h": 2.6,
+   "label": "BTX\nkernel",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "btx.S"
+  },
+  {
+   "id": "ba",
+   "x": 13.21,
+   "y": 4.05,
+   "w": 1.3,
+   "h": 2.6,
+   "label": "BTX\nclient",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "loader"
+  },
+  {
+   "id": "dt",
+   "x": 14.63,
+   "y": 0.95,
+   "w": 1.3,
+   "h": 2.6,
+   "label": "MSLOAD,\nSYSINIT",
+   "kind": "dos",
+   "size": 18,
+   "sub": "moved up"
+  },
+  {
+   "id": "bt",
+   "x": 14.63,
+   "y": 4.05,
+   "w": 1.3,
+   "h": 2.6,
+   "label": "client\nstack",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "BDA 0x413"
+  },
+  {
+   "id": "rom",
+   "x": 16.05,
+   "y": 0.95,
+   "w": 1.3,
+   "h": 5.7,
+   "label": "video,\nROMs",
+   "kind": "hw",
+   "size": 18
+  }
+ ],
+ "notes": [
+  {
+   "x": 1.85,
+   "y": 0.2,
+   "w": 1.3,
+   "text": "0x00000",
+   "size": 16,
+   "align": "middle"
+  },
+  {
+   "x": 3.27,
+   "y": 0.2,
+   "w": 1.3,
+   "text": "0x00400",
+   "size": 16,
+   "align": "middle"
+  },
+  {
+   "x": 4.69,
+   "y": 0.2,
+   "w": 1.3,
+   "text": "0x00500",
+   "size": 16,
+   "align": "middle"
+  },
+  {
+   "x": 6.11,
+   "y": 0.2,
+   "w": 1.3,
+   "text": "0x00600",
+   "size": 16,
+   "align": "middle"
+  },
+  {
+   "x": 7.53,
+   "y": 0.2,
+   "w": 1.3,
+   "text": "0x00700",
+   "size": 16,
+   "align": "middle"
+  },
+  {
+   "x": 8.95,
+   "y": 0.2,
+   "w": 1.3,
+   "text": "0x07C00",
+   "size": 16,
+   "align": "middle"
+  },
+  {
+   "x": 10.37,
+   "y": 0.2,
+   "w": 1.3,
+   "text": "0x08C00",
+   "size": 16,
+   "align": "middle"
+  },
+  {
+   "x": 11.79,
+   "y": 0.2,
+   "w": 1.3,
+   "text": "0x09000",
+   "size": 16,
+   "align": "middle"
+  },
+  {
+   "x": 13.21,
+   "y": 0.2,
+   "w": 1.3,
+   "text": "0x0A000",
+   "size": 16,
+   "align": "middle"
+  },
+  {
+   "x": 14.63,
+   "y": 0.2,
+   "w": 1.3,
+   "text": "top",
+   "size": 16,
+   "align": "middle"
+  },
+  {
+   "x": 16.05,
+   "y": 0.2,
+   "w": 1.3,
+   "text": "0xA0000",
+   "size": 16,
+   "align": "middle"
+  }
+ ]
+}

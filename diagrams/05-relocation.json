@@ -1,0 +1,30 @@
+{
+  "title": "Relocation twice: MZ segment fixups and ELF dynamic relocations",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.15, "y": 0.15, "w": 15.7, "h": 3.0, "label": "MS-DOS 4.00: HELLO.EXE", "kind": "dos"},
+    {"x": 0.15, "y": 3.35, "w": 15.7, "h": 3.0, "label": "FreeBSD 15.1: /bin/ls (PIE)", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "d1", "x": 0.4, "y": 0.85, "w": 3.3, "h": 1.4, "label": "LINK: image as if\nloaded at segment 0", "sub": "DGROUP = 0171h", "kind": "dos", "size": 18},
+    {"id": "d2", "x": 4.2, "y": 0.85, "w": 3.3, "h": 1.4, "label": "relocation table:\n4 seg:off entries", "sub": "e_crlc, e_lfarlc", "kind": "data", "size": 18},
+    {"id": "d3", "x": 8.0, "y": 0.85, "w": 3.6, "h": 1.4, "label": "EXEC: each word\n+= load segment", "sub": "ADD [BX],SI", "kind": "dos", "size": 18},
+    {"id": "d4", "x": 12.1, "y": 0.85, "w": 3.5, "h": 1.4, "label": "DS = DGROUP\nis now right", "sub": "no symbols involved", "kind": "user", "size": 18},
+    {"id": "b1", "x": 0.4, "y": 4.05, "w": 3.3, "h": 1.4, "label": "ld.lld: image\nlinked at 0", "sub": "ET_DYN, PIE", "kind": "bsd", "size": 18},
+    {"id": "b2", "x": 4.2, "y": 4.05, "w": 3.3, "h": 1.4, "label": ".rela.dyn: 16\n.rela.plt: 76", "sub": "RELATIVE GLOB_DAT JUMP_SLOT", "kind": "data", "size": 18},
+    {"id": "b3", "x": 8.0, "y": 4.05, "w": 3.6, "h": 1.4, "label": "rtld: base + addend,\nor symbol lookup", "sub": "reloc_non_plt, _rtld_bind", "kind": "bsd", "size": 18},
+    {"id": "b4", "x": 12.1, "y": 4.05, "w": 3.5, "h": 1.4, "label": "pointers, GOT\nslots filled", "sub": "first call binds", "kind": "user", "size": 18}
+  ],
+  "edges": [
+    {"from": "d1", "to": "d2", "kind": "dos"},
+    {"from": "d2", "to": "d3", "kind": "dos"},
+    {"from": "d3", "to": "d4", "kind": "dos"},
+    {"from": "b1", "to": "b2", "kind": "bsd"},
+    {"from": "b2", "to": "b3", "kind": "bsd"},
+    {"from": "b3", "to": "b4", "kind": "bsd"}
+  ],
+  "notes": [
+    {"x": 0.45, "y": 2.5, "w": 15, "text": "One kind of relocation: add a paragraph number. Done once, by the kernel, before the program starts.", "size": 16, "kind": "dos", "style": "italic"},
+    {"x": 0.45, "y": 5.7, "w": 15, "text": "Several kinds: add the base address, or look up a symbol in another object. Done in user mode by ld-elf.so.1.", "size": 16, "kind": "bsd", "style": "italic"}
+  ]
+}

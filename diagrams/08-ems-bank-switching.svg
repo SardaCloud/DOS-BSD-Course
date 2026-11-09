@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="EMS bank switching: four 16 KB windows onto a large pool of pages">
+<title>EMS bank switching: four 16 KB windows onto a large pool of pages</title>
+<defs><marker id="arrow4B5563" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4B5563"/></marker><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="430.0" height="610.0" rx="14" fill="#F5F8FB" stroke="#4F6D8A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="173.05" height="26" rx="13" fill="#4F6D8A"/>
+<text x="118.525" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Program (real mode)</text>
+<rect x="470.0" y="20.0" width="440.0" height="610.0" rx="14" fill="#FDF8EE" stroke="#B7862A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="482.0" y="30.0" width="188.95000000000002" height="26" rx="13" fill="#B7862A"/>
+<text x="576.475" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Page frame in the UMA</text>
+<rect x="930.0" y="20.0" width="650.0" height="610.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="942.0" y="30.0" width="181.0" height="26" rx="13" fill="#0E7C86"/>
+<text x="1032.5" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Expanded memory pool</text>
+<path d="M420.0,150.0 L510.0,150.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<rect x="438.8" y="137.2" width="52.4" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="465.0" y="155.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#4B5563" text-anchor="middle">remap</text>
+<path d="M420.0,370.0 L510.0,370.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<rect x="443.0" y="357.2" width="43.9" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="465.0" y="375.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#4B5563" text-anchor="middle">read</text>
+<path d="M870.0,150.0 L1010.0,150.0" fill="none" stroke="#0E7C86" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M870.0,150.0 L940.0,150.0 L940.0,260.0 L1010.0,260.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="50.0" y="90.0" width="370.0" height="120.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="235.0" y="147.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">INT 67h AH=44h</text>
+<text x="235.0" y="165.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">AL=window BX=page DX=handle</text>
+<rect x="50.0" y="310.0" width="370.0" height="120.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="235.0" y="356.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">MOV ES,CC00h</text>
+<text x="235.0" y="378.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">MOV AL,ES:[0]</text>
+<text x="235.0" y="396.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">an ordinary load</text>
+<rect x="510.0" y="100.0" width="360.0" height="100.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="690.0" y="156.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">window 0  C400</text>
+<rect x="510.0" y="210.0" width="360.0" height="100.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="690.0" y="266.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">window 1  C800</text>
+<rect x="510.0" y="320.0" width="360.0" height="100.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="690.0" y="376.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">window 2  CC00</text>
+<rect x="510.0" y="430.0" width="360.0" height="100.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="690.0" y="486.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">window 3  D000</text>
+<rect x="1010.0" y="100.0" width="270.0" height="100.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="1145.0" y="155.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#1F2328" text-anchor="middle">handle 1, page 3</text>
+<rect x="1010.0" y="210.0" width="270.0" height="100.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="1145.0" y="265.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#1F2328" text-anchor="middle">handle 1, page 0</text>
+<rect x="1010.0" y="320.0" width="270.0" height="100.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="1145.0" y="375.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#1F2328" text-anchor="middle">handle 1, page 1</text>
+<rect x="1010.0" y="430.0" width="270.0" height="100.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="1145.0" y="485.9" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#1F2328" text-anchor="middle">handle 1, page 2</text>
+<rect x="1310.0" y="100.0" width="240.0" height="430.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="1430.0" y="289.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#1F2328" text-anchor="middle">other pages,</text>
+<text x="1430.0" y="310.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#1F2328" text-anchor="middle">other handles</text>
+<text x="1430.0" y="331.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#1F2328" text-anchor="middle">(up to 32 MB</text>
+<text x="1430.0" y="352.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#1F2328" text-anchor="middle">in EMM386)</text>
+<text x="50.0" y="491.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2F40" text-anchor="start" font-style="italic">The program can reach only</text>
+<text x="50.0" y="511.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2F40" text-anchor="start" font-style="italic">64 KB of the pool at a time.</text>
+<text x="510.0" y="561.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="start" font-style="italic">board: I/O registers</text>
+<text x="510.0" y="581.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#1F2328" text-anchor="start" font-style="italic">EMM386: 4 PTEs per window</text>
+<text x="1010.0" y="561.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" fill="#0B3D42" text-anchor="start" font-style="italic">dashed: the mapping before the call</text>
+</svg>

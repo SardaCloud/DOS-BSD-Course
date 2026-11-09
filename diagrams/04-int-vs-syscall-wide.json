@@ -1,0 +1,190 @@
+{
+ "title": "INT 21h and syscall: what the instruction saves and where the kernel finds the arguments",
+ "width": 16,
+ "height": 6.5,
+ "lanes": [
+  {
+   "x": 0.15,
+   "y": 0.15,
+   "w": 15.7,
+   "h": 3.0,
+   "label": "MS-DOS 4.00: INT 21h",
+   "kind": "dos"
+  },
+  {
+   "x": 0.15,
+   "y": 3.35,
+   "w": 15.7,
+   "h": 3.0,
+   "label": "FreeBSD 15.1 amd64: syscall",
+   "kind": "bsd"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "u1",
+   "x": 0.45,
+   "y": 0.75,
+   "w": 2.75,
+   "h": 1.5,
+   "label": "MOV AH,30h\nINT 21h",
+   "kind": "user",
+   "size": 18,
+   "sub": "arguments in registers"
+  },
+  {
+   "id": "i1",
+   "x": 3.55,
+   "y": 0.75,
+   "w": 2.75,
+   "h": 1.5,
+   "label": "INT pushes\nFLAGS, CS, IP",
+   "kind": "hw",
+   "size": 18,
+   "sub": "CS:IP = vector at 0:84"
+  },
+  {
+   "id": "s1",
+   "x": 6.65,
+   "y": 0.75,
+   "w": 2.75,
+   "h": 1.5,
+   "label": "save_world",
+   "kind": "dos",
+   "size": 18,
+   "sub": "registers on the caller's stack"
+  },
+  {
+   "id": "f1",
+   "x": 9.75,
+   "y": 0.75,
+   "w": 2.75,
+   "h": 1.5,
+   "label": "function\non DskStack",
+   "kind": "dos",
+   "size": 18,
+   "sub": "writes user_AX, user_F"
+  },
+  {
+   "id": "r1",
+   "x": 12.85,
+   "y": 0.75,
+   "w": 2.75,
+   "h": 1.5,
+   "label": "restore_world\nIRET",
+   "kind": "dos",
+   "size": 18,
+   "sub": "pops everything"
+  },
+  {
+   "id": "u2",
+   "x": 0.45,
+   "y": 3.95,
+   "w": 2.75,
+   "h": 1.5,
+   "label": "mov $4,%eax\nsyscall",
+   "kind": "user",
+   "size": 18,
+   "sub": "RDI RSI RDX R10 R8 R9"
+  },
+  {
+   "id": "i2",
+   "x": 3.55,
+   "y": 3.95,
+   "w": 2.75,
+   "h": 1.5,
+   "label": "RIP to RCX\nRFLAGS to R11",
+   "kind": "hw",
+   "size": 18,
+   "sub": "ring 0, RIP = MSR_LSTAR"
+  },
+  {
+   "id": "s2",
+   "x": 6.65,
+   "y": 3.95,
+   "w": 2.75,
+   "h": 1.5,
+   "label": "fast_syscall",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "trapframe on kernel stack"
+  },
+  {
+   "id": "f2",
+   "x": 9.75,
+   "y": 3.95,
+   "w": 2.75,
+   "h": 1.5,
+   "label": "sys_write",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "result in tf_rax, PSL_C"
+  },
+  {
+   "id": "r2",
+   "x": 12.85,
+   "y": 3.95,
+   "w": 2.75,
+   "h": 1.5,
+   "label": "sysretq, or\niretq (doreti)",
+   "kind": "bsd",
+   "size": 18,
+   "sub": "reloads from trapframe"
+  }
+ ],
+ "edges": [
+  {
+   "from": "u1",
+   "to": "i1"
+  },
+  {
+   "from": "i1",
+   "to": "s1"
+  },
+  {
+   "from": "s1",
+   "to": "f1"
+  },
+  {
+   "from": "f1",
+   "to": "r1"
+  },
+  {
+   "from": "r1",
+   "to": "u1",
+   "style": "dashed",
+   "route": "vhv",
+   "via": 2.55,
+   "from_side": "bottom",
+   "to_side": "bottom",
+   "label": "back to the caller"
+  },
+  {
+   "from": "u2",
+   "to": "i2"
+  },
+  {
+   "from": "i2",
+   "to": "s2"
+  },
+  {
+   "from": "s2",
+   "to": "f2"
+  },
+  {
+   "from": "f2",
+   "to": "r2"
+  },
+  {
+   "from": "r2",
+   "to": "u2",
+   "style": "dashed",
+   "route": "vhv",
+   "via": 5.75,
+   "from_side": "bottom",
+   "to_side": "bottom",
+   "label": "back to user mode"
+  }
+ ],
+ "notes": []
+}

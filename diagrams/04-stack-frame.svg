@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 740.0" width="1600" height="740.0" role="img" aria-label="The stack frame of sum() in Lab 4.8 on the 8086 and on x86-64">
+<title>The stack frame of sum() in Lab 4.8 on the 8086 and on x86-64</title>
+<defs><marker id="arrow4B5563" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4B5563"/></marker></defs>
+<rect x="0" y="0" width="1600" height="740.0" fill="#FFFFFF"/>
+<rect x="15.0" y="15.0" width="775.0" height="620.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="27.0" y="25.0" width="347.95" height="26" rx="13" fill="#0E7C86"/>
+<text x="200.975" y="43.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">8086: SUM16 stopped at 011A (Output 4.26)</text>
+<rect x="810.0" y="15.0" width="775.0" height="620.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="822.0" y="25.0" width="316.15000000000003" height="26" rx="13" fill="#AB2B28"/>
+<text x="980.075" y="43.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">x86-64: sum at 0x201694 (Output 4.27)</text>
+<path d="M530.0,421.0 L475.0,421.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M530.0,521.0 L475.0,521.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M1360.0,421.0 L1330.0,421.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<rect x="45.0" y="75.0" width="430.0" height="92.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="260.0" y="118.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">n = 000A</text>
+<text x="260.0" y="136.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">SS:FFFC = [BP+6]</text>
+<rect x="45.0" y="175.0" width="430.0" height="92.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="260.0" y="218.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">a = 0154</text>
+<text x="260.0" y="236.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">SS:FFFA = [BP+4]</text>
+<rect x="45.0" y="275.0" width="430.0" height="92.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="260.0" y="318.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">return address 010B</text>
+<text x="260.0" y="336.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">SS:FFF8 = [BP+2]</text>
+<rect x="45.0" y="375.0" width="430.0" height="92.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="260.0" y="418.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">caller&#x27;s BP 0000</text>
+<text x="260.0" y="436.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">SS:FFF6 = [BP]</text>
+<rect x="45.0" y="475.0" width="430.0" height="92.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="260.0" y="518.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">saved SI 0000</text>
+<text x="260.0" y="536.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">SS:FFF4 = [BP-2]</text>
+<rect x="530.0" y="375.0" width="230.0" height="92.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="645.0" y="427.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">BP = FFF6</text>
+<rect x="530.0" y="475.0" width="230.0" height="92.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="645.0" y="527.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">SP = FFF4</text>
+<rect x="840.0" y="75.0" width="720.0" height="115.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1200.0" y="130.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">RDI = 0x2004a0 (a), RSI = 10 (n)</text>
+<text x="1200.0" y="148.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">the arguments arrive in registers</text>
+<rect x="840.0" y="275.0" width="490.0" height="92.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1085.0" y="318.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">return address 0x201673</text>
+<text x="1085.0" y="336.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">[rbp+8], into main</text>
+<rect x="840.0" y="375.0" width="490.0" height="92.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1085.0" y="418.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">main&#x27;s RBP 0x7fffffffea70</text>
+<text x="1085.0" y="436.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">[rbp] at 0x7fffffffea50</text>
+<rect x="1360.0" y="375.0" width="200.0" height="92.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1460.0" y="427.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">RBP = RSP</text>
+<text x="45.0" y="595.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#0B3D42" text-anchor="start" font-style="italic">main pushed n and a, CALL pushed the return address, sum pushed BP and SI.</text>
+<text x="840.0" y="500.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#4A1312" text-anchor="start" font-style="italic">sum pushed only RBP. Higher addresses are drawn at the top: the stack grows down.</text>
+<text x="35.0" y="670.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#1F2328" text-anchor="start" font-style="italic">MS C 5.10 builds the same 8086 frame as SUM16; FreeBSD&#x27;s cc builds the RBP frame even with -O2, and a leaf function may also use the 128-byte red zone below RSP.</text>
+</svg>

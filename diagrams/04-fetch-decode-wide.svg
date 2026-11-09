@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="Fetch, decode, execute with the bytes of MOV AH,9 and INT 21h">
+<title>Fetch, decode, execute with the bytes of MOV AH,9 and INT 21h</title>
+<defs><marker id="arrow4B5563" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4B5563"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="1230.0" y="15.0" width="355.0" height="500.0" rx="14" fill="#F5F8FB" stroke="#4F6D8A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="1242.0" y="25.0" width="77.65" height="26" rx="13" fill="#4F6D8A"/>
+<text x="1280.825" y="43.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Example</text>
+<path d="M335.0,275.0 L377.5,275.0 L377.5,150.0 L420.0,150.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M750.0,150.0 L850.0,150.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M1015.0,225.0 L1015.0,350.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M850.0,425.0 L750.0,425.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M585.0,350.0 L585.0,225.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<rect x="591.0" y="276.6" width="37.6" height="21.9" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="609.8" y="292.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#4B5563" text-anchor="middle">next</text>
+<path d="M35.0,154.0 a150.0,14 0 0,0 300.0,0 v242.0 a150.0,14 0 0,1 -300.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="185.0" cy="154.0" rx="150.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="185.0" y="275.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">code bytes</text>
+<text x="185.0" y="297.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">at 1741:0100</text>
+<text x="185.0" y="315.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">B4 09 CD 21 ...</text>
+<rect x="420.0" y="75.0" width="330.0" height="150.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="585.0" y="147.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">1 Fetch</text>
+<text x="585.0" y="165.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">bytes at CS:IP (RIP)</text>
+<rect x="850.0" y="75.0" width="330.0" height="150.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1015.0" y="147.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">2 Decode</text>
+<text x="1015.0" y="165.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">prefix, opcode, ModR/M, length</text>
+<rect x="850.0" y="350.0" width="330.0" height="150.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1015.0" y="422.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">3 Advance IP</text>
+<text x="1015.0" y="440.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">IP = IP + length</text>
+<rect x="420.0" y="350.0" width="330.0" height="150.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="585.0" y="422.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4D3810" text-anchor="middle">4 Execute</text>
+<text x="585.0" y="440.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">registers, memory, flags</text>
+<rect x="1255.0" y="75.0" width="305.0" height="150.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1407.5" y="136.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">B4 09</text>
+<text x="1407.5" y="158.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">MOV AH,09h</text>
+<text x="1407.5" y="176.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">IP 0100 to 0102</text>
+<rect x="1255.0" y="350.0" width="305.0" height="150.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1407.5" y="411.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">CD 21</text>
+<text x="1407.5" y="433.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">INT 21h</text>
+<text x="1407.5" y="451.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">pushes IP 0104; loads vector</text>
+<text x="35.0" y="560.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" fill="#1F2328" text-anchor="start" font-style="italic">Jumps, calls and INT load a new IP in step 4. Relative jumps and RIP-relative operands count from the end of the instruction, because IP has already advanced in step 3.</text>
+</svg>

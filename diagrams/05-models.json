@@ -1,0 +1,32 @@
+{
+  "title": "Memory models: 64 KB segments versus one flat address space",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.15, "y": 0.15, "w": 15.7, "h": 3.55, "label": "MS-DOS 4.00 (real mode, 16-bit offsets)", "kind": "dos"},
+    {"x": 0.15, "y": 3.9, "w": 15.7, "h": 2.45, "label": "FreeBSD 15.1 (amd64, 64-bit pointers)", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "st", "x": 0.4, "y": 0.75, "w": 1.6, "h": 0.6, "label": "/AS small", "kind": "neutral", "size": 18},
+    {"id": "sc", "x": 2.3, "y": 0.75, "w": 3.0, "h": 1.15, "label": "CS: _TEXT", "sub": "all code, at most 64 KB", "kind": "dos", "size": 18},
+    {"id": "sd", "x": 5.6, "y": 0.75, "w": 4.6, "h": 1.15, "label": "DS = SS: DGROUP (64 KB)", "sub": "_DATA CONST _BSS c_common STACK", "kind": "dos", "size": 18},
+    {"id": "sn", "x": 10.5, "y": 0.75, "w": 5.1, "h": 1.15, "label": "near pointer: offset", "sub": "16 bits; CALL/RET near", "kind": "neutral", "size": 18},
+    {"id": "lt", "x": 0.4, "y": 2.2, "w": 1.6, "h": 0.6, "label": "/AL large", "kind": "neutral", "size": 18},
+    {"id": "lc", "x": 2.3, "y": 2.1, "w": 3.0, "h": 1.15, "label": "MODELS_TEXT, ...", "sub": "one code segment per module", "kind": "dos", "size": 18},
+    {"id": "ld", "x": 5.6, "y": 2.1, "w": 4.6, "h": 1.15, "label": "DGROUP + far data", "sub": "data may span many segments", "kind": "dos", "size": 18},
+    {"id": "ln", "x": 10.5, "y": 2.1, "w": 5.1, "h": 1.15, "label": "far pointer: segment:offset", "sub": "32 bits; LES, ES:, CALL FAR, RETF", "kind": "neutral", "size": 18},
+    {"id": "bt", "x": 0.4, "y": 4.55, "w": 2.6, "h": 1.15, "label": "text, rodata", "sub": "PT_LOAD R, R E", "kind": "bsd", "size": 18},
+    {"id": "bd", "x": 3.3, "y": 4.55, "w": 2.6, "h": 1.15, "label": "data, bss", "sub": "PT_LOAD RW", "kind": "bsd", "size": 18},
+    {"id": "bh", "x": 6.2, "y": 4.55, "w": 1.6, "h": 1.15, "label": "heap", "sub": "malloc", "kind": "bsd", "size": 18},
+    {"id": "bl", "x": 8.1, "y": 4.55, "w": 2.4, "h": 1.15, "label": "libc.so.7 ...", "sub": "mapped by rtld", "kind": "bsd", "size": 18},
+    {"id": "bs", "x": 10.8, "y": 4.55, "w": 1.6, "h": 1.15, "label": "stack", "sub": "grows down", "kind": "bsd", "size": 18},
+    {"id": "bn", "x": 12.7, "y": 4.55, "w": 2.9, "h": 1.15, "label": "every pointer:\n64-bit address", "kind": "neutral", "size": 18}
+  ],
+  "edges": [
+    {"from": "sn", "to": "sd", "style": "dashed"},
+    {"from": "ln", "to": "ld", "style": "dashed"},
+    {"from": "bn", "to": "bs", "style": "dashed"}
+  ],
+  "notes": [
+    {"x": 0.4, "y": 5.85, "w": 15, "text": "No memory models in C, but code models in the ABI: small (default) keeps code and static data within 2 GB for 32-bit RIP-relative displacements; PIE adds a load base.", "size": 15, "kind": "bsd", "style": "italic"}
+  ]
+}

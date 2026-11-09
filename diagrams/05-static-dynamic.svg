@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650.0" width="1600" height="650.0" role="img" aria-label="Static linking on MS-DOS, dynamic linking on FreeBSD">
+<title>Static linking on MS-DOS, dynamic linking on FreeBSD</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker></defs>
+<rect x="0" y="0" width="1600" height="650.0" fill="#FFFFFF"/>
+<rect x="15.0" y="15.0" width="1570.0" height="300.0" rx="14" fill="#F3FAFA" stroke="#0E7C86" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="27.0" y="25.0" width="260.5" height="26" rx="13" fill="#0E7C86"/>
+<text x="157.25" y="43.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">MS-DOS 4.00: copy at link time</text>
+<rect x="15.0" y="335.0" width="1570.0" height="300.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="27.0" y="345.0" width="411.55" height="26" rx="13" fill="#AB2B28"/>
+<text x="232.775" y="363.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">FreeBSD 15.1: name at link time, bind at run time</text>
+<path d="M260.0,122.5 L290.0,122.5 L290.0,170.0 L320.0,170.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M260.0,242.5 L290.0,242.5 L290.0,170.0 L320.0,170.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M530.0,170.0 L580.0,170.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<path d="M780.0,170.0 L900.0,170.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="821.2" y="159.1" width="37.6" height="21.9" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="840.0" y="174.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#0E7C86" text-anchor="middle">EXEC</text>
+<path d="M1180.0,170.0 L1260.0,170.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="1190.9" y="159.1" width="58.2" height="21.9" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1220.0" y="174.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#0E7C86" text-anchor="middle">INT 21h</text>
+<path d="M260.0,442.5 L290.0,442.5 L290.0,490.0 L320.0,490.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M260.0,562.5 L290.0,562.5 L290.0,490.0 L320.0,490.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M530.0,490.0 L580.0,490.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M780.0,490.0 L900.0,490.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="804.0" y="479.1" width="72.0" height="21.9" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="840.0" y="494.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#AB2B28" text-anchor="middle">PT_INTERP</text>
+<path d="M1180.0,490.0 L1260.0,490.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="1201.2" y="479.1" width="37.6" height="21.9" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1220.0" y="494.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#AB2B28" text-anchor="middle">mmap</text>
+<path d="M40.0,84.0 a110.0,14 0 0,0 220.0,0 v77.0 a110.0,14 0 0,1 -220.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="150.0" cy="84.0" rx="110.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="150.0" y="142.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">HELLO.OBJ</text>
+<path d="M40.0,204.0 a110.0,14 0 0,0 220.0,0 v77.0 a110.0,14 0 0,1 -220.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="150.0" cy="204.0" rx="110.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="150.0" y="254.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">SLIBCE.LIB</text>
+<text x="150.0" y="272.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">402 members</text>
+<rect x="320.0" y="100.0" width="210.0" height="140.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="425.0" y="167.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">LINK 3.65</text>
+<text x="425.0" y="185.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">copies members</text>
+<path d="M580.0,114.0 a100.0,14 0 0,0 200.0,0 v112.0 a100.0,14 0 0,1 -200.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="680.0" cy="114.0" rx="100.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="680.0" y="181.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">HELLO.EXE</text>
+<text x="680.0" y="199.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">7,271 bytes</text>
+<rect x="900.0" y="100.0" width="280.0" height="140.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="1040.0" y="167.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2F40" text-anchor="middle">the program</text>
+<text x="1040.0" y="185.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">crt0 printf _write main</text>
+<rect x="1260.0" y="100.0" width="300.0" height="140.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1410.0" y="167.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0B3D42" text-anchor="middle">MSDOS.SYS</text>
+<text x="1410.0" y="185.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">the only shared code</text>
+<path d="M40.0,404.0 a110.0,14 0 0,0 220.0,0 v77.0 a110.0,14 0 0,1 -220.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="150.0" cy="404.0" rx="110.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="150.0" y="462.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">hello.o</text>
+<path d="M40.0,524.0 a110.0,14 0 0,0 220.0,0 v77.0 a110.0,14 0 0,1 -220.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="150.0" cy="524.0" rx="110.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="150.0" y="574.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">libc.so</text>
+<text x="150.0" y="592.3" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">symbols checked</text>
+<rect x="320.0" y="420.0" width="210.0" height="140.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="425.0" y="487.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">ld.lld</text>
+<text x="425.0" y="505.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">writes NEEDED</text>
+<path d="M580.0,434.0 a100.0,14 0 0,0 200.0,0 v112.0 a100.0,14 0 0,1 -200.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="680.0" cy="434.0" rx="100.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="680.0" y="501.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#1F2328" text-anchor="middle">hello</text>
+<text x="680.0" y="519.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">PLT + GOT</text>
+<rect x="900.0" y="420.0" width="280.0" height="140.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1040.0" y="487.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">ld-elf.so.1</text>
+<text x="1040.0" y="505.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">maps, binds lazily</text>
+<rect x="1260.0" y="420.0" width="300.0" height="140.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1410.0" y="476.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">libc.so.7</text>
+<text x="1410.0" y="498.5" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#4A1312" text-anchor="middle">libsys.so.7</text>
+<text x="1410.0" y="516.8" font-family="Consolas, Menlo, monospace" font-size="14.040000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">pages shared by all</text>
+</svg>

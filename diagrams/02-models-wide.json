@@ -1,0 +1,44 @@
+{
+  "title": "Two kernel models: one shared real-mode space versus a protected kernel and per-process spaces",
+  "width": 17, "height": 7,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 7.4, "h": 6.6, "label": "MS-DOS 4.00: one space for everyone", "kind": "dos"},
+    {"x": 8.0, "y": 0.2, "w": 8.8, "h": 6.6, "label": "FreeBSD 15.1: one map per process", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "ivt", "x": 1.7, "y": 0.85, "w": 3.6, "h": 0.7, "label": "Interrupt vector table", "sub": "256 far pointers", "kind": "data", "size": 18},
+    {"id": "bda", "x": 1.7, "y": 1.55, "w": 3.6, "h": 0.7, "label": "ROM BIOS data area", "sub": "segment 40h", "kind": "hw", "size": 18},
+    {"id": "dos", "x": 1.7, "y": 2.25, "w": 3.6, "h": 0.9, "label": "IO.SYS, MSDOS.SYS", "sub": "SFTs, buffers, CDS", "kind": "dos", "size": 18},
+    {"id": "cmd", "x": 1.7, "y": 3.15, "w": 3.6, "h": 0.55, "label": "COMMAND.COM", "kind": "user", "size": 18},
+    {"id": "tsr", "x": 1.7, "y": 3.7, "w": 3.6, "h": 0.55, "label": "TSRs", "kind": "user", "size": 18},
+    {"id": "prg", "x": 1.7, "y": 4.25, "w": 3.6, "h": 0.85, "label": "Running program", "kind": "user", "size": 18},
+    {"id": "free", "x": 1.7, "y": 5.1, "w": 3.6, "h": 0.6, "label": "Free blocks", "kind": "data", "dashed": true, "size": 18},
+
+    {"id": "a0", "x": 8.4, "y": 1.2, "w": 3.2, "h": 0.5, "label": "unmapped page 0", "kind": "data", "dashed": true, "size": 18},
+    {"id": "atext", "x": 8.4, "y": 1.7, "w": 3.2, "h": 0.65, "label": "text, data, heap", "kind": "user", "size": 18},
+    {"id": "alib", "x": 8.4, "y": 2.35, "w": 3.2, "h": 0.65, "label": "shared libs, mmap", "kind": "user", "size": 18},
+    {"id": "astk", "x": 8.4, "y": 3.0, "w": 3.2, "h": 0.55, "label": "user stack", "kind": "user", "size": 18},
+    {"id": "ahole", "x": 8.4, "y": 3.55, "w": 3.2, "h": 1.2, "label": "unmapped hole", "kind": "data", "dashed": true, "size": 18},
+    {"id": "b0", "x": 13.2, "y": 1.2, "w": 3.2, "h": 0.5, "label": "unmapped page 0", "kind": "data", "dashed": true, "size": 18},
+    {"id": "btext", "x": 13.2, "y": 1.7, "w": 3.2, "h": 0.65, "label": "text, data, heap", "kind": "user", "size": 18},
+    {"id": "blib", "x": 13.2, "y": 2.35, "w": 3.2, "h": 0.65, "label": "shared libs, mmap", "kind": "user", "size": 18},
+    {"id": "bstk", "x": 13.2, "y": 3.0, "w": 3.2, "h": 0.55, "label": "user stack", "kind": "user", "size": 18},
+    {"id": "bhole", "x": 13.2, "y": 3.55, "w": 3.2, "h": 1.2, "label": "unmapped hole", "kind": "data", "dashed": true, "size": 18},
+    {"id": "kern", "x": 8.4, "y": 4.75, "w": 8.0, "h": 0.95, "label": "Kernel: ring 0 only", "sub": "same in every process", "kind": "bsd", "size": 20}
+  ],
+  "edges": [
+    {"from": "prg", "to": "dos", "from_side": "right", "to_side": "right", "route": "hvh", "via": 5.8, "label": "INT 21h", "kind": "dos", "size": 16},
+    {"from": "atext", "to": "kern", "from_side": "right", "to_side": "top", "route": "hv", "kind": "bsd"},
+    {"from": "btext", "to": "kern", "from_side": "left", "to_side": "top", "route": "hv", "kind": "bsd",
+     "label": "syscall,\nexception,\ninterrupt", "label_on_line": true, "size": 16}
+  ],
+  "notes": [
+    {"x": 0.3, "y": 0.72, "w": 1.25, "text": "0x00000", "align": "end", "kind": "dos", "size": 16},
+    {"x": 0.3, "y": 1.42, "w": 1.25, "text": "0x00400", "align": "end", "kind": "dos", "size": 16},
+    {"x": 0.3, "y": 3.85, "w": 1.25, "text": "arena:\nMCB chain", "align": "end", "kind": "dos", "style": "italic", "size": 16},
+    {"x": 0.5, "y": 5.95, "w": 6.8, "text": "No protection: any program can read or write any byte,\nincluding the vectors that lead into DOS.", "size": 16, "kind": "dos", "style": "italic"},
+    {"x": 8.4, "y": 0.8, "w": 3.2, "text": "process A", "align": "middle", "kind": "bsd", "size": 16},
+    {"x": 13.2, "y": 0.8, "w": 3.2, "text": "process B", "align": "middle", "kind": "bsd", "size": 16},
+    {"x": 8.4, "y": 5.95, "w": 8.0, "text": "Each process has its own user part; the kernel part is protected,\nand only the kernel sets its entry points.", "size": 16, "kind": "bsd", "style": "italic"}
+  ]
+}

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1680.0 675.0" width="1680.0" height="675.0" role="img" aria-label="How a BTX client calls the BIOS: INT 31h, a trip back to real mode, and back">
+<title>How a BTX client calls the BIOS: INT 31h, a trip back to real mode, and back</title>
+<defs><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker><marker id="arrow4B5563" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4B5563"/></marker><marker id="arrowB7862A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B7862A"/></marker></defs>
+<rect x="0" y="0" width="1680.0" height="675.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1640.0" height="195.0" rx="14" fill="#FCF4F4" stroke="#AB2B28" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="244.60000000000002" height="26" rx="13" fill="#AB2B28"/>
+<text x="154.3" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Client, ring 3 (here: boot2)</text>
+<rect x="20.0" y="235.0" width="1640.0" height="195.0" rx="14" fill="#F4F5F7" stroke="#2E3440" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="245.0" width="165.1" height="26" rx="13" fill="#2E3440"/>
+<text x="114.55" y="263.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">BTX kernel, ring 0</text>
+<rect x="20.0" y="450.0" width="1640.0" height="195.0" rx="14" fill="#FDF8EE" stroke="#B7862A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="460.0" width="93.55" height="26" rx="13" fill="#B7862A"/>
+<text x="78.775" y="478.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Real mode</text>
+<path d="M330.0,132.5 L385.0,132.5" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<path d="M520.0,190.0 L520.0,290.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="526.0" y="227.2" width="86.3" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="569.2" y="245.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#AB2B28" text-anchor="middle">int $0x31</text>
+<path d="M655.0,347.5 L710.0,347.5" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<path d="M845.0,405.0 L845.0,505.0" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<rect x="851.0" y="442.2" width="43.9" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="873.0" y="460.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#B7862A" text-anchor="middle">IRET</text>
+<path d="M980.0,562.5 L1035.0,562.5" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<path d="M1305.0,562.5 L1495.0,562.5 L1495.0,405.0" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<rect x="1369.6" y="549.7" width="60.9" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1400.0" y="568.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#B7862A" text-anchor="middle">return</text>
+<path d="M1495.0,290.0 L1495.0,190.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="1501.0" y="227.2" width="86.3" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1544.2" y="245.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#AB2B28" text-anchor="middle">registers</text>
+<rect x="60.0" y="75.0" width="270.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="195.0" y="129.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#4A1312" text-anchor="middle">drvread()</text>
+<text x="195.0" y="150.1" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">fills v86</text>
+<rect x="385.0" y="75.0" width="270.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="520.0" y="129.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#4A1312" text-anchor="middle">__v86int</text>
+<text x="520.0" y="150.1" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">registers</text>
+<rect x="385.0" y="290.0" width="270.0" height="115.0" rx="7" fill="#E4E6EA" stroke="#2E3440" stroke-width="2"/>
+<text x="520.0" y="342.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#15191E" text-anchor="middle">INT 31h</text>
+<text x="520.0" y="366.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#15191E" text-anchor="middle">handler</text>
+<rect x="710.0" y="290.0" width="270.0" height="115.0" rx="7" fill="#E4E6EA" stroke="#2E3440" stroke-width="2"/>
+<text x="845.0" y="344.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#15191E" text-anchor="middle">CR0.PE = 0</text>
+<text x="845.0" y="365.1" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#2E3440" text-anchor="middle">lidt IVT</text>
+<rect x="710.0" y="505.0" width="270.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="845.0" y="559.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#4A1312" text-anchor="middle">xread</text>
+<text x="845.0" y="580.1" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">boot1, 0x700</text>
+<rect x="1035.0" y="505.0" width="270.0" height="115.0" rx="7" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1170.0" y="557.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#4D3810" text-anchor="middle">BIOS</text>
+<text x="1170.0" y="581.7" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#4D3810" text-anchor="middle">INT 13h</text>
+<rect x="1360.0" y="290.0" width="270.0" height="115.0" rx="7" fill="#E4E6EA" stroke="#2E3440" stroke-width="2"/>
+<text x="1495.0" y="344.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#15191E" text-anchor="middle">rret_tramp</text>
+<text x="1495.0" y="365.1" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#2E3440" text-anchor="middle">protected</text>
+<rect x="1360.0" y="75.0" width="270.0" height="115.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1495.0" y="129.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#4A1312" text-anchor="middle">drvread()</text>
+<text x="1495.0" y="150.1" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">v86.eax, efl</text>
+</svg>

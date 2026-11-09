@@ -1,0 +1,93 @@
+Expected output of the completed Module 9 tools on FreeBSD 15.1, captured in the
+course VM on 2026-11-09 in a directory that holds the tools, the test files of this
+directory and POEM.TXT and CTRLZ.TXT from ../dos. Each "# " line is the command
+that was run. The sysinfo numbers and paths depend on the machine.
+
+# ./argsa one "two words" *.txt
+argc: 4
+0: [./argsa]
+1: [one]
+2: [two words]
+3: [poem.txt]
+path: [/root/lab/09/final/argsa]
+# ./args one "two words" *.txt
+argc: 4
+0: [./args]
+1: [one]
+2: [two words]
+3: [poem.txt]
+path: [/root/lab/09/final/args]
+# ./wc poem.txt POEM.TXT CTRLZ.TXT
+       6      30     149 poem.txt
+       6      30     155 POEM.TXT
+       3       7      39 CTRLZ.TXT
+      15      67     343 total
+# ./wca < poem.txt; ./wc < CTRLZ.TXT
+       6      30     149
+       3       7      39
+# ./wc nosuch poem.txt 2>&1; echo "status $?"
+wc: nosuch: cannot open
+       6      30     149 poem.txt
+       6      30     149 total
+status 1
+# ./hd CTRLZ.TXT; ./hd -t CTRLZ.TXT; ./hda < CTRLZ.TXT
+00000000  6c 69 6e 65 20 6f 6e 65  0d 0a 6c 69 6e 65 20 74  |line one..line t|
+00000010  77 6f 0d 0a 1a 61 66 74  65 72 20 74 68 65 20 43  |wo...after the C|
+00000020  74 72 6c 2d 5a 0d 0a                              |trl-Z..|
+00000027
+00000000  6c 69 6e 65 20 6f 6e 65  0d 0a 6c 69 6e 65 20 74  |line one..line t|
+00000010  77 6f 0d 0a 1a 61 66 74  65 72 20 74 68 65 20 43  |wo...after the C|
+00000020  74 72 6c 2d 5a 0d 0a                              |trl-Z..|
+00000027
+00000000  6c 69 6e 65 20 6f 6e 65  0d 0a 6c 69 6e 65 20 74  |line one..line t|
+00000010  77 6f 0d 0a 1a 61 66 74  65 72 20 74 68 65 20 43  |wo...after the C|
+00000020  74 72 6c 2d 5a 0d 0a                              |trl-Z..|
+00000027
+# ./sysinfo
+system:    FreeBSD 15.1-RELEASE amd64
+directory: /root/lab/09/final
+disk:      12142211072 bytes free of 19719778304 (/dev/gpt/rootfs on /)
+memory:    2107146240 bytes of physical memory
+           data size limit 34359738368 bytes
+# sh ask.sh yn Continue <y.ans; echo status $?
+Continue [Y,N]? Y
+status 1
+# sh ask.sh yn Continue <n.ans; echo status $?
+Continue [Y,N]? N
+status 2
+# sh ask.sh yn Continue <junk.ans; echo status $?
+Continue [Y,N]? 
+status 0
+# sh ask.sh ynq Continue <junk.ans; echo status $?
+Continue [Y,N,Q]? Q
+status 3
+# sh ask.sh yn Continue <empty.ans; echo status $?
+Continue [Y,N]? 
+status 0
+# for f in y n junk empty; do sh askdemo.sh <$f.ans; done
+Delete the old copies [Y,N,Q]? Y
+Deleting (yes)
+Delete the old copies [Y,N,Q]? N
+Keeping them (no)
+Delete the old copies [Y,N,Q]? Q
+Stopping here (quit)
+Delete the old copies [Y,N,Q]? 
+No answer: end of input
+# rm -rf work save; mkdir work save && cp poem.txt y.ans n.ans junk.ans empty.ans work/
+# cd work && sh ../backup.sh ../save *.txt *.ans nosuch.dat 2>&1; echo status $?
+copied  poem.txt
+copied  empty.ans
+copied  junk.ans
+copied  n.ans
+copied  y.ans
+FAILED  nosuch.dat
+5 copied, 0 unchanged, 1 failed
+status 1
+# cd work && echo more >> y.ans && sh ../backup.sh ../save *.txt *.ans 2>&1; echo status $?
+same    poem.txt
+same    empty.ans
+same    junk.ans
+same    n.ans
+copied  y.ans
+1 copied, 4 unchanged, 0 failed
+status 0

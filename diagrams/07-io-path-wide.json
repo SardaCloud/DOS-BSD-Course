@@ -1,0 +1,39 @@
+{
+  "title": "The disk I/O path: DOS buffers and INT 13h; FreeBSD's buffer and page cache and GEOM",
+  "width": 16, "height": 6.5,
+  "lanes": [
+    {"x": 0.2, "y": 0.2, "w": 15.6, "h": 2.95, "label": "MS-DOS 4.00", "kind": "dos"},
+    {"x": 0.2, "y": 3.35, "w": 15.6, "h": 2.95, "label": "FreeBSD 15.1", "kind": "bsd"}
+  ],
+  "nodes": [
+    {"id": "dp", "x": 0.5, "y": 0.8, "w": 2.0, "h": 1.1, "label": "Program", "sub": "INT 21h", "kind": "user", "size": 18},
+    {"id": "dfs", "x": 3.0, "y": 0.8, "w": 2.1, "h": 1.1, "label": "FAT and\ndirectory code", "sub": "FAT.ASM, DIR.ASM", "kind": "dos", "size": 18},
+    {"id": "dbuf", "x": 5.6, "y": 0.8, "w": 2.3, "h": 1.1, "label": "BUFFERS=20\nsector buffers", "sub": "BUF.ASM", "kind": "dos", "size": 18},
+    {"id": "ddrv", "x": 8.4, "y": 0.8, "w": 2.1, "h": 1.1, "label": "Block driver\nin IO.SYS", "sub": "MSDISK.ASM", "kind": "dos", "size": 18},
+    {"id": "dbios", "x": 11.0, "y": 0.8, "w": 1.9, "h": 1.1, "label": "INT 13h", "sub": "BIOS ROM", "kind": "hw", "size": 18},
+    {"id": "dd", "x": 13.5, "y": 0.7, "w": 2.0, "h": 1.4, "label": "Floppy,\nhard disk", "kind": "hw", "shape": "cyl", "size": 18},
+    {"id": "dabs", "x": 3.0, "y": 2.15, "w": 4.9, "h": 0.8, "label": "DEBUG, CHKDSK: INT 25h / 26h", "kind": "user", "size": 18},
+    {"id": "bp", "x": 0.5, "y": 3.95, "w": 2.0, "h": 1.1, "label": "Program", "sub": "read(2)", "kind": "user", "size": 18},
+    {"id": "bfs", "x": 3.0, "y": 3.95, "w": 2.1, "h": 1.1, "label": "VFS and\nUFS / FFS", "sub": "ffs_read", "kind": "bsd", "size": 18},
+    {"id": "bbuf", "x": 5.6, "y": 3.95, "w": 2.3, "h": 1.1, "label": "Buffer and\npage cache", "sub": "vfs_bio.c, vm", "kind": "bsd", "size": 18},
+    {"id": "bgeom", "x": 8.4, "y": 3.95, "w": 2.1, "h": 1.1, "label": "GEOM\nada0p4, ada0", "sub": "g_access", "kind": "bsd", "size": 18},
+    {"id": "bdrv", "x": 11.0, "y": 3.95, "w": 1.9, "h": 1.1, "label": "Driver", "sub": "ahci, md", "kind": "bsd", "size": 18},
+    {"id": "bd", "x": 13.5, "y": 3.85, "w": 2.0, "h": 1.4, "label": "Disk", "kind": "hw", "shape": "cyl", "size": 18},
+    {"id": "braw", "x": 3.0, "y": 5.3, "w": 4.9, "h": 0.8, "label": "dd of=/dev/md0: EPERM if mounted", "kind": "user", "size": 18}
+  ],
+  "edges": [
+    {"from": "dp", "to": "dfs", "kind": "dos"},
+    {"from": "dfs", "to": "dbuf", "kind": "dos"},
+    {"from": "dbuf", "to": "ddrv", "kind": "dos"},
+    {"from": "ddrv", "to": "dbios", "kind": "dos"},
+    {"from": "dbios", "to": "dd", "kind": "hw"},
+    {"from": "dabs", "to": "ddrv", "kind": "dos", "style": "dashed", "from_side": "right", "to_side": "bottom", "route": "hv", "label": "bypasses buffers"},
+    {"from": "bp", "to": "bfs", "kind": "bsd"},
+    {"from": "bfs", "to": "bbuf", "kind": "bsd"},
+    {"from": "bbuf", "to": "bgeom", "kind": "bsd"},
+    {"from": "bgeom", "to": "bdrv", "kind": "bsd"},
+    {"from": "bdrv", "to": "bd", "kind": "hw"},
+    {"from": "braw", "to": "bgeom", "kind": "bsd", "style": "dashed", "from_side": "right", "to_side": "bottom", "route": "hv", "label": "checked"}
+  ],
+  "notes": []
+}

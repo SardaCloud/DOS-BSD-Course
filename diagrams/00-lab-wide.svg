@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 720.0" width="1700" height="720.0" role="img" aria-label="The lab: one host PC, DOSBox-X for MS-DOS 4.00, a Hyper-V virtual machine for FreeBSD 15.1">
+<title>The lab: one host PC, DOSBox-X for MS-DOS 4.00, a Hyper-V virtual machine for FreeBSD 15.1</title>
+<defs><marker id="arrow0E7C86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C86"/></marker><marker id="arrowAB2B28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#AB2B28"/></marker><marker id="arrow4B5563" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4B5563"/></marker><marker id="arrowB7862A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B7862A"/></marker></defs>
+<rect x="0" y="0" width="1700" height="720.0" fill="#FFFFFF"/>
+<rect x="20.0" y="20.0" width="1660.0" height="680.0" rx="14" fill="#F7F6F2" stroke="#6B7280" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="32.0" y="30.0" width="77.65" height="26" rx="13" fill="#6B7280"/>
+<text x="70.825" y="48.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Host PC</text>
+<rect x="45.0" y="75.0" width="365.0" height="600.0" rx="14" fill="#F5F8FB" stroke="#4F6D8A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="57.0" y="85.0" width="157.15" height="26" rx="13" fill="#4F6D8A"/>
+<text x="135.575" y="103.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Course repository</text>
+<rect x="460.0" y="75.0" width="1195.0" height="220.0" rx="14" fill="#FDF8EE" stroke="#B7862A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="472.0" y="85.0" width="196.9" height="26" rx="13" fill="#B7862A"/>
+<text x="570.45" y="103.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">DOSBox-X (PC emulator)</text>
+<rect x="460.0" y="455.0" width="1195.0" height="220.0" rx="14" fill="#FDF8EE" stroke="#B7862A" stroke-opacity="0.45" stroke-width="1.5"/>
+<rect x="472.0" y="465.0" width="316.15000000000003" height="26" rx="13" fill="#B7862A"/>
+<text x="630.075" y="483.3" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Hyper-V: Generation 1 virtual machine</text>
+<path d="M380.0,185.0 L540.0,185.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="404.1" y="172.2" width="111.8" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="460.0" y="190.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#0E7C86" text-anchor="middle">build_dos.py</text>
+<path d="M740.0,245.0 L740.0,375.0 L940.0,375.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="775.6" y="362.2" width="128.7" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="840.0" y="380.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#0E7C86" text-anchor="middle">make_floppy.py</text>
+<path d="M1180.0,375.0 L1400.0,375.0 L1400.0,245.0" fill="none" stroke="#0E7C86" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrow0E7C86)"/>
+<rect x="1242.6" y="362.2" width="94.8" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1290.0" y="380.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#0E7C86" text-anchor="middle">dos_run.py</text>
+<path d="M380.0,580.0 L845.0,580.0" fill="none" stroke="#AB2B28" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowAB2B28)"/>
+<rect x="594.8" y="567.2" width="35.4" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="612.5" y="585.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#AB2B28" text-anchor="middle">SSH</text>
+<path d="M1060.0,430.0 L1060.0,515.0" fill="none" stroke="#4B5563" stroke-width="1.8" stroke-dasharray="7 5" stroke-linejoin="round" marker-end="url(#arrow4B5563)"/>
+<rect x="1066.0" y="459.7" width="103.3" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1117.6" y="478.1" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#4B5563" text-anchor="middle">--put (scp)</text>
+<path d="M1420.0,580.0 L1275.0,580.0" fill="none" stroke="#B7862A" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#arrowB7862A)"/>
+<rect x="1304.3" y="567.2" width="86.3" height="25.5" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+<text x="1347.5" y="585.6" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="#B7862A" text-anchor="middle">BIOS boot</text>
+<path d="M75.0,144.0 a152.5,14 0 0,0 305.0,0 v82.0 a152.5,14 0 0,1 -305.0,0 z" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<ellipse cx="227.5" cy="144.0" rx="152.5" ry="14" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="227.5" y="196.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#0B3D42" text-anchor="middle">src-ext/MS-DOS</text>
+<text x="227.5" y="216.6" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">commit 2d04cac</text>
+<rect x="75.0" y="270.0" width="305.0" height="85.0" rx="7" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="227.5" y="309.8" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#1F2328" text-anchor="middle">Notes, slides</text>
+<text x="227.5" y="330.1" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">course/ slides/</text>
+<path d="M75.0,394.0 a152.5,14 0 0,0 305.0,0 v82.0 a152.5,14 0 0,1 -305.0,0 z" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<ellipse cx="227.5" cy="394.0" rx="152.5" ry="14" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="227.5" y="446.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#4A1312" text-anchor="middle">src-ext/freebsd-src</text>
+<text x="227.5" y="466.6" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">tag release/15.1.0</text>
+<rect x="75.0" y="520.0" width="305.0" height="120.0" rx="7" fill="#E8EEF4" stroke="#4F6D8A" stroke-width="2"/>
+<text x="227.5" y="577.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#1F2F40" text-anchor="middle">tools/bsd_run.py</text>
+<text x="227.5" y="597.6" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#4F6D8A" text-anchor="middle">ssh, scp with a key</text>
+<rect x="540.0" y="125.0" width="400.0" height="120.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="740.0" y="182.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#0B3D42" text-anchor="middle">1. Build</text>
+<text x="740.0" y="202.6" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">MASM CL LINK NMAKE (1988)</text>
+<rect x="1190.0" y="125.0" width="420.0" height="120.0" rx="7" fill="#E3F2F3" stroke="#0E7C86" stroke-width="2"/>
+<text x="1400.0" y="182.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#0B3D42" text-anchor="middle">2. Boot: MS-DOS 4.00</text>
+<text x="1400.0" y="202.6" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#0E7C86" text-anchor="middle">IO.SYS MSDOS.SYS COMMAND.COM</text>
+<path d="M940.0,334.0 a120.0,14 0 0,0 240.0,0 v82.0 a120.0,14 0 0,1 -240.0,0 z" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<ellipse cx="1060.0" cy="334.0" rx="120.0" ry="14" fill="#FFFFFF" stroke="#6B7280" stroke-width="2"/>
+<text x="1060.0" y="386.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#1F2328" text-anchor="middle">dos400.img</text>
+<text x="1060.0" y="406.6" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#6B7280" text-anchor="middle">1.44 MB floppy</text>
+<rect x="845.0" y="515.0" width="430.0" height="130.0" rx="7" fill="#F8E6E5" stroke="#AB2B28" stroke-width="2"/>
+<text x="1060.0" y="565.0" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#4A1312" text-anchor="middle">FreeBSD 15.1-RELEASE</text>
+<text x="1060.0" y="589.4" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#4A1312" text-anchor="middle">/usr/src at release/15.1.0</text>
+<text x="1060.0" y="609.8" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#AB2B28" text-anchor="middle">truss ktrace dtrace gdb nasm</text>
+<path d="M1420.0,524.0 a110.0,14 0 0,0 220.0,0 v112.0 a110.0,14 0 0,1 -220.0,0 z" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<ellipse cx="1530.0" cy="524.0" rx="110.0" ry="14" fill="#FBF1DC" stroke="#B7862A" stroke-width="2"/>
+<text x="1530.0" y="591.2" font-family="Segoe UI, Aptos, Calibri, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#4D3810" text-anchor="middle">Virtual disk</text>
+<text x="1530.0" y="611.6" font-family="Consolas, Menlo, monospace" font-size="15.600000000000001" font-weight="400" fill="#B7862A" text-anchor="middle">GPT, 20 GB</text>
+</svg>

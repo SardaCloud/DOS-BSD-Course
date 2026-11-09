@@ -1,0 +1,456 @@
+{
+  "module": 3,
+  "title": "The shell: COMMAND.COM and /bin/sh",
+  "subtitle": "MS-DOS 4.00 vs FreeBSD 15.1, read from the source",
+  "slides": [
+    {
+      "type": "section",
+      "title": "Two shells: COMMAND.COM and /bin/sh"
+    },
+    {
+      "type": "bullets",
+      "title": "What a shell is",
+      "bullets": [
+        "A user program that reads commands and gets them carried out",
+        "Internal commands (DOS) or builtins (Unix) run inside the shell",
+        "External commands are program files found on disk",
+        "Neither kernel treats its shell specially",
+        "Same job, very different designs: hardware and kernel decide"
+      ],
+      "notes": "Start from the definition and the internal/external distinction, because the whole module keeps returning to it. Stress that both kernels simply run whatever program they are told to run as the shell. The interesting differences come from what the kernel underneath offers: one program at a time and 640 KB in DOS, processes and paging in FreeBSD."
+    },
+    {
+      "type": "compare",
+      "title": "Who starts the shell",
+      "left": {
+        "heading": "MS-DOS 4.00",
+        "bullets": [
+          "SYSINIT EXECs \\COMMAND.COM /P after CONFIG.SYS",
+          "SHELL= replaces name and arguments: /P must be repeated",
+          "/P: permanent, own parent, installs INT 2Eh",
+          "AUTOEXEC.BAT, or the date and time prompts",
+          "COMSPEC records where COMMAND.COM lives"
+        ]
+      },
+      "right": {
+        "heading": "FreeBSD 15.1",
+        "bullets": [
+          "login(1) execs pw_shell with argv[0] = \"-sh\"",
+          "Leading dash or -l means login shell",
+          "Reads /etc/profile, ~/.profile, then $ENV",
+          "Scripts: #! activator runs a new sh process",
+          "sh -c string runs one command"
+        ]
+      },
+      "notes": "Show SYSCONF.ASM line 2299: SHELL= erases the default /P, a classic configuration mistake explained by one line of code. On FreeBSD, login prefixes argv[0] with a dash and sh checks for it in procargs. Both systems have a 'top-level' marker and a startup script, but the mechanisms are completely different."
+    },
+    {
+      "type": "code",
+      "title": "The three-part design of COMMAND.COM",
+      "lang": "asm",
+      "code": "; FUNCTION:            This version of COMMAND is divided into three distinct\n;                      parts.  First is the resident portion, which includes\n;                      handlers for interrupts  23H (Cntrl-C), 24H (fatal\n;                      error), and 2EH (command line execute); it also has\n;                      code to test and, if necessary, reload the transient\n;                      portion. Following the resident is the init code, which\n;                      is overwritten after use.  Then comes the transient\n;                      portion, which includes all command processing (whether\n;                      internal or external).  The transient portion loads at\n;                      the end of physical memory, and it may be overlayed by\n;                      programs that need as much memory as possible. When the\n;                      resident portion of command regains control from a user\n;                      program, a check sum is performed on the transient\n;                      portion to see if it must be reloaded.  Thus programs\n;                      which do not need maximum memory will save the time\n;                      required to reload COMMAND when they terminate.",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/CMD/COMMAND/COMMAND1.ASM#L13-L28",
+      "callouts": [
+        "Resident: INT 22h/23h/24h, INT 2Eh, reload code",
+        "Init: overwritten after use",
+        "Transient: at the top of memory, may be overlaid",
+        "Checksum decides whether to reload"
+      ],
+      "notes": "This comment is the best summary of the design and it is worth reading aloud. Ask the class why a shell would let programs overwrite part of itself. The answer is the memory constraint of 1980s PCs: every kilobyte the shell keeps is a kilobyte a program cannot use."
+    },
+    {
+      "type": "figure",
+      "title": "Memory while COMMAND.COM waits, and the reload check",
+      "diagram": "03-reload",
+      "caption": "The transient sits at the top of memory, where a program may grow over it",
+      "notes": "INIT computes TRNSEG as the end of the block minus the transient size, then moves the transient up and shrinks itself to the resident size. Before an external command runs, the transient frees its memory, so a large program receives the area where the transient lives. The resident part survives because it is allocated and owns the interrupt vectors. When the program ends, the resident reads the exit code with 4Dh and LODCOM compares CHKSUM with SUM; only if they differ does LOADCOM read the transient back from the COMSPEC file."
+    },
+    {
+      "type": "code",
+      "title": "Is the transient still there? CHKSUM",
+      "lang": "asm",
+      "code": "CHKSUM:                                 ; Compute transient checksum\n        PUSH    DS\n        MOV     DS,[TRNSEG]\n        MOV     SI,100H\n        MOV     CX,OFFSET TRANGROUP:TranDataEnd  - 100H\n\nCHECK_SUM:\n        CLD\n        SHR     CX,1\n        XOR     DX,DX\nCHK:\n        LODSW\n        ADD     DX,AX\n        ADC     DX,0\n        LOOP    CHK",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/CMD/COMMAND/COMMAND2.ASM#L526-L540",
+      "callouts": [
+        "Sums words from 100h to TranDataEnd",
+        "ADC DX,0: ones' complement sum",
+        "Covers code and messages, not TRANSPACE variables",
+        "Compared with SUM saved by INIT"
+      ],
+      "notes": "After every external program LODCOM1 calls CHKSUM and compares the result with SUM. If they differ, LOADCOM reopens the COMSPEC file, seeks to TRANSTART and reads the transient back. Ask what happens if the floppy with COMMAND.COM has been removed: the shell prompts for it, or halts on a fixed disk."
+    },
+    {
+      "type": "compare",
+      "title": "Resident/transient vs one process",
+      "left": {
+        "heading": "MS-DOS 4.00",
+        "bullets": [
+          "Transient frees its memory before EXEC",
+          "Resident code issues INT 21h 4Bh",
+          "Checksum, then reload from COMSPEC",
+          "INT 2Eh: run a command in the top shell"
+        ]
+      },
+      "right": {
+        "heading": "FreeBSD 15.1",
+        "bullets": [
+          "sh stays mapped, sleeping in wait",
+          "Child created with fork or vfork, then execve",
+          "Text pages shared and paged on demand",
+          "system(3) forks and execs sh -c"
+        ]
+      },
+      "notes": "The kernel gives sh, transparently and for every program, what COMMAND.COM implements by hand for itself. Separate address spaces mean nothing can overwrite the sleeping shell. Writing to a running executable even fails with ETXTBSY in FreeBSD, where DOS can only detect a changed file after the fact."
+    },
+    {
+      "type": "section",
+      "title": "The command loop"
+    },
+    {
+      "type": "code",
+      "title": "COMTAB: the internal command table",
+      "lang": "asm",
+      "code": "; Table for internal command names\nCOMTAB  DB      3,\"DIR\",fSwitchAllowed+fCheckDrive\n        DW      OFFSET TRANGROUP:CATALOG        ; In TCMD1.ASM\n        DB      4,\"CALL\",fSwitchAllowed\n        DW      OFFSET TRANGROUP:$CALL          ; In TBATCH2.ASM\n;⋮\n        DB      2,\"CD\",fSwitchAllowed+fCheckDrive    ;AC018; P3903\n        DW      OFFSET TRANGROUP:$CHDIR         ; In TENV.ASM\n        DB      5,\"CHDIR\",fSwitchAllowed+fCheckDrive ;AC018; P3903\n        DW      OFFSET TRANGROUP:$CHDIR         ; In TENV.ASM",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/CMD/COMMAND/TDATA.ASM#L280-L314",
+      "callouts": [
+        "Length byte, name, flag byte, handler offset",
+        "fndcom scans it linearly",
+        "No match: search current dir and PATH",
+        ".COM beats .EXE beats .BAT"
+      ],
+      "notes": "The line is read with INT 21h function 0Ah, PRESCAN strips redirections, and fndcom scans this table. If nothing matches, path_search uses FIND FIRST and FIND NEXT in the current directory and each PATH element, every time, with no cache. Compare the table format with sh's generated builtincmd table on the next slides."
+    },
+    {
+      "type": "code",
+      "title": "sh: parse a command, then evaluate the tree",
+      "lang": "c",
+      "code": "                n = parsecmd(inter);\n                /* showtree(n); DEBUG */\n                if (n == NEOF) {\n                        if (!top || numeof >= 50)\n                                break;\n                        if (!stoppedjobs()) {\n                                if (!Iflag)\n                                        break;\n                                out2fmt_flush(\"\\nUse \\\"exit\\\" to leave shell.\\n\");\n                        }\n                        numeof++;\n                } else if (n != NULL && nflag == 0) {\n                        job_warning = (job_warning == 2) ? 1 : 0;\n                        numeof = 0;\n                        evaltree(n, 0);\n                }",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/bin/sh/main.c#L207-L222",
+      "callouts": [
+        "parsecmd builds a node tree",
+        "evaltree walks it",
+        "Builtins run in the shell process",
+        "Externals: hashed PATH lookup, fork, execve"
+      ],
+      "notes": "sh separates parsing from execution: parsecmd returns a tree of NCMD, NPIPE, NIF and other nodes, and evaltree dispatches on the node type. find_command caches PATH lookups in a 31-bucket hash table, and builtins come from a table generated from builtins.def with the same length-name layout as COMTAB. Only external commands cause a fork."
+    },
+    {
+      "type": "figure",
+      "title": "Two command loops",
+      "diagram": "03-loop",
+      "caption": "Both shells try internal commands first; only sh parses a whole command first and caches PATH lookups",
+      "notes": "Top lane: every command and every error ends at TCOMMAND, which first serves a pipe, FOR, batch file or /C and only then prompts; fndcom scans COMTAB linearly, and path_search searches PATH again for every external command. Bottom lane: sh parses a complete command into a tree first; find_command checks the hash table, builtins run in the shell, and only an external command costs a fork or vfork, after which the shell waits in wait3."
+    },
+    {
+      "type": "table",
+      "title": "The main loop side by side",
+      "header": [
+        "",
+        "MS-DOS 4.00",
+        "FreeBSD 15.1"
+      ],
+      "rows": [
+        [
+          "Read",
+          "INT 21h 0Ah, 128-byte line",
+          "read(2), BUFSIZ 1024"
+        ],
+        [
+          "Parse",
+          "PRESCAN edits text in place",
+          "recursive descent, node tree"
+        ],
+        [
+          "Internal lookup",
+          "linear scan of COMTAB",
+          "hash table, then builtincmd[]"
+        ],
+        [
+          "External lookup",
+          "FIND FIRST per PATH entry, every time",
+          "stat along PATH once, cached"
+        ],
+        [
+          "Run and wait",
+          "resident EXEC, then 4Dh",
+          "fork/vfork, execve, wait3"
+        ]
+      ],
+      "notes": "Use this table as the recap of section 3.3. The most visible practical difference is caching: COMMAND.COM searches the disk for every external command, sh remembers. The structural difference is that sh has a real parser and a tree, which is what makes its control structures possible."
+    },
+    {
+      "type": "section",
+      "title": "Redirection and pipes"
+    },
+    {
+      "type": "code",
+      "title": "COMMAND.COM: \"mega sleaze\" redirection",
+      "lang": "asm",
+      "code": "        MOV     DX,OFFSET tranGROUP:RE_INSTR\n        MOV     AX,(OPEN SHL 8)\n        MOV     BX,AX\n        INT     int_command\n        POP     DS\n        JC      REDIRERR\n        MOV     BX,AX\n        MOV     AL,0FFH\n;\n; Mega sleaze!! We move the SFN from the new handle spot into the old stdin\n; spot.  We invalidate the new JFN we got.\n;\n        XCHG    AL,[BX.PDB_JFN_Table]\n        MOV     DS:[PDB_JFN_Table],AL",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/CMD/COMMAND/TMISC2.ASM#L223-L236",
+      "callouts": [
+        "Open the file, get a new handle",
+        "Move its SFT index into JFT slot 0",
+        "Invalidate the new slot (0FFh)",
+        "IO_SAVE holds the console; HEADFIX restores"
+      ],
+      "notes": "COMMAND.COM does not use the DUP calls here; it edits the Job File Table in its own PSP directly. A child EXECed afterwards inherits a copy of that table, so its standard input is the file. HEADFIX later compares slots 0 and 1 with IO_SAVE, closes the files and writes the saved indexes back, and closes handles 5 to 19."
+    },
+    {
+      "type": "code",
+      "title": "sh: save, dup2, restore",
+      "lang": "c",
+      "code": "                if ((flags & REDIR_PUSH) && sv->renamed[fd] == EMPTY) {\n                        INTOFF;\n                        if ((i = fcntl(fd, F_DUPFD_CLOEXEC, 10)) == -1) {\n                                switch (errno) {\n                                case EBADF:\n                                        i = CLOSED;\n                                        break;\n                                default:\n                                        INTON;\n                                        error(\"%d: %s\", fd, strerror(errno));\n                                        break;\n                                }\n                        }\n                        sv->renamed[fd] = i;\n                        INTON;\n                }",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/bin/sh/redir.c#L136-L151",
+      "callouts": [
+        "Only builtins need REDIR_PUSH",
+        "F_DUPFD_CLOEXEC copies the old fd to 10+",
+        "openredirect then dup2s the file into place",
+        "popredir restores from the redirtab stack"
+      ],
+      "notes": "For an external command, sh applies redirections in the child after fork, so nothing needs undoing. Builtins run in the shell, so the old descriptor is first copied to a number of at least 10 with the close-on-exec flag. The saved descriptors form a stack so nested redirections unwind correctly."
+    },
+    {
+      "type": "figure",
+      "title": "prog > out.txt in both shells",
+      "diagram": "03-redirection",
+      "caption": "COMMAND.COM changes its own JFT around the EXEC; sh redirects in the child, between fork and execve",
+      "notes": "Top lane: the file is created as some free handle, say 5, and its SFT index is moved into JFT slot 1 of the shell's own PSP; the child inherits a copy at EXEC, and HEADFIX puts the console back from IO_SAVE afterwards. Bottom lane: the child opens the file and dup2s it onto 1 before execve, so the shell never has anything to undo."
+    },
+    {
+      "type": "code",
+      "title": "DOS pipes: two temporary files",
+      "lang": "asm",
+      "code": "        INC     [PIPEFILES]                     ; Flag that the pipe files exist\n        MOV     AH,Get_Default_Drive            ; Get current drive\n        INT     int_command\n        ADD     AL,capital_A\n        MOV     [PIPE2],AL                      ; Make pipe files in root of def drv\n        MOV     BX,OFFSET RESGROUP:PIPE1\n        MOV     [BX],AL\n        xor     ah,ah                           ; nul terminate path names\n        mov     [Pipe1T],ah\n        mov     [Pipe2T],ah\n        MOV     DX,BX\n        XOR     CX,CX\n        mov     ah,CreateTempFile               ; the CreateTemp call\n        INT     int_command\n        JC      PIPEERR                         ; Couldn't create",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/CMD/COMMAND/TPIPE.ASM#L175-L189",
+      "callouts": [
+        "Root of the current drive, no TEMP variable",
+        "INT 21h 5Ah creates a unique name",
+        "Stages run one after another",
+        "PIPEDEL unlinks both files at the end"
+      ],
+      "notes": "PIPEPROCSTRT creates both files before the first stage runs. Each stage reads one file and writes the other, and the names are swapped after every stage, so two files serve any number of stages. The consequences are direct: sequential execution, the whole intermediate output on disk, and failure on a write-protected disk or a full root directory."
+    },
+    {
+      "type": "code",
+      "title": "sh pipes: concurrent children",
+      "lang": "c",
+      "code": "                if (forkshell(jp, lp->n, n->npipe.backgnd) == 0) {\n                        INTON;\n                        if (prevfd > 0) {\n                                dup2(prevfd, 0);\n                                close(prevfd);\n                        }\n                        if (pip[1] >= 0) {\n                                if (!(prevfd >= 0 && pip[0] == 0))\n                                        close(pip[0]);\n                                if (pip[1] != 1) {\n                                        dup2(pip[1], 1);\n                                        close(pip[1]);\n                                }\n                        }\n                        evaltree(lp->n, EV_EXIT);\n                }",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/bin/sh/eval.c#L585-L600",
+      "callouts": [
+        "One pipe(2) per |, one child per stage",
+        "Child dup2s the pipe ends onto 0 and 1",
+        "Parent closes its copies, does not wait",
+        "waitforjob after all stages exist"
+      ],
+      "notes": "All stages run at the same time, connected by kernel pipes with a 16 KiB buffer that can grow to 64 KiB. A full buffer puts the writer to sleep and an empty one the reader, so the pipeline regulates itself. If the reader exits, the writer gets EPIPE and SIGPIPE, which is how yes | head terminates."
+    },
+    {
+      "type": "figure",
+      "title": "dir | sort > out.txt as a timeline",
+      "diagram": "03-pipeline",
+      "caption": "Top: one stage after the other, data on disk. Bottom: two children at once, data in a kernel buffer",
+      "notes": "Read the top lane left to right: COMMAND.COM creates two temporary files with 5Ah, runs DIR inside itself with handle 1 on one of them, swaps the handles, runs SORT.EXE with that file on handle 0 and out.txt on handle 1, and finally deletes both files. In the bottom lane sh calls pipe2, forks two children that dup2 the pipe ends and execve ls and sort, and waits for both; the two programs overlap in time."
+    },
+    {
+      "type": "table",
+      "title": "dir | sort > out.txt",
+      "header": [
+        "",
+        "MS-DOS 4.00",
+        "FreeBSD 15.1"
+      ],
+      "rows": [
+        [
+          "Intermediate data",
+          "two files in C:\\ (5Ah)",
+          "kernel pipe buffer"
+        ],
+        [
+          "Processes",
+          "one at a time; DIR inside COMMAND",
+          "two children, concurrent"
+        ],
+        [
+          "Plumbing",
+          "JFT byte swaps in the shell's PSP",
+          "dup2 in each child"
+        ],
+        [
+          "out.txt opened by",
+          "the shell, before SORT runs",
+          "the second child, before execve"
+        ],
+        [
+          "Cleanup",
+          "PIPEDEL: two UNLINK calls",
+          "last close frees the pipe"
+        ]
+      ],
+      "notes": "Walk through study case 3.A with this table on the screen. Emphasise that in DOS all the plumbing happens in the shell's own handle table, one stage at a time, while sh does it in each child. Ask which program suffers most from the DOS design: MORE, because it cannot show anything until the producer has finished."
+    },
+    {
+      "type": "stat",
+      "title": "Numbers from the source",
+      "stats": [
+        {
+          "value": "128",
+          "label": "bytes in a COMMAND.COM command line (COMBUFLEN)"
+        },
+        {
+          "value": "32",
+          "label": "byte buffer for reading batch files (BatLen)"
+        },
+        {
+          "value": "20",
+          "label": "handles per DOS process (FilPerProc)"
+        },
+        {
+          "value": "16 KiB",
+          "label": "initial FreeBSD pipe buffer (PIPE_SIZE)"
+        },
+        {
+          "value": "1024",
+          "label": "bytes per sh input read (BUFSIZ)"
+        }
+      ],
+      "notes": "Every number here comes from an EQU or a #define in the pinned sources: COMEQU.ASM, PDB.INC, sys/pipe.h and stdio.h. They summarise the scale difference between the two systems. Ask students to find each definition as a quick exercise."
+    },
+    {
+      "type": "section",
+      "title": "Scripts, environment, signals"
+    },
+    {
+      "type": "code",
+      "title": "Batch files: reopen and seek for every line",
+      "lang": "asm",
+      "code": "        MOV     DX,BatFile\n        MOV     AX,OPEN SHL 8\n        INT     int_command                     ; Open the batch file\n        JC      SETERRDL\n        MOV     DX,WORD PTR DS:[BatSeek]\n        MOV     CX,WORD PTR DS:[BatSeek+2]\n        POP     DS\nASSUME  DS:RESGROUP\n\n        MOV     [BATHAND],AX\n        MOV     BX,AX\n        MOV     AX,LSEEK SHL 8                  ; Go to the right spot\n        INT     int_command\n        MOV     BatBufPos,-1                    ; nuke batch buffer position\n\n        return",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/CMD/COMMAND/TBATCH2.ASM#L720-L735",
+      "callouts": [
+        "Batch file reopened by name each line",
+        "Seek to BatSeek, a byte offset",
+        "Closed again after the line",
+        "Edits change what runs next"
+      ],
+      "notes": "ReadBat calls BatOpen for every line, reads through a 32-byte buffer while counting consumed bytes in BatSeek, and closes the file at the end of the line. Editing a running batch file therefore changes the next line read, at the old byte offset. GOTO rewinds BatSeek to 0 and rescans the whole file for the label each time."
+    },
+    {
+      "type": "figure",
+      "title": "One line at a time versus one command at a time",
+      "diagram": "03-batch",
+      "caption": "COMMAND.COM keeps only a byte offset between lines; sh keeps an open descriptor and a parse tree",
+      "notes": "The dashed arrow in the top lane is the key: before every line COMMAND.COM opens the file again by name and seeks to BatSeek, and no handle is held while the line runs. Exercise 3.3 edits a running batch file to show the consequence. sh reads 1024-byte blocks through one descriptor and parses a complete command, so a while loop or a function is read once and runs from memory."
+    },
+    {
+      "type": "compare",
+      "title": "Batch file vs sh script",
+      "left": {
+        "heading": "MS-DOS 4.00",
+        "bullets": [
+          "Interpreted line by line from the file",
+          "%0-%9, SHIFT, %NAME% from the environment",
+          "GOTO scans from byte 0; one-level FOR",
+          "IF ERRORLEVEL n means exit code >= n",
+          "CALL keeps the caller's batch segment"
+        ]
+      },
+      "right": {
+        "heading": "FreeBSD 15.1",
+        "bullets": [
+          "Parsed into trees, one command at a time",
+          "One open descriptor, 1024-byte reads",
+          "while/for/case run from memory",
+          "Functions, local variables, arithmetic",
+          "Here-documents through a pipe"
+        ]
+      },
+      "notes": "The key contrast is the unit of interpretation: a line read from the file each time versus a complete command parsed into a tree. This explains both the cost of loops and the effect of editing a running file. Point out that CALL exists in MS-DOS 4.00 and was added in 3.30 according to the revision log."
+    },
+    {
+      "type": "compare",
+      "title": "The environment",
+      "left": {
+        "heading": "MS-DOS 4.00",
+        "bullets": [
+          "Block of NAME=value strings, segment at PSP:2Ch",
+          "SET edits the shell's own block in place",
+          "Grows with SETBLOCK up to 32 KB, or fails",
+          "EXEC copies the block for the child",
+          "SET must be internal"
+        ]
+      },
+      "right": {
+        "heading": "FreeBSD 15.1",
+        "bullets": [
+          "Variables in a hash table in the shell",
+          "Exported ones flagged VEXPORT",
+          "environment() builds envp per execve",
+          "VAR=x cmd exports only to the child",
+          "execve copies strings into the new image"
+        ]
+      },
+      "notes": "Both systems give the child a copy, so a child can never change its parent's environment; that is why SET and export are internal. In DOS the copy is sized exactly, which is why 'Out of environment space' was a familiar message and why /E exists. In sh the environment array is rebuilt from the exported variables for every exec."
+    },
+    {
+      "type": "compare",
+      "title": "Ctrl-C and job control",
+      "left": {
+        "heading": "MS-DOS 4.00",
+        "bullets": [
+          "DOS calls INT 23h during console I/O",
+          "CONTC asks 'Terminate batch job (Y/N)?'",
+          "STC; RET tells DOS to abort the program",
+          "One foreground program, no suspend"
+        ]
+      },
+      "right": {
+        "heading": "FreeBSD 15.1",
+        "bullets": [
+          "Terminal sends SIGINT to the foreground group",
+          "One process group per job (setpgid)",
+          "tcsetpgrp hands the terminal to the job",
+          "Ctrl-Z, fg, bg, jobs; SIGCONT to the group"
+        ]
+      },
+      "notes": "In DOS the Ctrl-C handler is code in the resident shell, called in the context of whatever program is running. In FreeBSD the terminal driver delivers a signal to a process group, and the shell protects itself by living in a different group. Demonstrate Ctrl-Z, jobs, bg and fg in the FreeBSD VM."
+    },
+    {
+      "type": "code",
+      "title": "Why cd must be a builtin in FreeBSD",
+      "lang": "c",
+      "code": "struct pwd {\n        u_int           pwd_refcount;\n        struct  vnode   *pwd_cdir;      /* current directory */\n        struct  vnode   *pwd_rdir;      /* root directory */\n        struct  vnode   *pwd_jdir;      /* jail root directory */\n        struct  vnode   *pwd_adir;      /* abi root directory */\n};\ntypedef SMR_POINTER(struct pwd *) smrpwd_t;\n\nstruct pwddesc {\n        struct mtx      pd_lock;        /* protects members of this struct */\n        smrpwd_t        pd_pwd;         /* directories */\n        u_int           pd_refcount;\n        u_short         pd_cmask;       /* mask for file creation */\n};",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/sys/filedesc.h#L94-L108",
+      "callouts": [
+        "cwd lives in the process's struct pwd",
+        "fork copies it; chdir changes only the caller",
+        "/usr/bin/cd runs the builtin in a new shell: no effect",
+        "DOS keeps cwd globally in the CDS: external CD would work"
+      ],
+      "notes": "This is study case 3.D. The PSP in DOS has no current-directory field, and $CHDIR updates the system-wide CDS, so any program can change the directory for everyone. In FreeBSD the directory is per process, so only code running in the shell can change the shell's directory. In DOS the command that must be internal is SET, because the environment is per process."
+    },
+    {
+      "type": "bullets",
+      "title": "Homework",
+      "bullets": [
+        "3.1 Exit codes, IF ERRORLEVEL, size of the transient",
+        "3.2-3.3 Watch pipe files; edit a running batch file",
+        "3.4 nasm .COM program printing its PSP",
+        "3.5 Add a builtin to FreeBSD sh and trace it",
+        "3.6 yes | head vs temporary files; 3.7 essay"
+      ],
+      "notes": "Exercises 3.2 to 3.4 need the MS-DOS lab images from Module 0, and 3.5 and 3.6 need the FreeBSD VM with /usr/src. Encourage students to predict results from the source before running anything. Every answer must cite pinned permalinks."
+    },
+    {
+      "type": "bullets",
+      "title": "Key takeaways",
+      "bullets": [
+        "Memory limits shaped COMMAND.COM: resident part, transient, checksum",
+        "One program at a time forced temporary-file pipes",
+        "Batch files run line by line; sh scripts run from parse trees",
+        "Redirection: JFT byte swaps vs dup2 in the child",
+        "Builtins exist where the kernel keeps per-process state"
+      ],
+      "notes": "Close by connecting each design back to its cause. Most of COMMAND.COM's peculiarities follow from small memory and a single-tasking kernel, while sh relies on processes, pipes and paging. The cd question shows that 'must be built in' is decided by where the kernel keeps state, not by habit."
+    }
+  ]
+}

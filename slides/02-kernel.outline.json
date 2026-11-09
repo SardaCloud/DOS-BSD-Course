@@ -1,0 +1,417 @@
+{
+  "module": 2,
+  "title": "The kernel: system calls, files, memory and programs",
+  "subtitle": "MS-DOS 4.00 and FreeBSD 15.1, side by side in the source",
+  "slides": [
+    {
+      "type": "section",
+      "title": "What \"kernel\" means in each system"
+    },
+    {
+      "type": "compare",
+      "title": "Two very different kernels",
+      "left": {
+        "heading": "MS-DOS 4.00",
+        "bullets": [
+          "Real mode: segment:offset, 1 MB, no protection",
+          "MSDOS.SYS: shared library behind INT 21h",
+          "Any program may rewrite the interrupt vectors",
+          "One program runs; TSRs borrow the CPU",
+          "8086 assembly; MSDOS.SYS links 55 objects"
+        ]
+      },
+      "right": {
+        "heading": "FreeBSD 15.1",
+        "bullets": [
+          "Long mode, paging, ring 0 versus ring 3",
+          "Monolithic kernel entered only by syscalls and traps",
+          "Entry points set by the kernel (MSR_LSTAR)",
+          "Many processes and threads on many CPUs",
+          "C, generated syscall tables, loadable modules"
+        ]
+      },
+      "notes": "Start from the hardware: the 8088 offers no protection, so MS-DOS could not have any. DOS behaves like a library that every program shares, including its data. FreeBSD relies on paging and privilege levels so that the kernel alone controls its entry points. Keep this contrast in mind for every later topic."
+    },
+    {
+      "type": "figure",
+      "title": "Address spaces side by side",
+      "diagram": "02-models-wide",
+      "caption": "One real-mode space for everyone versus one map per process",
+      "notes": "The left side is schematic; SYSINIT decides the exact order of the DOS tables. The right side is exactly what procstat -v prints for a process. Point out that the DOS arena headers live inside the memory they describe, and that INT 21h goes through a vector any program may rewrite, while FreeBSD is entered only through syscalls, exceptions and interrupts whose entry points the kernel sets."
+    },
+    {
+      "type": "section",
+      "title": "Entering the kernel"
+    },
+    {
+      "type": "code",
+      "title": "INT 21h: save registers, enter DOS, switch stacks",
+      "lang": "asm",
+      "code": "        CALL    save_world\n        MOV     [SaveDS],DS\n        MOV     [SaveBX],BX\n        MOV     BX,CS\n        MOV     DS,BX\n        ASSUME  DS:DOSGROUP\n        INC     [INDOS]                 ; Flag that we're in the DOS\n⋮\n        MOV     BX,CS                   ; no holes here.\n        MOV     SS,BX\nASSUME  SS:DOSGROUP\n\nentry   REDISP\n        MOV     SP,OFFSET DOSGROUP:AUXSTACK ; Enough stack for interrupts\n        STI                             ; stack is in our space now...",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/DOS/DISP.ASM#L261-L299",
+      "callouts": [
+        "save_world pushes the caller's registers on the caller's stack",
+        "INDOS counts calls in progress",
+        "SS becomes DOSGROUP; SP the top of AUXSTACK",
+        "Interrupts are enabled only after the switch"
+      ],
+      "notes": "This is the heart of the dispatcher in DISP.ASM. The caller's frame stays on the caller's stack, and its address is saved in User_SS:User_SP and in the PSP. Only then does DOS switch to its own stack and re-enable interrupts."
+    },
+    {
+      "type": "table",
+      "title": "Three global stacks of 384 bytes",
+      "header": [
+        "Stack",
+        "Used by",
+        "Reason"
+      ],
+      "rows": [
+        [
+          "AUXSTACK",
+          "every call briefly; 59h; 01h-0Ch inside INT 24h",
+          "works while a critical error is handled"
+        ],
+        [
+          "IOSTACK",
+          "calls 01h-0Ch (console I/O)",
+          "may wait for a key and issue INT 28h"
+        ],
+        [
+          "DSKSTACK",
+          "everything else, including 00h",
+          "disk calls that may raise INT 24h"
+        ]
+      ],
+      "notes": "StackSize is 180h bytes in MS_DATA.ASM. Because these stacks are global, a second disk call started from an interrupt handler would overwrite the first one's frames. This is the concrete reason why MS-DOS is not re-entrant."
+    },
+    {
+      "type": "code",
+      "title": "MS-DOS reports errors in the caller's saved carry flag",
+      "lang": "asm",
+      "code": "entry   SYS_RET_OK\n        invoke  FETCHI_CHECK            ; TAG checking for FETCHI\n        invoke  get_user_stack\n        AND     [SI.user_F],NOT f_Carry ; turn off user's carry flag\n⋮\nentry   SYS_RET_ERR\n        XOR     AH,AH                   ; hack to allow for smaller error rets\n⋮\n        invoke  get_user_stack\n        OR      [SI.user_F],f_Carry     ; signal carry to user\n        STC                             ; also, signal internal error\nDO_RET:\n        MOV     [SI.user_AX],AX         ; Really only sets AH",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/DOS/MS_CODE.ASM#L294-L309",
+      "callouts": [
+        "get_user_stack returns DS:SI pointing at the saved frame",
+        "user_F is the FLAGS word pushed by INT 21h",
+        "IRET later reloads FLAGS, so the caller sees CF"
+      ],
+      "notes": "Every handle-style call ends here. The kernel never touches the live flags; it edits the copy that INT pushed, and IRET makes the edit visible. Keep this slide up while showing the FreeBSD equivalent on the next one."
+    },
+    {
+      "type": "code",
+      "title": "FreeBSD does the same with PSL_C in the trap frame",
+      "lang": "c",
+      "code": "        if (__predict_true(error == 0)) {\n                frame->tf_rax = td->td_retval[0];\n                frame->tf_rdx = td->td_retval[1];\n                frame->tf_rflags &= ~PSL_C;\n                return;\n⋮\n        default:\n                frame->tf_rax = error;\n                frame->tf_rflags |= PSL_C;",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/amd64/amd64/vm_machdep.c#L550-L581",
+      "callouts": [
+        "Success: clear PSL_C, results in %rax and %rdx",
+        "Failure: errno value in %rax, PSL_C set",
+        "libsys stub: jb cerror stores errno and returns -1"
+      ],
+      "notes": "cpu_set_syscall_retval edits the saved RFLAGS just like SYS_RET_ERR edits the saved FLAGS. The C library then turns carry into errno and -1 in cerror.S. Ask students why both designs return the error in the accumulator."
+    },
+    {
+      "type": "figure",
+      "title": "Two ways into the kernel, step by step",
+      "diagram": "02-entry-wide",
+      "caption": "INT 21h saves on the caller's stack, then switches to a global DOS stack; syscall switches to a per-thread kernel stack",
+      "notes": "Read both rows left to right. The CPU step is hardware in both cases: INT pushes FLAGS, CS and IP and jumps through the vector table; syscall jumps to the address the kernel put in MSR_LSTAR. MS-DOS saves the registers on the caller's stack and then moves to AUXSTACK, IOSTACK or DSKSTACK, shared by the whole machine; FreeBSD switches to the thread's own kernel stack first and builds a trap frame there. Both return by editing the carry bit in the saved flags."
+    },
+    {
+      "type": "table",
+      "title": "System call entry compared",
+      "header": [
+        "",
+        "MS-DOS 4.00",
+        "FreeBSD 15.1"
+      ],
+      "rows": [
+        [
+          "Instruction",
+          "INT 21h",
+          "syscall"
+        ],
+        [
+          "Number",
+          "AH",
+          "%eax (read = 3)"
+        ],
+        [
+          "Caller state",
+          "on the caller's stack",
+          "trap frame on kernel stack"
+        ],
+        [
+          "Kernel stack",
+          "3 global stacks",
+          "one per thread"
+        ],
+        [
+          "Table",
+          "DISPATCH, near pointers",
+          "sysent[] from syscalls.master"
+        ],
+        [
+          "Error",
+          "CF=1, AX = DOS code",
+          "CF=1, %rax = errno"
+        ]
+      ],
+      "notes": "Walk the rows top to bottom while pointing at the listings in the notes. The decisive difference is the per-thread kernel stack. Everything else is surprisingly parallel."
+    },
+    {
+      "type": "bullets",
+      "title": "InDOS, critical errors and INT 28h",
+      "bullets": [
+        "Function 34h returns ES:BX of INDOS; ErrorMode is the byte before",
+        "TSRs may call DOS only when both flags are zero",
+        "Console waits call SPOOLINT, which issues INT 28h",
+        "During INT 28h the interrupted call is on IOSTACK",
+        "So an INT 28h handler may use calls above 0Ch"
+      ],
+      "notes": "This is the protocol that made background printing and pop-up utilities possible. It is a convention, not a mechanism: nothing enforces it. Exercise 2.5 asks students to reason about exactly these rules."
+    },
+    {
+      "type": "section",
+      "title": "Files and handles"
+    },
+    {
+      "type": "figure",
+      "title": "Three levels in both systems",
+      "diagram": "02-handles-wide",
+      "caption": "After DUP or dup, two numbers share one open file and one position",
+      "notes": "Both systems separate the per-process number from the shared open file. That is why dup shares a file position in both. Mention that FreeBSD's initial table has NDFILE = 20 slots, the same historical 20 as FilPerProc."
+    },
+    {
+      "type": "table",
+      "title": "Handles versus descriptors",
+      "header": [
+        "",
+        "MS-DOS 4.00",
+        "FreeBSD 15.1"
+      ],
+      "rows": [
+        [
+          "Open-file pool",
+          "fixed by FILES= (8-255)",
+          "allocated on demand"
+        ],
+        [
+          "Reference count",
+          "sf_ref_count",
+          "f_count (fhold/fdrop)"
+        ],
+        [
+          "dup2",
+          "close target, then duplicate",
+          "duplicate, then close, atomically"
+        ],
+        [
+          "No inheritance",
+          "sf_no_inherit per open file",
+          "close-on-fork/exec per descriptor"
+        ]
+      ],
+      "notes": "The dup2 row is a nice example of SMP thinking: FreeBSD never lets another thread see the target descriptor closed. MS-DOS has no other observer, so the simple order is fine. Exercise 2.6 shows that FORCEDUP of a handle onto itself closes it."
+    },
+    {
+      "type": "figure",
+      "title": "One read, two kernels",
+      "diagram": "read-path-wide",
+      "caption": "Study case 2.A follows every hop with a source line",
+      "notes": "Walk down both columns together. MS-DOS has fewer layers and the CPU busy-waits inside the driver and the BIOS; FreeBSD adds the VFS, the buffer cache and GEOM, and the thread sleeps while the disk does DMA and raises an interrupt."
+    },
+    {
+      "type": "section",
+      "title": "The FAT file system, implemented twice"
+    },
+    {
+      "type": "figure",
+      "title": "FAT12: two entries in three bytes",
+      "diagram": "02-fat12",
+      "caption": "The worked example of Study case 2.B: bytes F0 FF FF 03 40 00 FF 0F 00 encode the chain 2 -> 3 -> 4",
+      "notes": "Entry n starts at byte n*3/2. Even entries take the low 12 bits of the 16-bit word, odd entries the high 12 bits, so two entries share the middle byte. Decode entry 3 with the class: word 0040h at offset 4, odd, shift right 4 bits, 004. MS-DOS does this in MAPCLUSTER and UNPACK; msdosfs encodes the 1.5 with pm_fatmult/pm_fatdiv = 3/2."
+    },
+    {
+      "type": "code",
+      "title": "MS-DOS: unpack a FAT12 entry",
+      "lang": "asm",
+      "code": "        CMP     BX,ES:[BP.dpb_max_cluster]\n        JA      HURTFAT\n        CALL    MAPCLUSTER\nASSUME  DS:NOTHING\n        jc      DoContext\n        MOV     DI,[DI]\n        JNZ     High12                  ; MZ if high 12 bits, go get 'em\n⋮\nHigh12:\n        SHR     DI,1\n        SHR     DI,1\n        SHR     DI,1\n        SHR     DI,1\nUnpack12:\n        AND     DI,0FFFH                ; Clears carry",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/DOS/FAT.ASM#L113-L132",
+      "callouts": [
+        "MAPCLUSTER returns a pointer to byte n*1.5",
+        "Zero flag clear means odd entry: use the high 12 bits",
+        "Even entry: mask with 0FFFh"
+      ],
+      "notes": "Work the example F0 FF FF 03 40 00 FF 0F 00 on the board first. Then show that the assembly does exactly the three steps. Mention the CLUSSPLIT case for entries that straddle two sectors."
+    },
+    {
+      "type": "code",
+      "title": "FreeBSD: the same three steps in C",
+      "lang": "c",
+      "code": "        if (function & FAT_GET) {\n                if (FAT32(pmp))\n                        readcn = getulong(bp->b_data + bo);\n                else\n                        readcn = getushort(bp->b_data + bo);\n                if (FAT12(pmp) & (cn & 1))\n                        readcn >>= 4;\n                readcn &= pmp->pm_fatmask;\n                /* map reserved FAT entries to same values for all FATs */\n                if ((readcn | ~pmp->pm_fatmask) >= CLUST_RSRVD)\n                        readcn |= ~pmp->pm_fatmask;\n                *oldcontents = readcn;",
+      "source": "https://github.com/freebsd/freebsd-src/blob/96841ea08dcfa84b954a32dc5ae1a26c28966cf4/sys/fs/msdosfs/msdosfs_fat.c#L517-L528",
+      "callouts": [
+        "getushort is a little-endian 16-bit load",
+        "Odd FAT12 entries are shifted right by 4",
+        "Reserved values are normalised for all FAT types"
+      ],
+      "notes": "Point out the single ampersand on the odd test; it works because FAT12() yields 0 or 1. msdosfs avoids the straddling case by reading the FAT in blocks of three sectors. Same format, entirely different engineering trade-offs."
+    },
+    {
+      "type": "stat",
+      "title": "Numbers fixed by the format",
+      "stats": [
+        {
+          "value": "4086",
+          "label": "FAT12 if clusters + 1 < 4086, in both kernels"
+        },
+        {
+          "value": "1.5",
+          "label": "bytes per FAT12 entry"
+        },
+        {
+          "value": "3 x 512",
+          "label": "msdosfs FAT12 block: 1024 whole entries"
+        },
+        {
+          "value": "32",
+          "label": "bytes per directory entry"
+        }
+      ],
+      "notes": "Both kernels compare the highest cluster number with 4086: 4096-10 in FAT.ASM and CLUST_RSRVD & FAT12_MASK in msdosfs. The three-sector block is why msdosfs needs no split-entry code. Directory entries are 32 bytes in both, but bytes 12-21 were interpreted differently over time."
+    },
+    {
+      "type": "section",
+      "title": "Memory, programs and drivers"
+    },
+    {
+      "type": "code",
+      "title": "The MS-DOS memory control block",
+      "lang": "asm",
+      "code": "arena   STRUC\narena_signature     DB  ?               ; 4D for valid item, 5A for last item\narena_owner         DW  ?               ; owner of arena item\narena_size          DW  ?               ; size in paragraphs of item\narena_reserved      DB  3 DUP(?)        ; reserved\narena_name          DB  8 DUP(?)        ; owner file name\narena   ENDS\n⋮\narena_owner_system  EQU 0               ; free block indication\n\narena_signature_normal  EQU 4Dh         ; valid signature, not end of arena\narena_signature_end     EQU 5Ah         ; valid signature, last block in arena",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/INC/ARENA.INC#L10-L26",
+      "callouts": [
+        "16 bytes, one paragraph below each block",
+        "Owner 0 = free; next = segment + size + 1",
+        "First MCB: the word at ES:[BX-2] after function 52h"
+      ],
+      "notes": "The arena is a linked list stored inside the memory it manages. A single stray write corrupts it: allocation (48h), and with it EXEC, then fails with error 7 when the walk reaches the bad header. Contrast with vm_map entries, which live in kernel memory behind a lock."
+    },
+    {
+      "type": "compare",
+      "title": "EXEC versus fork + execve",
+      "left": {
+        "heading": "MS-DOS 4.00 EXEC",
+        "bullets": [
+          "One call: load, build PSP, jump",
+          ".EXE relocation adds the load segment",
+          "Parent frozen inside its INT 21h",
+          "Child inherits JFT, environment copy",
+          "Exit code read once with 4Dh"
+        ]
+      },
+      "right": {
+        "heading": "FreeBSD 15.1",
+        "bullets": [
+          "fork copies the process, copy-on-write",
+          "execve maps PT_LOAD segments, no reading",
+          "Parent and child run concurrently",
+          "fdcopy at fork, close-on-exec at exec",
+          "Status per child via wait4"
+        ]
+      },
+      "notes": "MS-DOS cannot fork: images contain absolute segment values and there is no paging or scheduler. EXEC keeps the parent suspended and resumes it through the INT 22h address when the child exits. vfork is the closest FreeBSD relative of this model."
+    },
+    {
+      "type": "figure",
+      "title": "EXEC versus fork + execve, as a timeline",
+      "diagram": "02-exec",
+      "caption": "MS-DOS: the whole child lifetime happens inside the parent's INT 21h call; FreeBSD: two processes",
+      "notes": "Follow the top lane: the parent issues 4Bh and does not run again until $EXIT IRETs to the instruction after its INT 21h; 4Dh then reads the exit code. In the bottom lane fork1 returns twice, pid in the parent and 0 in the child; the child calls execve, which replaces its address space, and exit1 makes it a zombie and wakes the parent in wait4."
+    },
+    {
+      "type": "code",
+      "title": "Starting the child: InDOS = 0 and a far return",
+      "lang": "asm",
+      "code": "        CLI\n        MOV     BYTE PTR INDOS,0\n        ASSUME  SS:NOTHING\n        MOV     SS,AX                   ; set up user's stack\n        MOV     SP,DI                   ; and SP\n        STI\n        PUSH    DS                      ; fake long call to entry\n        PUSH    SI\n        MOV     ES,DX                   ; set up proper seg registers\n        MOV     DS,DX\n        MOV     AX,BX                   ; set up proper AX\n⋮\n        RET",
+      "source": "https://github.com/microsoft/MS-DOS/blob/2d04cacc5322951f187bb17e017c12920ac8ebe2/v4.0/src/DOS/EXEC.ASM#L788-L805",
+      "callouts": [
+        "The child's SS:SP and entry point come from the header",
+        "DS = ES = PSP segment, AX = drive validity flags",
+        "RET jumps to the child; the parent never left INT 21h"
+      ],
+      "notes": "This is the only place where DOS clears InDOS without returning to the caller. The parent's frame stays on the parent's stack until reset_environment resumes it. Ask what happens to the parent's registers in the meantime."
+    },
+    {
+      "type": "compare",
+      "title": "Device drivers",
+      "left": {
+        "heading": "MS-DOS 4.00",
+        "bullets": [
+          "Header: next, attributes, strategy, interrupt, name",
+          "Request packet: unit, command, status",
+          "DEVIOCALL: far call strategy, then interrupt",
+          "NUL device built into MSDOS.SYS"
+        ]
+      },
+      "right": {
+        "heading": "FreeBSD 15.1",
+        "bullets": [
+          "struct cdevsw: one function per operation",
+          "/dev/null: null_write consumes the uio",
+          "Disks go through GEOM and struct bio",
+          "Strategy survives: VOP_STRATEGY, d_strategy"
+        ]
+      },
+      "notes": "The two-step strategy/interrupt interface would allow queuing, which MS-DOS 4.00 never uses. FreeBSD's strategy routines really do queue requests and complete them asynchronously. Show null.c next to the NUL device header in SYSINITVAR."
+    },
+    {
+      "type": "compare",
+      "title": "Concurrency",
+      "left": {
+        "heading": "MS-DOS 4.00",
+        "bullets": [
+          "One DOS call at a time",
+          "CLI/STI around stack switches",
+          "EnterCrit stubs are a single RET",
+          "The sharer patches them into INT 2Ah calls"
+        ]
+      },
+      "right": {
+        "heading": "FreeBSD 15.1",
+        "bullets": [
+          "Many threads in the kernel on many CPUs",
+          "mutex: one atomic compare-and-set when free",
+          "Spin mutexes disable interrupts per CPU",
+          "Locks on fd tables, vnodes, maps"
+        ]
+      },
+      "notes": "CRIT.ASM shows how cheaply MS-DOS reserved hooks for multitasking. FreeBSD has to lock every shared structure; the fast path of mtx_lock is one atomic instruction. spinlock_enter is the per-CPU, nestable descendant of CLI."
+    },
+    {
+      "type": "bullets",
+      "title": "Homework",
+      "bullets": [
+        "2.1 MCB walker in nasm; 2.2 FAT12 reader in Python",
+        "2.3 truss and ktrace of a read on msdosfs",
+        "2.4 A system call module with SYSCALL_MODULE",
+        "2.5 A TSR counting INT 21h calls; re-entrancy questions",
+        "2.6 DUP versus dup2; 2.7 essay on protection"
+      ],
+      "notes": "Exercises 2.1, 2.2 and 2.5 run in the MS-DOS lab image; 2.3 and 2.4 in the FreeBSD VM. Remind students to cite source lines for every explanation. Exercise 2.5 is the hardest; suggest starting from the template in the notes."
+    },
+    {
+      "type": "bullets",
+      "title": "Key takeaways",
+      "bullets": [
+        "Both kernels report errors by setting the caller's saved carry flag",
+        "MS-DOS is not re-entrant: global stacks and state",
+        "Same handle model: per-process table, shared open file",
+        "Same FAT rules, opposite engineering trade-offs",
+        "Protection and processes need hardware MS-DOS never had"
+      ],
+      "notes": "Close by returning to the first slide: almost every difference follows from the hardware and the compatibility promises each system made. The similarities come from MS-DOS 2.x borrowing the Unix model. Next module: the shells that run on top of these kernels."
+    }
+  ]
+}
