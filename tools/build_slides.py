@@ -3,6 +3,7 @@
     python tools/build_slides.py                 # all outlines -> slides/NN-*.pptx
     python tools/build_slides.py slides/01-boot.outline.json
     python tools/build_slides.py --render        # also export PNGs via PowerPoint (Windows) for review
+    python tools/build_slides.py --style modern  # the 16:9 light style instead of the default retro style
 
 Code on slides must be verbatim source: every "code" slide is checked against
 its line-ranged permalink with the same rules as listings in the notes.
@@ -577,6 +578,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("outlines", nargs="*", type=Path)
     ap.add_argument("--render", action="store_true", help="export slide PNGs to build/slides/<deck>/")
+    ap.add_argument("--style", choices=("retro", "modern"), default="retro",
+                    help="retro: 4:3, 1990s conference look (tools/slides_retro.py); modern: 16:9, light")
     a = ap.parse_args()
     outlines = [p.resolve() for p in a.outlines] or sorted((ROOT / "slides").glob("*.outline.json"))
     rc = 0
@@ -589,8 +592,13 @@ def main() -> int:
             rc = 1
             continue
         out = path.with_name(path.name.replace(".outline.json", ".pptx"))
-        Deck(outline).build().save(out)
-        print(f"{out.relative_to(ROOT)}: {len(outline['slides']) + 1} slides")
+        if a.style == "retro":
+            from slides_retro import RetroDeck
+            prs = RetroDeck(outline).build()
+        else:
+            prs = Deck(outline).build()
+        prs.save(out)
+        print(f"{out.relative_to(ROOT)}: {len(prs.slides)} slides ({a.style})")
         if a.render:
             render(out, ROOT / "build" / "slides" / out.stem)
     return rc

@@ -84,7 +84,7 @@ Every source listing links to its exact lines at those commits and is checked me
 | `tools/hyperv_console.ps1`, `tools/hyperv_type.ps1` | Type at the FreeBSD VM's console and take screenshots of it (before SSH works) |
 | `python tools/diagrams.py [--png]` | Generate the block diagrams in `diagrams/` from their JSON specs (`--png` also renders slide images) |
 | `python tools/build_html.py` | Build the self-contained HTML edition in `dist/` |
-| `python tools/build_slides.py [--render]` | Build the slide decks from `slides/*.outline.json` (verifying every code slide); `--render` exports PNGs through PowerPoint |
+| `python tools/build_slides.py [--render]` | Build the slide decks from `slides/*.outline.json` (verifying every code slide) in the default 4:3 retro conference style (`tools/slides_retro.py`, all artwork generated); `--style modern` gives 16:9 light decks; `--render` exports PNGs through PowerPoint |
 
 ## Licence and trademarks
 

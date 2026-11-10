@@ -3,8 +3,7 @@
 param(
     [Parameter(Mandatory)] [string]$Pptx,
     [Parameter(Mandatory)] [string]$OutDir,
-    [int]$Width = 1600,
-    [int]$Height = 900
+    [int]$Width = 1600
 )
 $ErrorActionPreference = 'Stop'
 $Pptx = (Resolve-Path $Pptx).Path
@@ -16,6 +15,8 @@ try {
     # Open(FileName, ReadOnly, Untitled, WithWindow)
     $pres = $app.Presentations.Open($Pptx, -1, 0, 0)
     try {
+        # Keep the deck's aspect ratio (16:9 or 4:3).
+        $Height = [int][Math]::Round($Width * $pres.PageSetup.SlideHeight / $pres.PageSetup.SlideWidth)
         foreach ($s in $pres.Slides) {
             $s.Export((Join-Path $OutDir ('slide-{0:D2}.png' -f $s.SlideIndex)), 'PNG', $Width, $Height)
         }
